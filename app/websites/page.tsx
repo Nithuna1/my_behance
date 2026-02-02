@@ -28,7 +28,7 @@ export default function WebsitePage() {
 
           <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
             <Image
-              src="/projects/user1.jpg"
+              src="/projects/user3.webp"
               alt="Matamix"
               fill
               className="object-cover"
@@ -66,10 +66,6 @@ export default function WebsitePage() {
             >
               Websites
             </Link>
-
-            <button className="text-black/50 hover:text-black pb-2">
-              Appreciations
-            </button>
 
           </div>
         </div>
@@ -245,9 +241,9 @@ export default function WebsitePage() {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="bg-black border-t border-white/10 mt-20 py-10 text-center text-xs text-white">
-        © {new Date().getFullYear()} Matamix International
-      </footer>
+     <footer className="bg-[#022549] border-t border-white/10 mt-20 py-10 text-center text-xs text-white">
+  © {new Date().getFullYear()} Matamix International
+</footer>
 
     </div>
   );

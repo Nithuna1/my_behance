@@ -87,9 +87,6 @@ export default function Home() {
               Websites
             </Link>
 
-            <button className="text-black/50 hover:text-black pb-2">
-              Appreciations
-            </button>
 
           </div>
         </div>
@@ -360,9 +357,13 @@ export default function Home() {
                     className="w-full border rounded-lg p-3 text-sm mb-4"
                   />
 
-                  <button className="w-full bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition">
-                    Send Inquiry
-                  </button>
+                 <a
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
+  className="w-full block text-center bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition"
+>
+  Send Inquiry
+</a>
+
                 </div>
               </div>
             </div>
@@ -373,7 +374,7 @@ export default function Home() {
 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
   {[
     {
-      image: "/projects/mobile1.jpg",
+      image: "/projects/mobile8.jpg",
       title: "Social Study",
       author: "Matamix",
       likes: 29,
@@ -394,7 +395,7 @@ export default function Home() {
       views: 980,
     },
     {
-      image: "/projects/mobile4.jpg",
+      image: "/projects/mobile7.jpg",
       title: "Aerial Lake",
       author: "Matamix",
       likes: 64,
@@ -498,9 +499,9 @@ export default function Home() {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="bg-black border-t border-white/10 mt-20 py-10 text-center text-xs text-white">
-        © {new Date().getFullYear()} Matamix International
-      </footer>
+     <footer className="bg-[#022549] border-t border-white/10 mt-20 py-10 text-center text-xs text-white">
+  © {new Date().getFullYear()} Matamix International
+</footer>
 
     </div>
   );
