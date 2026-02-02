@@ -143,6 +143,7 @@ export default function Home() {
 {/* HIRE BOX */}
 <Link
   href="/hire"
+  scroll={false}
   className="block border border-black/50 rounded-xl p-4 hover:border-black/30 transition"
 >
   <h4 className="font-medium mb-3">Hire Matamix</h4>
@@ -155,6 +156,7 @@ export default function Home() {
     <span className="text-black/40 text-xl">›</span>
   </div>
 </Link>
+
 
 
           {/* STATS */}
@@ -238,11 +240,12 @@ export default function Home() {
     "/services/app.jpg",
     "/services/commerce.jpeg",
     "/services/market.avif",
+    
   ],
   delivery: "Within 2 months",
   revisions: "3 concepts, 2 revisions",
   description:
-    "We create meaningful and memorable brand identities that communicate your values, vision, and personality. Our process begins with in-depth brand research and positioning to understand your audience, competitors, and market landscape. From logo design and typography to color systems and visual language, we build a cohesive identity that works consistently across digital and physical touchpoints. You’ll receive a complete brand system including logo variations, color palettes, typography rules, and usage guidelines—ensuring your brand stays recognizable, scalable, and impactful as your business grows.",
+    "We create meaningful and memorable brand identities that communicate your values, vision, and personality. Our process begins with in-depth brand research and positioning to understand your audience, and market landscape. From logo design and typography to color systems and visual language, we build a cohesive identity that works consistently across digital and physical touchpoints.",
 }
 ,
               {
@@ -256,12 +259,12 @@ export default function Home() {
   delivery: "4–6 weeks",
   revisions: "2 design revisions",
   description:
-    "We design and develop custom, high-performance websites tailored specifically to your business goals. Our approach combines intuitive UI/UX design with modern development using technologies like Next.js to ensure speed, scalability, and SEO-friendly architecture. From wireframes and visual design to responsive development and performance optimization, every website is built to deliver a seamless user experience across all devices. The result is a fast, secure, and visually compelling website that not only looks great but also converts visitors into customers.",
+    "We design and develop custom, high-performance websites tailored specifically to your business goals. Our approach combines intuitive UI/UX design with modern development using technologies like Next.js to ensure speed, scalability, and SEO-friendly architecture. From wireframes and visual design to responsive development and performance optimization, every website is built to deliver a seamless user experience across all devices.",
 }
 ,
              {
   title: "Digital Marketing",
-  tags: ["Product Strategy", "UX Research", "Prototyping"],
+  tags: ["Logo", "Brand System", "Guidelines"],
   images: [
     "/services/commerce.jpeg",
     "/services/market.avif",
@@ -287,7 +290,7 @@ export default function Home() {
                       alt=""
                       width={200}
                       height={200}
-                      className="h-24 w-full object-cover rounded-md"
+                      className="h-24 w-full object-cover rounded-md "
                     />
                   ))}
                 </div>
@@ -363,7 +366,6 @@ export default function Home() {
 >
   Send Inquiry
 </a>
-
                 </div>
               </div>
             </div>
@@ -418,7 +420,7 @@ export default function Home() {
   ].map((project, i) => (
     <div
       key={i}
-      className="group relative overflow-hidden rounded-xl cursor-pointer"
+      className="group relative overflow-hidden rounded cursor-pointer"
     >
       {/* IMAGE */}
       <Image
@@ -468,7 +470,7 @@ export default function Home() {
 
           {/* OUR WEBSITES */}
           <section className="mt-20">
-            <h3 className="text-lg font-semibold mb-6">Our Websites</h3>
+            <h3 className="text-lg font-semibold mb-6">Websites</h3>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[

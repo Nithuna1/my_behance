@@ -1,17 +1,39 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function HirePage() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
+
+  const openOutlook = (source: string, extra = "") => {
+    const body = `
+Hello Matamix Team,
+
+I’m interested in hiring your services.
+Source: ${source}
+
+${extra}
+    `;
+
+    window.open(
+      "https://outlook.office.com/mail/deeplink/compose" +
+        "?to=info@matamix.com" +
+        "&subject=Hiring Inquiry" +
+        "&body=" +
+        encodeURIComponent(body),
+      "_blank"
+    );
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
 
       {/* MODAL */}
-      <div className="relative bg-white w-full max-w-md rounded-2xl p-8">
+      <div className="relative bg-white w-full max-w-md rounded-2xl p-8 shadow-xl">
 
-        {/* Close */}
+        {/* CLOSE */}
         <button
           onClick={() => router.back()}
           className="absolute top-4 right-4 text-black/40 hover:text-black text-xl"
@@ -23,17 +45,26 @@ export default function HirePage() {
           Sign in to message
         </h2>
 
-        {/* SOCIAL LOGIN */}
+        {/* SOCIAL OPTIONS */}
         <div className="space-y-3">
-          <button className="w-full border rounded-full py-2.5 flex items-center justify-center gap-2 hover:bg-black/5 transition">
+          <button
+            onClick={() => openOutlook("Google")}
+            className="w-full border rounded-full py-2.5 hover:bg-black/5 transition"
+          >
             Continue with Google
           </button>
 
-          <button className="w-full border rounded-full py-2.5 flex items-center justify-center gap-2 hover:bg-black/5 transition">
+          <button
+            onClick={() => openOutlook("Facebook")}
+            className="w-full border rounded-full py-2.5 hover:bg-black/5 transition"
+          >
             Continue with Facebook
           </button>
 
-          <button className="w-full border rounded-full py-2.5 flex items-center justify-center gap-2 hover:bg-black/5 transition">
+          <button
+            onClick={() => openOutlook("Apple")}
+            className="w-full border rounded-full py-2.5 hover:bg-black/5 transition"
+          >
             Continue with Apple
           </button>
         </div>
@@ -45,17 +76,29 @@ export default function HirePage() {
           <div className="flex-1 h-px bg-black/10" />
         </div>
 
-        {/* EMAIL */}
+        {/* EMAIL OPTION */}
         <div className="space-y-3">
-          <label className="text-sm font-medium">Continue with email</label>
+          <label className="text-sm font-medium">
+            Continue with email
+          </label>
 
           <input
             type="email"
             placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
           />
 
-          <button className="w-full bg-black text-white py-2.5 rounded-full font-medium hover:bg-black/90 transition">
+          <button
+            onClick={() =>
+              openOutlook(
+                "Email",
+                email ? `User email: ${email}` : ""
+              )
+            }
+            className="w-full bg-black text-white py-2.5 rounded-full font-medium hover:bg-black/90 transition"
+          >
             Continue
           </button>
         </div>

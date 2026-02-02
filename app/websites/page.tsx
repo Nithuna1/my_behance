@@ -203,7 +203,7 @@ export default function WebsitePage() {
         <main className="col-span-12 md:col-span-9">
 
           <section id="websites">
-            <h3 className="text-lg font-semibold mb-6">Our Websites</h3>
+            <h3 className="text-lg font-semibold mb-6">Websites</h3>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
