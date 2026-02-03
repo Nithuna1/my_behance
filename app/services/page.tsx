@@ -23,86 +23,86 @@ export default function ServicePage() {
     {
       title: "E-Commerce Solutions",
       tags: ["Branding", "UX", "Conversion"],
-      images: [
-        "/services/app.jpg",
+       images: [
+        "/services/commerce1.webp",
         "/services/commerce.jpeg",
-        "/services/market.avif",
-        "/services/business.jpg",
+        "/services/commerce2.jpg",
+        "/services/commerce3.webp",
       ],
       delivery: "Within 2 months",
       revisions: "3 concepts, 2 revisions",
       description:
-        "We create meaningful and memorable brand identities that communicate your values, vision, and personality. Our process begins with in-depth brand research and positioning to understand your audience, and market landscape. From logo design and typography to color systems and visual language, we build a cohesive identity that works consistently across digital and physical touchpoints.",
+        "We design and develop scalable, secure, and conversion-focused e-commerce solutions tailored to your business goals. From product catalog setup and intuitive user journeys to secure payment gateways and performance optimization, our approach ensures seamless shopping experiences across all devices. We integrate analytics, inventory management, and growth tools to help you launch faster, sell smarter, and scale confidently in a competitive digital marketplace.",
     },
     {
       title: "UI / UX Design",
       tags: ["UI/UX", "Research", "Prototyping"],
       images: [
-        "/services/marketing.jpg",
-        "/services/web.avif",
-        "/services/app.jpg",
-        "/services/business.jpg",
+        "/services/web1.avif",
+        "/services/web2.avif",
+        "/services/web3.jpg",
+        "/services/web4.jpg",
       ],
       delivery: "4–6 weeks",
       revisions: "2 design revisions",
       description:
-        "We design intuitive and visually compelling user experiences backed by UX research and usability testing. Our process includes user flows, wireframes, high-fidelity interfaces, and interactive prototypes that help validate ideas early and ensure products are easy, enjoyable, and efficient to use.",
+        "We create user-centered UI/UX designs that balance aesthetics with usability. Our process is driven by research, user behavior analysis, and usability testing to ensure every interaction feels intuitive and purposeful. From user journeys and wireframes to high-fidelity interfaces and interactive prototypes, we design digital experiences that are engaging, accessible, and optimized for real-world users across web and mobile platforms.",
     },
     {
       title: "Digital Marketing",
       tags: ["SEO", "Ads", "Growth"],
-      images: [
-        "/services/commerce.jpeg",
-        "/services/market.avif",
+       images: [
+        "/services/digital1.avif",
+        "/services/digital2.jpg",
         "/services/marketing.jpg",
-        "/services/business.jpg",
+        "/services/digital3.avif",
       ],
       delivery: "6–8 weeks",
       revisions: "Flexible revisions",
       description:
-        "We help brands grow through strategic digital marketing. Our services include SEO optimization, paid advertising, social media strategy, and performance tracking. Each campaign is tailored to your business goals, ensuring measurable growth, better visibility, and long-term impact.",
+        "We drive measurable business growth through data-driven digital marketing strategies. Our approach combines SEO, performance advertising, content marketing, and social media campaigns to increase visibility, attract qualified leads, and improve conversions. With continuous optimization and detailed performance tracking, we ensure every campaign delivers sustainable growth and long-term value for your brand.",
     },
     {
       title: "Mobile App Development",
       tags: ["Branding", "UX", "Conversion"],
       images: [
         "/services/app.jpg",
-        "/services/commerce.jpeg",
-        "/services/market.avif",
-        "/services/business.jpg",
+        "/services/mobile1.jpg",
+        "/services/mobile2.jpg",
+        "/services/mobile3.jpg",
       ],
       delivery: "Within 2 months",
       revisions: "3 concepts, 2 revisions",
       description:
-        "We create high-performing e-commerce applications focused on usability, scalability, and conversion. From product discovery and checkout flows to responsive UI design and performance optimization, our apps are crafted to deliver seamless shopping experiences across devices while supporting long-term business growth.",
+        "We design and develop high-performance mobile applications that deliver seamless, user-centric experiences across iOS and Android platforms. From concept validation and UX design to scalable development and performance optimization, our apps are built for reliability, security, and growth. We focus on intuitive navigation, smooth interactions, and robust architecture to help businesses engage users, drive retention, and scale confidently.",
     },
     {
       title: "Web Development",
       tags: ["UI/UX", "Research", "Prototyping"],
       images: [
-        "/services/marketing.jpg",
+        "/services/develop1.jpg",
         "/services/web.avif",
-        "/services/app.jpg",
-        "/services/business.jpg",
+        "/services/develop2.avif",
+        "/services/develop3.avif",
       ],
       delivery: "4–6 weeks",
       revisions: "2 design revisions",
       description:
-        "We design intuitive and visually compelling user experiences backed by UX research and usability testing. Our process includes user flows, wireframes, high-fidelity interfaces, and interactive prototypes that help validate ideas early and ensure products are easy, enjoyable, and efficient to use.",
+        "We build fast, secure, and scalable websites tailored to your business objectives. Our web development process combines clean code, responsive design, and modern technologies to deliver high-performance websites that work seamlessly across all devices. From custom development and CMS integration to performance optimization and SEO readiness, we create websites that are reliable, easy to manage, and built for long-term growth.",
     },
     {
       title: "Brand Identity",
       tags: ["SEO", "Ads", "Growth"],
       images: [
-        "/services/commerce.jpeg",
-        "/services/market.avif",
-        "/services/marketing.jpg",
-        "/services/business.jpg",
+        "/services/brand1.jpg",
+        "/services/brand2.jpg",
+        "/services/brand4.jpg",
+        "/services/brand3.avif",
       ],
       delivery: "6–8 weeks",
       revisions: "Flexible revisions",
       description:
-        "We help brands grow through strategic digital marketing. Our services include SEO optimization, paid advertising, social media strategy, and performance tracking. Each campaign is tailored to your business goals, ensuring measurable growth, better visibility, and long-term impact.",
+        "We craft distinctive and cohesive brand identities that clearly communicate your vision, values, and personality in a competitive marketplace. Our approach begins with in-depth brand discovery and strategic positioning to understand your business goals, target audience, and market landscape. This foundation allows us to create a brand identity that is not only visually compelling but also strategically aligned with your long-term objectives.",
     },
   ];
 
@@ -127,7 +127,7 @@ export default function ServicePage() {
         <div className="max-w-7xl mx-auto px-8">
           <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
             <Image
-              src="/projects/user3.webp"
+              src="/projects/logo.jpg"
               alt="Matamix"
               fill
               className="object-cover"
@@ -209,7 +209,7 @@ export default function ServicePage() {
   scroll={false}
   className="block border border-black/50 rounded-xl p-4 hover:border-black/30 transition"
 >
-  <h4 className="font-medium mb-3">Hire Matamix</h4>
+  <h3 className="font-medium mb-3">Hire Matamix</h3>
 
   <div className="flex items-center justify-between text-sm">
     <div>

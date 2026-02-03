@@ -28,7 +28,7 @@ export default function WebsitePage() {
 
           <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
             <Image
-              src="/projects/user3.webp"
+              src="/projects/logo.jpg"
               alt="Matamix"
               fill
               className="object-cover"
@@ -121,7 +121,7 @@ export default function WebsitePage() {
             href="/hire"
             className="block border border-black/30 rounded-xl p-4 hover:border-black/40 transition"
           >
-            <h4 className="font-medium mb-3">Hire Matamix</h4>
+            <h3 className="font-medium mb-3">Hire Matamix</h3>
             <div className="flex items-center justify-between text-sm">
               <div>
                 <p className="font-medium">Digital Marketing</p>
@@ -210,6 +210,7 @@ export default function WebsitePage() {
                 { name: "Matamix", url: "https://matamix.com", image: "/projects/collage.jpg" },
                 { name: "Vitara", url: "https://nithuna1.github.io/vitara/index.html", image: "/projects/digital.jpg" },
                 { name: "Google", url: "https://google.com", image: "/projects/website.avif" },
+                { name: "Domain", url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE", image: "/projects/light.avif" },
               ].map((site, i) => (
                 <a
                   key={i}

@@ -5,33 +5,39 @@ import { useState } from "react";
 
 export default function HirePage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
 
-  const openOutlook = (source: string, extra = "") => {
+  const [jobTitle, setJobTitle] = useState("");
+  const [budget, setBudget] = useState("");
+  const [description, setDescription] = useState("");
+  const [note, setNote] = useState("");
+  const [hireType, setHireType] = useState("Personal Project");
+
+  const sendInquiry = () => {
+    const subject = `Hiring Inquiry – ${jobTitle || "New Project"}`;
+
     const body = `
-Hello Matamix Team,
+Job Title: ${jobTitle}
+Budget: ${budget}
+Hiring For: ${hireType}
 
-I’m interested in hiring your services.
-Source: ${source}
+Job Description:
+${description}
 
-${extra}
+Personal Note:
+${note}
     `;
 
-    window.open(
-      "https://outlook.office.com/mail/deeplink/compose" +
-        "?to=info@matamix.com" +
-        "&subject=Hiring Inquiry" +
-        "&body=" +
-        encodeURIComponent(body),
-      "_blank"
-    );
+    window.location.href =
+      `mailto:info@matamix.com` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
 
       {/* MODAL */}
-      <div className="relative bg-white w-full max-w-md rounded-2xl p-8 shadow-xl">
+      <div className="relative bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden">
 
         {/* CLOSE */}
         <button
@@ -41,68 +47,128 @@ ${extra}
           ✕
         </button>
 
-        <h2 className="text-xl font-semibold text-center mb-6">
-          Sign in to message
-        </h2>
+        {/* CONTENT */}
+        <div className="p-8 space-y-6 max-h-[80vh] overflow-y-auto">
 
-        {/* SOCIAL OPTIONS */}
-        <div className="space-y-3">
-          <button
-            onClick={() => openOutlook("Google")}
-            className="w-full border rounded-full py-2.5 hover:bg-black/5 transition"
-          >
-            Continue with Google
-          </button>
+          <h2 className="text-xl font-semibold">
+            Invite Matamix International
+          </h2>
 
-          <button
-            onClick={() => openOutlook("Facebook")}
-            className="w-full border rounded-full py-2.5 hover:bg-black/5 transition"
-          >
-            Continue with Facebook
-          </button>
+          {/* JOB TITLE */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              What are you hiring for?
+            </label>
+            <input
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+              placeholder="Website redesign, Mobile app, Branding, etc."
+              className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+            />
+            {!jobTitle && (
+              <p className="text-xs text-red-500 mt-1">
+                Job title is required
+              </p>
+            )}
+          </div>
 
+         {/* BUDGET */}
+<div>
+  <label className="block text-sm font-medium mb-2">
+    What is your budget?
+  </label>
+
+  <div className="grid grid-cols-2 gap-3 text-sm">
+    {[
+      "Under ₹10,000",
+      "₹10,000 – ₹25,000",
+      "₹25,000 – ₹50,000",
+      "₹50,000 – ₹1,00,000",
+      "₹1,00,000 – ₹2,50,000",
+      "₹2,50,000 – ₹5,00,000",
+    ].map((item) => (
+      <label
+        key={item}
+        className={`flex items-center gap-2 border rounded-lg px-3 py-2 cursor-pointer transition ${
+          budget === item
+            ? "border-blue-600 bg-blue-50"
+            : "border-black/20"
+        }`}
+      >
+        <input
+          type="radio"
+          checked={budget === item}
+          onChange={() => setBudget(item)}
+        />
+        {item}
+      </label>
+    ))}
+  </div>
+</div>
+
+
+          {/* DESCRIPTION */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Job description
+            </label>
+            <textarea
+              rows={4}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder={`• Overview of your project
+• Key deliverables
+• Timeline`}
+              className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+            />
+          </div>
+
+          {/* PERSONAL NOTE */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Add a personal note
+            </label>
+            <textarea
+              rows={2}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Hi, I think you're a great match for this project."
+              className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+            />
+          </div>
+
+          {/* HIRING TYPE */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              I'm hiring for:
+            </label>
+
+            <div className="flex gap-3">
+              {["Personal Project", "Company"].map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setHireType(type)}
+                  className={`flex-1 py-2 rounded-lg border text-sm transition ${
+                    hireType === type
+                      ? "border-blue-600 bg-blue-50"
+                      : "border-black/20"
+                  }`}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* SUBMIT */}
           <button
-            onClick={() => openOutlook("Apple")}
-            className="w-full border rounded-full py-2.5 hover:bg-black/5 transition"
+            onClick={sendInquiry}
+            disabled={!jobTitle}
+            className="w-full bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Continue with Apple
+            Create Job & Send Inquiry
           </button>
         </div>
-
-        {/* DIVIDER */}
-        <div className="flex items-center gap-4 my-6">
-          <div className="flex-1 h-px bg-black/10" />
-          <span className="text-sm text-black/40">Or</span>
-          <div className="flex-1 h-px bg-black/10" />
-        </div>
-
-        {/* EMAIL OPTION */}
-        <div className="space-y-3">
-          <label className="text-sm font-medium">
-            Continue with email
-          </label>
-
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
-          />
-
-          <button
-            onClick={() =>
-              openOutlook(
-                "Email",
-                email ? `User email: ${email}` : ""
-              )
-            }
-            className="w-full bg-black text-white py-2.5 rounded-full font-medium hover:bg-black/90 transition"
-          >
-            Continue
-          </button>
-        </div>
-
       </div>
     </div>
   );

@@ -146,7 +146,7 @@ export default function Home() {
   scroll={false}
   className="block border border-black/50 rounded-xl p-4 hover:border-black/30 transition"
 >
-  <h4 className="font-medium mb-3">Hire Matamix</h4>
+  <h3 className="font-medium mb-3">Hire Matamix</h3>
 
   <div className="flex items-center justify-between text-sm">
     <div>
@@ -211,10 +211,11 @@ export default function Home() {
               strong brands and high-impact digital experiences.
             </p>
 
-            <p className="text-sm leading-relaxed text-black/70">
-              Matamix International specializes in branding, UI/UX design,
-              web development, and digital marketing solutions.
-            </p>
+           <p className="text-sm leading-relaxed text-black/70">
+  Matamix International provides end-to-end solutions across 
+  UI/UX design, web development, and digital marketing, helping organizations
+  grow, engage audiences, and succeed in an evolving digital landscape.
+</p>
 
             <p className="text-xs text-black/60 pt-2">
               Member since: January 1, 2026
@@ -236,12 +237,12 @@ export default function Home() {
   {[
     {
       title: "E-Commerce Solutions",
-      tags: ["Logo", "Brand System", "Guidelines"],
+      tags: ["Shopify", "Online Store", "Payments"],
       images: [
-        "/services/app.jpg",
+        "/services/commerce1.webp",
         "/services/commerce.jpeg",
-        "/services/market.avif",
-        "/services/web.avif",
+        "/services/commerce2.jpg",
+        "/services/commerce3.webp",
       ],
       delivery: "Within 2 months",
       revisions: "3 concepts, 2 revisions",
@@ -250,12 +251,12 @@ export default function Home() {
     },
     {
       title: "Ui/Ux Design",
-      tags: ["UI/UX", "Next.js", "Performance"],
+      tags: ["Prototyping", "User Flows", "Product UX"],
       images: [
-        "/services/marketing.jpg",
-        "/services/web.avif",
-        "/services/app.jpg",
-        "/services/commerce.jpeg",
+        "/services/web1.avif",
+        "/services/web2.avif",
+        "/services/web3.jpg",
+        "/services/web4.jpg",
       ],
       delivery: "4–6 weeks",
       revisions: "2 design revisions",
@@ -264,12 +265,12 @@ export default function Home() {
     },
     {
       title: "Digital Marketing",
-      tags: ["Logo", "Brand System", "Guidelines"],
+      tags: ["SEO Strategy", "Social Ads", "Analytics"],
       images: [
-        "/services/commerce.jpeg",
-        "/services/market.avif",
+        "/services/digital1.avif",
+        "/services/digital2.jpg",
         "/services/marketing.jpg",
-        "/services/app.jpg",
+        "/services/digital3.avif",
       ],
       delivery: "6–8 weeks",
       revisions: "Flexible revisions",
@@ -525,9 +526,9 @@ export default function Home() {
                   </div>
                 </a>
               ))}
-            </div>
+            </div><br></br>
 
-            {/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
+            {/* ✅ ONE VIEW MORE BUTTON (FOR WEBSITE PAGE) */}
 <div className="flex justify-center">
   <Link
     href="/websites"
@@ -553,9 +554,12 @@ export default function Home() {
       </section>
 
       {/* ================= FOOTER ================= */}
-     <footer className="bg-[#022549] border-t border-white/10 mt-20 py-10 text-center text-xs text-white">
-  © {new Date().getFullYear()} Matamix International
+<footer className="bg-[#022549] border-t border-white/10 mt-20 py-8 text-center text-xs text-white">
+  <p className="mb-2">
+    © {new Date().getFullYear()} Matamix International
+  </p>
 </footer>
+
 
     </div>
   );
