@@ -124,7 +124,7 @@ export default function WebsitePage() {
             <h4 className="font-medium mb-3">Hire Matamix</h4>
             <div className="flex items-center justify-between text-sm">
               <div>
-                <p className="font-medium">Digital Marketer</p>
+                <p className="font-medium">Digital Marketing</p>
                 <p className="text-black/50 text-xs">Availability: Now</p>
               </div>
               <span className="text-black/40 text-xl">›</span>

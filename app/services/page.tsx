@@ -21,12 +21,13 @@ export default function ServicePage() {
 
   const services: Service[] = [
     {
-      title: "E-Commerce App",
+      title: "E-Commerce Solutions",
       tags: ["Branding", "UX", "Conversion"],
       images: [
         "/services/app.jpg",
         "/services/commerce.jpeg",
         "/services/market.avif",
+        "/services/business.jpg",
       ],
       delivery: "Within 2 months",
       revisions: "3 concepts, 2 revisions",
@@ -40,6 +41,7 @@ export default function ServicePage() {
         "/services/marketing.jpg",
         "/services/web.avif",
         "/services/app.jpg",
+        "/services/business.jpg",
       ],
       delivery: "4–6 weeks",
       revisions: "2 design revisions",
@@ -53,6 +55,7 @@ export default function ServicePage() {
         "/services/commerce.jpeg",
         "/services/market.avif",
         "/services/marketing.jpg",
+        "/services/business.jpg",
       ],
       delivery: "6–8 weeks",
       revisions: "Flexible revisions",
@@ -60,12 +63,13 @@ export default function ServicePage() {
         "We help brands grow through strategic digital marketing. Our services include SEO optimization, paid advertising, social media strategy, and performance tracking. Each campaign is tailored to your business goals, ensuring measurable growth, better visibility, and long-term impact.",
     },
     {
-      title: "E-Commerce App",
+      title: "Mobile App Development",
       tags: ["Branding", "UX", "Conversion"],
       images: [
         "/services/app.jpg",
         "/services/commerce.jpeg",
         "/services/market.avif",
+        "/services/business.jpg",
       ],
       delivery: "Within 2 months",
       revisions: "3 concepts, 2 revisions",
@@ -73,12 +77,13 @@ export default function ServicePage() {
         "We create high-performing e-commerce applications focused on usability, scalability, and conversion. From product discovery and checkout flows to responsive UI design and performance optimization, our apps are crafted to deliver seamless shopping experiences across devices while supporting long-term business growth.",
     },
     {
-      title: "UI / UX Design",
+      title: "Web Development",
       tags: ["UI/UX", "Research", "Prototyping"],
       images: [
         "/services/marketing.jpg",
         "/services/web.avif",
         "/services/app.jpg",
+        "/services/business.jpg",
       ],
       delivery: "4–6 weeks",
       revisions: "2 design revisions",
@@ -86,12 +91,13 @@ export default function ServicePage() {
         "We design intuitive and visually compelling user experiences backed by UX research and usability testing. Our process includes user flows, wireframes, high-fidelity interfaces, and interactive prototypes that help validate ideas early and ensure products are easy, enjoyable, and efficient to use.",
     },
     {
-      title: "Digital Marketing",
+      title: "Brand Identity",
       tags: ["SEO", "Ads", "Growth"],
       images: [
         "/services/commerce.jpeg",
         "/services/market.avif",
         "/services/marketing.jpg",
+        "/services/business.jpg",
       ],
       delivery: "6–8 weeks",
       revisions: "Flexible revisions",
@@ -207,7 +213,7 @@ export default function ServicePage() {
 
   <div className="flex items-center justify-between text-sm">
     <div>
-      <p className="font-medium">Digital Marketer</p>
+      <p className="font-medium">Digital Marketing</p>
       <p className="text-black/50 text-xs">Availability: Now</p>
     </div>
     <span className="text-black/40 text-xl">›</span>
@@ -288,130 +294,119 @@ export default function ServicePage() {
 
   <h3 className="text-lg font-semibold mb-6">Services</h3>
 
-  <div className="grid md:grid-cols-3 gap-6 mb-16">
-    {services.map((service, i) => (
-      <div
-        key={i}
-        className="
-          border border-black/20 rounded p-4
-          hover:border-black transition
-          bg-white
-        "
-      >
-        {/* IMAGES */}
-        <div className="grid grid-cols-3 gap-1 mb-4">
-          {service.images.map((img, idx) => (
-            <Image
-              key={idx}
-              src={img}
-              alt=""
-              width={200}
-              height={200}
-              className="h-24 w-full object-cover rounded-md"
-            />
-          ))}
-        </div>
+          {/* ===== SERVICE CARDS (3 IMAGES ONLY) ===== */}
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {services.map((service, i) => (
+              <div
+                key={i}
+                className="border border-black/20 rounded p-4 hover:border-black transition bg-white"
+              >
+                <div className="grid grid-cols-3 gap-1 mb-4">
+                  {service.images.slice(0, 3).map((img, idx) => (
+                    <Image
+                      key={idx}
+                      src={img}
+                      alt=""
+                      width={200}
+                      height={200}
+                      className="h-24 w-full object-cover rounded-md"
+                    />
+                  ))}
+                </div>
 
-        {/* TITLE */}
-        <h4 className="font-medium text-base mb-1">
-          {service.title}
-        </h4>
+                <h4 className="font-medium text-base mb-1">
+                  {service.title}
+                </h4>
 
-        {/* ✅ DESCRIPTION (LIKE BEHANCE) */}
-        <p className="text-sm text-black/80 leading-relaxed mb-4 line-clamp-3">
-          {service.description}
-        </p>
+                <p className="text-sm text-black/80 leading-relaxed mb-4 line-clamp-3">
+                  {service.description}
+                </p>
 
-        {/* META */}
-        <div className="space-y-1 text-xs text-black/60 mb-4">
-          <div className="flex items-center gap-2">
-            ⏱ <span>{service.delivery}</span>
+                <div className="space-y-1 text-xs text-black/60 mb-4">
+                  <div>⏱ {service.delivery}</div>
+                  <div>🔁 {service.revisions}</div>
+                </div>
+
+                <button
+                  onClick={() => setActiveService(service)}
+                  className="w-full py-2 rounded-full bg-black/5 hover:bg-black/10 text-sm font-medium transition"
+                >
+                  Inquire
+                </button>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center gap-2">
-            🔁 <span>{service.revisions}</span>
-          </div>
-        </div>
-
-        {/* INQUIRE */}
-        <button
-          onClick={() => setActiveService(service)}
-          className="
-            w-full py-2 rounded-full
-            bg-black/5 hover:bg-black/10
-            text-sm font-medium
-            transition
-          "
-        >
-          Inquire
-        </button>
-      </div>
-    ))}
-  </div>
-
   {/* ================= SERVICE POPUP ================= */}
-  {activeService && (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div
-        className="absolute inset-0 bg-black/60"
-        onClick={() => setActiveService(null)}
-      />
+          {activeService && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div
+                className="absolute inset-0 bg-black/60"
+                onClick={() => setActiveService(null)}
+              />
 
-      <div className="relative bg-white w-full max-w-6xl h-[80vh] rounded-2xl overflow-hidden flex">
-        <button
-          onClick={() => setActiveService(null)}
-          className="absolute top-4 right-4 text-xl text-black/60 hover:text-black z-10"
-        >
-          <FiX />
-        </button>
+              <div className="relative bg-white w-full max-w-6xl h-[80vh] rounded-2xl overflow-hidden flex">
+                <button
+                  onClick={() => setActiveService(null)}
+                  className="absolute top-4 right-4 text-xl text-black/60 hover:text-black z-10"
+                >
+                  <FiX />
+                </button>
 
-        {/* LEFT – IMAGES */}
-        <div className="w-2/3 p-6 grid grid-cols-2 gap-4 overflow-y-auto">
-          {activeService.images.map((img, i) => (
-            <Image
-              key={i}
-              src={img}
-              alt=""
-              width={600}
-              height={600}
-              className="rounded-xl object-cover"
-            />
-          ))}
-        </div>
+                {/* ===== POPUP IMAGES (ALWAYS 4) ===== */}
+                <div className="w-2/3 p-6 overflow-y-auto">
+                  <div className="grid grid-cols-2 gap-4">
+                    {Array.from({ length: 4 }).map((_, i) => {
+                      const img =
+                        activeService.images[i] ??
+                        activeService.images[
+                          activeService.images.length - 1
+                        ];
 
-        {/* RIGHT – DETAILS */}
-        <div className="w-1/3 border-l p-6 overflow-y-auto">
-          <h2 className="text-xl font-semibold mb-2">
-            {activeService.title}
-          </h2>
+                      return (
+                        <div
+                          key={i}
+                          className="relative aspect-square rounded-xl overflow-hidden bg-gray-100"
+                        >
+                          <Image
+                            src={img}
+                            alt=""
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-          <ul className="space-y-2 text-sm mb-6">
-            <li>⏱ Delivery: {activeService.delivery}</li>
-            <li>🔁 Revisions: {activeService.revisions}</li>
-          </ul>
+                {/* ===== DETAILS ===== */}
+                <div className="w-1/3 border-l p-6 overflow-y-auto">
+                  <h2 className="text-xl font-semibold mb-2">
+                    {activeService.title}
+                  </h2>
 
-          <p className="text-sm text-black/70 mb-6">
-            {activeService.description}
-          </p>
+                  <ul className="space-y-2 text-sm mb-6">
+                    <li>⏱ Delivery: {activeService.delivery}</li>
+                    <li>🔁 Revisions: {activeService.revisions}</li>
+                  </ul>
 
-          <a
-            href={`https://outlook.office.com/mail/deeplink/compose?to=info@matamix.com&subject=${encodeURIComponent(
-              `Inquiry – ${activeService.title}`
-            )}`}
-            target="_blank"
-            className="
-              w-full block text-center
-              bg-blue-600 text-white
-              py-3 rounded-full
-              font-medium
-              hover:bg-blue-700 transition
-            "
-          >
-            Send Inquiry
-          </a>
-        </div>
-      </div>
-    </div>
-  )}
+                  <p className="text-sm text-black/70 mb-6">
+                    {activeService.description}
+                  </p>
+
+                  <a
+                    href={`https://outlook.office.com/mail/deeplink/compose?to=info@matamix.com&subject=${encodeURIComponent(
+                      `Inquiry – ${activeService.title}`
+                    )}`}
+                    target="_blank"
+                    className="w-full block text-center bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition"
+                  >
+                    Send Inquiry
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
 </main>
 
       </section>
