@@ -136,18 +136,28 @@ const [message, setMessage] = useState("");
   return (
     <div className="min-h-screen bg-white text-black">
 
-      {/* ================= COVER ================= */}
-      <section className="relative">
-        <div className="relative h-[380px] w-full">
-          <Image
-            src="/projects/new_profile.jpeg"
-            alt="Cover"
-            fill
-            priority
-            className="object-cover"
-          />
-        </div>
-      </section>
+     {/* ================= COVER ================= */}
+<section className="relative">
+  <div
+    className="
+      relative
+      h-[220px]          /* mobile */
+      sm:h-[280px]       /* small tablets */
+      md:h-[340px]       /* tablets */
+      lg:h-[380px]       /* desktop */
+      w-full
+    "
+  >
+    <Image
+      src="/projects/new_profile.jpeg"
+      alt="Cover"
+      fill
+      priority
+      className="object-cover"
+    />
+  </div>
+</section>
+
 
       {/* ================= PROFILE STRIP ================= */}
       <section className="relative bg-white pt-16">
