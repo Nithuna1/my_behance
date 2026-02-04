@@ -17,6 +17,9 @@ type Service = {
 };
 
 export default function ServicePage() {
+  const [following, setFollowing] = useState(false);
+const [followers, setFollowers] = useState(132215);
+
   const [activeService, setActiveService] = useState<Service | null>(null);
 
   const services: Service[] = [
@@ -183,8 +186,15 @@ export default function ServicePage() {
             <li className="underline">www.matamix.com</li>
           </ul>
 
-          <div className="space-y-3">
-            <FollowButton />
+          {/* ACTION BUTTONS */}
+                    <div className="space-y-3">
+                      <FollowButton
+            following={following}
+            onToggle={() => {
+              setFollowing((prev) => !prev);
+              setFollowers((prev) => (following ? prev - 1 : prev + 1));
+            }}
+          />
 
             <a
               href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
@@ -201,7 +211,7 @@ export default function ServicePage() {
             >
               Visit our website
             </a>
-          </div>
+            </div>
 
           {/* HIRE BOX */}
 <Link
@@ -223,19 +233,19 @@ export default function ServicePage() {
 
 
           {/* STATS */}
-          <div className="space-y-4 text-sm">
-            {[
-              ["Project Views", "803,905"],
-              ["Appreciations", "52,097"],
-              ["Followers", "132,215"],
-              ["Following", "495"],
-            ].map(([label, value]) => (
-              <div key={label} className="flex justify-between">
-                <span className="text-black/60">{label}</span>
-                <span className="font-medium">{value}</span>
-              </div>
-            ))}
-          </div>
+<div className="space-y-4 text-sm">
+  {[
+    ["Project Views", "803,905"],
+    ["Appreciations", "52,097"],
+    ["Followers", followers.toLocaleString()],
+    ["Following", "495"],
+  ].map(([label, value]) => (
+    <div key={label} className="flex justify-between">
+      <span className="text-black/60">{label}</span>
+      <span className="font-medium">{value}</span>
+    </div>
+  ))}
+</div>
 
           {/* ON THE WEB */}
           <div>
@@ -331,7 +341,7 @@ export default function ServicePage() {
                   onClick={() => setActiveService(service)}
                   className="w-full py-2 rounded-full bg-black/5 hover:bg-black/10 text-sm font-medium transition"
                 >
-                  Inquire
+                  See More
                 </button>
               </div>
             ))}

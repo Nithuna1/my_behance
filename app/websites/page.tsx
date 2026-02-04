@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import FollowButton from "../components/FollowButton";
 import { FiMail } from "react-icons/fi";
 
 export default function WebsitePage() {
+  const [following, setFollowing] = useState(false);
+const [followers, setFollowers] = useState(132215);
+
   return (
     <div className="min-h-screen bg-white text-black">
 
@@ -85,9 +89,15 @@ export default function WebsitePage() {
             <li className="underline">www.matamix.com</li>
           </ul>
 
-          {/* ACTION BUTTONS */}
+{/* ACTION BUTTONS */}
           <div className="space-y-3">
-            <FollowButton />
+            <FollowButton
+  following={following}
+  onToggle={() => {
+    setFollowing((prev) => !prev);
+    setFollowers((prev) => (following ? prev - 1 : prev + 1));
+  }}
+/>
 
             <a
               href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
@@ -114,7 +124,7 @@ export default function WebsitePage() {
             >
               Visit our website
             </a>
-          </div>
+            </div>
 
           {/* HIRE BOX */}
           <Link
@@ -136,7 +146,7 @@ export default function WebsitePage() {
             {[
               ["Project Views", "803,905"],
               ["Appreciations", "52,097"],
-              ["Followers", "132,215"],
+              ["Followers", followers.toLocaleString()],
               ["Following", "495"],
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between">

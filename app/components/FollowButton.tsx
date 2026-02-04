@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 
-export default function FollowButton() {
-  const [following, setFollowing] = useState(false);
+type FollowButtonProps = {
+  following: boolean;
+  onToggle: () => void;
+};
 
+export default function FollowButton({
+  following,
+  onToggle,
+}: FollowButtonProps) {
   return (
     <button
-      onClick={() => setFollowing(!following)}
+      onClick={onToggle}
       className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-full font-semibold transition
         ${
           following
