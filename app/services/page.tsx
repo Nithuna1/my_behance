@@ -173,7 +173,13 @@ const [followers, setFollowers] = useState(132215);
       </section>
 
       {/* ================= MAIN ================= */}
-      <section className="max-w-7xl mx-auto px-8 py-12 grid grid-cols-12 gap-12">
+      <section className="
+  max-w-7xl mx-auto
+  px-4 md:px-8
+  py-8 md:py-12
+  grid grid-cols-1 md:grid-cols-12
+  gap-8 md:gap-12
+">
 
         {/* ================= LEFT PROFILE ================= */}
         <aside className="col-span-12 md:col-span-3 space-y-10">
