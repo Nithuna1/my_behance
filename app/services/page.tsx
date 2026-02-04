@@ -118,9 +118,9 @@ const [message, setMessage] = useState("");
 
       {/* ================= COVER ================= */}
       <section className="relative">
-        <div className="relative h-[300px] w-full">
+        <div className="relative h-[380px] w-full">
           <Image
-            src="/projects/dark.avif"
+            src="/projects/new_profile.jpeg"
             alt="Cover"
             fill
             priority

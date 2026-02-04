@@ -19,9 +19,9 @@ const [message, setMessage] = useState("");
 
       {/* ================= COVER ================= */}
       <section className="relative">
-        <div className="relative h-[300px] w-full">
+        <div className="relative h-[380px] w-full">
           <Image
-            src="/projects/dark.avif"
+            src="/projects/new_profile.jpeg"
             alt="Cover"
             fill
             priority
@@ -230,9 +230,9 @@ const [message, setMessage] = useState("");
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
                 { name: "Matamix", url: "https://matamix.com", image: "/projects/collage.jpg" },
-                { name: "Vitara", url: "https://nithuna1.github.io/vitara/index.html", image: "/projects/digital.jpg" },
+                { name: "Vitara", url: "https://nithuna1.github.io/vitara/index.html", image: "/services/business.jpg" },
                 { name: "Google", url: "https://google.com", image: "/projects/website.avif" },
-                { name: "Domain", url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE", image: "/projects/light.avif" },
+                { name: "Domain", url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE", image: "/services/digital2.jpg" },
               ].map((site, i) => (
                 <a
                   key={i}

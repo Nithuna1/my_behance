@@ -16,6 +16,18 @@ type Service = {
   description: string;
 };
 
+type Project = {
+  title: string;
+  author: string;
+  image: string;
+  likes: number;
+  views: number;
+  year: string;
+  category: string;
+  description: string;
+  gallery: string[];
+};
+
 export default function Home() {
   const [following, setFollowing] = useState(false);
 const [followers, setFollowers] = useState(132215);
@@ -28,15 +40,107 @@ const [message, setMessage] = useState("");
 
   /* ✅ ADD STATE */
   const [activeService, setActiveService] = useState<Service | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+
+   /* ================= PROJECT DATA ================= */
+  const projects: Project[] = [
+    {
+      title: "AMBER",
+      author: "Matamix",
+      image: "/projects/new_amber.jpg",
+      likes: 29,
+      views: 276,
+      year: "2024",
+      category: "POS Software Solution",
+      description:
+        "AMBER POS Software is an advanced point-of-sale solution designed to boost business efficiency and streamline daily operations. It enables seamless sales management and accurate inventory tracking while providing real-time reporting and analytics to help businesses make informed decisions. The system includes robust customer management with integrated loyalty programs, ensuring stronger customer engagement and retention. With secure payment processing, quick billing, and easy invoicing, AMBER simplifies transactions at every touchpoint. Automated daily sales reports further enhance control and visibility, making AMBER a reliable and scalable POS solution for modern businesses looking to optimize performance and growth.",
+      gallery: [
+        "/projects/machine.jpg",
+        "/projects/machine1.jpg",
+      ],
+    },
+    {
+      title: "GOOZZBE",
+      author: "Matamix",
+      image: "/projects/goooz2.jpg",
+      likes: 112,
+      views: 1340,
+      year: "2023",
+      category: "Laundry Management Software",
+      description:
+        "Gozzbe is a smart, end-to-end digital solution designed to modernize and simplify laundry business operations. Built for laundromats, dry cleaners, and laundry service providers, Gozzbe seamlessly connects customers and businesses through an intuitive mobile app and a powerful web-based management dashboard. Customers can easily place orders, track laundry status, and manage pickups or deliveries, while business owners gain full control over orders, inventory, pricing, and workflow in real time. With automated order tracking, customer management, service categorization, and data-driven insights, Gozzbe reduces manual effort, minimizes errors, and improves turnaround time.",
+      gallery: [
+        "/projects/laundry.jpg",
+        "/projects/laundry1.jpg",
+      ],
+    },
+    {
+      title: "ZOOMIE",
+      author: "Matamix",
+      image: "/projects/new_zoome.jpg",
+      likes: 87,
+      views: 980,
+      year: "2024",
+      category: "Restaurant POS System",
+      description:
+        "Zoomie is an intelligent, all-in-one restaurant and hospitality POS solution designed to help businesses turn tables faster and operate smarter. Built specifically for cafés, restaurants, and food service environments, Zoomie streamlines order taking, billing, and kitchen coordination with a fast, intuitive interface that reduces wait times and improves service efficiency. Its visually rich menu system, seamless order management, and real-time synchronization between front-of-house and kitchen ensure accuracy and speed at every stage of service. Combined with powerful reporting, inventory control, and flexible payment handling, Zoomie empowers restaurant owners and staff to deliver a smoother dining experience, maximize productivity, and increase revenue — all while maintaining complete operational control.",
+      gallery: [
+        "/projects/hotel.jpg",
+        "/projects/hotel1.jpg",
+      ],
+    },
+    {
+      title: "AMALGAMATE",
+      author: "Matamix",
+      image: "/projects/new _amalgamate.jpg",
+      likes: 64,
+      views: 720,
+      year: "2023",
+      category: "Custom Mobile App Solutions",
+      description:
+        "Amalgamate Technology’s Mobile Application Development services are designed to help businesses transform their digital presence and succeed in today’s mobile-first world. We build high-performance, user-centric mobile applications that combine intuitive design with robust functionality, ensuring seamless experiences across devices and platforms. From concept and UI/UX design to development, testing, and deployment, our solutions are fully customized to meet specific business goals and user needs. By leveraging modern technologies, data-driven insights, and continuous optimization, we create scalable mobile apps that enhance user engagement, streamline operations, and drive measurable growth.",
+      gallery: [
+        "/projects/new _amalgamate.jpg",
+      ],
+    },
+    {
+      title: "AMBER",
+      author: "Matamix",
+      image: "/projects/amber_new.jpg",
+      likes: 64,
+      views: 720,
+      year: "2023",
+      category: "ERP Inventory Management",
+      description:
+        "AMBER’s Stock Ageing Reports provide businesses with real-time visibility into inventory movement, helping them manage stock more intelligently and efficiently. By clearly identifying slow-moving and ageing items, the system enables businesses to take timely actions such as replenishment adjustments, promotions, or stock clearance to reduce wastage. With accurate insights into inventory levels, AMBER helps optimize purchasing decisions, prevent overstocking or shortages, and improve overall cash flow. The automated reporting and data-driven analysis empower decision-makers to maintain healthier inventory cycles, minimize losses, and ensure that working capital is used effectively. Designed as part of AMBER’s powerful ERP solution, stock ageing reports transform inventory management from guesswork into a strategic, controlled process.",
+      gallery: [
+        "/projects/amber_new.jpg",
+      ],
+    },
+    {
+      title: "DOSO",
+      author: "Matamix",
+      image: "/projects/doso.jpg",
+      likes: 45,
+      views: 560,
+      year: "2022",
+      category: "Enterprise ERP Software",
+      description:
+        "DOSO Enterprise ERP Software Solutions are designed to streamline, integrate, and optimize core business operations through a robust and scalable digital platform. Built to support growing and enterprise-level organizations, DOSO centralizes critical functions such as finance, inventory, operations, human resources, and reporting into a single, unified system. With real-time data visibility and intelligent dashboards, businesses gain better control over processes, improve decision-making, and enhance operational efficiency. The flexible, modular architecture allows organizations to customize the ERP according to their unique workflows while ensuring seamless integration across departments. Secure, scalable, and performance-driven, DOSO empowers businesses to reduce complexity, improve productivity, and build a strong foundation for long-term digital transformation.",
+      gallery: [
+        "/projects/disc2.jpg",
+      ],
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-white text-black">
 
       {/* ================= COVER ================= */}
       <section className="relative">
-        <div className="relative h-[300px] w-full">
+        <div className="relative h-[380px] w-full">
           <Image
-            src="/projects/dark.avif"
+            src="/projects/new_profile.jpeg"
             alt="Cover"
             fill
             priority
@@ -427,102 +531,39 @@ const [message, setMessage] = useState("");
 )}
 
 
- {/* PROJECT */}
-          <h3 className="text-lg font-semibold mb-6">Projects</h3>
+  {/* ================= PROJECT SECTION ================= */}
+      <h3 className="text-lg font-semibold mb-6">Projects</h3>
 
-<div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-  {[
-    {
-      image: "/projects/mobile8.jpg",
-      title: "Social Study",
-      author: "Matamix",
-      likes: 29,
-      views: 276,
-    },
-    {
-      image: "/projects/mobile2.jpg",
-      title: "Portrait Study",
-      author: "Matamix",
-      likes: 112,
-      views: 1340,
-    },
-    {
-      image: "/projects/mobile3.avif",
-      title: "Nature Series",
-      author: "Matamix",
-      likes: 87,
-      views: 980,
-    },
-    {
-      image: "/projects/mobile7.jpg",
-      title: "Aerial Lake",
-      author: "Matamix",
-      likes: 64,
-      views: 720,
-    },
-    {
-      image: "/projects/mobile5.jpg",
-      title: "Canary Wharf",
-      author: "Matamix",
-      likes: 190,
-      views: 2210,
-    },
-    {
-      image: "/projects/mobile6.jpg",
-      title: "Mountain Road",
-      author: "Matamix",
-      likes: 45,
-      views: 560,
-    },
-  ].map((project, i) => (
-    <div
-      key={i}
-      className="group relative overflow-hidden rounded cursor-pointer"
-    >
-      {/* IMAGE */}
-      <Image
-        src={project.image}
-        alt={project.title}
-        width={600}
-        height={600}
-        className="w-full h-[260px] object-cover transition-transform duration-300 group-hover:scale-105"
-      />
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {projects.map((project, i) => (
+          <div
+            key={i}
+            onClick={() => setActiveProject(project)}
+            className="group relative overflow-hidden rounded cursor-pointer"
+          >
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={600}
+              height={600}
+              className="w-full h-[260px] object-cover transition-transform duration-300 group-hover:scale-105"
+            />
 
-      {/* OVERLAY */}
-      <div
-        className="
-          absolute inset-0
-          bg-gradient-to-t from-black/70 via-black/20 to-transparent
-          opacity-0 group-hover:opacity-100
-          transition
-          flex items-end
-        "
-      >
-        <div className="w-full px-4 py-3 flex items-center justify-between text-white text-sm">
-          {/* LEFT: TITLE */}
-          <div>
-            <p className="font-semibold leading-tight">
-              {project.title}
-            </p>
-            <p className="text-white/70 text-xs">
-              {project.author}
-            </p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end">
+              <div className="w-full px-4 py-3 flex justify-between text-white text-sm">
+                <div>
+                  <p className="font-semibold">{project.title}</p>
+                  <p className="text-xs text-white/70">{project.author}</p>
+                </div>
+                <div className="flex gap-3 text-xs">
+                  👍 {project.likes}
+                  👁 {project.views}
+                </div>
+              </div>
+            </div>
           </div>
-
-          {/* RIGHT: STATS */}
-          <div className="flex items-center gap-4 text-xs text-white/90">
-            <span className="flex items-center gap-1">
-              👍 {project.likes}
-            </span>
-            <span className="flex items-center gap-1">
-              👁 {project.views}
-            </span>
-          </div>
-        </div>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
 
 
           {/* OUR WEBSITES */}
@@ -532,7 +573,7 @@ const [message, setMessage] = useState("");
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
                 { name: "Matamix", url: "https://matamix.com", image: "/projects/collage.jpg" },
-                { name: "Vitara", url: "https://nithuna1.github.io/vitara/index.html", image: "/projects/digital.jpg" },
+                { name: "Vitara", url: "https://nithuna1.github.io/vitara/index.html", image: "/services/business.jpg" },
                 { name: "Google", url: "https://google.com", image: "/projects/website.avif" },
               ].map((site, i) => (
                 <a key={i} href={site.url} target="_blank" rel="noopener noreferrer">
@@ -666,6 +707,52 @@ ${message}
     </div>
   </div>
 )}
+
+
+ {/* ================= PROJECT POPUP ================= */}
+      {activeProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6">
+          <div
+            className="relative bg-white max-w-5xl w-full h-[80vh] rounded-2xl overflow-hidden flex"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setActiveProject(null)}
+              className="absolute top-4 right-4 text-xl text-black/60 hover:text-black"
+            >
+              <FiX />
+            </button>
+
+            {/* LEFT – GALLERY */}
+            <div className="w-2/3 p-6 overflow-y-auto">
+              <div className="grid grid-cols-2 gap-4">
+                {activeProject.gallery.map((img, i) => (
+                  <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
+                    <Image src={img} alt="" fill className="object-cover" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT – DETAILS */}
+            <div className="w-1/3 border-l p-6 overflow-y-auto">
+  <h2 className="text-xl font-semibold mb-2">
+    {activeProject.title}
+  </h2>
+
+  <p className="text-sm text-black/60 mb-4">
+    {activeProject.category} · {activeProject.year}
+  </p>
+
+  <p className="text-sm leading-relaxed text-black/70">
+    {activeProject.description}
+  </p>
+</div>
+
+            </div>
+          </div>
+
+      )}
 
 
       </section>
