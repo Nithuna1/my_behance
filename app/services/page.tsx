@@ -12,7 +12,6 @@ type Service = {
   tags: string[];
   images: string[];
   delivery: string;
-  revisions: string;
   description: string;
 };
 
@@ -37,7 +36,6 @@ const [message, setMessage] = useState("");
         "/services/commerce3.webp",
       ],
       delivery: "Within 2 months",
-      revisions: "3 concepts, 2 revisions",
       description:
         "We design and develop scalable, secure, and conversion-focused e-commerce solutions tailored to your business goals. From product catalog setup and intuitive user journeys to secure payment gateways and performance optimization, our approach ensures seamless shopping experiences across all devices. We integrate analytics, inventory management, and growth tools to help you launch faster, sell smarter, and scale confidently in a competitive digital marketplace.",
     },
@@ -51,7 +49,6 @@ const [message, setMessage] = useState("");
         "/services/web4.jpg",
       ],
       delivery: "4–6 weeks",
-      revisions: "2 design revisions",
       description:
         "We create user-centered UI/UX designs that balance aesthetics with usability. Our process is driven by research, user behavior analysis, and usability testing to ensure every interaction feels intuitive and purposeful. From user journeys and wireframes to high-fidelity interfaces and interactive prototypes, we design digital experiences that are engaging, accessible, and optimized for real-world users across web and mobile platforms.",
     },
@@ -65,7 +62,6 @@ const [message, setMessage] = useState("");
         "/services/digital3.avif",
       ],
       delivery: "6–8 weeks",
-      revisions: "Flexible revisions",
       description:
         "We drive measurable business growth through data-driven digital marketing strategies. Our approach combines SEO, performance advertising, content marketing, and social media campaigns to increase visibility, attract qualified leads, and improve conversions. With continuous optimization and detailed performance tracking, we ensure every campaign delivers sustainable growth and long-term value for your brand.",
     },
@@ -79,7 +75,6 @@ const [message, setMessage] = useState("");
         "/services/mobile3.jpg",
       ],
       delivery: "Within 2 months",
-      revisions: "3 concepts, 2 revisions",
       description:
         "We design and develop high-performance mobile applications that deliver seamless, user-centric experiences across iOS and Android platforms. From concept validation and UX design to scalable development and performance optimization, our apps are built for reliability, security, and growth. We focus on intuitive navigation, smooth interactions, and robust architecture to help businesses engage users, drive retention, and scale confidently.",
     },
@@ -93,7 +88,6 @@ const [message, setMessage] = useState("");
         "/services/develop3.avif",
       ],
       delivery: "4–6 weeks",
-      revisions: "2 design revisions",
       description:
         "We build fast, secure, and scalable websites tailored to your business objectives. Our web development process combines clean code, responsive design, and modern technologies to deliver high-performance websites that work seamlessly across all devices. From custom development and CMS integration to performance optimization and SEO readiness, we create websites that are reliable, easy to manage, and built for long-term growth.",
     },
@@ -107,7 +101,6 @@ const [message, setMessage] = useState("");
         "/services/brand3.avif",
       ],
       delivery: "6–8 weeks",
-      revisions: "Flexible revisions",
       description:
         "We craft distinctive and cohesive brand identities that clearly communicate your vision, values, and personality in a competitive marketplace. Our approach begins with in-depth brand discovery and strategic positioning to understand your business goals, target audience, and market landscape. This foundation allows us to create a brand identity that is not only visually compelling but also strategically aligned with your long-term objectives.",
     },
@@ -347,7 +340,6 @@ const [message, setMessage] = useState("");
 
                 <div className="space-y-1 text-xs text-black/60 mb-4">
                   <div>⏱ {service.delivery}</div>
-                  <div>🔁 {service.revisions}</div>
                 </div>
 
                 <button
@@ -410,7 +402,6 @@ const [message, setMessage] = useState("");
 
                   <ul className="space-y-2 text-sm mb-6">
                     <li>⏱ Delivery: {activeService.delivery}</li>
-                    <li>🔁 Revisions: {activeService.revisions}</li>
                   </ul>
 
                   <p className="text-sm text-black/70 mb-6">

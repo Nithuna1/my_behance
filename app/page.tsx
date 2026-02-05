@@ -11,8 +11,7 @@ type Service = {
   title: string;
   tags: string[];
   images: string[];
-  delivery: string;
-  revisions: string;
+  delivery: string
   description: string;
 };
 
@@ -60,7 +59,7 @@ const [message, setMessage] = useState("");
       ],
     },
     {
-      title: "GOOZZBE",
+      title: "GOZZBE",
       author: "Matamix",
       image: "/projects/goooz2.jpg",
       likes: 112,
@@ -101,6 +100,7 @@ const [message, setMessage] = useState("");
         "Amalgamate Technology’s Mobile Application Development services are designed to help businesses transform their digital presence and succeed in today’s mobile-first world. We build high-performance, user-centric mobile applications that combine intuitive design with robust functionality, ensuring seamless experiences across devices and platforms. From concept and UI/UX design to development, testing, and deployment, our solutions are fully customized to meet specific business goals and user needs. By leveraging modern technologies, data-driven insights, and continuous optimization, we create scalable mobile apps that enhance user engagement, streamline operations, and drive measurable growth.",
       gallery: [
         "/projects/new _amalgamate.jpg",
+        "/projects/user.png",
       ],
     },
     {
@@ -129,6 +129,7 @@ const [message, setMessage] = useState("");
         "DOSO Enterprise ERP Software Solutions are designed to streamline, integrate, and optimize core business operations through a robust and scalable digital platform. Built to support growing and enterprise-level organizations, DOSO centralizes critical functions such as finance, inventory, operations, human resources, and reporting into a single, unified system. With real-time data visibility and intelligent dashboards, businesses gain better control over processes, improve decision-making, and enhance operational efficiency. The flexible, modular architecture allows organizations to customize the ERP according to their unique workflows while ensuring seamless integration across departments. Secure, scalable, and performance-driven, DOSO empowers businesses to reduce complexity, improve productivity, and build a strong foundation for long-term digital transformation.",
       gallery: [
         "/projects/disc2.jpg",
+        "/projects/solutions.jpg",
       ],
     },
   ];
@@ -384,7 +385,6 @@ const [message, setMessage] = useState("");
         "/services/commerce3.webp",
       ],
       delivery: "Within 2 months",
-      revisions: "3 concepts, 2 revisions",
       description:
         "We create meaningful and memorable brand identities that communicate your values, vision, and personality. Our process begins with in-depth brand research and positioning to understand your audience, and market landscape. From logo design and typography to color systems and visual language, we build a cohesive identity that works consistently across digital and physical touchpoints.",
     },
@@ -398,7 +398,6 @@ const [message, setMessage] = useState("");
         "/services/web4.jpg",
       ],
       delivery: "4–6 weeks",
-      revisions: "2 design revisions",
       description:
         "We design and develop custom, high-performance websites tailored specifically to your business goals. Our approach combines intuitive UI/UX design with modern development using technologies like Next.js to ensure speed, scalability, and SEO-friendly architecture.",
     },
@@ -412,7 +411,6 @@ const [message, setMessage] = useState("");
         "/services/digital3.avif",
       ],
       delivery: "6–8 weeks",
-      revisions: "Flexible revisions",
       description:
         "We provide end-to-end digital product design services that help transform ideas into intuitive, user-centered experiences with a strong focus on usability and scalability.",
     },
@@ -516,7 +514,6 @@ const [message, setMessage] = useState("");
 
         <ul className="space-y-2 text-sm mb-6">
           <li>⏱ Delivery: {activeService.delivery}</li>
-          <li>🔁 Revisions: {activeService.revisions}</li>
         </ul>
 
         <p className="text-sm text-black/70 mb-6">
