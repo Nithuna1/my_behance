@@ -242,8 +242,11 @@ const [message, setMessage] = useState("");
             <FollowButton
   following={following}
   onToggle={() => {
-    setFollowing((prev) => !prev);
-    setFollowers((prev) => (following ? prev - 1 : prev + 1));
+    // Redirect to Instagram
+    window.open(
+      "https://www.instagram.com/matamix_international/",
+      "_blank"
+    );
   }}
 />
 
@@ -281,19 +284,35 @@ const [message, setMessage] = useState("");
 {/* CONTACT BOX */}
 <button
   onClick={() => setContactOpen(true)}
-  className="w-full border border-black/50 rounded-xl p-4 hover:border-black/30 transition"
+  className="
+    w-full
+    rounded-xl
+    p-4
+    border border-blue-600/40
+    bg-blue-50/60
+    hover:bg-blue-100/70
+    hover:border-blue-600
+    transition
+    shadow-sm
+  "
 >
   <div className="flex items-center justify-between">
     <div className="text-left">
-      <h3 className="font-medium mb-1">Contact Us</h3>
-      <p className="text-sm text-black/60">
-        Reach out for more details about our services
-      </p>
+      <h3 className="font-semibold text-blue-900 mb-1">
+  Connect With Our Team
+</h3>
+<p className="text-sm text-blue-900/70">
+  Reach out to learn more about our solutions and services
+</p>
+
     </div>
 
-    <span className="text-black/40 text-xl">›</span>
+    <span className="text-blue-600 text-2xl transition-transform group-hover:translate-x-1">
+      ›
+    </span>
   </div>
 </button>
+
 
 
 
@@ -301,10 +320,9 @@ const [message, setMessage] = useState("");
           {/* STATS */}
 <div className="space-y-4 text-sm">
   {[
-    ["Project Views", "803,905"],
-    ["Appreciations", "52,097"],
-    ["Followers", followers.toLocaleString()],
-    ["Following", "495"],
+    ["Projects", "6"],
+    ["Services", "6"],
+    ["Posters", "495"],
   ].map(([label, value]) => (
     <div key={label} className="flex justify-between">
       <span className="text-black/60">{label}</span>
@@ -314,31 +332,37 @@ const [message, setMessage] = useState("");
 </div>
 
 
-          {/* ON THE WEB */}
-          <div>
-            <p className="text-xs text-black/40 mb-3 uppercase tracking-wider">
-              On the Web
-            </p>
+         {/* ON THE WEB */}
+<div className="relative">
 
-            <div className="border border-black/50 rounded-xl divide-y divide-black/50">
-              {[
-                ["LinkedIn", "https://share.google/FdV8fbarNVjygU45l"],
-                ["Instagram", "https://www.instagram.com/matamix_international/"],
-                ["Facebook", "https://www.facebook.com/profile.php?id=61585201327065"],
-              ].map(([name, link]) => (
-                <a
-                  key={name}
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 text-sm hover:bg-black/5 transition"
-                >
-                  <span>{name}</span>
-                  <span className="text-black/40">↗</span>
-                </a>
-              ))}
-            </div>
-          </div>
+  {/* Accent bar */}
+  <div className="absolute -left-3 top-0 h-full w-1 rounded-full bg-blue-600" />
+
+  <p className="text-xs text-blue-700 mb-3 uppercase tracking-wider font-semibold">
+  Our Social Presence
+</p>
+
+
+  <div className="border border-blue-600/40 rounded-xl divide-y divide-blue-600/20 bg-blue-50/40 backdrop-blur-sm shadow-sm">
+    {[
+      ["LinkedIn", "https://share.google/FdV8fbarNVjygU45l"],
+      ["Instagram", "https://www.instagram.com/matamix_international/"],
+      ["Facebook", "https://www.facebook.com/profile.php?id=61585201327065"],
+    ].map(([name, link]) => (
+      <a
+        key={name}
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-between px-4 py-3 text-sm font-medium text-black hover:bg-blue-100/60 transition"
+      >
+        <span>{name}</span>
+        <span className="text-blue-600">↗</span>
+      </a>
+    ))}
+  </div>
+</div>
+
 
           {/* ABOUT */}
           <div className="space-y-4 pt-6 border-t border-black/10">
