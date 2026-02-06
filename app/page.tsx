@@ -11,7 +11,6 @@ type Service = {
   title: string;
   tags: string[];
   images: string[];
-  delivery: string
   description: string;
 };
 
@@ -34,6 +33,8 @@ const [contactOpen, setContactOpen] = useState(false);
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [message, setMessage] = useState("");
+const [phone, setPhone] = useState("");
+
 
 
 
@@ -135,7 +136,10 @@ const [message, setMessage] = useState("");
   ];
 
   return (
-    <div className="min-h-screen bg-white text-black">
+   <div className="min-h-screen bg-white text-black">
+
+
+
 
      {/* ================= COVER ================= */}
 <section className="relative">
@@ -150,7 +154,7 @@ const [message, setMessage] = useState("");
     "
   >
     <Image
-      src="/projects/new_profile.jpeg"
+      src="/projects/model.jpeg"
       alt="Cover"
       fill
       priority
@@ -161,7 +165,7 @@ const [message, setMessage] = useState("");
 
 
       {/* ================= PROFILE STRIP ================= */}
-      <section className="relative bg-white pt-16">
+     <section className="relative pt-16 bg-transparent">
         <div className="max-w-7xl mx-auto px-8">
 
           <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
@@ -186,7 +190,7 @@ const [message, setMessage] = useState("");
       </section>
 
       {/* ================= NAVBAR ================= */}
-      <section className="border-b border-black/10">
+      <section className="border-b border-black/10 bg-transparent">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex gap-8 py-6 text-sm">
 
@@ -202,6 +206,20 @@ const [message, setMessage] = useState("");
               className="text-black/50 hover:text-black pb-2"
             >
               Services
+            </Link>
+
+             <Link
+              href="/projects"
+              className="text-black/50 hover:text-black pb-2"
+            >
+              Projects
+            </Link>
+
+            <Link
+              href="/posters"
+              className="text-black/50 hover:text-black pb-2"
+            >
+              Posters
             </Link>
 
             <Link
@@ -252,7 +270,7 @@ const [message, setMessage] = useState("");
 
 
           <a
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com"
   target="_blank"
   rel="noopener noreferrer"
   className="
@@ -265,7 +283,7 @@ const [message, setMessage] = useState("");
   "
 >
   <FiMail className="text-lg" />
-  Message
+  Email
 </a>
 
 
@@ -314,15 +332,12 @@ const [message, setMessage] = useState("");
 </button>
 
 
-
-
-
           {/* STATS */}
 <div className="space-y-4 text-sm">
   {[
-    ["Projects", "6"],
     ["Services", "6"],
-    ["Posters", "495"],
+    ["Projects", "6"],
+    ["Posters", "11"],
   ].map(([label, value]) => (
     <div key={label} className="flex justify-between">
       <span className="text-black/60">{label}</span>
@@ -381,13 +396,6 @@ const [message, setMessage] = useState("");
   grow, engage audiences, and succeed in an evolving digital landscape.
 </p>
 
-            <p className="text-xs text-black/60 pt-2">
-              Member since: January 1, 2026
-            </p>
-
-            <button className="text-xs text-black/60 hover:text-black transition">
-              Report
-            </button>
           </div>
         </aside>
 
@@ -408,9 +416,9 @@ const [message, setMessage] = useState("");
         "/services/commerce2.jpg",
         "/services/commerce3.webp",
       ],
-      delivery: "Within 2 months",
       description:
-        "We create meaningful and memorable brand identities that communicate your values, vision, and personality. Our process begins with in-depth brand research and positioning to understand your audience, and market landscape. From logo design and typography to color systems and visual language, we build a cohesive identity that works consistently across digital and physical touchpoints.",
+  "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. Our process includes in-depth market research, user behavior analysis, and conversion-focused UI/UX design to create stores that not only look great but drive measurable results. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue, improve customer retention, and compete confidently in the digital marketplace."
+,
     },
     {
       title: "Ui/Ux Design",
@@ -421,9 +429,9 @@ const [message, setMessage] = useState("");
         "/services/web3.jpg",
         "/services/web4.jpg",
       ],
-      delivery: "4–6 weeks",
       description:
-        "We design and develop custom, high-performance websites tailored specifically to your business goals. Our approach combines intuitive UI/UX design with modern development using technologies like Next.js to ensure speed, scalability, and SEO-friendly architecture.",
+  "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. We begin with deep research into user behavior, pain points, and market trends to define clear user flows and information architecture. Through wireframing, interactive prototyping, and usability testing, we design interfaces that are simple, efficient, and visually compelling. Every design decision is driven by clarity, accessibility, and conversion, ensuring users can navigate products or platforms effortlessly. By combining modern design systems, responsive layouts, and performance-focused implementation, we deliver scalable UI/UX solutions that enhance usability, strengthen brand perception, and drive long-term user engagement across web and mobile platforms."
+,
     },
     {
       title: "Digital Marketing",
@@ -434,9 +442,9 @@ const [message, setMessage] = useState("");
         "/services/marketing.jpg",
         "/services/digital3.avif",
       ],
-      delivery: "6–8 weeks",
-      description:
-        "We provide end-to-end digital product design services that help transform ideas into intuitive, user-centered experiences with a strong focus on usability and scalability.",
+     description:
+  "Our Digital Marketing services are built to help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven marketing strategies that combine search engine optimization (SEO), paid advertising, and social media marketing to maximize reach and ROI. From keyword research and on-page optimization to high-performing ad campaigns across Google, Meta, and social platforms, every initiative is designed to deliver real business impact. Using advanced analytics and performance tracking, we continuously monitor, test, and optimize campaigns to improve engagement, reduce acquisition costs, and scale results over time. By aligning creative content with audience behavior and business goals, we help brands build strong digital presence, generate quality leads, and achieve sustainable growth in competitive markets."
+,
     },
   ].map((service, i) => (
     <div
@@ -536,26 +544,10 @@ const [message, setMessage] = useState("");
           {activeService.title}
         </h2>
 
-        <ul className="space-y-2 text-sm mb-6">
-          <li>⏱ Delivery: {activeService.delivery}</li>
-        </ul>
-
         <p className="text-sm text-black/70 mb-6">
           {activeService.description}
         </p>
 
-        <textarea
-          rows={4}
-          placeholder="Write a message about your project…"
-          className="w-full border rounded-lg p-3 text-sm mb-4"
-        />
-
-        <a
-          href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
-          className="w-full block text-center bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition"
-        >
-          Send Inquiry
-        </a>
       </div>
     </div>
   </div>
@@ -570,7 +562,20 @@ const [message, setMessage] = useState("");
           <div
             key={i}
             onClick={() => setActiveProject(project)}
-            className="group relative overflow-hidden rounded cursor-pointer"
+         className="
+  group relative overflow-hidden rounded-xl cursor-pointer
+  transition-all duration-700 ease-out
+  hover:-translate-y-4
+  hover:scale-[1.04]
+  hover:shadow-[0_40px_120px_rgba(0,0,0,0.35)]
+  before:absolute before:inset-0
+  before:bg-gradient-to-tr before:from-white/10 before:via-transparent before:to-transparent
+  before:opacity-0 before:transition before:duration-500
+  hover:before:opacity-100
+"
+
+
+
           >
             <Image
               src={project.image}
@@ -594,34 +599,251 @@ const [message, setMessage] = useState("");
             </div>
           </div>
         ))}
-      </div>
+      </div><br></br>
+      {/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
+<div className="flex justify-center">
+  <Link
+    href="/projects"
+    className="
+      px-8 py-3
+      rounded-full
+      border border-black/40
+      text-sm font-medium
+      text-black
+      hover:bg-blue-600
+      hover:border-blue-600
+      hover:text-white
+      transition
+    "
+  >
+    View More
+  </Link>
+</div>
+
+{/* ================= POSTERS (HOME PREVIEW) ================= */}
+<section className="mt-10">
+  <div className="flex items-center justify-between mb-8">
+    <h3 className="text-lg font-semibold">Posters</h3>
+  </div>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    {/* POSTER 1 */}
+    <div
+      className="
+        group relative overflow-hidden rounded-xl bg-white
+        transition-all duration-700 ease-out
+        hover:-translate-y-4 hover:rotate-[0.3deg]
+        hover:shadow-[0_40px_100px_rgba(0,0,0,0.30)]
+      "
+    >
+      {/* SHINE OVERLAY */}
+      <div
+        className="
+          pointer-events-none absolute inset-0
+          bg-gradient-to-tr from-transparent via-white/30 to-transparent
+          opacity-0 group-hover:opacity-100
+          transition-opacity duration-700
+        "
+      />
+
+      <Image
+        src="/posters/poster1.jpeg"
+        alt="Poster 1"
+        width={600}
+        height={900}
+        className="
+          w-full h-[360px] object-contain
+          transition-all duration-700
+          group-hover:scale-110 group-hover:contrast-110
+        "
+      />
+    </div>
+
+    {/* POSTER 2 */}
+    <div
+      className="
+        group relative overflow-hidden rounded-xl bg-white
+        transition-all duration-700 ease-out
+        hover:-translate-y-4 hover:-rotate-[0.3deg]
+        hover:shadow-[0_40px_100px_rgba(0,0,0,0.30)]
+      "
+    >
+      <div
+        className="
+          pointer-events-none absolute inset-0
+          bg-gradient-to-tr from-transparent via-white/30 to-transparent
+          opacity-0 group-hover:opacity-100
+          transition-opacity duration-700
+        "
+      />
+
+      <Image
+        src="/posters/poster6.jpeg"
+        alt="Poster 2"
+        width={600}
+        height={900}
+        className="
+          w-full h-[360px] object-contain
+          transition-all duration-700
+          group-hover:scale-110 group-hover:contrast-110
+        "
+      />
+    </div>
+
+    {/* POSTER 3 */}
+    <div
+      className="
+        group relative overflow-hidden rounded-xl bg-white
+        transition-all duration-700 ease-out
+        hover:-translate-y-4 hover:rotate-[0.2deg]
+        hover:shadow-[0_40px_100px_rgba(0,0,0,0.30)]
+      "
+    >
+      <div
+        className="
+          pointer-events-none absolute inset-0
+          bg-gradient-to-tr from-transparent via-white/30 to-transparent
+          opacity-0 group-hover:opacity-100
+          transition-opacity duration-700
+        "
+      />
+
+      <Image
+        src="/posters/poster11.jpeg"
+        alt="Poster 3"
+        width={600}
+        height={900}
+        className="
+          w-full h-[360px] object-contain
+          transition-all duration-700
+          group-hover:scale-110 group-hover:contrast-110
+        "
+      />
+    </div>
+
+  </div>
+
+  <br />
+
+  {/* VIEW MORE */}
+  <div className="flex justify-center">
+    <Link
+      href="/posters"
+      className="
+        px-8 py-3 rounded-full
+        border border-black/40
+        text-sm font-medium text-black
+        transition-all duration-500
+        hover:bg-blue-600 hover:border-blue-600 hover:text-white
+        hover:shadow-[0_10px_30px_rgba(37,99,235,0.4)]
+      "
+    >
+      View More
+    </Link>
+  </div>
+</section>
+
+
+
 
 
           {/* OUR WEBSITES */}
-          <section className="mt-20">
+          <section className="mt-10">
             <h3 className="text-lg font-semibold mb-6">Websites</h3>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
-                { name: "Matamix", url: "https://matamix.com", image: "/projects/collage.jpg" },
-                { name: "Vitara", url: "https://nithuna1.github.io/vitara/index.html", image: "/services/business.jpg" },
-                { name: "Google", url: "https://google.com", image: "/projects/website.avif" },
-              ].map((site, i) => (
-                <a key={i} href={site.url} target="_blank" rel="noopener noreferrer">
-                  <div className="overflow-hidden rounded-xl border border-black/10">
-                    <Image
-                      src={site.image}
-                      alt={site.name}
-                      width={600}
-                      height={400}
-                      className="h-[220px] w-full object-cover hover:scale-105 transition"
-                    />
-                  </div>
-                  <div className="mt-3 flex justify-between text-sm">
-                    <span>{site.name}</span>
-                    <span className="text-black/40">↗</span>
-                  </div>
-                </a>
+  {
+    name: "Matamix",
+    url: "https://matamix.com",
+    image: "/projects/collage.jpg",
+    video: "/video/matamix_video.mp4",
+  },
+  {
+    name: "Vitara",
+    url: "https://nithuna1.github.io/vitara/index.html",
+    image: "/services/business.jpg",
+    video: "/video/vitara_video.mp4",
+  },
+  {
+    name: "Domain",
+    url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE",
+    image: "/services/digital2.jpg",
+    video: "/video/domain_video.mp4",
+  },
+]
+.map((site, i) => (
+
+                <a
+  key={i}
+  href={site.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="group block"
+>
+  <div className="relative h-[220px] overflow-hidden rounded-xl border border-black/10 bg-black">
+
+    {/* STATIC IMAGE */}
+    <Image
+      src={site.image}
+      alt={site.name}
+      fill
+      className="
+        object-cover
+        transition-opacity duration-500
+        group-hover:opacity-0
+      "
+    />
+
+    {/* VIDEO PREVIEW (ONLY IF EXISTS) */}
+    {site.video && (
+      <video
+        src={site.video}
+        muted
+        loop
+        playsInline
+        autoPlay
+        className="
+          absolute inset-0
+          w-full h-full
+          object-cover
+          scale-[1.05]
+          opacity-0
+          transition-opacity duration-500
+          group-hover:opacity-100
+          pointer-events-none
+        "
+      />
+    )}
+
+    {/* FALLBACK: LIVE WEBSITE PREVIEW */}
+    {!site.video && (
+      <iframe
+        src={site.url}
+        className="
+          absolute inset-0
+          w-full h-full
+          scale-[1.15]
+          opacity-0
+          transition-opacity duration-500
+          group-hover:opacity-100
+          pointer-events-none
+        "
+      />
+    )}
+
+  </div>
+
+  <div className="mt-3 flex justify-between text-sm">
+    <span className="font-medium">{site.name}</span>
+    <span className="text-black/40 group-hover:text-black transition">
+      ↗
+    </span>
+  </div>
+</a>
+
+
               ))}
             </div><br></br>
 
@@ -646,6 +868,67 @@ const [message, setMessage] = useState("");
 </div>
 
           </section>
+
+         {/* ================= WHATSAPP INTEREST CTA ================= */}
+<section className="mt-10 mb-20">
+  <div className="max-w-3xl mx-auto px-6 text-center">
+
+    <h3 className="text-2xl font-semibold tracking-tight mb-3">
+      Ready to explore a collaboration?
+    </h3>
+
+    <p className="text-black/70 mb-10 max-w-xl mx-auto">
+      Let us know your interest and our team will reach out to discuss the next steps.
+    </p>
+
+    <div className="flex flex-col sm:flex-row gap-5 justify-center">
+
+      {/* INTERESTED */}
+      <button
+        onClick={() => {
+          const message =
+            "Hello Matamix International,%0A%0AI am interested in your services and would like to connect for more details.";
+          window.open(
+            `https://wa.me/919605000345?text=${message}`,
+            "_blank"
+          );
+        }}
+        className="
+          px-10 py-4 rounded-full
+          bg-blue-600 text-white font-medium
+          hover:bg-blue-800
+          transition-all duration-300
+          shadow-[0_12px_32px_rgba(37,99,235,0.35)]
+        "
+      >
+        I’m Interested
+      </button>
+
+      {/* NOT INTERESTED */}
+      <button
+        onClick={() => {
+          const message =
+            "Hello Matamix International,%0A%0AI am not looking to proceed at this time. Thank you.";
+          window.open(
+            `https://wa.me/919605000345?text=${message}`,
+            "_blank"
+          );
+        }}
+        className="
+          px-10 py-4 rounded-full
+          border border-black/30
+          text-black font-medium
+          hover:bg-black hover:text-white
+          transition-all duration-300
+        "
+      >
+        Maybe Later
+      </button>
+
+    </div>
+  </div>
+</section>
+
 
         </main>
 
@@ -686,6 +969,16 @@ const [message, setMessage] = useState("");
           className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
         />
 
+        {/* PHONE */}
+<input
+  type="tel"
+  value={phone}
+  onChange={(e) => setPhone(e.target.value)}
+  placeholder="Your phone number"
+  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+/>
+
+
         {/* MESSAGE */}
         <textarea
           rows={4}
@@ -697,42 +990,44 @@ const [message, setMessage] = useState("");
 
         {/* SEND MAIL */}
         <button
-          disabled={!name || !email || !message}
-          onClick={() => {
-            if (!name || !email || !message) return;
+  disabled={!name || !email || !phone || !message}
+  onClick={() => {
+    if (!name || !email || !phone || !message) return;
 
-            const subject = "Contact Inquiry – Matamix International";
-            const body = `
+    const subject = "Contact Inquiry – Matamix International";
+    const body = `
 Name: ${name}
 Email: ${email}
+Phone: ${phone}
 
 Message:
 ${message}
-            `;
+    `;
 
-            window.location.href =
-              `mailto:info@matamix.com` +
-              `?subject=${encodeURIComponent(subject)}` +
-              `&body=${encodeURIComponent(body)}`;
-          }}
-          className={`
-            w-full py-3 rounded-full font-medium transition
-            ${
-              !name || !email || !message
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-blue-600 text-white hover:bg-blue-700"
-            }
-          `}
-        >
-          Send Message
-        </button>
+    window.location.href =
+      `mailto:sales@matamix.com` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+  }}
+  className={`
+    w-full py-3 rounded-full font-medium transition
+    ${
+      !name || !email || !phone || !message
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+        : "bg-blue-600 text-white hover:bg-blue-700"
+    }
+  `}
+>
+  Send Message
+</button>
+
 
         {/* HELPER TEXT */}
-        {(!name || !email || !message) && (
-          <p className="text-xs text-red-500 text-center">
-            Please fill all fields to send the message
-          </p>
-        )}
+       {(!name || !email || !phone || !message) && (
+  <p className="text-xs text-red-500 text-center">
+    Please fill all fields to send the message
+  </p>
+)}
 
       </div>
     </div>

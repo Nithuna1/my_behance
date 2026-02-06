@@ -24,3 +24,52 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.premium-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem; /* rounded-xl */
+  cursor: pointer;
+
+  transition:
+    transform 0.7s ease-out,
+    box-shadow 0.7s ease-out;
+}
+
+/* HOVER EFFECT */
+.premium-card:hover {
+  transform: translateY(-16px) scale(1.04);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+}
+
+/* LIGHT SWEEP OVERLAY */
+.premium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to top right,
+    rgba(255, 255, 255, 0.1),
+    transparent,
+    transparent
+  );
+
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+/* SHOW LIGHT ON HOVER */
+.premium-card:hover::before {
+  opacity: 1;
+}
+
