@@ -8,8 +8,37 @@ import { FiMail } from "react-icons/fi";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 
-export default function PostersPage() {
-  const [fabOpen, setFabOpen] = useState(false);
+/* ================= APPLICATION DATA ================= */
+const applications = [
+  {
+    name: "Business ERP App",
+    image: "/mobile/development1.jpeg",
+    description:
+      "A complete ERP mobile solution to manage sales, purchases, expenses, and real-time business analytics."
+  },
+  {
+    name: "Shop Management App",
+    image: "/mobile/development2.jpeg",
+    description:
+      "Mobile-first shop management app to track daily revenue, branch performance, and inventory."
+  },
+  {
+    name: "Accounting & Finance App",
+    image: "/mobile/development3.jpeg",
+    description:
+      "Smart accounting application with cash book, day book, profit analysis, and balance insights."
+  },
+  {
+    name: "Analytics Dashboard App",
+    image: "/mobile/development4.jpeg",
+    description:
+      "Advanced analytics dashboard offering business insights, growth tracking, and performance reports."
+  }
+];
+
+export default function ApplicationsPage() {
+    const [selectedApp, setSelectedApp] = useState(null);
+     const [fabOpen, setFabOpen] = useState(false);
    const [following, setFollowing] = useState(false);
 const [followers, setFollowers] = useState(132215);
 const [contactOpen, setContactOpen] = useState(false);
@@ -69,6 +98,7 @@ const [phone, setPhone] = useState("");
                   Matamix International
                 </h1>
       
+              
               </div>
             </section>
       
@@ -94,17 +124,18 @@ const [phone, setPhone] = useState("");
       
                   <Link
                     href="/posters"
-                    className="font-semibold border-b-2 border-black pb-2"
+                    className="text-black/50 hover:text-black pb-2"
                   >
                     Posters
                   </Link>
 
-                   <Link
+                  <Link
                     href="/applications"
-                    className="text-black/50 hover:text-black pb-2"
+                    className="font-semibold border-b-2 border-black pb-2"
                   >
                     Applications
                   </Link>
+      
       
                   <Link
                     href="/websites"
@@ -117,60 +148,59 @@ const [phone, setPhone] = useState("");
               </div>
             </section>
 
-            {/* ================= ABOUT POSTERS ================= */}
+            {/* ================= ABOUT APPLICATIONS ================= */}
 <section className="py-16">
   <div className="max-w-7xl mx-auto px-4 md:px-8">
 
     {/* HEADING */}
-    <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6">
-  Posters That Speak Visually
+   <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6">
+  Mobile App Solutions
 </h2>
 
 
     {/* DESCRIPTION */}
     <p className="text-black/100 max-w-5xl leading-relaxed text-base md:text-lg mb-6">
-      Our poster designs are crafted to communicate ideas instantly and
-      powerfully. Each visual is designed with a strong focus on composition,
-      typography, color balance, and storytelling — ensuring the message stands
-      out at a glance.
+      Our mobile applications are designed to help businesses operate smarter,
+      faster, and more efficiently in a mobile-first world. We build powerful,
+      user-friendly applications that simplify complex workflows, provide
+      real-time insights, and improve everyday decision-making.
     </p>
 
     <p className="text-black/100 max-w-5xl leading-relaxed text-base md:text-lg mb-10">
-      From promotional creatives and brand campaigns to cinematic posters and
-      digital artwork, our designs combine creativity with purpose. We focus on
-      clarity, visual impact, and consistency, delivering posters that not only
-      look striking but also align seamlessly with brand identity and audience
-      intent.
+      From ERP and accounting solutions to analytics dashboards and management
+      tools, our applications combine intuitive user experiences with secure,
+      scalable architecture. Every app is crafted to deliver performance,
+      reliability, and long-term value across Android and iOS platforms.
     </p>
 
-    {/* HIGHLIGHTS */}
+    {/* KEY HIGHLIGHTS */}
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm md:text-base">
 
       <div className="border-l-2 border-blue-600 pl-4">
-        <p className="font-semibold mb-1">Strong Visual Impact</p>
+        <p className="font-semibold mb-1">Business-Focused</p>
         <p className="text-black/80">
-          Designs that immediately capture attention.
+          Built to solve real operational challenges.
         </p>
       </div>
 
       <div className="border-l-2 border-blue-600 pl-4">
-        <p className="font-semibold mb-1">Creative Direction</p>
+        <p className="font-semibold mb-1">Real-Time Insights</p>
         <p className="text-black/80">
-          Thoughtful concepts with clear storytelling.
+          Live data, reports, and performance tracking.
         </p>
       </div>
 
       <div className="border-l-2 border-blue-600 pl-4">
-        <p className="font-semibold mb-1">Brand Consistency</p>
+        <p className="font-semibold mb-1">Scalable & Secure</p>
         <p className="text-black/80">
-          Visuals aligned with brand tone and identity.
+          Designed for growth, stability, and data safety.
         </p>
       </div>
 
       <div className="border-l-2 border-blue-600 pl-4">
-        <p className="font-semibold mb-1">Digital & Print Ready</p>
+        <p className="font-semibold mb-1">User-Centric Design</p>
         <p className="text-black/80">
-          Optimized for screens and physical formats.
+          Clean interfaces for seamless usability.
         </p>
       </div>
 
@@ -185,78 +215,55 @@ const [phone, setPhone] = useState("");
         max-w-7xl mx-auto
         px-4 md:px-8
         py-8 md:py-2
-        grid grid-cols-1
-        gap-8 md:gap-12
-      ">
+        grid grid-cols-1 md:grid-cols-12
+        gap-8 md:gap-12">
       
-             
-       {/* ================= RIGHT CONTENT ================= */}
-<main className="col-span-12">
+              
+        {/* ================= RIGHT CONTENT ================= */}
+        <main className="col-span-12">
 
-  {/* POSTERS */}
-  <h3 className="text-lg font-semibold mb-6">Posters</h3>
 
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <h3 className="text-lg font-semibold mb-8">
+            Mobile Applications
+          </h3>
 
-    {/* POSTER 1 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster1.jpeg" alt="Poster 1" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-    {/* POSTER 2 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster2.jpeg" alt="Poster 2" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 3 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster3.jpeg" alt="Poster 3" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 4 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster4.png" alt="Poster 4" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 5 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster5.jpeg" alt="Poster 5" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 6 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster6.jpeg" alt="Poster 6" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 7 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster7.jpeg" alt="Poster 7" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 8 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster8.jpeg" alt="Poster 8" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 9 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster9.jpeg" alt="Poster 9" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 10 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster10.jpeg" alt="Poster 10" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 11 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster11.jpeg" alt="Poster 11" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
+            {applications.map((app, i) => (
+              <div
+                key={i}
+                className="group bg-white rounded-xl border border-black transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]"
+              >
+                <div className="group cursor-pointer">
+  {/* IMAGE ONLY */}
+  <div className="relative w-full h-[360px]">
+    <Image
+      src={app.image}
+      alt={app.name}
+      fill
+      className="
+        object-contain
+        transition-transform duration-500
+        group-hover:scale-105
+      "
+    />
   </div>
-</main>
+</div>
 
 
+                <div className="px-5 pb-6">
+                  <h4 className="font-semibold mb-2">{app.name}</h4>
+                  <p className="text-sm text-black/70">
+                    {app.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+
+          </div>
+        </main>
+
+        
          {contactOpen && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
 
@@ -519,6 +526,7 @@ ${message}
     />
   </button>
 </div>
+
     </div>
   );
 }
