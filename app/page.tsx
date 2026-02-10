@@ -266,28 +266,28 @@ const [phone, setPhone] = useState("");
 </section>
 
 
-      {/* ================= PROFILE STRIP ================= */}
-     <section className="relative pt-16 bg-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+     {/* ================= PROFILE STRIP ================= */}
+<section className="relative pt-16 bg-transparent">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 
+    {/* LOGO — DESKTOP ONLY */}
+    <div className="hidden md:block relative -mt-30 w-24 h-24 rounded-full overflow-hidden border-[5px] border-white">
+      <Image
+        src="/projects/logo.jpg"
+        alt="Matamix"
+        fill
+        className="object-cover"
+        priority
+      />
+    </div>
 
-          <div className="relative -mt-30 w-24 h-24 rounded-full overflow-hidden border-[5px] border-white">
-            <Image
-              src="/projects/logo.jpg"
-              alt="Matamix"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
+    <h1 className="text-3xl font-semibold mt-4">
+      Matamix International
+    </h1>
 
-          <h1 className="text-3xl font-semibold mt-4">
-            Matamix International
-          </h1>
+  </div>
+</section>
 
-         
-        </div>
-      </section>
 
       {/* ================= NAVBAR (DESKTOP ONLY) ================= */}
 <section className="hidden md:block border-b border-black/10 bg-transparent">
