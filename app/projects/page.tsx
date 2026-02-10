@@ -187,6 +187,14 @@ const [phone, setPhone] = useState("");
                   <Link href="/" className="text-black/50 hover:text-black pb-2">
                     Work
                   </Link>
+
+                   <Link
+                    href="/websites"
+                    className="text-black/50 hover:text-black pb-2"
+                  >
+                    Websites
+                  </Link>
+                  
                   <Link
                     href="/services"
                     className="text-black/50 hover:text-black pb-2"
@@ -214,12 +222,7 @@ const [phone, setPhone] = useState("");
                     Applications
                   </Link>
 
-                  <Link
-                    href="/websites"
-                    className="text-black/50 hover:text-black pb-2"
-                  >
-                    Websites
-                  </Link>
+                 
                 </div>
               </div>
             </section>
@@ -308,25 +311,21 @@ const [phone, setPhone] = useState("");
         key={i}
         onClick={() => setActiveProject(project)}
         className="
-          group cursor-pointer rounded-xl overflow-hidden
-          transition-all duration-500
-          hover:-translate-y-2
-          hover:shadow-xl
-        "
+        group relative overflow-hidden rounded cursor-pointer
+        transition-transform duration-300
+        hover:scale-[1.03]
+      "
       >
-        {/* IMAGE WRAPPER */}
-        <div className="relative w-full h-[300px] bg-white flex items-center justify-center p-4">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="
-              object-contain
-              transition-transform duration-300
-              group-hover:scale-105
-            "
-          />
-        </div>
+        {/* IMAGE */}
+            <div className="relative w-full h-[320px] overflow-hidden">
+         <Image
+           src={project.image}
+           alt={project.title}
+           fill
+           className="object-half-contain"
+         />
+       </div>
+       
 
         {/* TEXT */}
         <div className="mt-4 px-1">
@@ -479,97 +478,46 @@ ${message}
       )}
 
       {/* ================= FOOTER ================= */}
-     <footer className="bg-[#022549] text-white mt-20">
+<footer className="bg-[#022549] text-white mt-14">
+  <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
-  <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+    <div
+      className="
+        inline-flex flex-col items-center gap-2
+        px-7 py-4 rounded-xl
+        bg-white/10 backdrop-blur
+        border border-white/20
+        shadow-md
+      "
+    >
+     {/* PHONE */}
+<p className="text-sm font-medium text-white">
+  📞{" "}
+  <a
+    href="tel:+91 9605 000 694"
+    className="hover:underline"
+  >
+    +91 9605 000 694
+  </a>
+</p>
 
-    {/* BRAND */}
-    <div>
-      <h3 className="text-lg font-semibold mb-3">
-        Matamix International
-      </h3>
 
-      <p className="text-sm text-white/70 leading-relaxed">
-        A digital-first creative agency specializing in UI/UX design,
-        web development, mobile applications, and digital marketing.
+      {/* EMAIL */}
+      <p className="text-sm font-medium">
+        ✉️{" "}
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white hover:underline"
+        >
+          info@matamix.com
+        </a>
       </p>
     </div>
 
-    {/* CONTACT */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Contact
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li>Kinfra, Ramanattukara</li>
-        <li>Feroke, Kozhikode</li>
-        <li>+91 9605 000 694</li>
-        <li>
-          <a href="mailto:info@matamix.com" className="hover:text-white">
-            info@matamix.com
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    {/* QUICK LINKS */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Quick Links
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li><Link href="/services">Services</Link></li>
-        <li><Link href="/projects">Projects</Link></li>
-        <li><Link href="/applications">Applications</Link></li>
-        <li><Link href="/websites">Websites</Link></li>
-        <li><Link href="/posters">Posters</Link></li>
-      </ul>
-    </div>
-
-    {/* SOCIAL */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Social
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li>
-          <a
-            href="https://www.instagram.com/matamix_international/"
-            target="_blank"
-          >
-            Instagram
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.facebook.com/profile.php?id=61585201327065"
-            target="_blank"
-          >
-            Facebook
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://share.google/FdV8fbarNVjygU45l"
-            target="_blank"
-          >
-            LinkedIn
-          </a>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-
-  {/* BOTTOM BAR */}
-  <div className="border-t border-white/10 py-5 text-center text-xs text-white/60">
-    © {new Date().getFullYear()} Matamix International. All rights reserved.
   </div>
 </footer>
-
 
 {/* ================= FLOATING ACTION BUTTON ================= */}
 <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">

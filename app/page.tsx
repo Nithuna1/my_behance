@@ -29,6 +29,17 @@ type Project = {
   gallery: string[];
 };
 
+type MobileApp = {
+  title: string;
+  image: string;
+  shortDescription: string;
+  fullDescription: string;
+  features: string[];
+  bestFor: string;
+};
+
+
+
 export default function Home() {
   const [fabOpen, setFabOpen] = useState(false);
   const [following, setFollowing] = useState(false);
@@ -45,6 +56,8 @@ const [phone, setPhone] = useState("");
   /* ✅ ADD STATE */
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [activeMobileApp, setActiveMobileApp] = useState<MobileApp | null>(null);
+
 
    /* ================= PROJECT DATA ================= */
   const projects: Project[] = [
@@ -139,6 +152,81 @@ const [phone, setPhone] = useState("");
     },
   ];
 
+  const mobileApps: MobileApp[] = [
+  {
+    title: "Business ERP App",
+    image: "/mobile/home.png",
+    shortDescription:
+      "A complete ERP mobile solution to manage sales, purchases, expenses, and real-time business analytics.",
+    fullDescription:
+      "The Business ERP App is an all-in-one mobile platform designed to give business owners complete control over operations from anywhere. It centralizes sales, purchases, expenses, banking, and performance analytics into a single, intuitive dashboard. With real-time updates and clear financial insights, businesses can make faster, data-driven decisions and maintain full operational visibility.",
+    features: [
+      "Real-time sales, purchase, and expense tracking",
+      "Cash and bank balance monitoring",
+      "Profit calculation and revenue growth indicators",
+      "Date-based reports (Today, Yesterday, Custom)",
+      "Multi-shop and branch support",
+    ],
+    bestFor:
+      "Retail stores, distributors, wholesalers, and businesses that need a complete ERP system on mobile.",
+  },
+
+  {
+    title: "Shop Management App",
+    image: "/mobile/shop.png",
+    shortDescription:
+      "Mobile-first shop management app to track daily revenue, branch performance, and inventory.",
+    fullDescription:
+      "The Shop Management App simplifies daily shop operations by providing a clear overview of sales, expenses, and purchases. Designed for speed and clarity, it allows shop owners and managers to quickly assess performance, monitor cash flow, and manage multiple branches without complexity.",
+    features: [
+      "Daily sales and purchase summaries",
+      "Expense tracking with profit calculation",
+      "Branch-wise and head-office views",
+      "Quick shop selection and filtering",
+      "Clean UI optimized for fast decisions",
+    ],
+    bestFor:
+      "Single-store and multi-branch shop owners who want fast insights into daily operations.",
+  },
+
+  {
+    title: "Accounting & Finance App",
+    image: "/mobile/analytics.png",
+    shortDescription:
+      "Smart accounting application with cash book, day book, profit analysis, and balance insights.",
+    fullDescription:
+      "The Accounting & Finance App is built for accurate financial control and transparency. It provides structured views of cash sales, bank transactions, credit activity, and account balances. With integrated cash book and day book features, users can maintain clean financial records and reduce manual accounting effort.",
+    features: [
+      "Cash sales, bank sales, and credit sales tracking",
+      "Cash book and day book access",
+      "Credit purchase and account summaries",
+      "Bank account balance monitoring",
+      "Clear financial breakdowns in real time",
+    ],
+    bestFor:
+      "Accountants, finance teams, and business owners who need precise financial tracking.",
+  },
+
+  {
+    title: "Analytics Dashboard App",
+    image: "/mobile/trade.png",
+    shortDescription:
+      "Advanced analytics dashboard offering business insights, growth tracking, and performance reports.",
+    fullDescription:
+      "The Analytics Dashboard App transforms raw business data into actionable insights. It provides visual reports on performance, profitability, and growth trends, helping decision-makers understand what’s working and where improvements are needed. The app integrates seamlessly with ERP systems for automated insights.",
+    features: [
+      "Business and branch performance analysis",
+      "Profit and loss insights",
+      "Balance sheet and financial reports",
+      "Growth comparison with previous periods",
+      "ERP automation and reporting highlights",
+    ],
+    bestFor:
+      "Business owners, managers, and decision-makers who rely on data-driven insights.",
+  },
+];
+
+
   return (
   <div className="
   min-h-screen
@@ -211,39 +299,39 @@ const [phone, setPhone] = useState("");
             </Link>
 
             <Link
+              href="/websites"
+              className="text-black/50 hover:text-black pb-2"
+            >
+              Websites
+            </Link>
+
+             <Link
               href="/services"
               className="text-black/50 hover:text-black pb-2"
             >
               Services
             </Link>
 
-             <Link
+            <Link
               href="/projects"
               className="text-black/50 hover:text-black pb-2"
             >
               Projects
             </Link>
 
-            <Link
+             <Link
               href="/posters"
               className="text-black/50 hover:text-black pb-2"
             >
               Posters
             </Link>
 
-             <Link
+
+            <Link
               href="/applications"
               className="text-black/50 hover:text-black pb-2"
             >
               Applications
-            </Link>
-
-
-            <Link
-              href="/websites"
-              className="text-black/50 hover:text-black pb-2"
-            >
-              Websites
             </Link>
 
 
@@ -252,7 +340,7 @@ const [phone, setPhone] = useState("");
       </section>
 
       {/* ================= ABOUT ================= */}
-<section className="relative py-16">
++ <section className="relative py-10">
   <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-12 items-center">
 
     {/* LEFT – TEXT */}
@@ -277,7 +365,7 @@ const [phone, setPhone] = useState("");
       </p>
 
       <Link
-        href="/services"
+        href="/"
         className="
           inline-flex items-center gap-2
           px-8 py-3 rounded-full
@@ -287,7 +375,7 @@ const [phone, setPhone] = useState("");
           shadow-[0_12px_30px_rgba(37,99,235,0.35)]
         "
       >
-        Explore Our Services →
+        Our Happy Customers →
       </Link>
     </div>
 
@@ -320,22 +408,145 @@ const [phone, setPhone] = useState("");
 
 
       {/* ================= MAIN ================= */}
-      <section className="
+     <section className="
   max-w-7xl mx-auto
   px-4 md:px-8
-  py-8 md:py-2
+  py-6
   grid grid-cols-1
-  gap-8 md:gap-12
+  gap-10
 ">
+
 
         {/* ================= RIGHT CONTENT ================= */}
         <main className="col-span-12">
+
+           {/* OUR WEBSITES */}
+          <section className="mt-1">
+            <h3 className="text-lg font-semibold mb-6">Websites</h3>
+
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {[
+  {
+    name: "www.matamix.com",
+    url: "https://matamix.com",
+    image: "/projects/collage.jpg",
+    video: "/video/matamix_video.mp4",
+  },
+  {
+    name: "www.vitara.com",
+    url: "https://nithuna1.github.io/vitara/index.html",
+    image: "/services/business.jpg",
+    video: "/video/vitara_video.mp4",
+  },
+  {
+    name: "www.domain.com",
+    url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE",
+    image: "/services/digital2.jpg",
+    video: "/video/domain_video.mp4",
+  },
+]
+.map((site, i) => (
+
+                <a
+  key={i}
+  href={site.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="group block"
+>
+  <div className="relative h-[220px] overflow-hidden rounded-xl border border-black/10 bg-black">
+
+    {/* STATIC IMAGE */}
+    <Image
+      src={site.image}
+      alt={site.name}
+      fill
+      className="
+        object-cover
+        transition-opacity duration-500
+        group-hover:opacity-0
+      "
+    />
+
+    {/* VIDEO PREVIEW (ONLY IF EXISTS) */}
+    {site.video && (
+      <video
+        src={site.video}
+        muted
+        loop
+        playsInline
+        autoPlay
+        className="
+          absolute inset-0
+          w-full h-full
+          object-cover
+          scale-[1.05]
+          opacity-0
+          transition-opacity duration-500
+          group-hover:opacity-100
+          pointer-events-none
+        "
+      />
+    )}
+
+    {/* FALLBACK: LIVE WEBSITE PREVIEW */}
+    {!site.video && (
+      <iframe
+        src={site.url}
+        className="
+          absolute inset-0
+          w-full h-full
+          scale-[1.15]
+          opacity-0
+          transition-opacity duration-500
+          group-hover:opacity-100
+          pointer-events-none
+        "
+      />
+    )}
+
+  </div>
+
+  <div className="mt-3 flex justify-between text-sm">
+    <span className="font-medium">{site.name}</span>
+    <span className="text-black/40 group-hover:text-black transition">
+      ↗
+    </span>
+  </div>
+</a>
+
+
+              ))}
+            </div><br></br>
+
+            {/* ✅ ONE VIEW MORE BUTTON (FOR WEBSITE PAGE) */}
+<div className="flex justify-center">
+  <Link
+    href="/websites"
+    className="
+      px-8 py-3
+      rounded-full
+      border border-black/40
+      text-sm font-medium
+      text-black
+      hover:bg-blue-600
+      hover:border-blue-600
+      hover:text-white
+      transition
+    "
+  >
+    View More
+  </Link>
+</div>
+
+          </section>
+
 
 
  {/* SERVICES */}
      <h3 className="text-lg font-semibold mb-6">Services</h3>
 
-<div className="grid md:grid-cols-3 gap-6 mb-16">
+<div className="grid md:grid-cols-3 gap-6 mb-8">
   {[
     {
       title: "E-Commerce Solutions",
@@ -485,58 +696,56 @@ const [phone, setPhone] = useState("");
 
 
   {/* ================= PROJECT SECTION ================= */}
-      <h3 className="text-lg font-semibold mb-6">Projects</h3>
+<h3 className="text-lg font-semibold mb-2">Projects</h3>
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {projects.map((project, i) => (
-         <div
-  key={i}
-  onClick={() => setActiveProject(project)}
-  className="
-    group relative overflow-hidden rounded-xl cursor-pointer
-    transition-all duration-700 ease-out
-    hover:-translate-y-4
-    hover:scale-[1.04]
-    hover:shadow-[0_40px_120px_rgba(0,0,0,0.35)]
-    before:absolute before:inset-0
-    before:bg-gradient-to-tr before:from-white/10 before:via-transparent before:to-transparent
-    before:opacity-0 before:transition before:duration-500
-    hover:before:opacity-100
-  "
->
-  {/* IMAGE WRAPPER */}
-<div className="relative w-full h-[320px] bg-white flex items-center justify-center p-6">
+<div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+  {projects.slice(0, 3).map((project, i) => (
+    <div
+      key={i}
+      onClick={() => setActiveProject(project)}
+      className="
+        group relative overflow-hidden rounded-xl cursor-pointer
+        transition-transform duration-300
+        hover:scale-[1.03]
+      "
+    >
+      {/* IMAGE */}
+     <div className="relative w-full h-[320px] overflow-hidden">
   <Image
     src={project.image}
     alt={project.title}
     fill
-    className="
-      object-contain
-      transition-transform duration-300
-      group-hover:scale-105
-    "
+    className="object-half-contain"
   />
 </div>
 
 
-  {/* HOVER OVERLAY (unchanged) */}
-  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end">
-    <div className="w-full px-4 py-3 flex justify-between text-white text-sm">
-      <div>
-        <p className="font-semibold">{project.title}</p>
-        <p className="text-xs text-white/70">{project.author}</p>
-      </div>
-      <div className="flex gap-3 text-xs">
-        👍 {project.likes}
-        👁 {project.views}
-      </div>
-    </div>
-  </div>
+      {/* TEXT OVERLAY (NO BACKGROUND CARD) */}
+<div
+  className="
+    absolute inset-x-0 bottom-0
+    px-4 py-3
+    text-white text-sm
+    opacity-0 group-hover:opacity-100
+    transition
+  "
+>
+ <p className="font-semibold text-black drop-shadow-md">
+  {project.title}
+</p>
+
+  <p className="text-xs text-black/80 drop-shadow-md">
+    {project.author}
+  </p>
 </div>
 
-        ))}
-      </div><br></br>
-      {/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
+    </div>
+  ))}
+</div>
+
+<br />
+
+{/* ✅ VIEW MORE BUTTON */}
 <div className="flex justify-center">
   <Link
     href="/projects"
@@ -556,205 +765,183 @@ const [phone, setPhone] = useState("");
   </Link>
 </div>
 
+
 {/* ================= POSTERS ================= */}
-<section className="mt-6">
-  <div className="flex items-center justify-between mb-4">
-    <h3 className="text-lg font-semibold">Posters</h3>
-  </div>
+<section className="mt-4">
+  <h3 className="text-lg font-semibold mb-6">Creative Design</h3>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-    {/* POSTER 1 */}
-   <div
-  className="
-    group relative overflow-hidden rounded-xl
-    transition-all duration-700 ease-out
-    hover:-translate-y-4
-    hover:rotate-[0.3deg]
-    hover:shadow-[0_40px_100px_rgba(0,0,0,0.30)]
-  "
->
-  {/* SHINE OVERLAY */}
-  <div
-    className="
-      pointer-events-none absolute inset-0
-      bg-gradient-to-tr from-transparent via-white/30 to-transparent
-      opacity-0 group-hover:opacity-100
-      transition-opacity duration-700
-      z-10
-    "
-  />
-
-  {/* IMAGE (NO CARD) */}
-  <div className="relative w-full aspect-[2/3]">
-    <Image
-      src="/posters/poster1.jpeg"
-      alt="Poster 1"
-      fill
-      className="
-        object-contain
-        transition-all duration-700
-        group-hover:scale-110
-        group-hover:contrast-110
-      "
-    />
-  </div>
-</div>
-
-<div
-  className="
-    group relative overflow-hidden rounded-xl
-    transition-all duration-700 ease-out
-    hover:-translate-y-4
-    hover:rotate-[0.3deg]
-    hover:shadow-[0_40px_100px_rgba(0,0,0,0.30)]
-  "
->
-  {/* SHINE OVERLAY */}
-  <div
-    className="
-      pointer-events-none absolute inset-0
-      bg-gradient-to-tr from-transparent via-white/30 to-transparent
-      opacity-0 group-hover:opacity-100
-      transition-opacity duration-700
-      z-10
-    "
-  />
-
-  {/* IMAGE (NO CARD) */}
-  <div className="relative w-full aspect-[2/3]">
-    <Image
-      src="/posters/poster6.jpeg"
-      alt="Poster 1"
-      fill
-      className="
-        object-contain
-        transition-all duration-700
-        group-hover:scale-110
-        group-hover:contrast-110
-      "
-    />
-  </div>
-</div>
-
-    {/* POSTER 3 */}
-    <div
-  className="
-    group relative overflow-hidden rounded-xl
-    transition-all duration-700 ease-out
-    hover:-translate-y-4
-    hover:rotate-[0.3deg]
-    hover:shadow-[0_40px_100px_rgba(0,0,0,0.30)]
-  "
->
-  {/* SHINE OVERLAY */}
-  <div
-    className="
-      pointer-events-none absolute inset-0
-      bg-gradient-to-tr from-transparent via-white/30 to-transparent
-      opacity-0 group-hover:opacity-100
-      transition-opacity duration-700
-      z-10
-    "
-  />
-
-  {/* IMAGE (NO CARD) */}
-  <div className="relative w-full aspect-[2/3]">
-    <Image
-      src="/posters/poster11.jpeg"
-      alt="Poster 1"
-      fill
-      className="
-        object-contain
-        transition-all duration-700
-        group-hover:scale-110
-        group-hover:contrast-110
-      "
-    />
-  </div>
-</div>
-</div>
-
-  <br />
-
-  {/* VIEW MORE */}
-  <div className="flex justify-center">
+    {/* ================= CARD 1 ================= */}
     <Link
-      href="/posters"
-      className="
-        px-8 py-3 rounded-full
-        border border-black/40
-        text-sm font-medium text-black
-        transition-all duration-500
-        hover:bg-blue-600 hover:border-blue-600 hover:text-white
-        hover:shadow-[0_10px_30px_rgba(37,99,235,0.4)]
-      "
+      href="/posters/view?set=card1"
+      className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
     >
-      View More
+      <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
+
+        {/* 1 */}
+        <div className="col-span-1 row-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster1.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        {/* 2 */}
+        <div className="col-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster2.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        {/* 3 */}
+        <div className="col-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster3.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        {/* 4 */}
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster4.png" alt="" fill className="object-cover" />
+        </div>
+
+        {/* 5 */}
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster5.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        {/* 6 */}
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster6.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+      </div>
     </Link>
-  </div>
+
+    {/* ================= CARD 2 ================= */}
+    <Link
+      href="/posters/view?set=card2"
+      className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
+    >
+      <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
+
+        <div className="col-span-1 row-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster7.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="col-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster8.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="col-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster9.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster10.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster11.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster12.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+      </div>
+    </Link>
+
+    {/* ================= CARD 3 ================= */}
+    <Link
+      href="/posters/view?set=card3"
+      className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
+    >
+      <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
+
+        <div className="col-span-1 row-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster13.png" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="col-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster14.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="col-span-2 relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster15.png" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster1.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster2.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+        <div className="relative rounded-xl overflow-hidden">
+          <Image src="/posters/poster3.jpeg" alt="" fill className="object-cover" />
+        </div>
+
+      </div>
+    </Link>
+
+  </div><br></br>
+
+  {/* ✅ VIEW MORE BUTTON */}
+<div className="flex justify-center">
+  <Link
+    href="/posters"
+    className="
+      px-8 py-3
+      rounded-full
+      border border-black/40
+      text-sm font-medium
+      text-black
+      hover:bg-blue-600
+      hover:border-blue-600
+      hover:text-white
+      transition
+    "
+  >
+    View More
+  </Link>
+</div>
+
 </section>
 
+
+
 {/* ================= MOBILE APPLICATIONS ================= */}
-<section className="mt-15">
-  <div className="flex items-center justify-between mb-8">
+<section className="mt-6">
+  <div className="flex items-center justify-between mb-4">
     <h3 className="text-lg font-semibold">Mobile Applications</h3>
   </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-
-    {/* APP 1 */}
-  <div className="group relative overflow-hidden rounded-xl bg-white p-4 border border-black transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-[0_40px_100px_rgba(0,0,0,0.25)]">
-
-  <Image
-    src="/mobile/development1.jpeg"
-    alt="Mobile App Development 1"
-    width={500}
-    height={900}
-    className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-  />
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+  {mobileApps.map((app, i) => (
+    <div
+      key={i}
+      onClick={() => setActiveMobileApp(app)}
+      className="
+        cursor-pointer
+        group relative overflow-hidden
+        rounded-xl bg-white 
+        border border-black
+        transition-all duration-700
+        hover:-translate-y-4
+        hover:shadow-[0_40px_100px_rgba(0,0,0,0.25)]
+      "
+    >
+      <Image
+        src={app.image}
+        alt={app.title}
+        width={800}
+        height={1400}
+        className="
+          w-full h-auto object-contain
+          transition-transform duration-500
+          group-hover:scale-105
+        "
+      />
+    </div>
+  ))}
 </div>
-
-
-    {/* APP 2 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white p-4 border border-black transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-[0_40px_100px_rgba(0,0,0,0.25)]">
-
-  <Image
-    src="/mobile/development2.jpeg"
-    alt="Mobile App Development 1"
-    width={500}
-    height={900}
-    className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-  />
-</div>
-
-
-    {/* APP 3 */}
-   <div className="group relative overflow-hidden rounded-xl bg-white p-4 border border-black transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-[0_40px_100px_rgba(0,0,0,0.25)]">
-
-  <Image
-    src="/mobile/development3.jpeg"
-    alt="Mobile App Development 1"
-    width={500}
-    height={900}
-    className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-  />
-</div>
-
-
-    {/* APP 4 */}
-   <div className="group relative overflow-hidden rounded-xl bg-white p-4 border border-black transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-[0_40px_100px_rgba(0,0,0,0.25)]">
-
-  <Image
-    src="/mobile/development4.jpeg"
-    alt="Mobile App Development 1"
-    width={500}
-    height={900}
-    className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-  />
-</div>
-
-  </div><br></br>
+<br></br>
   {/* VIEW MORE */}
   <div className="flex justify-center">
     <Link
@@ -773,143 +960,20 @@ const [phone, setPhone] = useState("");
   </div>
 </section>
 
-
-
-
-          {/* OUR WEBSITES */}
-          <section className="mt-10">
-            <h3 className="text-lg font-semibold mb-6">Websites</h3>
-
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {[
-  {
-    name: "www.matamix.com",
-    url: "https://matamix.com",
-    image: "/projects/collage.jpg",
-    video: "/video/matamix_video.mp4",
-  },
-  {
-    name: "www.vitara.com",
-    url: "https://nithuna1.github.io/vitara/index.html",
-    image: "/services/business.jpg",
-    video: "/video/vitara_video.mp4",
-  },
-  {
-    name: "www.domain.com",
-    url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE",
-    image: "/services/digital2.jpg",
-    video: "/video/domain_video.mp4",
-  },
-]
-.map((site, i) => (
-
-                <a
-  key={i}
-  href={site.url}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="group block"
->
-  <div className="relative h-[220px] overflow-hidden rounded-xl border border-black/10 bg-black">
-
-    {/* STATIC IMAGE */}
-    <Image
-      src={site.image}
-      alt={site.name}
-      fill
-      className="
-        object-cover
-        transition-opacity duration-500
-        group-hover:opacity-0
-      "
-    />
-
-    {/* VIDEO PREVIEW (ONLY IF EXISTS) */}
-    {site.video && (
-      <video
-        src={site.video}
-        muted
-        loop
-        playsInline
-        autoPlay
-        className="
-          absolute inset-0
-          w-full h-full
-          object-cover
-          scale-[1.05]
-          opacity-0
-          transition-opacity duration-500
-          group-hover:opacity-100
-          pointer-events-none
-        "
-      />
-    )}
-
-    {/* FALLBACK: LIVE WEBSITE PREVIEW */}
-    {!site.video && (
-      <iframe
-        src={site.url}
-        className="
-          absolute inset-0
-          w-full h-full
-          scale-[1.15]
-          opacity-0
-          transition-opacity duration-500
-          group-hover:opacity-100
-          pointer-events-none
-        "
-      />
-    )}
-
-  </div>
-
-  <div className="mt-3 flex justify-between text-sm">
-    <span className="font-medium">{site.name}</span>
-    <span className="text-black/40 group-hover:text-black transition">
-      ↗
-    </span>
-  </div>
-</a>
-
-
-              ))}
-            </div><br></br>
-
-            {/* ✅ ONE VIEW MORE BUTTON (FOR WEBSITE PAGE) */}
-<div className="flex justify-center">
-  <Link
-    href="/websites"
-    className="
-      px-8 py-3
-      rounded-full
-      border border-black/40
-      text-sm font-medium
-      text-black
-      hover:bg-blue-600
-      hover:border-blue-600
-      hover:text-white
-      transition
-    "
-  >
-    View More
-  </Link>
-</div>
-
-          </section>
-
-         {/* ================= WHATSAPP INTEREST CTA ================= */}
-<section className="mt-10 mb-20">
+         
+        {/* ================= WHATSAPP INTEREST CTA ================= */}
+<section className="mt-2 mb-6">
   <div className="max-w-3xl mx-auto px-6 text-center">
 
-    <h3 className="text-2xl font-semibold tracking-tight mb-3">
+    <h3 className="text-2xl font-semibold tracking-tight mb-2">
       Ready to explore a collaboration?
     </h3>
 
-    <p className="text-black/70 mb-10 max-w-xl mx-auto">
+    <p className="text-black/70 mb-4 max-w-xl mx-auto">
       Let us know your interest and our team will reach out to discuss the next steps.
     </p>
 
-    <div className="flex flex-col sm:flex-row gap-5 justify-center">
+    <div className="flex flex-col sm:flex-row gap-4 justify-center">
 
       {/* INTERESTED */}
       <button
@@ -922,41 +986,36 @@ const [phone, setPhone] = useState("");
           );
         }}
         className="
-          px-10 py-4 rounded-full
+          px-8 py-3 rounded-full
           bg-blue-600 text-white font-medium
           hover:bg-blue-800
           transition-all duration-300
-          shadow-[0_12px_32px_rgba(37,99,235,0.35)]
+          shadow-[0_10px_24px_rgba(37,99,235,0.30)]
         "
       >
         I’m Interested
       </button>
 
-      {/* NOT INTERESTED */}
-      <button
-        onClick={() => {
-          const message =
-            "Hello Matamix International,%0A%0AI am not looking to proceed at this time. Thank you.";
-          window.open(
-            `https://wa.me/919605000694?text=${message}`,
-            "_blank"
-          );
-        }}
+      {/* FOLLOW ON INSTAGRAM */}
+      <a
+        href="https://www.instagram.com/matamix_international/"
+        target="_blank"
+        rel="noopener noreferrer"
         className="
-          px-10 py-4 rounded-full
-          border border-black/30
-          text-black font-medium
-          hover:bg-black hover:text-white
+          inline-flex items-center justify-center
+          px-8 py-3 rounded-full
+          border border-blue-600
+          text-blue-600 font-medium
+          hover:bg-blue-600 hover:text-white
           transition-all duration-300
         "
       >
-        Maybe Later
-      </button>
+        Follow Us
+      </a>
 
     </div>
   </div>
 </section>
-
 
         </main>
 
@@ -1108,98 +1167,133 @@ ${message}
 
       )}
 
+     {/* ================= MOBILE APPLICATION POPUP ================= */}
+{activeMobileApp && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+    {/* BACKDROP */}
+    <div
+      className="absolute inset-0 bg-black/70"
+      onClick={() => setActiveMobileApp(null)}
+    />
+
+    {/* MODAL */}
+    <div
+      className="
+        relative bg-white
+        max-w-6xl w-full h-[85vh]
+        rounded-2xl overflow-hidden
+        flex
+      "
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* CLOSE */}
+      <button
+        onClick={() => setActiveMobileApp(null)}
+        className="absolute top-5 right-5 z-10
+        text-xl text-black/60 hover:text-black"
+      >
+        <FiX />
+      </button>
+
+      {/* LEFT – APP PREVIEW */}
+      <div className="w-1/2 bg-gray-50 flex items-center justify-center p-8">
+        <Image
+          src={activeMobileApp.image}
+          alt={activeMobileApp.title}
+          width={420}
+          height={840}
+          className="object-contain drop-shadow-xl"
+        />
+      </div>
+
+      {/* RIGHT – DETAILS */}
+      <div className="w-1/2 p-10 overflow-y-auto">
+        {/* TITLE */}
+        <h2 className="text-2xl font-semibold mb-3">
+          {activeMobileApp.title}
+        </h2>
+
+        {/* SHORT DESCRIPTION */}
+        <p className="text-sm text-black/60 mb-4">
+          {activeMobileApp.shortDescription}
+        </p>
+
+        {/* FULL DESCRIPTION */}
+        <p className="text-black/80 leading-relaxed mb-6">
+          {activeMobileApp.fullDescription}
+        </p>
+
+        {/* FEATURES */}
+        <div className="mb-6">
+          <h4 className="font-semibold mb-3">Key Features</h4>
+          <ul className="space-y-2 text-sm text-black/80">
+            {activeMobileApp.features.map((feature, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="mt-1 w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* BEST FOR */}
+        <div className="border-t pt-4">
+          <p className="text-sm">
+            <span className="font-semibold">Best For:</span>{" "}
+            <span className="text-black/70">
+              {activeMobileApp.bestFor}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
 
       </section>
 
-      {/* ================= FOOTER ================= */}
-<footer className="bg-[#022549] text-white mt-20">
+    {/* ================= FOOTER ================= */}
+<footer className="bg-[#022549] text-white mt-8">
+  <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
-  <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+    <div
+      className="
+        inline-flex flex-col items-center gap-2
+        px-7 py-4 rounded-xl
+        bg-white/10 backdrop-blur
+        border border-white/20
+        shadow-md
+      "
+    >
+     {/* PHONE */}
+<p className="text-sm font-medium text-white">
+  📞{" "}
+  <a
+    href="tel:+91 9605 000 694"
+    className="hover:underline"
+  >
+    +91 9605 000 694
+  </a>
+</p>
 
-    {/* BRAND */}
-    <div>
-      <h3 className="text-lg font-semibold mb-3">
-        Matamix International
-      </h3>
 
-      <p className="text-sm text-white/70 leading-relaxed">
-        A digital-first creative agency specializing in UI/UX design,
-        web development, mobile applications, and digital marketing.
+      {/* EMAIL */}
+      <p className="text-sm font-medium">
+        ✉️{" "}
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white hover:underline"
+        >
+          info@matamix.com
+        </a>
       </p>
     </div>
 
-    {/* CONTACT */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Contact
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li>Kinfra, Ramanattukara</li>
-        <li>Feroke, Kozhikode</li>
-        <li>+91 9605 000 694</li>
-        <li>
-          <a href="mailto:info@matamix.com" className="hover:text-white">
-            info@matamix.com
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    {/* QUICK LINKS */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Quick Links
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li><Link href="/services">Services</Link></li>
-        <li><Link href="/projects">Projects</Link></li>
-        <li><Link href="/applications">Applications</Link></li>
-        <li><Link href="/websites">Websites</Link></li>
-        <li><Link href="/posters">Posters</Link></li>
-      </ul>
-    </div>
-
-    {/* SOCIAL */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Social
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li>
-          <a
-            href="https://www.instagram.com/matamix_international/"
-            target="_blank"
-          >
-            Instagram
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.facebook.com/profile.php?id=61585201327065"
-            target="_blank"
-          >
-            Facebook
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://share.google/FdV8fbarNVjygU45l"
-            target="_blank"
-          >
-            LinkedIn
-          </a>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-
-  {/* BOTTOM BAR */}
-  <div className="border-t border-white/10 py-5 text-center text-xs text-white/60">
-    © {new Date().getFullYear()} Matamix International. All rights reserved.
   </div>
 </footer>
 

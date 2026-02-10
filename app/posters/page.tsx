@@ -81,10 +81,17 @@ const [phone, setPhone] = useState("");
                     Work
                   </Link>
       
-                  <Link href="/services" className="text-black/50 hover:text-black pb-2">
-                    Services
+                  <Link href="/websites" className="text-black/50 hover:text-black pb-2">
+                    Websites
                   </Link>
       
+                   <Link
+                    href="/services"
+                    className="text-black/50 hover:text-black pb-2"
+                  >
+                    Services
+                  </Link>
+
                    <Link
                     href="/projects"
                     className="text-black/50 hover:text-black pb-2"
@@ -104,13 +111,6 @@ const [phone, setPhone] = useState("");
                     className="text-black/50 hover:text-black pb-2"
                   >
                     Applications
-                  </Link>
-      
-                  <Link
-                    href="/websites"
-                    className="text-black/50 hover:text-black pb-2"
-                  >
-                    Websites
                   </Link>
       
                 </div>
@@ -190,72 +190,70 @@ const [phone, setPhone] = useState("");
       ">
       
              
-       {/* ================= RIGHT CONTENT ================= */}
+    {/* ================= RIGHT CONTENT ================= */}
 <main className="col-span-12">
 
   {/* POSTERS */}
-  <h3 className="text-lg font-semibold mb-6">Posters</h3>
+  <h3 className="text-lg font-semibold mb-5">
+    Creative Concepts
+  </h3>
 
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-
-    {/* POSTER 1 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster1.jpeg" alt="Poster 1" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 2 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster2.jpeg" alt="Poster 2" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 3 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster3.jpeg" alt="Poster 3" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 4 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster4.png" alt="Poster 4" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 5 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster5.jpeg" alt="Poster 5" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 6 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster6.jpeg" alt="Poster 6" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 7 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster7.jpeg" alt="Poster 7" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 8 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster8.jpeg" alt="Poster 8" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 9 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster9.jpeg" alt="Poster 9" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 10 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster10.jpeg" alt="Poster 10" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
-    {/* POSTER 11 */}
-    <div className="group relative overflow-hidden rounded-xl bg-white transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-      <Image src="/posters/poster11.jpeg" alt="Poster 11" width={600} height={900} className="w-full h-[380px] object-contain transition-transform duration-700 group-hover:scale-105" />
-    </div>
-
+  <div
+    className="
+      grid
+      grid-cols-1
+      sm:grid-cols-2
+      md:grid-cols-3
+      gap-x-6
+      gap-y-6
+    "
+  >
+    {[
+      "poster1.jpeg",
+      "poster2.jpeg",
+      "poster3.jpeg",
+      "poster4.png",
+      "poster5.jpeg",
+      "poster6.jpeg",
+      "poster7.jpeg",
+      "poster8.jpeg",
+      "poster9.jpeg",
+      "poster10.jpeg",
+      "poster11.jpeg",
+      "poster12.jpeg",
+      "poster13.png",
+      "poster14.jpeg",
+      "poster15.png",
+    ].map((poster, i) => (
+      <div
+        key={i}
+        className="
+          group
+          relative
+          w-full
+          aspect-[2/3]     /* ✅ uniform height */
+          rounded-xl
+          overflow-hidden
+          bg-white
+        "
+      >
+        <Image
+          src={`/posters/${poster}`}
+          alt={`Poster ${i + 1}`}
+          fill
+          className="
+            object-cover     /* ✅ FULL IMAGE */
+            transition-transform
+            duration-500
+            group-hover:scale-105
+          "
+          priority={i < 3}
+        />
+      </div>
+    ))}
   </div>
-</main>
 
+</main>
 
          {contactOpen && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
@@ -361,97 +359,46 @@ ${message}
       </section>
 
       {/* ================= FOOTER ================= */}
-     <footer className="bg-[#022549] text-white mt-20">
+<footer className="bg-[#022549] text-white mt-14">
+  <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
-  <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+    <div
+      className="
+        inline-flex flex-col items-center gap-2
+        px-7 py-4 rounded-xl
+        bg-white/10 backdrop-blur
+        border border-white/20
+        shadow-md
+      "
+    >
+     {/* PHONE */}
+<p className="text-sm font-medium text-white">
+  📞{" "}
+  <a
+    href="tel:+91 9605 000 694"
+    className="hover:underline"
+  >
+    +91 9605 000 694
+  </a>
+</p>
 
-    {/* BRAND */}
-    <div>
-      <h3 className="text-lg font-semibold mb-3">
-        Matamix International
-      </h3>
 
-      <p className="text-sm text-white/70 leading-relaxed">
-        A digital-first creative agency specializing in UI/UX design,
-        web development, mobile applications, and digital marketing.
+      {/* EMAIL */}
+      <p className="text-sm font-medium">
+        ✉️{" "}
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white hover:underline"
+        >
+          info@matamix.com
+        </a>
       </p>
     </div>
 
-    {/* CONTACT */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Contact
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li>Kinfra, Ramanattukara</li>
-        <li>Feroke, Kozhikode</li>
-        <li>+91 9605 000 694</li>
-        <li>
-          <a href="mailto:info@matamix.com" className="hover:text-white">
-            info@matamix.com
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    {/* QUICK LINKS */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Quick Links
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li><Link href="/services">Services</Link></li>
-        <li><Link href="/projects">Projects</Link></li>
-        <li><Link href="/applications">Applications</Link></li>
-        <li><Link href="/websites">Websites</Link></li>
-        <li><Link href="/posters">Posters</Link></li>
-      </ul>
-    </div>
-
-    {/* SOCIAL */}
-    <div>
-      <h4 className="text-sm font-semibold uppercase mb-3 text-white/80">
-        Social
-      </h4>
-
-      <ul className="space-y-2 text-sm text-white/70">
-        <li>
-          <a
-            href="https://www.instagram.com/matamix_international/"
-            target="_blank"
-          >
-            Instagram
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.facebook.com/profile.php?id=61585201327065"
-            target="_blank"
-          >
-            Facebook
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://share.google/FdV8fbarNVjygU45l"
-            target="_blank"
-          >
-            LinkedIn
-          </a>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-
-  {/* BOTTOM BAR */}
-  <div className="border-t border-white/10 py-5 text-center text-xs text-white/60">
-    © {new Date().getFullYear()} Matamix International. All rights reserved.
   </div>
 </footer>
-
 {/* ================= FLOATING ACTION BUTTON ================= */}
 <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
 
