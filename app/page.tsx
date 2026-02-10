@@ -228,14 +228,19 @@ const [phone, setPhone] = useState("");
 
 
   return (
-  <div className="
-  min-h-screen
-  text-black
-  bg-gradient-to-br
-  from-[#1e293b]
-  via-[#e0e7ff]
-  to-[#ffffff]
-">
+  <div
+  className="
+    min-h-screen
+    w-full
+    overflow-x-hidden   /* 👈 MOST IMPORTANT */
+    text-black
+    bg-gradient-to-br
+    from-[#1e293b]
+    via-[#e0e7ff]
+    to-[#ffffff]
+  "
+>
+
 
 
      {/* ================= COVER ================= */}
@@ -263,9 +268,17 @@ const [phone, setPhone] = useState("");
 
       {/* ================= PROFILE STRIP ================= */}
      <section className="relative pt-16 bg-transparent">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 
-          <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
+
+          <div className="
+  relative
+  -mt-16 sm:-mt-24 md:-mt-32
+  w-24 h-24 sm:w-28 sm:h-28
+  rounded-full overflow-hidden
+  border-[4px] border-white
+">
+
             <Image
               src="/projects/logo.jpg"
               alt="Matamix"
@@ -285,7 +298,8 @@ const [phone, setPhone] = useState("");
 
       {/* ================= NAVBAR ================= */}
       <section className="border-b border-black/10 bg-transparent">
-        <div className="max-w-7xl mx-auto px-8">
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+
           <div className="flex gap-8 py-6 text-sm">
 
             <Link
@@ -338,7 +352,7 @@ const [phone, setPhone] = useState("");
 
       {/* ================= ABOUT ================= */}
 + <section className="relative py-10">
-  <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-12 items-center">
+  <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
     {/* LEFT – TEXT */}
     <div>
@@ -909,38 +923,47 @@ const [phone, setPhone] = useState("");
     <h3 className="text-lg font-semibold">Mobile Applications</h3>
   </div>
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-  {mobileApps.map((app, i) => (
-    <div
-      key={i}
-      onClick={() => setActiveMobileApp(app)}
-      className="
-        cursor-pointer
-        group relative overflow-hidden
-        rounded-xl bg-white 
-        border border-black
-        transition-all duration-700
-        hover:-translate-y-4
-        hover:shadow-[0_40px_100px_rgba(0,0,0,0.25)]
-      "
-    >
-      <Image
-        src={app.image}
-        alt={app.title}
-        width={800}
-        height={1400}
+  <div
+  className="
+    grid
+    justify-center
+    grid-cols-[repeat(auto-fit,minmax(260px,1fr))]
+    gap-x-2 gap-y-8
+  "
+>
+
+    {mobileApps.map((app, i) => (
+      <div
+        key={i}
+        onClick={() => setActiveMobileApp(app)}
         className="
-          w-full h-auto object-contain
-          transition-transform duration-500
-          group-hover:scale-105
+          cursor-pointer
+          group
+          flex justify-center   /* 👈 center phones */
+          transition-all duration-500
+          hover:-translate-y-3
         "
-      />
-    </div>
-  ))}
-</div>
-<br></br>
+      >
+        <Image
+          src={app.image}
+          alt={app.title}
+          width={900}           /* 👈 slightly bigger */
+          height={1600}
+          className="
+            w-full
+            max-w-[260px] md:max-w-[280px] lg:max-w-[300px] /* 👈 bigger phones */
+            h-auto
+            object-contain
+            transition-transform duration-500
+            group-hover:scale-[1.06]
+          "
+        />
+      </div>
+    ))}
+  </div>
+
   {/* VIEW MORE */}
-  <div className="flex justify-center">
+  <div className="flex justify-center mt-8">
     <Link
       href="/applications"
       className="
@@ -956,6 +979,7 @@ const [phone, setPhone] = useState("");
     </Link>
   </div>
 </section>
+
 
          
         {/* ================= WHATSAPP INTEREST CTA ================= */}
