@@ -85,36 +85,47 @@ const [phone, setPhone] = useState("");
     </div>
   </section>
       
-          {/* ================= PROFILE STRIP ================= */}
-          <section className="relative pt-16 bg-transparent">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          
-              {/* LOGO */}
-              <div
-                className="
-                  relative
-                  -mt-22 md:-mt-30
-                  w-14 h-14 md:w-24 md:h-24
-                  rounded-full overflow-hidden
-                  border-[3px] md:border-[5px]
-                  border-white
-                "
-              >
-                <Image
-                  src="/projects/logo.jpg"
-                  alt="Matamix"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-          
-              <h1 className="text-3xl font-semibold mt-4">
-                Matamix International
-              </h1>
-          
-            </div>
-          </section>
+         {/* ================= PROFILE STRIP ================= */}
+<section className="relative pt-12 md:pt-16 bg-transparent">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+
+    {/* LOGO */}
+    <div
+      className="
+        relative
+        -mt-14 md:-mt-30
+        w-12 h-12 md:w-24 md:h-24
+        mx-auto md:mx-0
+        rounded-full overflow-hidden
+        border-[3px] md:border-[5px]
+        border-white
+      "
+    >
+      <Image
+        src="/projects/logo.jpg"
+        alt="Matamix"
+        fill
+        className="object-cover"
+        priority
+      />
+    </div>
+
+    {/* TITLE */}
+    <h1
+      className="
+        mt-3 md:mt-4
+        text-xl md:text-3xl
+        font-semibold
+        text-center md:text-left
+        leading-tight
+      "
+    >
+      Matamix International
+    </h1>
+
+  </div>
+</section>
+
           
           
 
@@ -254,8 +265,13 @@ const [phone, setPhone] = useState("");
             {applications.map((app, i) => (
               <div
                 key={i}
-                className="group bg-white rounded-xl border border-black transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]"
-              >
+                className="
+  group
+  transition-all
+  duration-500
+  hover:-translate-y-3
+  hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
+
                 <div className="group cursor-pointer">
   {/* IMAGE ONLY */}
   <div className="relative w-full h-[360px]">
