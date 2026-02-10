@@ -785,8 +785,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
     {/* ================= CARD 1 ================= */}
-    <Link
-      href="/posters/view?set=card1"
+    <Link href="/posters/view/card1"
       className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
     >
       <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
@@ -825,8 +824,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     </Link>
 
     {/* ================= CARD 2 ================= */}
-    <Link
-      href="/posters/view?set=card2"
+   <Link href="/posters/view/card2"
       className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
     >
       <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
@@ -859,8 +857,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     </Link>
 
     {/* ================= CARD 3 ================= */}
-    <Link
-      href="/posters/view?set=card3"
+    <Link href="/posters/view/card3"
       className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
     >
       <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">

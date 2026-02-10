@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -41,7 +39,7 @@ export default function PosterViewPage({
     <main className="min-h-screen bg-gradient-to-br from-[#e0e7ff] to-white px-6 py-6">
 
       {/* HEADER */}
-      <div className="max-w-6xl mx-auto mb-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto mb-6 flex items-center justify-between">
         <h1 className="text-xl md:text-2xl font-semibold capitalize">
           Creative Design – Selected Works
         </h1>
@@ -52,25 +50,24 @@ export default function PosterViewPage({
       </div>
 
       {/* POSTER GRID */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-4">
-        {images.map((img, i) => (
-          <div
-            key={i}
-            className="relative aspect-[3/4] rounded-lg overflow-hidden"
-          >
-            <Image
-              src={img}
-              alt={`Poster ${i + 1}`}
-              fill
-              className="object-cover"
-              priority={i < 3}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* EMPTY STATE */}
-      {images.length === 0 && (
+      {images.length > 0 ? (
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-4">
+          {images.map((img, i) => (
+            <div
+              key={i}
+              className="relative aspect-[3/4] rounded-lg overflow-hidden"
+            >
+              <Image
+                src={img}
+                alt={`Poster ${i + 1}`}
+                fill
+                className="object-cover"
+                priority={i < 3}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
         <p className="text-center text-gray-500 mt-16">
           No posters found for this set.
         </p>
