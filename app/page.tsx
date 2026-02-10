@@ -238,15 +238,12 @@ const [phone, setPhone] = useState("");
 ">
 
 
-
-
-
      {/* ================= COVER ================= */}
 <section className="relative">
   <div
     className="
       relative
-      h-[220px]          /* mobile */
+      h-[175px]          /* mobile */
       sm:h-[280px]       /* small tablets */
       md:h-[340px]       /* tablets */
       lg:h-[380px]       /* desktop */
