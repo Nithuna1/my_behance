@@ -7,6 +7,7 @@ import { FiMail, FiX } from "react-icons/fi";
 import FollowButton from "./components/FollowButton";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import { FiMenu } from "react-icons/fi";
 
 
 /* ✅ ADD TYPE (required for popup) */
@@ -49,6 +50,7 @@ const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [message, setMessage] = useState("");
 const [phone, setPhone] = useState("");
+const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
 
@@ -266,6 +268,7 @@ const [phone, setPhone] = useState("");
 </section>
 
 
+
    {/* ================= PROFILE STRIP ================= */}
 <section className="relative pt-16 bg-transparent">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
@@ -296,7 +299,6 @@ const [phone, setPhone] = useState("");
 
   </div>
 </section>
-
 
 
       {/* ================= NAVBAR (DESKTOP ONLY) ================= */}
@@ -917,65 +919,70 @@ const [phone, setPhone] = useState("");
 
 
 {/* ================= MOBILE APPLICATIONS ================= */}
-<section className="mt-6">
-  <div className="flex items-center justify-between mb-4">
-    <h3 className="text-lg font-semibold">Mobile Applications</h3>
-  </div>
+<section className="mt-10">
+  <div className="max-w-[1600px] mx-auto px-4 md:px-6">
 
-  <div
+    <div className="flex items-center justify-between mb-6">
+      <h3 className="text-lg font-semibold">Mobile Applications</h3>
+    </div>
+
+    <div
   className="
     grid
-    justify-center
-    grid-cols-[repeat(auto-fit,minmax(260px,1fr))]
-    gap-x-2 gap-y-8
+    grid-cols-1
+    sm:grid-cols-4
+    md:grid-cols-4
+    gap-x-0       /* 👈 reduce horizontal gap */
+    gap-y-4        /* 👈 reduce vertical gap */
+    px-0           /* 👈 less side padding = bigger images */
   "
 >
 
-    {mobileApps.map((app, i) => (
-      <div
-        key={i}
-        onClick={() => setActiveMobileApp(app)}
+      {mobileApps.map((app, i) => (
+        <div
+          key={i}
+          onClick={() => setActiveMobileApp(app)}
+          className="
+            cursor-pointer
+            group
+            transition-transform duration-500
+            hover:-translate-y-3
+          "
+        >
+          <Image
+            src={app.image}
+            alt={app.title}
+            width={900}
+            height={1800}
+            className="
+              w-full
+              h-auto
+              object-contain
+              transition-transform duration-500
+              group-hover:scale-[1.03]
+            "
+          />
+        </div>
+      ))}
+    </div>
+
+    {/* VIEW MORE */}
+    <div className="flex justify-center mt-12">
+      <Link
+        href="/applications"
         className="
-          cursor-pointer
-          group
-          flex justify-center   /* 👈 center phones */
+          px-8 py-3 rounded-full
+          border border-black/40
+          text-sm font-medium text-black
           transition-all duration-500
-          hover:-translate-y-3
+          hover:bg-blue-600 hover:border-blue-600 hover:text-white
+          hover:shadow-[0_10px_30px_rgba(37,99,235,0.4)]
         "
       >
-        <Image
-          src={app.image}
-          alt={app.title}
-          width={900}           /* 👈 slightly bigger */
-          height={1600}
-          className="
-            w-full
-            max-w-[260px] md:max-w-[280px] lg:max-w-[300px] /* 👈 bigger phones */
-            h-auto
-            object-contain
-            transition-transform duration-500
-            group-hover:scale-[1.06]
-          "
-        />
-      </div>
-    ))}
-  </div>
+        View More
+      </Link>
+    </div>
 
-  {/* VIEW MORE */}
-  <div className="flex justify-center mt-8">
-    <Link
-      href="/applications"
-      className="
-        px-8 py-3 rounded-full
-        border border-black/40
-        text-sm font-medium text-black
-        transition-all duration-500
-        hover:bg-blue-600 hover:border-blue-600 hover:text-white
-        hover:shadow-[0_10px_30px_rgba(37,99,235,0.4)]
-      "
-    >
-      View More
-    </Link>
   </div>
 </section>
 
@@ -1271,6 +1278,30 @@ ${message}
 )}
 
 
+{/* ================= MOBILE MENU OVERLAY ================= */}
+{mobileMenuOpen && (
+  <div className="fixed inset-0 z-50 bg-white md:hidden">
+
+    {/* HEADER */}
+    <div className="flex items-center justify-between px-6 py-4 border-b">
+      <span className="font-semibold text-lg">Menu</span>
+      <button onClick={() => setMobileMenuOpen(false)}>
+        <FiX size={26} />
+      </button>
+    </div>
+
+    {/* LINKS */}
+    <nav className="flex flex-col gap-6 px-6 py-10 text-lg font-medium">
+      <Link href="/" onClick={() => setMobileMenuOpen(false)}>Work</Link>
+      <Link href="/websites" onClick={() => setMobileMenuOpen(false)}>Websites</Link>
+      <Link href="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+      <Link href="/projects" onClick={() => setMobileMenuOpen(false)}>Projects</Link>
+      <Link href="/posters" onClick={() => setMobileMenuOpen(false)}>Posters</Link>
+      <Link href="/applications" onClick={() => setMobileMenuOpen(false)}>Applications</Link>
+    </nav>
+
+  </div>
+)}
 
 
       </section>
