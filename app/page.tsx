@@ -274,7 +274,7 @@ const [phone, setPhone] = useState("");
     <div
       className="
         relative
-        -mt-20 md:-mt-30
+        -mt-22 md:-mt-30
         w-14 h-14 md:w-24 md:h-24
         rounded-full overflow-hidden
         border-[3px] md:border-[5px]
