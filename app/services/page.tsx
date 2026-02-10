@@ -141,26 +141,29 @@ const [phone, setPhone] = useState("");
        />
      </div>
    </section>
-      {/* ================= PROFILE STRIP ================= */}
-      <section className="relative pt-10 bg-transparent">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
-            <Image
-              src="/projects/logo.jpg"
-              alt="Matamix"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-
-          <h1 className="text-3xl font-semibold mt-4">
-            Matamix International
-          </h1>
-
-         
-        </div>
-      </section>
+   
+     {/* ================= PROFILE STRIP ================= */}
+         <section className="relative pt-16 bg-transparent">
+            <div className="max-w-7xl mx-auto px-8">
+    
+              <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
+                <Image
+                  src="/projects/logo.jpg"
+                  alt="Matamix"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+    
+              <h1 className="text-3xl font-semibold mt-4">
+                Matamix International
+              </h1>
+    
+             
+            </div>
+          </section>
+    
 
     {/* ================= NAVBAR (DESKTOP ONLY) ================= */}
 <section className="hidden md:block border-b border-black/10 bg-transparent">
