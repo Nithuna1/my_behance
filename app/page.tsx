@@ -246,12 +246,12 @@ const [phone, setPhone] = useState("");
      {/* ================= COVER ================= */}
 <section className="relative">
   <div
-   className="
+    className="
       relative
-      h-[55vh]           /* 👈 mobile hero height */
-      sm:h-[320px]
-      md:h-[380px]
-      lg:h-[420px]
+      h-[175px]          /* mobile */
+      sm:h-[280px]       /* small tablets */
+      md:h-[340px]       /* tablets */
+      lg:h-[380px]       /* desktop */
       w-full
     "
   >
@@ -288,58 +288,57 @@ const [phone, setPhone] = useState("");
         </div>
       </section>
 
-      {/* ================= NAVBAR ================= */}
-      <section className="border-b border-black/10 bg-transparent">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex gap-8 py-6 text-sm">
+      {/* ================= NAVBAR (DESKTOP ONLY) ================= */}
+<section className="hidden md:block border-b border-black/10 bg-transparent">
+  <div className="max-w-7xl mx-auto px-8">
+    <div className="flex gap-8 py-6 text-sm">
 
-            <Link
-              href="/"
-              className="font-semibold border-b-2 border-black pb-2"
-            >
-              Work
-            </Link>
+      <Link
+        href="/"
+        className="font-semibold border-b-2 border-black pb-2"
+      >
+        Work
+      </Link>
 
-            <Link
-              href="/websites"
-              className="text-black/50 hover:text-black pb-2"
-            >
-              Websites
-            </Link>
+      <Link
+        href="/websites"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Websites
+      </Link>
 
-             <Link
-              href="/services"
-              className="text-black/50 hover:text-black pb-2"
-            >
-              Services
-            </Link>
+      <Link
+        href="/services"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Services
+      </Link>
 
-            <Link
-              href="/projects"
-              className="text-black/50 hover:text-black pb-2"
-            >
-              Projects
-            </Link>
+      <Link
+        href="/projects"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Projects
+      </Link>
 
-             <Link
-              href="/posters"
-              className="text-black/50 hover:text-black pb-2"
-            >
-              Posters
-            </Link>
+      <Link
+        href="/posters"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Posters
+      </Link>
 
+      <Link
+        href="/applications"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Applications
+      </Link>
 
-            <Link
-              href="/applications"
-              className="text-black/50 hover:text-black pb-2"
-            >
-              Applications
-            </Link>
+    </div>
+  </div>
+</section>
 
-
-          </div>
-        </div>
-      </section>
 
       {/* ================= ABOUT ================= */}
 + <section className="relative py-10">
@@ -702,46 +701,44 @@ const [phone, setPhone] = useState("");
 
 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
   {projects.slice(0, 3).map((project, i) => (
-    <div
-      key={i}
-      onClick={() => setActiveProject(project)}
-      className="
-        group relative overflow-hidden rounded-xl cursor-pointer
-        transition-transform duration-300
-        hover:scale-[1.03]
-      "
-    >
-      {/* IMAGE */}
-     <div className="relative w-full h-[320px] overflow-hidden">
-  <Image
-    src={project.image}
-    alt={project.title}
-    fill
-    className="object-half-contain"
-  />
-</div>
-
-
-      {/* TEXT OVERLAY (NO BACKGROUND CARD) */}
-<div
+   <div
+  key={i}
+  onClick={() => setActiveProject(project)}
   className="
-    absolute inset-x-0 bottom-0
-    px-4 py-3
-    text-white text-sm
-    opacity-0 group-hover:opacity-100
-    transition
+    group relative cursor-pointer
+    transition-transform duration-300
+    hover:scale-[1.02]
   "
 >
- <p className="font-semibold text-black drop-shadow-md">
-  {project.title}
-</p>
+  {/* IMAGE */}
+  <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
+    <Image
+      src={project.image}
+      alt={project.title}
+      fill
+      className="object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
 
-  <p className="text-xs text-black/80 drop-shadow-md">
-    {project.author}
-  </p>
+  {/* TEXT OVERLAY */}
+  <div
+    className="
+      absolute inset-x-0 bottom-0
+      px-4 py-3
+      text-sm
+      opacity-0 group-hover:opacity-100
+      transition
+    "
+  >
+    <p className="font-semibold text-black drop-shadow-md">
+      {project.title}
+    </p>
+    <p className="text-xs text-black/70 drop-shadow-md">
+      {project.author}
+    </p>
+  </div>
 </div>
 
-    </div>
   ))}
 </div>
 

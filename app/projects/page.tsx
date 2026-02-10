@@ -127,37 +127,42 @@ const [phone, setPhone] = useState("");
   ];
 
   return (
-     <div className="
-  min-h-screen
-  text-black
-  bg-gradient-to-br
-  from-[#1e293b]
-  via-[#e0e7ff]
-  to-[#ffffff]
-">
-
-
+    <div
+      className="
+        min-h-screen
+        w-full
+        overflow-x-hidden   /* 👈 MOST IMPORTANT */
+        text-black
+        bg-gradient-to-br
+        from-[#1e293b]
+        via-[#e0e7ff]
+        to-[#ffffff]
+      "
+    >
+    
+    
+    
          {/* ================= COVER ================= */}
-             <section className="relative">
-               <div
-                 className="
-                   relative
-                   h-[220px]          /* mobile */
-                   sm:h-[280px]       /* small tablets */
-                   md:h-[340px]       /* tablets */
-                   lg:h-[380px]       /* desktop */
-                   w-full
-                 "
-               >
-                 <Image
-                   src="/projects/the_profile.jpeg"
-                   alt="Cover"
-                   fill
-                   priority
-                   className="object-cover"
-                 />
-               </div>
-             </section>
+    <section className="relative">
+      <div
+        className="
+          relative
+          h-[175px]          /* mobile */
+          sm:h-[280px]       /* small tablets */
+          md:h-[340px]       /* tablets */
+          lg:h-[380px]       /* desktop */
+          w-full
+        "
+      >
+        <Image
+          src="/projects/the_profile.jpeg"
+          alt="Cover"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
+    </section>
 
        {/* ================= PROFILE STRIP ================= */}
             <section className="relative pt-16 bg-transparent">
@@ -180,52 +185,57 @@ const [phone, setPhone] = useState("");
               </div>
             </section>
       
-            {/* ================= NAVBAR ================= */}
-            <section className="border-b border-black/10 bg-transparent">
-              <div className="max-w-7xl mx-auto px-8">
-                <div className="flex gap-8 py-6 text-sm">
-                  <Link href="/" className="text-black/50 hover:text-black pb-2">
-                    Work
-                  </Link>
+           {/* ================= NAVBAR (DESKTOP ONLY) ================= */}
+<section className="hidden md:block border-b border-black/10 bg-transparent">
+  <div className="max-w-7xl mx-auto px-8">
+    <div className="flex gap-8 py-6 text-sm">
 
-                   <Link
-                    href="/websites"
-                    className="text-black/50 hover:text-black pb-2"
-                  >
-                    Websites
-                  </Link>
-                  
-                  <Link
-                    href="/services"
-                    className="text-black/50 hover:text-black pb-2"
-                  >
-                    Services
-                  </Link>
-                   <Link
-                    href="/projects"
-                    className="font-semibold border-b-2 border-black pb-2"
-                  >
-                    Projects
-                  </Link>
+      <Link
+        href="/"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Work
+      </Link>
 
-                   <Link
-                    href="/posters"
-                    className="text-black/50 hover:text-black pb-2"
-                  >
-                    Posters
-                  </Link>
+      <Link
+        href="/websites"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Websites
+      </Link>
 
-                   <Link
-                    href="/applications"
-                    className="text-black/50 hover:text-black pb-2"
-                  >
-                    Applications
-                  </Link>
+      <Link
+        href="/services"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Services
+      </Link>
 
-                 
-                </div>
-              </div>
-            </section>
+      <Link
+        href="/projects"
+        className="font-semibold border-b-2 border-black pb-2"
+      >
+        Projects
+      </Link>
+
+      <Link
+        href="/posters"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Posters
+      </Link>
+
+      <Link
+        href="/applications"
+        className="text-black/50 hover:text-black pb-2"
+      >
+        Applications
+      </Link>
+
+    </div>
+  </div>
+</section>
+
 
             {/* ================= ABOUT PROJECTS ================= */}
 <section className="py-16">
