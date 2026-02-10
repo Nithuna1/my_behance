@@ -87,9 +87,9 @@ const [phone, setPhone] = useState("");
       
             {/* ================= PROFILE STRIP ================= */}
             <section className="relative pt-16 bg-transparent">
-              <div className="max-w-7xl mx-auto px-8">
-      
-                <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
+        <div className="max-w-7xl mx-auto px-1">
+
+          <div className="relative -mt-30 w-24 h-24 rounded-full overflow-hidden border-[5px] border-white">
                   <Image
                     src="/projects/logo.jpg"
                     alt="Matamix"

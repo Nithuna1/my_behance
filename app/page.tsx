@@ -209,7 +209,7 @@ const [phone, setPhone] = useState("");
 
   {
     title: "Analytics Dashboard App",
-    image: "/mobile/trade.png",
+    image: "/mobile/trade1.png",
     shortDescription:
       "Advanced analytics dashboard offering business insights, growth tracking, and performance reports.",
     fullDescription:
@@ -248,7 +248,7 @@ const [phone, setPhone] = useState("");
   <div
     className="
       relative
-      h-[175px]          /* mobile */
+      h-[170px]          /* mobile */
       sm:h-[280px]       /* small tablets */
       md:h-[340px]       /* tablets */
       lg:h-[380px]       /* desktop */
@@ -270,7 +270,7 @@ const [phone, setPhone] = useState("");
      <section className="relative pt-16 bg-transparent">
         <div className="max-w-7xl mx-auto px-1">
 
-          <div className="relative -mt-35 w-24 h-24 rounded-full overflow-hidden border-[5px] border-white">
+          <div className="relative -mt-30 w-24 h-24 rounded-full overflow-hidden border-[5px] border-white">
             <Image
               src="/projects/logo.jpg"
               alt="Matamix"
