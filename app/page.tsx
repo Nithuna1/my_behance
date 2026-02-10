@@ -246,12 +246,12 @@ const [phone, setPhone] = useState("");
      {/* ================= COVER ================= */}
 <section className="relative">
   <div
-    className="
+   className="
       relative
-      h-[175px]          /* mobile */
-      sm:h-[280px]       /* small tablets */
-      md:h-[340px]       /* tablets */
-      lg:h-[380px]       /* desktop */
+      h-[55vh]           /* 👈 mobile hero height */
+      sm:h-[320px]
+      md:h-[380px]
+      lg:h-[420px]
       w-full
     "
   >
@@ -268,17 +268,9 @@ const [phone, setPhone] = useState("");
 
       {/* ================= PROFILE STRIP ================= */}
      <section className="relative pt-16 bg-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="max-w-7xl mx-auto px-8">
 
-
-          <div className="
-  relative
-  -mt-16 sm:-mt-24 md:-mt-32
-  w-24 h-24 sm:w-28 sm:h-28
-  rounded-full overflow-hidden
-  border-[4px] border-white
-">
-
+          <div className="relative -mt-35 w-28 h-28 rounded-full overflow-hidden border-[5px] border-white">
             <Image
               src="/projects/logo.jpg"
               alt="Matamix"
@@ -298,8 +290,7 @@ const [phone, setPhone] = useState("");
 
       {/* ================= NAVBAR ================= */}
       <section className="border-b border-black/10 bg-transparent">
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-
+        <div className="max-w-7xl mx-auto px-8">
           <div className="flex gap-8 py-6 text-sm">
 
             <Link
@@ -352,7 +343,7 @@ const [phone, setPhone] = useState("");
 
       {/* ================= ABOUT ================= */}
 + <section className="relative py-10">
-  <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-12 items-center">
 
     {/* LEFT – TEXT */}
     <div>
