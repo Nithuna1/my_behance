@@ -8,6 +8,8 @@ import FollowButton from "./components/FollowButton";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
+import PostersSection from "./components/PostersSection";
+
 
 
 /* ✅ ADD TYPE (required for popup) */
@@ -59,6 +61,8 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [activeMobileApp, setActiveMobileApp] = useState<MobileApp | null>(null);
+  const [activeSet, setActiveSet] = useState<string | null>(null);
+
 
 
    /* ================= PROJECT DATA ================= */
@@ -778,141 +782,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 </div>
 
 
-{/* ================= POSTERS ================= */}
-<section className="mt-4">
-  <h3 className="text-lg font-semibold mb-6">Creative Design</h3>
-
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-    {/* ================= CARD 1 ================= */}
-    <Link href="/posters/view/card1"
-      className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
-    >
-      <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
-
-        {/* 1 */}
-        <div className="col-span-1 row-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster1.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        {/* 2 */}
-        <div className="col-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster2.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        {/* 3 */}
-        <div className="col-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster3.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        {/* 4 */}
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster4.png" alt="" fill className="object-cover" />
-        </div>
-
-        {/* 5 */}
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster5.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        {/* 6 */}
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster6.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-      </div>
-    </Link>
-
-    {/* ================= CARD 2 ================= */}
-   <Link href="/posters/view/card2"
-      className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
-    >
-      <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
-
-        <div className="col-span-1 row-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster7.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="col-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster8.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="col-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster9.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster10.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster11.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster12.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-      </div>
-    </Link>
-
-    {/* ================= CARD 3 ================= */}
-    <Link href="/posters/view/card3"
-      className="rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:border-black transition"
-    >
-      <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
-
-        <div className="col-span-1 row-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster13.png" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="col-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster14.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="col-span-2 relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster15.png" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster1.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster2.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-        <div className="relative rounded-xl overflow-hidden">
-          <Image src="/posters/poster3.jpeg" alt="" fill className="object-cover" />
-        </div>
-
-      </div>
-    </Link>
-
-  </div><br></br>
-
-  {/* ✅ VIEW MORE BUTTON */}
-<div className="flex justify-center">
-  <Link
-    href="/posters"
-    className="
-      px-8 py-3
-      rounded-full
-      border border-black/40
-      text-sm font-medium
-      text-black
-      hover:bg-blue-600
-      hover:border-blue-600
-      hover:text-white
-      transition
-    "
-  >
-    View More
-  </Link>
-</div>
-
-</section>
-
+<PostersSection />
 
 
 {/* ================= MOBILE APPLICATIONS ================= */}
@@ -964,7 +834,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     </div>
 
     {/* VIEW MORE */}
-    <div className="flex justify-center mt-12">
+    <div className="flex justify-center mt-5">
       <Link
         href="/applications"
         className="
