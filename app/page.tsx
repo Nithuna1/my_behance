@@ -757,11 +757,8 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 </div>
 
   ))}
-</div>
-
-<br />
-
-{/* ✅ VIEW MORE BUTTON */}
+</div><br />
+{/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
 <div className="flex justify-center">
   <Link
     href="/projects"
@@ -782,7 +779,31 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 </div>
 
 
-<PostersSection />
+
+<section className="mt-6">
+ 
+
+  {/* ✅ POSTERS GRID */}
+  <PostersSection />
+
+ {/* VIEW MORE */}
+    <div className="flex justify-center mt-5">
+      <Link
+        href="/posters"
+        className="
+          px-8 py-3 rounded-full
+          border border-black/40
+          text-sm font-medium text-black
+          transition-all duration-500
+          hover:bg-blue-600 hover:border-blue-600 hover:text-white
+          hover:shadow-[0_10px_30px_rgba(37,99,235,0.4)]
+        "
+      >
+        View More
+      </Link>
+    </div>
+</section>
+
 
 
 {/* ================= MOBILE APPLICATIONS ================= */}

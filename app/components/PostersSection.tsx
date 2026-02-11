@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 /* ================= POSTER DATA ================= */
 const posterSets: Record<string, string[]> = {
@@ -69,6 +70,7 @@ export default function PostersSection() {
                 </div>
               ))}
             </div>
+
           </div>
         </div>
       )}

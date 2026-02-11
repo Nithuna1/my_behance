@@ -125,7 +125,7 @@ const [phone, setPhone] = useState("");
      <div
        className="
          relative
-         h-[175px]          /* mobile */
+         h-[165px]          /* mobile */
          sm:h-[280px]       /* small tablets */
          md:h-[340px]       /* tablets */
          lg:h-[380px]       /* desktop */
