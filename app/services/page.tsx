@@ -102,6 +102,19 @@ const [phone, setPhone] = useState("");
       description:
         "We craft distinctive and cohesive brand identities that clearly communicate your vision, values, and personality in a competitive marketplace. Our approach begins with in-depth brand discovery and strategic positioning to understand your business goals, target audience, and market landscape. This foundation allows us to create a brand identity that is not only visually compelling but also strategically aligned with your long-term objectives.",
     },
+
+     {
+      title: "Video Production",
+      tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
+      images: [
+        "/services/video1.jpg",
+        "/services/video2.jpg",
+        "/services/video3.avif",
+        "/services/video4.avif",
+      ],
+      description:
+        "Our Video Production services bring your brand story to life through high-quality, cinematic visual content. From corporate films and product showcases to promotional campaigns and social media reels, we handle the complete production process — scripting, storyboarding, shooting, editing, and post-production. With professional equipment, creative direction, and strategic storytelling, we create compelling videos that engage audiences, strengthen brand identity, and drive measurable results across digital platforms.",
+    },
   ];
 
   return (

@@ -382,8 +382,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         create is driven by user needs, data insights, and modern technology.
       </p>
 
-      <Link
-        href="/"
+      <Link href="/clients"
         className="
           inline-flex items-center gap-2
           px-8 py-3 rounded-full
