@@ -438,126 +438,95 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         {/* ================= RIGHT CONTENT ================= */}
         <main className="col-span-12">
 
-           {/* OUR WEBSITES */}
-          <section className="mt-1">
-            <h3 className="text-lg font-semibold mb-6">Websites</h3>
+          {/* ================= OUR WEBSITES ================= */}
+<section className="mt-4">
+  <h3 className="text-lg font-semibold mb-5">Websites</h3>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {[
-  {
-    name: "www.matamix.com",
-    url: "https://matamix.com",
-    image: "/projects/collage.jpg",
-    video: "/video/matamix_video.mp4",
-  },
-  {
-    name: "www.vitara.com",
-    url: "https://nithuna1.github.io/vitara/index.html",
-    image: "/services/business.jpg",
-    video: "/video/vitara_video.mp4",
-  },
-  {
-    name: "www.domain.com",
-    url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE",
-    image: "/services/digital2.jpg",
-    video: "/video/domain_video.mp4",
-  },
-]
-.map((site, i) => (
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
 
-                <a
-  key={i}
-  href={site.url}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="group block"
->
-  <div className="relative h-[220px] overflow-hidden rounded-xl border border-black/10 bg-black">
+    {[
+      {
+        name: "www.matamix.com",
+        url: "https://matamix.com",
+        image: "/projects/collage.jpg",
+        video: "/video/matamix_video.mp4",
+      },
+      {
+        name: "www.vitara.com",
+        url: "https://nithuna1.github.io/vitara/index.html",
+        image: "/services/business.jpg",
+        video: "/video/vitara_video.mp4",
+      },
+      {
+        name: "www.domain.com",
+        url: "https://www.domainnow.com",
+        image: "/services/digital2.jpg",
+        video: "/video/domain_video.mp4",
+      },
+    ].map((site, i) => (
+      <a
+        key={i}
+        href={site.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block"
+      >
+        {/* IMAGE CONTAINER */}
+        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-black">
 
-    {/* STATIC IMAGE */}
-    <Image
-      src={site.image}
-      alt={site.name}
-      fill
+          {/* STATIC IMAGE */}
+          <Image
+            src={site.image}
+            alt={site.name}
+            fill
+            className="object-cover transition-opacity duration-500 group-hover:opacity-0"
+          />
+
+          {/* VIDEO PREVIEW */}
+          {site.video && (
+            <video
+              src={site.video}
+              muted
+              loop
+              playsInline
+              autoPlay
+              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"
+            />
+          )}
+
+        </div>
+
+        {/* TEXT */}
+        <div className="mt-3 flex justify-between items-center text-sm px-1">
+          <span className="font-medium truncate">
+            {site.name}
+          </span>
+          <span className="text-black/40 group-hover:text-black transition">
+            ↗
+          </span>
+        </div>
+      </a>
+    ))}
+
+  </div>
+
+  {/* VIEW MORE BUTTON */}
+  <div className="flex justify-center mt-6">
+    <Link
+      href="/websites"
       className="
-        object-cover
-        transition-opacity duration-500
-        group-hover:opacity-0
+        px-8 py-3 rounded-full
+        border border-black/40
+        text-sm font-medium text-black
+        hover:bg-blue-600 hover:border-blue-600 hover:text-white
+        transition
       "
-    />
-
-    {/* VIDEO PREVIEW (ONLY IF EXISTS) */}
-    {site.video && (
-      <video
-        src={site.video}
-        muted
-        loop
-        playsInline
-        autoPlay
-        className="
-          absolute inset-0
-          w-full h-full
-          object-cover
-          scale-[1.05]
-          opacity-0
-          transition-opacity duration-500
-          group-hover:opacity-100
-          pointer-events-none
-        "
-      />
-    )}
-
-    {/* FALLBACK: LIVE WEBSITE PREVIEW */}
-    {!site.video && (
-      <iframe
-        src={site.url}
-        className="
-          absolute inset-0
-          w-full h-full
-          scale-[1.15]
-          opacity-0
-          transition-opacity duration-500
-          group-hover:opacity-100
-          pointer-events-none
-        "
-      />
-    )}
-
+    >
+      View More
+    </Link>
   </div>
+</section>
 
-  <div className="mt-3 flex justify-between text-sm">
-    <span className="font-medium">{site.name}</span>
-    <span className="text-black/40 group-hover:text-black transition">
-      ↗
-    </span>
-  </div>
-</a>
-
-
-              ))}
-            </div><br></br>
-
-            {/* ✅ ONE VIEW MORE BUTTON (FOR WEBSITE PAGE) */}
-<div className="flex justify-center">
-  <Link
-    href="/websites"
-    className="
-      px-8 py-3
-      rounded-full
-      border border-black/40
-      text-sm font-medium
-      text-black
-      hover:bg-blue-600
-      hover:border-blue-600
-      hover:text-white
-      transition
-    "
-  >
-    View More
-  </Link>
-</div>
-
-          </section>
 
 
 
