@@ -531,7 +531,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
  {/* SERVICES */}
-     <h3 className="text-lg font-semibold mb-6">Services</h3>
+<h3 className="text-lg font-semibold mb-6">Services</h3>
 
 <div className="grid md:grid-cols-3 gap-6 mb-8">
   {[
@@ -545,8 +545,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         "/services/commerce3.webp",
       ],
       description:
-  "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. Our process includes in-depth market research, user behavior analysis, and conversion-focused UI/UX design to create stores that not only look great but drive measurable results. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue, improve customer retention, and compete confidently in the digital marketplace."
-,
+        "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue and improve customer retention.",
     },
     {
       title: "Ui/Ux Design",
@@ -558,8 +557,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         "/services/web4.jpg",
       ],
       description:
-  "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. We begin with deep research into user behavior, pain points, and market trends to define clear user flows and information architecture. Through wireframing, interactive prototyping, and usability testing, we design interfaces that are simple, efficient, and visually compelling. Every design decision is driven by clarity, accessibility, and conversion, ensuring users can navigate products or platforms effortlessly. By combining modern design systems, responsive layouts, and performance-focused implementation, we deliver scalable UI/UX solutions that enhance usability, strengthen brand perception, and drive long-term user engagement across web and mobile platforms."
-,
+        "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. Through research, wireframing, interactive prototyping, and usability testing, we design interfaces that are efficient, visually compelling, and conversion-driven. By combining modern design systems and responsive layouts, we deliver scalable UI/UX solutions that enhance usability and strengthen brand perception across web and mobile platforms.",
     },
     {
       title: "Digital Marketing",
@@ -570,9 +568,20 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         "/services/marketing.jpg",
         "/services/digital3.avif",
       ],
-     description:
-  "Our Digital Marketing services are built to help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven marketing strategies that combine search engine optimization (SEO), paid advertising, and social media marketing to maximize reach and ROI. From keyword research and on-page optimization to high-performing ad campaigns across Google, Meta, and social platforms, every initiative is designed to deliver real business impact. Using advanced analytics and performance tracking, we continuously monitor, test, and optimize campaigns to improve engagement, reduce acquisition costs, and scale results over time. By aligning creative content with audience behavior and business goals, we help brands build strong digital presence, generate quality leads, and achieve sustainable growth in competitive markets."
-,
+      description:
+        "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
+    },
+    {
+      title: "Video Production",
+      tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
+      images: [
+        "/services/video1.jpg",
+        "/services/video2.jpg",
+        "/services/video3.avif",
+        "/services/video4.avif",
+      ],
+      description:
+        "Our Video Production services bring your brand story to life through high-quality, cinematic visual content. From corporate films and product showcases to promotional campaigns and social media reels, we handle the complete production process — scripting, storyboarding, shooting, editing, and post-production. With professional equipment, creative direction, and strategic storytelling, we create compelling videos that engage audiences, strengthen brand identity, and drive measurable results across digital platforms.",
     },
   ].map((service, i) => (
     <div
@@ -605,10 +614,10 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
           </span>
         ))}
       </div>
-      
     </div>
   ))}
 </div>
+
 
 {/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
 <div className="flex justify-center">
