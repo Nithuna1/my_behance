@@ -822,22 +822,57 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 <section className="mt-10">
   <div className="max-w-[1600px] mx-auto px-4 md:px-6">
 
+    {/* HEADING */}
     <div className="flex items-center justify-between mb-6">
       <h3 className="text-lg font-semibold">Mobile Applications</h3>
     </div>
 
+    {/* ================= MOBILE SLIDER (ONLY MOBILE) ================= */}
     <div
-  className="
-    grid
-    grid-cols-1
-    sm:grid-cols-4
-    md:grid-cols-4
-    gap-x-0       /* 👈 reduce horizontal gap */
-    gap-y-4        /* 👈 reduce vertical gap */
-    px-0           /* 👈 less side padding = bigger images */
-  "
->
+      className="
+        flex
+        md:hidden
+        overflow-x-auto
+        gap-5
+        snap-x
+        snap-mandatory
+        pb-6
+        no-scrollbar
+      "
+    >
+      {mobileApps.map((app, i) => (
+        <div
+          key={i}
+          onClick={() => setActiveMobileApp(app)}
+          className="
+            min-w-[75%]
+            snap-center
+            flex-shrink-0
+            cursor-pointer
+            group
+            transition-transform duration-500
+          "
+        >
+          <Image
+            src={app.image}
+            alt={app.title}
+            width={900}
+            height={1800}
+            className="
+              w-full
+              h-auto
+              object-contain
+              rounded-2xl
+              transition-transform duration-500
+              group-hover:scale-[1.03]
+            "
+          />
+        </div>
+      ))}
+    </div>
 
+    {/* ================= DESKTOP GRID ================= */}
+    <div className="hidden md:grid md:grid-cols-4 gap-6">
       {mobileApps.map((app, i) => (
         <div
           key={i}
@@ -866,8 +901,8 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       ))}
     </div>
 
-    {/* VIEW MORE */}
-    <div className="flex justify-center mt-5">
+    {/* ================= VIEW MORE BUTTON ================= */}
+    <div className="flex justify-center mt-6">
       <Link
         href="/applications"
         className="
@@ -885,7 +920,6 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   </div>
 </section>
-
 
          
         {/* ================= WHATSAPP INTEREST CTA ================= */}
