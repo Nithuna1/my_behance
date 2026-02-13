@@ -670,7 +670,19 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       onClick={() => setActiveService(null)}
     />
 
-    <div className="relative bg-white w-full max-w-6xl h-[80vh] rounded-2xl overflow-hidden flex">
+    <div
+  className="
+    relative bg-white
+    w-full
+    max-w-6xl
+    h-[90vh]
+    rounded-2xl
+    overflow-hidden
+    flex
+    flex-col md:flex-row
+  "
+>
+
       <button
         onClick={() => setActiveService(null)}
         className="absolute top-4 right-4 text-xl text-black/60 hover:text-black z-10"
@@ -679,7 +691,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       </button>
 
       {/* LEFT – BEHANCE STYLE IMAGE GRID */}
-      <div className="w-2/3 p-6 overflow-y-auto">
+      <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
         <div className="grid grid-cols-2 gap-4">
           {activeService.images.slice(0, 4).map((img, i) => (
             <div
@@ -698,7 +710,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       </div>
 
       {/* RIGHT – DETAILS */}
-      <div className="w-1/3 border-l p-6 overflow-y-auto">
+      <div className="w-full md:w-1/3 border-t md:border-t-0 md:border-l p-4 md:p-6 overflow-y-auto">
         <h2 className="text-xl font-semibold mb-2">
           {activeService.title}
         </h2>
@@ -1041,7 +1053,18 @@ ${message}
       {activeProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6">
           <div
-            className="relative bg-white max-w-5xl w-full h-[80vh] rounded-2xl overflow-hidden flex"
+  className="
+    relative bg-white
+    w-full
+    max-w-5xl
+    h-[90vh]
+    rounded-2xl
+    overflow-hidden
+    flex
+    flex-col md:flex-row
+  "
+
+
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -1052,7 +1075,7 @@ ${message}
             </button>
 
             {/* LEFT – GALLERY */}
-            <div className="w-2/3 p-6 overflow-y-auto">
+            <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
               <div className="grid grid-cols-2 gap-4">
                 {activeProject.gallery.map((img, i) => (
                   <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
@@ -1063,7 +1086,7 @@ ${message}
             </div>
 
             {/* RIGHT – DETAILS */}
-            <div className="w-1/3 border-l p-6 overflow-y-auto">
+            <div className="w-full md:w-1/3 border-t md:border-t-0 md:border-l p-4 md:p-6 overflow-y-auto">
   <h2 className="text-xl font-semibold mb-2">
     {activeProject.title}
   </h2>
@@ -1093,12 +1116,18 @@ ${message}
 
     {/* MODAL */}
     <div
-      className="
-        relative bg-white
-        max-w-6xl w-full h-[85vh]
-        rounded-2xl overflow-hidden
-        flex
-      "
+  className="
+    relative bg-white
+    w-full
+    max-w-6xl
+    h-[90vh]
+    rounded-2xl
+    overflow-hidden
+    flex
+    flex-col md:flex-row
+  "
+
+
       onClick={(e) => e.stopPropagation()}
     >
       {/* CLOSE */}
@@ -1111,7 +1140,8 @@ ${message}
       </button>
 
       {/* LEFT – APP PREVIEW */}
-      <div className="w-1/2 bg-gray-50 flex items-center justify-center p-8">
+      <div className="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6">
+
         <Image
           src={activeMobileApp.image}
           alt={activeMobileApp.title}
@@ -1122,7 +1152,7 @@ ${message}
       </div>
 
       {/* RIGHT – DETAILS */}
-      <div className="w-1/2 p-10 overflow-y-auto">
+     <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto">
         {/* TITLE */}
         <h2 className="text-2xl font-semibold mb-3">
           {activeMobileApp.title}
