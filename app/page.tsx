@@ -251,35 +251,25 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 {/* ================= COVER ================= */}
 <section className="relative">
   <div
-  className="
-    relative
-    h-[240px] 
-    sm:h-[280px]
-    md:h-[340px]
-    lg:h-[380px]
-    w-full
-  "
->
-
+    className="
+      relative
+      h-[38vh]        /* ✅ Bigger mobile */
+      sm:h-[280px]
+      md:h-[340px]
+      lg:h-[380px]
+      w-full
+    "
+  >
     <Image
-  src="/projects/the_profile.jpeg"
-  alt="Cover"
-  width={1600}
-  height={400}
-  priority
-  className="
-  max-w-full
-  h-full
-  object-cover
-  scale-110
-  -translate-x-6
-  md:scale-100
-  md:translate-x-0
-"
-/>
-
+      src="/projects/the_profile.jpeg"
+      alt="Cover"
+      fill
+      priority
+      className="object-cover"
+    />
   </div>
 </section>
+
 
 
 
