@@ -285,7 +285,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
    {/* ================= PROFILE STRIP ================= */}
-<section className="hidden md:block relative pt-16 bg-transparent">
+<section className="relative pt-16 bg-transparent">
   <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-8">
 
     {/* LOGO */}

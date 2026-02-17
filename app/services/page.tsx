@@ -133,63 +133,73 @@ const [phone, setPhone] = useState("");
    
    
    
-        {/* ================= COVER ================= */}
-   <section className="relative">
-    <div
-      className="
-        relative
-        h-[240px] 
-        sm:h-[280px]
-        md:h-[340px]
-        lg:h-[380px]
-        w-full
-      "
-    >
-    
-        <Image
-        src="/projects/the_profile.jpeg"
-        alt="Cover"
-        fill
-        sizes="100vw"
-        priority
-        className="object-cover scale-110 -translate-x-6 md:scale-100 md:translate-x-0"
-      />
-    
-     </div>
-   </section>
-
-   {/* ================= PROFILE STRIP ================= */}
-   <section className="relative pt-16 bg-transparent">
-     <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-   
-       {/* LOGO */}
-       <div
+       {/* ================= COVER ================= */}
+       <section className="relative">
+         <div
          className="
            relative
-           -mt-10 md:-mt-30
-           z-20
-           w-10 h-10 sm:w-12 sm:h-12 md:w-24 md:h-24 lg:w-28 lg:h-28
-           rounded-full overflow-hidden
-           border-[3px] md:border-[5px]
-           border-white
+           h-[240px] 
+           sm:h-[280px]
+           md:h-[340px]
+           lg:h-[380px]
+           w-full
          "
        >
-         <Image
-           src="/projects/logo.jpg"
-           alt="Matamix"
-           fill
-           className="object-cover"
-           priority
-         />
-       </div>
-   
-       <h1 className="text-3xl font-semibold mt-4">
-         Matamix International
-       </h1>
-   
-     </div>
-   </section>
-   
+       
+           <Image
+         src="/projects/the_profile.jpeg"
+         alt="Cover"
+         width={1600}
+         height={400}
+         priority
+         className="
+         max-w-full
+         h-full
+         object-cover
+         scale-110
+         -translate-x-6
+         md:scale-100
+         md:translate-x-0
+       "
+       />
+       
+         </div>
+       </section>
+       
+       
+       
+       
+          {/* ================= PROFILE STRIP ================= */}
+       <section className="relative pt-16 bg-transparent">
+         <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-8">
+       
+           {/* LOGO */}
+           <div
+             className="
+               relative
+               -mt-22 md:-mt-30
+               w-12 h-12 md:w-24 md:h-24
+               rounded-full overflow-hidden
+               border-[3px] md:border-[5px]
+               border-white
+             "
+           >
+             <Image
+               src="/projects/logo.jpg"
+               alt="Matamix"
+               fill
+               className="object-cover"
+               priority
+             />
+           </div>
+       
+           <h1 className="text-3xl font-semibold mt-4">
+             Matamix International
+           </h1>
+       
+         </div>
+       </section>
+       
    
     
 
