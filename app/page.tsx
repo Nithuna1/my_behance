@@ -358,8 +358,8 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
       {/* ================= ABOUT ================= */}
-+ <section className="relative py-10">
-  <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-12 items-center">
+<section className="relative py-6 md:py-10">
+  <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-6 md:gap-12 items-center">
 
     {/* LEFT – TEXT */}
     <div>
@@ -428,9 +428,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
      <section className="
   max-w-7xl mx-auto
   px-4 md:px-8
-  py-6
-  grid grid-cols-1
-  gap-10
+ py-4 md:py-6 grid grid-cols-1 gap-6 md:gap-10
 ">
 
 
