@@ -21,26 +21,29 @@ export default function ClientsPage() {
  
  
       {/* ================= COVER ================= */}
- <section className="relative">
-   <div
-     className="
-       relative
-       h-[165px]          /* mobile */
-       sm:h-[280px]       /* small tablets */
-       md:h-[340px]       /* tablets */
-       lg:h-[380px]       /* desktop */
-       w-full
-     "
-   >
-     <Image
-       src="/projects/the_profile.jpeg"
-       alt="Cover"
-       fill
-       priority
-       className="object-cover"
-     />
-   </div>
- </section>
+      <section className="relative">
+        <div
+        className="
+          relative
+          h-[240px] 
+          sm:h-[280px]
+          md:h-[340px]
+          lg:h-[380px]
+          w-full
+        "
+      >
+      
+          <Image
+          src="/projects/the_profile.jpeg"
+          alt="Cover"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover scale-110 -translate-x-6 md:scale-100 md:translate-x-0"
+        />
+      
+        </div>
+      </section>
  
  
  
@@ -52,8 +55,9 @@ export default function ClientsPage() {
      <div
        className="
          relative
-         -mt-22 md:-mt-30
-         w-14 h-14 md:w-24 md:h-24
+         -mt-10 md:-mt-30
+         z-20
+         w-10 h-10 sm:w-12 sm:h-12 md:w-24 md:h-24 lg:w-28 lg:h-28
          rounded-full overflow-hidden
          border-[3px] md:border-[5px]
          border-white

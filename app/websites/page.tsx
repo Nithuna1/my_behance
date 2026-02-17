@@ -49,22 +49,13 @@ const [phone, setPhone] = useState("");
      >
      
          <Image
-       src="/projects/the_profile.jpeg"
-       alt="Cover"
-       width={1600}
-       height={400}
-       priority
-       className="
-       max-w-full
-       h-full
-       object-cover
-       scale-110
-       -translate-x-6
-       md:scale-100
-       md:translate-x-0
-     "
-     />
-     
+        src="/projects/the_profile.jpeg"
+        alt="Cover"
+        fill
+        sizes="100vw"
+        priority
+        className="object-cover scale-110 -translate-x-6 md:scale-100 md:translate-x-0"
+      />
      </div>
    </section>
 
@@ -76,8 +67,9 @@ const [phone, setPhone] = useState("");
          <div
            className="
              relative
-             -mt-22 md:-mt-30
-             w-12 h-12 md:w-24 md:h-24
+             -mt-10 md:-mt-30
+             z-20
+             w-10 h-10 sm:w-12 sm:h-12 md:w-24 md:h-24 lg:w-28 lg:h-28
              rounded-full overflow-hidden
              border-[3px] md:border-[5px]
              border-white
