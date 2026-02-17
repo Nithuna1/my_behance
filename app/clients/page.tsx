@@ -143,29 +143,47 @@ export default function ClientsPage() {
         </div>
       ))}
 
-    </div>
+   </div>
 
-    {/* BACK BUTTON */}
-    <div className="flex justify-center mt-12">
-      <Link
-        href="/"
-        className="
-          px-8 py-3
-          rounded-full
-          border border-black/40
-          text-sm font-medium
-          text-black
-          hover:bg-blue-600
-          hover:border-blue-600
-          hover:text-white
-          transition
-        "
-      >
-        ← Back to Home
-      </Link>
-    </div>
+{/* VIEW MORE BUTTON */}
+<div className="flex justify-center mt-10">
+  <Link
+    href="/clients"   // 👉 change this link if needed
+    className="
+      px-8 py-3
+      rounded-full
+      bg-blue-600
+      text-white
+      text-sm font-medium
+      hover:bg-blue-700
+      transition
+      shadow-md
+    "
+  >
+    View More
+  </Link>
+</div>
 
-  </div>
+{/* BACK BUTTON */}
+<div className="flex justify-center mt-6">
+  <Link
+    href="/"
+    className="
+      px-8 py-3
+      rounded-full
+      border border-black/40
+      text-sm font-medium
+      text-black
+      hover:bg-blue-600
+      hover:border-blue-600
+      hover:text-white
+      transition
+    "
+  >
+    ← Back to Home
+  </Link>
+</div>
+</div>
 </section>
 
 

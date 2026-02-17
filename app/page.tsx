@@ -647,68 +647,67 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   </Link>
 </div>
 
-
 {/* ================= SERVICE POPUP ================= */}
 {activeService && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center">
+  <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+
+    {/* BACKDROP */}
     <div
       className="absolute inset-0 bg-black/60"
       onClick={() => setActiveService(null)}
     />
 
+    {/* MODAL */}
     <div
-  className="
-    relative bg-white
-    w-full
-    max-w-6xl
-    h-[90vh]
-    rounded-2xl
-    overflow-hidden
-    flex
-    flex-col md:flex-row
-  "
->
+      className="
+        relative
+        bg-white
+        w-full
+        max-w-5xl
+        rounded-2xl
+        p-8
+      "
+      onClick={(e) => e.stopPropagation()}
+    >
 
+      {/* CLOSE BUTTON */}
       <button
         onClick={() => setActiveService(null)}
-        className="absolute top-4 right-4 text-xl text-black/60 hover:text-black z-10"
+        className="absolute top-5 right-5 text-xl"
       >
         <FiX />
       </button>
 
-      {/* LEFT – BEHANCE STYLE IMAGE GRID */}
-      <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
-        <div className="grid grid-cols-2 gap-4">
-          {activeService.images.slice(0, 4).map((img, i) => (
-            <div
-              key={i}
-              className="relative aspect-square rounded-xl overflow-hidden bg-gray-100"
-            >
-              <Image
-                src={img}
-                alt=""
-                fill
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* IMAGE ROW */}
+<div className="grid grid-cols-3 gap-6 mt-6">
 
-      {/* RIGHT – DETAILS */}
-      <div className="w-full md:w-1/3 border-t md:border-t-0 md:border-l p-4 md:p-6 overflow-y-auto">
-        <h2 className="text-xl font-semibold mb-2">
-          {activeService.title}
-        </h2>
+  {activeService.images.slice(0, 3).map((img, i) => (
+    <div
+      key={i}
+      className="
+        relative
+        aspect-[3/4]     /* ✅ Tall portrait ratio */
+        rounded-xl
+        overflow-hidden
+        bg-gray-200
+      "
+    >
+      <Image
+        src={img}
+        alt="Service Image"
+        fill
+        className="object-cover"
+      />
+    </div>
+  ))}
 
-        <p className="text-sm text-black/70 mb-6">
-          {activeService.description}
-        </p>
+</div>
 
-      </div>
     </div>
   </div>
 )}
+
+
 
 
   {/* ================= PROJECT SECTION ================= */}
@@ -809,52 +808,83 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   <div className="max-w-[1600px] mx-auto px-4 md:px-6">
 
     {/* HEADING */}
-    <div className="flex items-center justify-between mb-6">
+    <div className="mb-6">
       <h3 className="text-lg font-semibold">Mobile Applications</h3>
     </div>
 
-    {/* ================= MOBILE SLIDER (ONLY MOBILE) ================= */}
-    <div
-      className="
-        flex
-        md:hidden
-        overflow-x-auto
-        gap-5
-        snap-x
-        snap-mandatory
-        pb-6
-        no-scrollbar
-      "
-    >
-      {mobileApps.map((app, i) => (
-        <div
-          key={i}
-          onClick={() => setActiveMobileApp(app)}
-          className="
-            min-w-[75%]
-            snap-center
-            flex-shrink-0
-            cursor-pointer
-            group
-            transition-transform duration-500
-          "
-        >
-          <Image
-            src={app.image}
-            alt={app.title}
-            width={900}
-            height={1800}
+    {/* ================= MOBILE SLIDER ================= */}
+    <div className="relative md:hidden">
+
+      {/* LEFT ARROW */}
+      <button
+        onClick={() =>
+          document.getElementById("mobileSlider")?.scrollBy({
+            left: -300,
+            behavior: "smooth",
+          })
+        }
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 
+                   bg-white shadow-md w-9 h-9 rounded-full 
+                   flex items-center justify-center"
+      >
+        ←
+      </button>
+
+      {/* SLIDER */}
+      <div
+        id="mobileSlider"
+        className="
+          flex
+          overflow-x-auto
+          gap-5
+          snap-x snap-mandatory
+          pb-6
+          no-scrollbar
+        "
+      >
+        {mobileApps.map((app, i) => (
+          <div
+            key={i}
+            onClick={() => setActiveMobileApp(app)}
             className="
-              w-full
-              h-auto
-              object-contain
-              rounded-2xl
+              min-w-[75%]
+              snap-center
+              flex-shrink-0
+              cursor-pointer
               transition-transform duration-500
-              group-hover:scale-[1.03]
             "
-          />
-        </div>
-      ))}
+          >
+            <Image
+              src={app.image}
+              alt={app.title}
+              width={900}
+              height={1800}
+              className="
+                w-full
+                h-auto
+                object-contain
+                rounded-2xl
+              "
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* RIGHT ARROW */}
+      <button
+        onClick={() =>
+          document.getElementById("mobileSlider")?.scrollBy({
+            left: 300,
+            behavior: "smooth",
+          })
+        }
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 
+                   bg-white shadow-md w-9 h-9 rounded-full 
+                   flex items-center justify-center"
+      >
+        →
+      </button>
+
     </div>
 
     {/* ================= DESKTOP GRID ================= */}
@@ -863,45 +893,17 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         <div
           key={i}
           onClick={() => setActiveMobileApp(app)}
-          className="
-            cursor-pointer
-            group
-            transition-transform duration-500
-            hover:-translate-y-3
-          "
+          className="cursor-pointer hover:-translate-y-3 transition"
         >
           <Image
             src={app.image}
             alt={app.title}
             width={900}
             height={1800}
-            className="
-              w-full
-              h-auto
-              object-contain
-              transition-transform duration-500
-              group-hover:scale-[1.03]
-            "
+            className="w-full h-auto object-contain"
           />
         </div>
       ))}
-    </div>
-
-    {/* ================= VIEW MORE BUTTON ================= */}
-    <div className="flex justify-center mt-6">
-      <Link
-        href="/applications"
-        className="
-          px-8 py-3 rounded-full
-          border border-black/40
-          text-sm font-medium text-black
-          transition-all duration-500
-          hover:bg-blue-600 hover:border-blue-600 hover:text-white
-          hover:shadow-[0_10px_30px_rgba(37,99,235,0.4)]
-        "
-      >
-        View More
-      </Link>
     </div>
 
   </div>
