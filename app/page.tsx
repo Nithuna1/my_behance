@@ -238,7 +238,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   className="
     min-h-screen
     w-full
-    overflow-x-hidden   /* 👈 MOST IMPORTANT */
+    overflow-x-hidden  
     text-black
     bg-gradient-to-br
     from-[#1e293b]
@@ -251,15 +251,16 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 {/* ================= COVER ================= */}
 <section className="relative">
   <div
-    className="
-      relative
-      h-[165px]        /* ✅ bigger mobile height */
-      sm:h-[280px]
-      md:h-[340px]
-      lg:h-[380px]
-      w-full
-    "
-  >
+  className="
+    relative
+    h-[240px]      /* ✅ bigger mobile */
+    sm:h-[280px]
+    md:h-[340px]
+    lg:h-[380px]
+    w-full
+  "
+>
+
     <Image
   src="/projects/the_profile.jpeg"
   alt="Cover"

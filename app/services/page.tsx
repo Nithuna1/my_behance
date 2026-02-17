@@ -365,7 +365,17 @@ const [phone, setPhone] = useState("");
                 onClick={() => setActiveService(null)}
               />
 
-              <div className="relative bg-white w-full max-w-6xl h-[80vh] rounded-2xl overflow-hidden flex">
+              <div className="
+  relative bg-white
+  w-full
+  max-w-6xl
+  h-[90vh]
+  rounded-2xl
+  overflow-hidden
+  flex
+  flex-col md:flex-row
+">
+
                 <button
                   onClick={() => setActiveService(null)}
                   className="absolute top-4 right-4 text-xl text-black/60 hover:text-black z-10"
@@ -374,7 +384,7 @@ const [phone, setPhone] = useState("");
                 </button>
 
                 {/* ===== POPUP IMAGES (ALWAYS 4) ===== */}
-                <div className="w-2/3 p-6 overflow-y-auto">
+                <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
                   <div className="grid grid-cols-2 gap-4">
                     {Array.from({ length: 4 }).map((_, i) => {
                       const img =
@@ -401,7 +411,7 @@ const [phone, setPhone] = useState("");
                 </div>
 
                 {/* ===== DETAILS ===== */}
-                <div className="w-1/3 border-l p-6 overflow-y-auto">
+                <div className="w-full md:w-1/3 border-t md:border-t-0 md:border-l p-4 md:p-6 overflow-y-auto">
                   <h2 className="text-xl font-semibold mb-2">
                     {activeService.title}
                   </h2>

@@ -145,15 +145,15 @@ const [phone, setPhone] = useState("");
          {/* ================= COVER ================= */}
     <section className="relative">
       <div
-        className="
-          relative
-          h-[165px]          /* mobile */
-          sm:h-[280px]       /* small tablets */
-          md:h-[340px]       /* tablets */
-          lg:h-[380px]       /* desktop */
-          w-full
-        "
-      >
+  className="
+    relative
+    h-[240px]      /* ✅ bigger mobile */
+    sm:h-[280px]
+    md:h-[340px]
+    lg:h-[380px]
+    w-full
+  "
+>
         <Image
           src="/projects/the_profile.jpeg"
           alt="Cover"
@@ -466,38 +466,91 @@ ${message}
 )}
 
       {/* ================= PROJECT POPUP ================= */}
-      {activeProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6">
-          <div className="relative bg-white max-w-5xl w-full h-[80vh] rounded-2xl overflow-hidden flex">
-            <button
-              onClick={() => setActiveProject(null)}
-              className="absolute top-4 right-4 text-xl text-black/60 hover:text-black"
+     {activeProject && (
+  <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4">
+
+    <div
+      className="
+        relative
+        bg-white
+        w-full
+        max-w-5xl
+        h-[95vh]
+        rounded-2xl
+        overflow-hidden
+        flex
+        flex-col
+        md:flex-row
+      "
+    >
+
+      {/* ✅ STRONG MOBILE CLOSE BUTTON */}
+      <button
+        onClick={() => setActiveProject(null)}
+        className="
+          absolute top-4 right-4
+          z-20
+          w-10 h-10
+          rounded-full
+          bg-white shadow-md
+          flex items-center justify-center
+          text-black
+        "
+      >
+        <FiX size={22} />
+      </button>
+
+      {/* ================= IMAGES ================= */}
+      <div
+        className="
+          w-full md:w-2/3
+          p-4 md:p-6
+          overflow-y-auto
+        "
+      >
+        <div className="grid grid-cols-2 gap-3 md:gap-4">
+          {activeProject.gallery.map((img, i) => (
+            <div
+              key={i}
+              className="relative aspect-square rounded-xl overflow-hidden"
             >
-              <FiX />
-            </button>
-
-            <div className="w-2/3 p-6 overflow-y-auto grid grid-cols-2 gap-4">
-              {activeProject.gallery.map((img, i) => (
-                <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
-                  <Image src={img} alt="" fill className="object-cover" />
-                </div>
-              ))}
+              <Image
+                src={img}
+                alt=""
+                fill
+                className="object-cover"
+              />
             </div>
-
-            <div className="w-1/3 border-l p-6 overflow-y-auto">
-              <h3 className="text-xl font-semibold mb-2">
-                {activeProject.title}
-              </h3>
-              <p className="text-sm text-black/60 mb-4">
-                {activeProject.category} · {activeProject.year}
-              </p>
-              <p className="text-sm text-black/70 leading-relaxed">
-                {activeProject.description}
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
-      )}
+      </div>
+
+      {/* ================= DETAILS ================= */}
+      <div
+        className="
+          w-full md:w-1/3
+          border-t md:border-t-0 md:border-l
+          p-4 md:p-6
+          overflow-y-auto
+        "
+      >
+        <h3 className="text-xl font-semibold mb-2">
+          {activeProject.title}
+        </h3>
+
+        <p className="text-sm text-black/60 mb-4">
+          {activeProject.category} · {activeProject.year}
+        </p>
+
+        <p className="text-sm text-black/70 leading-relaxed">
+          {activeProject.description}
+        </p>
+      </div>
+
+    </div>
+  </div>
+)}
+
 
       {/* ================= FOOTER ================= */}
 <footer className="bg-[#022549] text-white mt-14">

@@ -37,15 +37,15 @@ const [phone, setPhone] = useState("");
         {/* ================= COVER ================= */}
    <section className="relative">
      <div
-       className="
-         relative
-         h-[165px]          /* mobile */
-         sm:h-[280px]       /* small tablets */
-         md:h-[340px]       /* tablets */
-         lg:h-[380px]       /* desktop */
-         w-full
-       "
-     >
+  className="
+    relative
+    h-[240px]      /* ✅ bigger mobile */
+    sm:h-[280px]
+    md:h-[340px]
+    lg:h-[380px]
+    w-full
+  "
+>
        <Image
          src="/projects/the_profile.jpeg"
          alt="Cover"
