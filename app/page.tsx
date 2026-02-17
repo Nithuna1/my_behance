@@ -268,8 +268,9 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   height={400}
   priority
   className="
- max-w-full
- h-auto
+  max-w-full
+  h-full
+  object-cover
   scale-110
   -translate-x-6
   md:scale-100
