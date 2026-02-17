@@ -25,7 +25,6 @@ export default function ClientsPage() {
        <div
        className="
          relative
-         h-[240px] 
          sm:h-[280px]
          md:h-[340px]
          lg:h-[380px]

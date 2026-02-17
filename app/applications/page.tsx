@@ -67,8 +67,7 @@ const [phone, setPhone] = useState("");
      <section className="relative">
        <div
        className="
-         relative
-         h-[240px] 
+         relative 
          sm:h-[280px]
          md:h-[340px]
          lg:h-[380px]
