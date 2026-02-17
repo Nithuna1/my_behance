@@ -1087,12 +1087,21 @@ ${message}
 
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setActiveProject(null)}
-              className="absolute top-4 right-4 text-xl text-black/60 hover:text-black"
-            >
-              <FiX />
-            </button>
+           {/* ✅ STRONG MOBILE CLOSE BUTTON */}
+      <button
+        onClick={() => setActiveProject(null)}
+        className="
+          absolute top-4 right-4
+          z-20
+          w-10 h-10
+          rounded-full
+          bg-white shadow-md
+          flex items-center justify-center
+          text-black
+        "
+      >
+        <FiX size={22} />
+      </button>
 
             {/* LEFT – GALLERY */}
             <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
