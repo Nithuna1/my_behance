@@ -248,71 +248,71 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 >
 
 
-{/* ================= COVER ================= */}
-<section className="relative">
-  <div
-  className="
-    relative
-    sm:h-[280px]
-    md:h-[340px]
-    lg:h-[380px]
-    w-full
-  "
->
-
-    <Image
-  src="/projects/the_profile.jpeg"
-  alt="Cover"
-  width={1600}
-  height={400}
-  priority
-  className="
-  max-w-full
-  h-full
-  object-cover
-  scale-110
-  -translate-x-6
-  md:scale-100
-  md:translate-x-0
-"
-/>
-
-  </div>
-</section>
-
-
-
-
-   {/* ================= PROFILE STRIP ================= */}
-<section className="relative pt-16 bg-transparent">
-  <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-8">
-
-    {/* LOGO */}
-    <div
-      className="
-        relative
-        -mt-22 md:-mt-30
-        w-12 h-12 md:w-24 md:h-24
-        rounded-full overflow-hidden
-        border-[3px] md:border-[5px]
-        border-white
-      "
-    >
-      <Image
-        src="/projects/logo.jpg"
-        alt="Matamix"
-        fill
-        className="object-cover"
-        priority
-      />
-    </div>
-
-    <h1 className="text-3xl font-semibold mt-4">
-      Matamix International
-    </h1>
-
-  </div>
-</section>
+  {/* ================= COVER ================= */}
+       <section className="relative">
+         <div
+         className="
+           relative 
+           sm:h-[300px]
+           md:h-[340px]
+           lg:h-[380px]
+           w-full
+         "
+       >
+       
+           <Image
+         src="/projects/the_profile.jpeg"
+         alt="Cover"
+         width={1600}
+         height={400}
+         priority
+         className="
+         max-w-full
+         h-full
+         object-cover
+         scale-110
+         -translate-x-6
+         md:scale-100
+         md:translate-x-0
+       "
+       />
+       
+         </div>
+       </section>
+       
+       
+       
+       
+          {/* ================= PROFILE STRIP ================= */}
+       <section className="relative pt-16 bg-transparent">
+         <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-8">
+       
+           {/* LOGO */}
+           <div
+             className="
+               relative
+               -mt-22 md:-mt-30
+               w-12 h-12 md:w-24 md:h-24
+               rounded-full overflow-hidden
+               border-[3px] md:border-[5px]
+               border-white
+             "
+           >
+             <Image
+               src="/projects/logo.jpg"
+               alt="Matamix"
+               fill
+               className="object-cover"
+               priority
+             />
+           </div>
+       
+           <h1 className="text-3xl font-semibold mt-4">
+             Matamix International
+           </h1>
+       
+         </div>
+       </section>
 
 
       {/* ================= NAVBAR (DESKTOP ONLY) ================= */}
