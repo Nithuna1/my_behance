@@ -89,7 +89,7 @@ export default function ClientsPage() {
      
 
       {/* ================= TITLE ================= */}
-      <section className="py-14">
+      <section className="py-8 md:py-14">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-3xl md:text-4xl font-semibold mb-4">
             Our Clients
@@ -104,7 +104,7 @@ export default function ClientsPage() {
       </section>
 
     {/* ================= CLIENT GRID ================= */}
-<section className="pb-20">
+<section className="pb-10 md:pb-20">
   <div className="max-w-7xl mx-auto px-6">
 
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -143,7 +143,7 @@ export default function ClientsPage() {
         </div>
       ))}
 
-    </div><br></br>
+    </div>
 
     {/* BACK BUTTON */}
     <div className="flex justify-center mt-12">
@@ -170,7 +170,7 @@ export default function ClientsPage() {
 
 
       {/* ================= FOOTER ================= */}
-<footer className="bg-[#022549] text-white mt-14">
+<footer className="bg-[#022549] text-white mt-8 md:mt-14">
   <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
     <div
