@@ -253,7 +253,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
          <div
          className="
            relative 
-           sm:h-[300px]
+           sm:h-[260px]
            md:h-[340px]
            lg:h-[380px]
            w-full
