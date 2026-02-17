@@ -256,6 +256,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
            sm:h-[280px]
            md:h-[340px]
            lg:h-[380px]
+           w-full
          "
        >
        
