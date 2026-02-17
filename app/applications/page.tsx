@@ -65,16 +65,16 @@ const [phone, setPhone] = useState("");
   
        {/* ================= COVER ================= */}
   <section className="relative">
-     <div
-  className="
-    relative
-    h-[240px]      /* ✅ bigger mobile */
-    sm:h-[280px]
-    md:h-[340px]
-    lg:h-[380px]
-    w-full
-  "
->
+    <div
+      className="
+        relative
+        h-[165px]          /* mobile */
+        sm:h-[280px]       /* small tablets */
+        md:h-[340px]       /* tablets */
+        lg:h-[380px]       /* desktop */
+        w-full
+      "
+    >
       <Image
         src="/projects/the_profile.jpeg"
         alt="Cover"
@@ -87,37 +87,37 @@ const [phone, setPhone] = useState("");
   
   
   
-    {/* ================= PROFILE STRIP ================= */}
-   <section className="relative pt-16 bg-transparent">
-     <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-8">
-   
-       {/* LOGO */}
-       <div
-         className="
-           relative
-           -mt-22 md:-mt-30
-           w-12 h-12 md:w-24 md:h-24
-           rounded-full overflow-hidden
-           border-[3px] md:border-[5px]
-           border-white
-         "
-       >
-         <Image
-           src="/projects/logo.jpg"
-           alt="Matamix"
-           fill
-           className="object-cover"
-           priority
-         />
-       </div>
-   
-       <h1 className="text-3xl font-semibold mt-4">
-         Matamix International
-       </h1>
-   
-     </div>
-   </section>
-   
+     {/* ================= PROFILE STRIP ================= */}
+  <section className="relative pt-16 bg-transparent">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+  
+      {/* LOGO */}
+      <div
+        className="
+          relative
+          -mt-22 md:-mt-30
+          w-12 h-12 md:w-24 md:h-24
+          rounded-full overflow-hidden
+          border-[3px] md:border-[5px]
+          border-white
+        "
+      >
+        <Image
+          src="/projects/logo.jpg"
+          alt="Matamix"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+  
+      <h1 className="text-3xl font-semibold mt-4">
+        Matamix International
+      </h1>
+  
+    </div>
+  </section>
+  
           
           
 

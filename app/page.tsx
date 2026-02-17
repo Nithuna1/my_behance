@@ -253,7 +253,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   <div
   className="
     relative
-    h-[240px]      /* ✅ bigger mobile */
+    h-[240px] 
     sm:h-[280px]
     md:h-[340px]
     lg:h-[380px]
@@ -268,9 +268,8 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   height={400}
   priority
   className="
-  w-full
-  h-full
-  object-cover
+ max-w-full
+ h-auto
   scale-110
   -translate-x-6
   md:scale-100
