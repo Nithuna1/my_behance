@@ -269,7 +269,6 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   priority
   className="
   max-w-full
-  h-full
   object-cover
   scale-110
   -translate-x-6
