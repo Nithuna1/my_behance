@@ -29,6 +29,7 @@ export default function ClientsPage() {
          md:h-[340px]
          lg:h-[380px]
          w-full
+         mx-8
        "
      >
      
