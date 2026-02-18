@@ -214,7 +214,7 @@ export default function ClientsDetailsPage() {
      
 
         {/* ================= FOOTER ================= */}
-<footer className="bg-[#022549] text-white mt-8 md:mt-14">
+<footer className="bg-[#022549] text-white mt-5 md:mt-5">
   <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
     <div
