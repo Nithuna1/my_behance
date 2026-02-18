@@ -120,38 +120,38 @@ export default function ClientsPage() {
       ];
 
       return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          {clients.slice(0, 4).map((client, i) => (
-            <div
-              key={i}
-              className="
-                flex flex-col items-center justify-center
-                transition-all duration-300
-                hover:scale-105
-              "
-            >
-              <Image
-                src={client.image}
-                alt={client.name}
-                width={300}
-                height={180}
-                className="
-                  w-full
-                  h-[160px]
-                  object-cover
-                  rounded-lg
-                  transition duration-300
-                "
-              />
+  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+    {clients.slice(0, 6).map((client, i) => (
+      <div
+        key={i}
+        className="
+          flex flex-col items-center justify-center
+          transition-all duration-300
+          hover:scale-105
+        "
+      >
+        <Image
+          src={client.image}
+          alt={client.name}
+          width={400}
+          height={250}
+          className="
+            w-full
+            h-[190px]
+            object-cover
+            rounded-lg
+            transition duration-300
+          "
+        />
 
-              {/* CLIENT NAME */}
-              <p className="mt-3 text-sm font-medium text-center">
-                {client.name}
-              </p>
-            </div>
-          ))}
-        </div>
-      );
+        <p className="mt-3 text-sm font-medium text-center">
+          {client.name}
+        </p>
+      </div>
+    ))}
+  </div>
+);
+
     })()}
 
     {/* VIEW MORE BUTTON */}

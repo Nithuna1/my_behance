@@ -18,7 +18,10 @@ type Service = {
   tags: string[];
   images: string[];
   description: string;
+  websites?: string[];
+  videos?: string[]; // ✅ ADD THIS
 };
+
 
 type Project = {
   title: string;
@@ -543,51 +546,97 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 <div className="grid md:grid-cols-3 gap-6 mb-8">
   {[
-    {
-      title: "E-Commerce Solutions",
-      tags: ["Shopify", "Online Store", "Payments"],
-      images: [
-        "/services/commerce1.webp",
-        "/services/commerce.jpeg",
-        "/services/commerce2.jpg",
-        "/services/commerce3.webp",
-      ],
+  {
+  title: "E-Commerce Solutions",
+  tags: ["Shopify", "Online Store", "Payments"],
+  images: [
+    "/services/commerce1.webp",
+    "/services/commerce.jpeg",
+    "/services/commerce2.jpg",
+    "/services/commerce1.webp",
+    "/services/commerce.jpeg",
+    "/services/commerce2.jpg",
+  ],
+  videos: [
+    "/video/alrayyan_video.mp4",
+    "/video/flipkart_video.mp4",
+    "/video/myntra_video.mp4",
+    "/video/alrayyan_video.mp4",
+    "/video/flipkart_video.mp4",
+    "/video/myntra_video.mp4",
+  ],
+  websites: [
+    "https://amg-ecommerce-web.vercel.app/",
+    "https://www.flipkart.com",
+    "https://www.myntra.com",
+    "https://www.amazon.in",
+    "https://www.ajio.com",
+    "https://www.tatacliq.com",
+  ],
       description:
         "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue and improve customer retention.",
     },
     {
-      title: "Ui/Ux Design",
-      tags: ["Prototyping", "User Flows", "Product UX"],
-      images: [
-        "/services/web1.avif",
-        "/services/web2.avif",
-        "/services/web3.jpg",
-        "/services/web4.jpg",
-      ],
-      description:
-        "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. Through research, wireframing, interactive prototyping, and usability testing, we design interfaces that are efficient, visually compelling, and conversion-driven. By combining modern design systems and responsive layouts, we deliver scalable UI/UX solutions that enhance usability and strengthen brand perception across web and mobile platforms.",
-    },
+  title: "Ui/Ux Design",
+  tags: ["Prototyping", "User Flows", "Product UX"],
+  images: [
+    "/services/web1.avif",
+    "/services/web2.avif",
+    "/services/web3.jpg",
+  ],
+  videos: [
+    "/video/dribble_video.mp4",
+    "/video/behance_video.mp4",
+    "/video/awards_video.mp4",
+  ],
+  websites: [
+    "https://dribbble.com",
+    "https://behance.net",
+    "https://www.awwwards.com",
+  ],
+  description:
+    "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. Through research, wireframing, interactive prototyping, and usability testing, we design interfaces that are efficient, visually compelling, and conversion-driven. By combining modern design systems and responsive layouts, we deliver scalable UI/UX solutions that enhance usability and strengthen brand perception across web and mobile platforms.",
+}
+,
     {
-      title: "Digital Marketing",
-      tags: ["SEO Strategy", "Social Ads", "Analytics"],
-      images: [
-        "/services/digital1.avif",
-        "/services/digital2.jpg",
-        "/services/marketing.jpg",
-        "/services/digital3.avif",
-      ],
+  title: "Digital Marketing",
+  tags: ["SEO Strategy", "Social Ads", "Analytics"],
+  images: [
+    "/services/digital1.avif",
+    "/services/digital2.jpg",
+    "/services/marketing.jpg",
+  ],
+  videos: [
+    "/video/analyitics_video.mp4",
+    "/video/ads_video.mp4",
+    "/video/business_video.mp4",
+  ],
+  websites: [
+    "https://analytics.google.com",
+    "https://ads.google.com",
+    "https://business.instagram.com",
+  ],
       description:
         "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
     },
     {
-      title: "Video Production",
-      tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
-      images: [
-        "/services/video1.jpg",
-        "/services/video2.jpg",
-        "/services/video3.avif",
-        "/services/video4.avif",
-      ],
+  title: "Video Production",
+  tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
+  images: [
+    "/services/video1.jpg",
+    "/services/video2.jpg",
+    "/services/video3.avif",
+  ],
+  videos: [
+    "/video/intro_video.mp4",
+    "/video/marketing_video.mp4",
+    "/video/memory_video.mp4",
+  ],
+  websites: [
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+  ],
       description:
         "Our Video Production services bring your brand story to life through high-quality, cinematic visual content. From corporate films and product showcases to promotional campaigns and social media reels, we handle the complete production process — scripting, storyboarding, shooting, editing, and post-production. With professional equipment, creative direction, and strategic storytelling, we create compelling videos that engage audiences, strengthen brand identity, and drive measurable results across digital platforms.",
     },
@@ -681,46 +730,79 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       {/* IMAGE ROW */}
 <div className="grid grid-cols-3 gap-6 mt-6">
 
-  {activeService.images.slice(0, 3).map((img, i) => (
-    <div
-      key={i}
-      className="
-        relative
-        aspect-[3/4]     /* ✅ Tall portrait ratio */
-        rounded-xl
-        overflow-hidden
-        bg-gray-200
-      "
-    >
-      <Image
-        src={img}
-        alt="Service Image"
-        fill
-        className="object-cover"
-      />
-    </div>
-  ))}
+  {(activeService.title === "Digital Marketing"
+  ? activeService.images.slice(0, 3)
+  : activeService.images
+).map((img, i) => {
+
+    const websiteLink = activeService.websites?.[i];
+    const videoSrc = activeService.videos?.[i];
+
+    return (
+      <div key={i} className="flex flex-col items-center">
+
+       <div
+  className={`
+    relative
+    w-full
+    rounded-xl
+    overflow-hidden
+    group
+    ${
+      activeService.title === "Digital Marketing"
+        ? "aspect-[3/4]"   // 👈 Vertical rectangle
+        : "h-[220px]"      // 👈 Normal size for others
+    }
+  `}
+>
+
+          {/* IMAGE */}
+          <Image
+            src={img}
+            alt="Service Image"
+            fill
+            className="object-cover group-hover:opacity-0 transition duration-300"
+          />
+
+          {/* VIDEO */}
+          {videoSrc && (
+            <video
+              src={videoSrc}
+              muted
+              loop
+              playsInline
+              className="
+                absolute inset-0
+                w-full h-full
+                object-cover
+                opacity-0
+                group-hover:opacity-100
+                transition duration-300
+              "
+              autoPlay
+            />
+          )}
+        </div>
+
+        {/* WEBSITE LINK */}
+        {websiteLink && (
+          <a
+            href={websiteLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 text-sm text-blue-600 hover:underline transition"
+          >
+            {websiteLink.replace("https://", "").replace("/", "")}
+          </a>
+        )}
+
+      </div>
+    );
+  })}
 
 </div>
 
-{/* WEBSITE LINK */}
-<div className="mt-8 text-center">
-  <a
-    href="https://matamix.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="
-      inline-block
-      text-blue-600
-      font-medium
-      underline
-      hover:text-blue-800
-      transition
-    "
-  >
-    Visit www.matamix.com
-  </a>
-</div>
+
 
 
     </div>
