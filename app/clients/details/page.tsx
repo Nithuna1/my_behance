@@ -90,118 +90,133 @@ export default function ClientsDetailsPage() {
       </section>
 
 {/* ================= CLIENT DETAILS SECTION ================= */}
-<section className="py-14">
+<section className="py-24 animate-page">
   <div className="max-w-7xl mx-auto px-6">
 
-  <h2 className="text-3xl font-semibold text-center mb-10 text-blue-800">
-  Our Valued Clients & Partnerships
-</h2>
+    <h2 className="text-3xl font-semibold text-center mb-16 text-blue-800 tracking-wide">
+      Our Valued Clients & Partnerships
+    </h2>
 
-
-
-    {/** CLIENT DATA */}
-{(() => {
-  const clients = [
-    {
-      image: "/clients/client1.avif",
-      name: "Apex Technologies",
-      review:
-        "Matamix delivered exceptional branding and web solutions that elevated our business presence.",
-    },
-    {
-      image: "/clients/client2.png",
-      name: "Nova Retail Group",
-      review:
-        "Highly professional team with outstanding attention to detail and execution.",
-    },
-    {
-      image: "/clients/client10.webp",
-      name: "Zenith Enterprises",
-      review:
-        "Strategic, creative, and result-driven approach. Truly impactful collaboration.",
-    },
-    {
-      image: "/clients/client9.jpg",
-      name: "UrbanEdge Solutions",
-      review:
-        "Reliable digital partner with measurable performance outcomes.",
-    },
-    {
-      image: "/clients/client5.jpg",
-      name: "BrightWave Media",
-      review:
-        "Innovative UI/UX and seamless project delivery experience.",
-    },
-    {
-      image: "/clients/client6.jpg",
-      name: "Skyline Developers",
-      review:
-        "Exceptional digital marketing strategies that boosted engagement significantly.",
-    },
-    {
-      image: "/clients/client13.jpg",
-      name: "GlobalCore Industries",
-      review:
-        "Professional execution across branding and enterprise solutions.",
-    },
-    {
-      image: "/clients/client12.webp",
-      name: "NextGen Innovations",
-      review:
-        "Creative excellence combined with strategic thinking.",
-    },
-  ];
+    {(() => {
+      const clients = [
+        {
+          image: "/clients/client1.avif",
+          name: "Apex Technologies",
+          review:
+            "Matamix delivered exceptional branding and web solutions that elevated our business presence.",
+        },
+        {
+          image: "/clients/client2.png",
+          name: "Nova Retail Group",
+          review:
+            "Highly professional team with outstanding attention to detail and execution.",
+        },
+        {
+          image: "/clients/client10.webp",
+          name: "Zenith Enterprises",
+          review:
+            "Strategic, creative, and result-driven approach. Truly impactful collaboration.",
+        },
+        {
+          image: "/clients/client9.jpg",
+          name: "UrbanEdge Solutions",
+          review:
+            "Reliable digital partner with measurable performance outcomes.",
+        },
+        {
+          image: "/clients/client5.jpg",
+          name: "BrightWave Media",
+          review:
+            "Innovative UI/UX and seamless project delivery experience.",
+        },
+        {
+          image: "/clients/client6.jpg",
+          name: "Skyline Developers",
+          review:
+            "Exceptional digital marketing strategies that boosted engagement significantly.",
+        },
+        {
+          image: "/clients/client13.jpg",
+          name: "GlobalCore Industries",
+          review:
+            "Professional execution across branding and enterprise solutions.",
+        },
+        {
+          image: "/clients/client12.webp",
+          name: "NextGen Innovations",
+          review:
+            "Creative excellence combined with strategic thinking.",
+        },
+      ];
 
       return (
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-    {clients.map((client, i) => (
-      <div
-        key={i}
-        onClick={() => setActiveClient(client)}
-        className="
-          flex flex-col items-center justify-center
-          cursor-pointer
-          transition-all duration-300
-          hover:-translate-y-2
-        "
-      >
-        <Image
-          src={client.image}
-          alt={client.name}
-          width={300}
-          height={200}
-          className="
-            object-cover
-            h-[170px]
-            w-full
-            rounded-lg
-            transition duration-300
-            hover:scale-105
-          "
-        />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
+          {clients.map((client, i) => (
+            <div
+              key={i}
+              onClick={() => setActiveClient(client)}
+              className="
+                group
+                cursor-pointer
+                animate-reveal
+                transition-all duration-500
+                hover:-translate-y-4
+              "
+              style={{ animationDelay: `${i * 0.08}s` }}
+            >
+              <div
+                className="
+                  relative
+                  w-full
+                  aspect-[4/3]
+                  overflow-hidden
+                  rounded-2xl
+                  shadow-md
+                  hover:shadow-2xl
+                  transition duration-500
+                "
+              >
+                <Image
+                  src={client.image}
+                  alt={client.name}
+                  fill
+                  className="
+                    object-cover
+                    transition duration-700
+                    group-hover:scale-110
+                  "
+                />
 
-        <p className="mt-3 text-sm font-medium text-center">
-          {client.name}
-        </p>
-      </div>
-    ))}
-  </div>
-);
-
-
+                {/* Premium gradient overlay */}
+                <div
+                  className="
+                    absolute inset-0
+                    bg-gradient-to-t from-black/40 via-black/10 to-transparent
+                    opacity-0
+                    group-hover:opacity-100
+                    transition duration-500
+                  "
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
     })()}
 
     {/* BACK BUTTON */}
-    <div className="flex justify-center mt-14">
+    <div className="flex justify-center mt-20">
       <Link
         href="/clients"
         className="
-          px-8 py-3
+          px-10 py-3
           rounded-full
           bg-blue-600
           text-white
           hover:bg-blue-700
           transition
+          shadow-lg
+          hover:shadow-xl
         "
       >
         ← Back to Clients
@@ -210,6 +225,8 @@ export default function ClientsDetailsPage() {
 
   </div>
 </section>
+
+
 
      
 

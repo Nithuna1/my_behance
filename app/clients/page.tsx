@@ -87,86 +87,123 @@ export default function ClientsPage() {
        </div>
      </section>
      
+{/* ================= TITLE ================= */}
+<section className="py-12 md:py-20">
+  <div className="max-w-6xl mx-auto px-6 text-center">
 
-      {/* ================= TITLE ================= */}
-      <section className="py-8 md:py-14">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-         <h1 className="text-3xl md:text-4xl font-semibold mb-4 text-blue-800">
-  Our Clients
-</h1>
+    <h1 className="
+      text-3xl md:text-5xl 
+      font-semibold 
+      mb-6 
+      bg-gradient-to-r 
+      from-blue-700 to-indigo-600 
+      bg-clip-text 
+      text-transparent
+      animate-fadeUp
+    ">
+      Our Clients
+    </h1>
 
-          <p className="text-black/70 max-w-2xl mx-auto leading-relaxed">
-            We are proud to collaborate with ambitious brands and forward-thinking
-            organizations. Our partnerships are built on trust, innovation, and
-            measurable business impact.
-          </p>
-        </div>
-      </section>
+    <p className="
+      text-black/70 
+      max-w-2xl 
+      mx-auto 
+      leading-relaxed 
+      text-base md:text-lg
+      animate-fadeUp delay-150
+    ">
+      We are proud to collaborate with ambitious brands and forward-thinking
+      organizations. Our partnerships are built on trust, innovation, and
+      measurable business impact.
+    </p>
 
-   {/* ================= CLIENT GRID ================= */}
-<section className="pb-10 md:pb-20">
-  <div className="max-w-7xl mx-auto px-6">
+  </div>
+</section>
+
+
+
+{/* ================= CLIENT GRID ================= */}
+<section className="pb-16 md:pb-24">
+  <div className="max-w-6xl mx-auto px-6">
 
     {(() => {
       const clients = [
-        { image: "/clients/client1.avif", name: "Apex Technologies" },
-        { image: "/clients/client2.png", name: "Nova Retail Group" },
-        { image: "/clients/client10.webp", name: "Zenith Enterprises" },
-        { image: "/clients/client9.jpg", name: "UrbanEdge Solutions" },
-        { image: "/clients/client5.jpg", name: "BrightWave Media" },
-        { image: "/clients/client6.jpg", name: "Skyline Developers" },
-        { image: "/clients/client13.jpg", name: "GlobalCore Industries" },
-        { image: "/clients/client12.webp", name: "NextGen Innovations" },
+        { image: "/clients/client1.avif" },
+        { image: "/clients/client2.png" },
+        { image: "/clients/client10.webp" },
+        { image: "/clients/client9.jpg" },
+        { image: "/clients/client5.jpg" },
+        { image: "/clients/client6.jpg" },
+        { image: "/clients/client13.jpg" },
+        { image: "/clients/client12.webp" },
       ];
 
       return (
-  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-    {clients.slice(0, 6).map((client, i) => (
-      <div
-        key={i}
-        className="
-          flex flex-col items-center justify-center
-          transition-all duration-300
-          hover:scale-105
-        "
-      >
-        <Image
-          src={client.image}
-          alt={client.name}
-          width={400}
-          height={250}
-          className="
-            w-full
-            h-[190px]
-            object-cover
-            rounded-lg
-            transition duration-300
-          "
-        />
+        <div className="
+          grid 
+          grid-cols-1 
+          sm:grid-cols-2 
+          md:grid-cols-3 
+          gap-10
+          animate-fadeUp
+        ">
+          {clients.slice(0, 3).map((client, i) => (
+            <div
+              key={i}
+              className="
+                group
+                relative
+                overflow-hidden
+                rounded-2xl
+                bg-white/40
+                backdrop-blur-md
+                shadow-lg
+                hover:shadow-2xl
+                transition-all duration-500
+              "
+            >
+              <Image
+                src={client.image}
+                alt="Client Logo"
+                width={500}
+                height={400}
+                className="
+                  w-full
+                  aspect-[4/3]      /* 👈 Perfect uniform shape */
+                  object-cover
+                  transition duration-500
+                  group-hover:scale-110
+                "
+              />
 
-        <p className="mt-3 text-sm font-medium text-center">
-          {client.name}
-        </p>
-      </div>
-    ))}
-  </div>
-);
-
+              {/* Subtle Hover Overlay */}
+              <div className="
+                absolute inset-0
+                bg-black/30
+                opacity-0
+                group-hover:opacity-100
+                transition duration-500
+              " />
+            </div>
+          ))}
+        </div>
+      );
     })()}
 
     {/* VIEW MORE BUTTON */}
-    <div className="flex justify-center mt-10">
+    <div className="flex justify-center mt-14">
       <Link
         href="/clients/details"
         className="
-          px-8 py-3
+          px-10 py-3
           rounded-full
-          bg-blue-600
+          bg-gradient-to-r
+          from-blue-600 to-indigo-600
           text-white
           text-sm font-medium
-          hover:bg-blue-700
-          transition
-          shadow-md
+          hover:scale-105
+          transition duration-300
+          shadow-lg
         "
       >
         View More
@@ -180,11 +217,10 @@ export default function ClientsPage() {
         className="
           px-8 py-3
           rounded-full
-          border border-black/40
+          border border-black/30
           text-sm font-medium
           text-black
-          hover:bg-blue-600
-          hover:border-blue-600
+          hover:bg-black
           hover:text-white
           transition
         "
@@ -195,6 +231,7 @@ export default function ClientsPage() {
 
   </div>
 </section>
+
 
 
 

@@ -802,6 +802,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   >
     {websiteLink.replace("https://", "").replace("www.", "")}
   </a>
+
 )}
 
 
@@ -811,8 +812,25 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 </div>
 
-
-
+{/* ✅ SINGLE VIEW MORE BUTTON AT BOTTOM */}
+<div className="flex justify-center mt-10">
+  <Link
+    href="/services"
+    className="
+      px-10 py-3
+      rounded-full
+      border border-gray-400
+      text-sm font-medium
+      text-black
+      hover:bg-blue-600
+      hover:text-white
+      hover:border-blue-600
+      transition
+    "
+  >
+    View More
+  </Link>
+</div>
 
     </div>
   </div>
