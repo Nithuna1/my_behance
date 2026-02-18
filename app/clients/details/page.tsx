@@ -36,7 +36,7 @@ export default function ClientsDetailsPage() {
             md:h-[340px]
             lg:h-[380px]
             w-full
-            mx-8
+            mx-8 md:mx-0
           "
         >
           <Image
@@ -153,7 +153,7 @@ export default function ClientsDetailsPage() {
   ];
 
       return (
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10">
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
     {clients.map((client, i) => (
       <div
         key={i}
@@ -162,31 +162,32 @@ export default function ClientsDetailsPage() {
           flex flex-col items-center justify-center
           cursor-pointer
           transition-all duration-300
-          hover:-translate-y-3
+          hover:-translate-y-2
         "
       >
         <Image
           src={client.image}
           alt={client.name}
-          width={200}
-          height={150}
+          width={300}
+          height={200}
           className="
-            object-contain
-            h-[120px]
+            object-cover
+            h-[170px]
             w-full
-            mb-4
+            rounded-lg
             transition duration-300
-            hover:scale-110
+            hover:scale-105
           "
         />
 
-        <p className="text-sm font-medium text-center">
+        <p className="mt-3 text-sm font-medium text-center">
           {client.name}
         </p>
       </div>
     ))}
   </div>
 );
+
 
     })()}
 
@@ -256,11 +257,11 @@ export default function ClientsDetailsPage() {
 
 {/* ================= CLIENT REVIEW POPUP ================= */}
 {activeClient && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+  <div className="fixed inset-0 z-50 flex items-center justify-center px-6 animate-fadeIn">
 
     {/* BACKDROP */}
     <div
-      className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+      className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
       onClick={() => setActiveClient(null)}
     />
 
@@ -275,6 +276,12 @@ export default function ClientsDetailsPage() {
         p-10
         shadow-2xl
         text-center
+        transform
+        transition-all
+        duration-300
+        scale-95
+        opacity-0
+        animate-popup
       "
       onClick={(e) => e.stopPropagation()}
     >
@@ -286,9 +293,9 @@ export default function ClientsDetailsPage() {
         ✕
       </button>
 
-      {/* CLIENT IMAGE (BIGGER) */}
+      {/* CLIENT IMAGE */}
       <div className="flex justify-center mb-6">
-        <div className="w-28 h-28 relative rounded-full overflow-hidden border-4 border-white shadow-md">
+        <div className="w-28 h-28 relative rounded-full overflow-hidden border-4 border-white shadow-md transform transition duration-500 hover:scale-110">
           <Image
             src={activeClient.image}
             alt={activeClient.name}
@@ -311,6 +318,7 @@ export default function ClientsDetailsPage() {
     </div>
   </div>
 )}
+
 
 
     </div>
