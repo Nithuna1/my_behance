@@ -91,9 +91,9 @@ export default function ClientsPage() {
       {/* ================= TITLE ================= */}
       <section className="py-8 md:py-14">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-3xl md:text-4xl font-semibold mb-4">
-            Our Clients
-          </h1>
+         <h1 className="text-3xl md:text-4xl font-semibold mb-4 text-blue-800">
+  Our Clients
+</h1>
 
           <p className="text-black/70 max-w-2xl mx-auto leading-relaxed">
             We are proud to collaborate with ambitious brands and forward-thinking
@@ -103,88 +103,99 @@ export default function ClientsPage() {
         </div>
       </section>
 
-    {/* ================= CLIENT GRID ================= */}
+   {/* ================= CLIENT GRID ================= */}
 <section className="pb-10 md:pb-20">
   <div className="max-w-7xl mx-auto px-6">
 
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+    {(() => {
+      const clients = [
+        { image: "/clients/client1.avif", name: "Apex Technologies" },
+        { image: "/clients/client2.png", name: "Nova Retail Group" },
+        { image: "/clients/client10.webp", name: "Zenith Enterprises" },
+        { image: "/clients/client9.jpg", name: "UrbanEdge Solutions" },
+        { image: "/clients/client5.jpg", name: "BrightWave Media" },
+        { image: "/clients/client6.jpg", name: "Skyline Developers" },
+        { image: "/clients/client13.jpg", name: "GlobalCore Industries" },
+        { image: "/clients/client12.webp", name: "NextGen Innovations" },
+      ];
 
-      {[
-        "/clients/client1.avif",
-        "/clients/client2.png",
-        "/clients/client10.webp",
-        "/clients/client9.jpg",
-        "/clients/client5.jpg",
-        "/clients/client6.jpg",
-        "/clients/client13.jpg",
-        "/clients/client12.webp",
-      ].map((logo, i) => (
-        <div
-          key={i}
-          className="
-            flex items-center justify-center
-            transition-all duration-300
-            hover:scale-105
-          "
-        >
-          <Image
-            src={logo}
-            alt="Client Logo"
-            width={300}
-            height={180}
-            className="
-              w-full
-              h-[160px]
-              object-cover
-              rounded-lg
-              transition duration-300
-            "
-          />
+      return (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {clients.slice(0, 4).map((client, i) => (
+            <div
+              key={i}
+              className="
+                flex flex-col items-center justify-center
+                transition-all duration-300
+                hover:scale-105
+              "
+            >
+              <Image
+                src={client.image}
+                alt={client.name}
+                width={300}
+                height={180}
+                className="
+                  w-full
+                  h-[160px]
+                  object-cover
+                  rounded-lg
+                  transition duration-300
+                "
+              />
+
+              {/* CLIENT NAME */}
+              <p className="mt-3 text-sm font-medium text-center">
+                {client.name}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
+      );
+    })()}
 
-   </div>
+    {/* VIEW MORE BUTTON */}
+    <div className="flex justify-center mt-10">
+      <Link
+        href="/clients/details"
+        className="
+          px-8 py-3
+          rounded-full
+          bg-blue-600
+          text-white
+          text-sm font-medium
+          hover:bg-blue-700
+          transition
+          shadow-md
+        "
+      >
+        View More
+      </Link>
+    </div>
 
-{/* VIEW MORE BUTTON */}
-<div className="flex justify-center mt-10">
-  <Link
-    href="/clients/details"
-    className="
-      px-8 py-3
-      rounded-full
-      bg-blue-600
-      text-white
-      text-sm font-medium
-      hover:bg-blue-700
-      transition
-      shadow-md
-    "
-  >
-    View More
-  </Link>
-</div>
+    {/* BACK BUTTON */}
+    <div className="flex justify-center mt-6">
+      <Link
+        href="/"
+        className="
+          px-8 py-3
+          rounded-full
+          border border-black/40
+          text-sm font-medium
+          text-black
+          hover:bg-blue-600
+          hover:border-blue-600
+          hover:text-white
+          transition
+        "
+      >
+        ← Back to Home
+      </Link>
+    </div>
 
-{/* BACK BUTTON */}
-<div className="flex justify-center mt-6">
-  <Link
-    href="/"
-    className="
-      px-8 py-3
-      rounded-full
-      border border-black/40
-      text-sm font-medium
-      text-black
-      hover:bg-blue-600
-      hover:border-blue-600
-      hover:text-white
-      transition
-    "
-  >
-    ← Back to Home
-  </Link>
-</div>
-</div>
+  </div>
 </section>
+
 
 
       {/* ================= FOOTER ================= */}

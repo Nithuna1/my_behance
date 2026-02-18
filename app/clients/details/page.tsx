@@ -93,9 +93,11 @@ export default function ClientsDetailsPage() {
 <section className="py-14">
   <div className="max-w-7xl mx-auto px-6">
 
-    <h2 className="text-3xl font-semibold text-center mb-10">
-      Our Complete Client Portfolio
-    </h2>
+  <h2 className="text-3xl font-semibold text-center mb-10 text-blue-800">
+  Our Valued Clients & Partnerships
+</h2>
+
+
 
     {/** CLIENT DATA */}
 {(() => {
