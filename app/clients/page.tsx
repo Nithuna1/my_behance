@@ -148,7 +148,7 @@ export default function ClientsPage() {
 {/* VIEW MORE BUTTON */}
 <div className="flex justify-center mt-10">
   <Link
-    href="/clients"   // 👉 change this link if needed
+    href="/clients/details"
     className="
       px-8 py-3
       rounded-full
