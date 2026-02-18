@@ -859,35 +859,38 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
           gap-5
           snap-x snap-mandatory
           pb-6
-          no-scrollbar
-        "
-      >
+          no-scrollbar">
+
         {mobileApps.map((app, i) => (
-          <div
-            key={i}
-            onClick={() => setActiveMobileApp(app)}
-            className="
-              min-w-[75%]
-              snap-center
-              flex-shrink-0
-              cursor-pointer
-              transition-transform duration-500
-            "
-          >
-            <Image
-              src={app.image}
-              alt={app.title}
-              width={900}
-              height={1800}
-              className="
-                w-full
-                h-auto
-                object-contain
-                rounded-2xl
-              "
-            />
-          </div>
-        ))}
+  <div
+    key={i}
+    onClick={() => setActiveMobileApp(app)}
+    className="
+      min-w-[85%]          /* control slide width */
+      flex
+      justify-center      /* center horizontally */
+      snap-center
+      flex-shrink-0
+      cursor-pointer
+    "
+  >
+    <div className="w-[260px]">
+      <Image
+        src={app.image}
+        alt={app.title}
+        width={900}
+        height={1800}
+        className="
+          w-full
+          h-auto
+          object-contain
+          rounded-2xl
+        "
+      />
+    </div>
+  </div>
+))}
+
       </div>
 
       {/* RIGHT ARROW */}
