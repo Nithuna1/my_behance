@@ -874,7 +874,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       cursor-pointer
     "
   >
-    <div className="w-[265px]">
+    <div className="w-[260px]">
       <Image
         src={app.image}
         alt={app.title}
