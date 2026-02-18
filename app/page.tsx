@@ -784,17 +784,26 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
           )}
         </div>
 
-        {/* WEBSITE LINK */}
-        {websiteLink && (
-          <a
-            href={websiteLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 text-sm text-blue-600 hover:underline transition"
-          >
-            {websiteLink.replace("https://", "").replace("/", "")}
-          </a>
-        )}
+       {/* WEBSITE LINK */}
+{websiteLink && (
+  <a
+    href={websiteLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      mt-3
+      text-xs sm:text-sm
+      text-blue-600
+      hover:underline
+      break-all
+      text-center
+      max-w-full
+    "
+  >
+    {websiteLink.replace("https://", "").replace("www.", "")}
+  </a>
+)}
+
 
       </div>
     );
