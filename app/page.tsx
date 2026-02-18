@@ -703,6 +703,26 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 </div>
 
+{/* WEBSITE LINK */}
+<div className="mt-8 text-center">
+  <a
+    href="https://matamix.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      inline-block
+      text-blue-600
+      font-medium
+      underline
+      hover:text-blue-800
+      transition
+    "
+  >
+    Visit www.matamix.com
+  </a>
+</div>
+
+
     </div>
   </div>
 )}
