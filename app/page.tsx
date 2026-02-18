@@ -257,7 +257,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
            md:h-[340px]
            lg:h-[380px]
            w-full
-           mx-8
+           mx-8 md:mx-0
          "
        >
        
