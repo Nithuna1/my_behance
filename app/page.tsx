@@ -850,48 +850,52 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         ←
       </button>
 
-      {/* SLIDER */}
-      <div
-        id="mobileSlider"
-        className="
-          flex
-          overflow-x-auto
-          gap-5
-          snap-x snap-mandatory
-          pb-6
-          no-scrollbar">
+     
+{/* SLIDER */}
+<div
+  id="mobileSlider"
+  className="
+    flex
+    overflow-x-auto
+    snap-x snap-mandatory
+    pb-6
+    no-scrollbar
+    px-6
+  "
+>
 
-        {mobileApps.map((app, i) => (
-  <div
-    key={i}
-    onClick={() => setActiveMobileApp(app)}
-    className="
-      min-w-[90%]          /* control slide width */
-      flex
-      justify-center      /* center horizontally */
-      snap-center
-      flex-shrink-0
-      cursor-pointer
-    "
-  >
-    <div className="w-[320px]">
-      <Image
-        src={app.image}
-        alt={app.title}
-        width={1000}
-        height={1900}
-        className="
-          w-full
-          h-auto
-          object-contain
-          rounded-2xl
-        "
-      />
-    </div>
-  </div>
-))}
-
+  {mobileApps.map((app, i) => (
+    <div
+      key={i}
+      onClick={() => setActiveMobileApp(app)}
+      className="
+        w-full
+        flex
+        justify-center
+        snap-center
+        flex-shrink-0
+        cursor-pointer
+      "
+    >
+      <div className="w-[350px]">
+        <Image
+          src={app.image}
+          alt={app.title}
+          width={1000}
+          height={1900}
+          className="
+            w-full
+            h-auto
+            object-contain
+            rounded-2xl
+          "
+        />
       </div>
+    </div>
+  ))}
+
+</div>
+
 
       {/* RIGHT ARROW */}
       <button
