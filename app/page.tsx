@@ -866,7 +866,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     key={i}
     onClick={() => setActiveMobileApp(app)}
     className="
-      min-w-[85%]          /* control slide width */
+      min-w-[90%]          /* control slide width */
       flex
       justify-center      /* center horizontally */
       snap-center
@@ -874,12 +874,12 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       cursor-pointer
     "
   >
-    <div className="w-[260px]">
+    <div className="w-[265px]">
       <Image
         src={app.image}
         alt={app.title}
-        width={900}
-        height={1800}
+        width={1000}
+        height={1900}
         className="
           w-full
           h-auto
