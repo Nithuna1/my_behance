@@ -95,7 +95,7 @@ export default function ClientsPage() {
      </section>
      
 {/* ================= TITLE ================= */}
-<section className="py-12 md:py-20">
+<section className="py-5 md:py-10">
   <div className="max-w-6xl mx-auto px-6 text-center">
 
     <h1 className="
@@ -158,7 +158,7 @@ export default function ClientsPage() {
 
 
 {/* ================= CLIENT GRID ================= */}
-<section className="pb-16 md:pb-24">
+<section className="pb-5 md:pb-10">
   <div className="max-w-6xl mx-auto px-6">
 
     {(() => {

@@ -96,7 +96,7 @@ export default function ClientsDetailsPage() {
       </section>
 
 {/* ================= CLIENT DETAILS SECTION ================= */}
-<section className="py-24 animate-page">
+<section className="py-10 animate-page">
   <div className="max-w-7xl mx-auto px-6">
 
     <h2 className="text-3xl font-semibold text-center mb-16 text-blue-800 tracking-wide">
