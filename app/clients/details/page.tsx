@@ -3,9 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { FiPlus, FiMessageCircle } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
+import { FiMenu } from "react-icons/fi";
+import { FiMail, FiX } from "react-icons/fi";
 
 
 export default function ClientsDetailsPage() {
+   const [fabOpen, setFabOpen] = useState(false);
+   const [contactOpen, setContactOpen] = useState(false);
     const [activeClient, setActiveClient] = useState<null | {
   image: string;
   name: string;
@@ -271,6 +277,101 @@ export default function ClientsDetailsPage() {
 
   </div>
 </footer>
+
+{/* ================= FLOATING ACTION BUTTON ================= */}
+<div className="fixed bottom-8 right-8 z-50">
+
+  <div className="relative w-16 h-16">
+
+    {/* EXPANDED BUTTONS */}
+    {fabOpen && (
+  <>
+    {/* WhatsApp - Top */}
+    <button
+      onClick={() => {
+        const msg =
+          "Hello Matamix International,%0A%0AI would like to know more about your services.";
+        window.open(
+          `https://wa.me/919605000694?text=${msg}`,
+          "_blank"
+        );
+      }}
+      className="
+        absolute bottom-24 right-2
+        w-12 h-12 rounded-full
+        bg-green-500 text-white
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FaWhatsapp size={20} />
+    </button>
+
+    {/* Email - Middle */}
+    <button
+      onClick={() => {
+        window.open(
+          "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
+          "_blank"
+        );
+      }}
+      className="
+        absolute bottom-18 right-20
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FiMail size={20} />
+    </button>
+
+    {/* Contact - Lower */}
+    <button
+      onClick={() => setContactOpen(true)}
+      className="
+        absolute bottom-4 right-28
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FiMessageCircle size={20} />
+    </button>
+  </>
+)}
+
+    {/* MAIN PLUS BUTTON */}
+    <button
+      onClick={() => setFabOpen(!fabOpen)}
+      className="
+        w-14 h-14
+        rounded-full
+        bg-blue-600
+        text-white
+        flex items-center justify-center
+        shadow-xl
+        transition-transform duration-300
+        hover:scale-110
+      "
+    >
+      <FiPlus
+        size={26}
+        className={`transition-transform duration-300 ${
+          fabOpen ? "rotate-45" : ""
+        }`}
+      />
+    </button>
+
+  </div>
+</div>
 
 {/* ================= CLIENT REVIEW POPUP ================= */}
 {activeClient && (

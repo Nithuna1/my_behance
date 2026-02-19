@@ -14,6 +14,8 @@ type Service = {
   tags: string[];
   images: string[];
   description: string;
+  websites?: string[];
+  videos?: string[]; 
 };
 
 export default function ServicePage() {
@@ -30,91 +32,157 @@ const [phone, setPhone] = useState("");
   const [activeService, setActiveService] = useState<Service | null>(null);
 
   const services: Service[] = [
-    {
-      title: "E-Commerce Solutions",
-      tags: ["Branding", "UX", "Conversion"],
-       images: [
-        "/services/commerce1.webp",
-        "/services/commerce.jpeg",
-        "/services/commerce2.jpg",
-        "/services/commerce3.webp",
-      ],
-     description:
-  "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. Our process includes in-depth market research, user behavior analysis, and conversion-focused UI/UX design to create stores that not only look great but drive measurable results. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue, improve customer retention, and compete confidently in the digital marketplace.",
-    },
-    {
-      title: "UI / UX Design",
-      tags: ["UI/UX", "Research", "Prototyping"],
-      images: [
-        "/services/web1.avif",
-        "/services/web2.avif",
-        "/services/web3.jpg",
-        "/services/web4.jpg",
-      ],
-      description:
-  "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. We begin with deep research into user behavior, pain points, and market trends to define clear user flows and information architecture. Through wireframing, interactive prototyping, and usability testing, we design interfaces that are simple, efficient, and visually compelling. Every design decision is driven by clarity, accessibility, and conversion, ensuring users can navigate products or platforms effortlessly. By combining modern design systems, responsive layouts, and performance-focused implementation, we deliver scalable UI/UX solutions that enhance usability, strengthen brand perception, and drive long-term user engagement across web and mobile platforms.",
-    },
-    {
-      title: "Digital Marketing",
-      tags: ["SEO", "Ads", "Growth"],
-       images: [
-        "/services/digital1.avif",
-        "/services/digital2.jpg",
-        "/services/marketing.jpg",
-        "/services/digital3.avif",
-      ],
-       description:
-  "Our Digital Marketing services are built to help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven marketing strategies that combine search engine optimization (SEO), paid advertising, and social media marketing to maximize reach and ROI. From keyword research and on-page optimization to high-performing ad campaigns across Google, Meta, and social platforms, every initiative is designed to deliver real business impact. Using advanced analytics and performance tracking, we continuously monitor, test, and optimize campaigns to improve engagement, reduce acquisition costs, and scale results over time. By aligning creative content with audience behavior and business goals, we help brands build strong digital presence, generate quality leads, and achieve sustainable growth in competitive markets.",
-    },
-    {
-      title: "Mobile App Development",
-      tags: ["Branding", "UX", "Conversion"],
-      images: [
-        "/services/app.jpg",
-        "/services/mobile1.jpg",
-        "/services/mobile2.jpg",
-        "/services/mobile3.jpg",
-      ],
-      description:
-        "We design and develop high-performance mobile applications that deliver seamless, user-centric experiences across iOS and Android platforms. From concept validation and UX design to scalable development and performance optimization, our apps are built for reliability, security, and growth. We focus on intuitive navigation, smooth interactions, and robust architecture to help businesses engage users, drive retention, and scale confidently.",
-    },
-    {
-      title: "Web Development",
-      tags: ["UI/UX", "Research", "Prototyping"],
-      images: [
-        "/services/develop1.jpg",
-        "/services/web.avif",
-        "/services/develop2.avif",
-        "/services/develop3.avif",
-      ],
-      description:
-        "We build fast, secure, and scalable websites tailored to your business objectives. Our web development process combines clean code, responsive design, and modern technologies to deliver high-performance websites that work seamlessly across all devices. From custom development and CMS integration to performance optimization and SEO readiness, we create websites that are reliable, easy to manage, and built for long-term growth.",
-    },
-    {
-      title: "Brand Identity",
-      tags: ["SEO", "Ads", "Growth"],
-      images: [
-        "/services/brand1.jpg",
-        "/services/brand2.jpg",
-        "/services/brand4.jpg",
-        "/services/brand3.avif",
-      ],
-      description:
-        "We craft distinctive and cohesive brand identities that clearly communicate your vision, values, and personality in a competitive marketplace. Our approach begins with in-depth brand discovery and strategic positioning to understand your business goals, target audience, and market landscape. This foundation allows us to create a brand identity that is not only visually compelling but also strategically aligned with your long-term objectives.",
-    },
 
      {
-      title: "Video Production",
-      tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
-      images: [
-        "/services/video1.jpg",
-        "/services/video2.jpg",
-        "/services/video3.avif",
-        "/services/video4.avif",
-      ],
+  title: "E-Commerce Solutions",
+  tags: ["Shopify", "Online Store", "Payments"],
+  images: [
+    "/services/commerce1.webp",
+    "/services/commerce.jpeg",
+    "/services/commerce2.jpg",
+    "/services/commerce1.webp",
+    "/services/commerce.jpeg",
+    "/services/commerce2.jpg",
+  ],
+  videos: [
+    "/video/alrayyan_video.mp4",
+    "/video/flipkart_video.mp4",
+    "/video/myntra_video.mp4",
+    "/video/alrayyan_video.mp4",
+    "/video/flipkart_video.mp4",
+    "/video/myntra_video.mp4",
+  ],
+  websites: [
+    "https://amg-ecommerce-web.vercel.app/",
+    "https://www.flipkart.com",
+    "https://www.myntra.com",
+    "https://www.amazon.in",
+    "https://www.ajio.com",
+    "https://www.tatacliq.com",
+  ],
+      description:
+        "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue and improve customer retention.",
+    },
+    {
+  title: "Ui/Ux Design",
+  tags: ["Prototyping", "User Flows", "Product UX"],
+  images: [
+    "/services/web1.avif",
+    "/services/web2.avif",
+    "/services/web3.jpg",
+  ],
+  videos: [
+    "/video/dribble_video.mp4",
+    "/video/behance_video.mp4",
+    "/video/awards_video.mp4",
+  ],
+  websites: [
+    "https://dribbble.com",
+    "https://behance.net",
+    "https://www.awwwards.com",
+  ],
+  description:
+    "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. Through research, wireframing, interactive prototyping, and usability testing, we design interfaces that are efficient, visually compelling, and conversion-driven. By combining modern design systems and responsive layouts, we deliver scalable UI/UX solutions that enhance usability and strengthen brand perception across web and mobile platforms.",
+}
+,
+    {
+  title: "Digital Marketing",
+  tags: ["SEO Strategy", "Social Ads", "Analytics"],
+  images: [
+    "/services/digital1.avif",
+    "/services/digital2.jpg",
+    "/services/marketing.jpg",
+  ],
+  videos: [
+    "/video/analyitics_video.mp4",
+    "/video/ads_video.mp4",
+    "/video/business_video.mp4",
+  ],
+  websites: [
+    "https://analytics.google.com",
+    "https://ads.google.com",
+    "https://business.instagram.com",
+  ],
+      description:
+        "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
+    },
+    {
+  title: "Video Production",
+  tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
+  images: [
+    "/services/video1.jpg",
+    "/services/video2.jpg",
+    "/services/video3.avif",
+  ],
+  videos: [
+    "/video/intro_video.mp4",
+    "/video/marketing_video.mp4",
+    "/video/memory_video.mp4",
+  ],
+  websites: [
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+  ],
       description:
         "Our Video Production services bring your brand story to life through high-quality, cinematic visual content. From corporate films and product showcases to promotional campaigns and social media reels, we handle the complete production process — scripting, storyboarding, shooting, editing, and post-production. With professional equipment, creative direction, and strategic storytelling, we create compelling videos that engage audiences, strengthen brand identity, and drive measurable results across digital platforms.",
     },
+    
+ {
+  title: "Mobile App Development",
+  tags: ["iOS", "Android", "App UI/UX"],
+  images: [
+    "/services/app.jpg",
+    "/services/mobile1.jpg",
+    "/services/mobile2.jpg",
+    "/services/mobile3.jpg",
+  ],
+
+  videos: [
+    "/video/dribble_video.mp4",
+    "/video/flipkart_video.mp4",
+    "/video/domain_video.mp4",
+    "/video/alrayyan_video.mp4",
+  ],
+
+  websites: [
+    "https://play.google.com/store",
+    "https://apps.apple.com",
+    "https://flutter.dev/showcase",
+    "https://reactnative.dev/showcase",
+  ],
+
+  description:
+    "We design and develop high-performance mobile applications that deliver seamless, user-centric experiences across iOS and Android platforms. From concept validation and UX design to scalable development and performance optimization, our apps are built for reliability, security, and growth. We focus on intuitive navigation, smooth interactions, and robust architecture to help businesses engage users, drive retention, and scale confidently.",
+},
+   {
+  title: "Web Development",
+  tags: ["Frontend", "Backend", "Responsive Design"],
+  images: [
+    "/services/develop1.jpg",
+    "/services/web.avif",
+    "/services/develop2.avif",
+    "/services/develop3.avif",
+  ],
+
+  videos: [
+    "/video/awards_video.mp4",
+    "/video/business_video.mp4",
+    "/video/intro_video.mp4",
+    "/video/ads_video.mp4",
+  ],
+
+  websites: [
+    "https://www.apple.com",
+    "https://www.airbnb.com",
+    "https://www.spotify.com",
+    "https://www.shopify.com",
+  ],
+
+  description:
+    "We build fast, secure, and scalable websites tailored to your business objectives. Our web development process combines clean code, responsive design, and modern technologies to deliver high-performance websites that work seamlessly across all devices. From custom development and CMS integration to performance optimization and SEO readiness, we create websites that are reliable, easy to manage, and built for long-term growth.",
+},
+
   ];
 
   return (
@@ -371,72 +439,127 @@ const [phone, setPhone] = useState("");
               </div>
             ))}
           </div>
-  {/* ================= SERVICE POPUP ================= */}
-          {activeService && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center">
-              <div
-                className="absolute inset-0 bg-black/60"
-                onClick={() => setActiveService(null)}
-              />
 
-              <div className="
-  relative bg-white
-  w-full
-  max-w-6xl
-  h-[90vh]
-  rounded-2xl
-  overflow-hidden
-  flex
-  flex-col md:flex-row
-">
 
-                <button
-                  onClick={() => setActiveService(null)}
-                  className="absolute top-4 right-4 text-xl text-black/60 hover:text-black z-10"
-                >
-                  <FiX />
-                </button>
+ {/* ================= SERVICE POPUP ================= */}
+ {activeService && (
+   <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+ 
+     {/* BACKDROP */}
+     <div
+       className="absolute inset-0 bg-black/60"
+       onClick={() => setActiveService(null)}
+     />
+ 
+     {/* MODAL */}
+     <div
+       className="
+         relative
+         bg-white
+         w-full
+         max-w-5xl
+         rounded-2xl
+         p-8
+       "
+       onClick={(e) => e.stopPropagation()}
+     >
+ 
+       {/* CLOSE BUTTON */}
+       <button
+         onClick={() => setActiveService(null)}
+         className="absolute top-5 right-5 text-xl"
+       >
+         <FiX />
+       </button>
+ 
+       {/* IMAGE ROW */}
+ <div className="grid grid-cols-3 gap-6 mt-6">
+ 
+   {(activeService.title === "Digital Marketing"
+   ? activeService.images.slice(0, 3)
+   : activeService.images
+ ).map((img, i) => {
+ 
+     const websiteLink = activeService.websites?.[i];
+     const videoSrc = activeService.videos?.[i];
+ 
+     return (
+       <div key={i} className="flex flex-col items-center">
+ 
+        <div
+   className={`
+     relative
+     w-full
+     rounded-xl
+     overflow-hidden
+     group
+     ${
+       activeService.title === "Digital Marketing"
+         ? "aspect-[3/4]"   // 👈 Vertical rectangle
+         : "h-[220px]"      // 👈 Normal size for others
+     }
+   `}
+ >
+ 
+           {/* IMAGE */}
+           <Image
+             src={img}
+             alt="Service Image"
+             fill
+             className="object-cover group-hover:opacity-0 transition duration-300"
+           />
+ 
+           {/* VIDEO */}
+           {videoSrc && (
+             <video
+               src={videoSrc}
+               muted
+               loop
+               playsInline
+               className="
+                 absolute inset-0
+                 w-full h-full
+                 object-cover
+                 opacity-0
+                 group-hover:opacity-100
+                 transition duration-300
+               "
+               autoPlay
+             />
+           )}
+         </div>
+ 
+        {/* WEBSITE LINK */}
+ {websiteLink && (
+   <a
+     href={websiteLink}
+     target="_blank"
+     rel="noopener noreferrer"
+     className="
+       mt-3
+       text-xs sm:text-sm
+       text-blue-600
+       hover:underline
+       break-all
+       text-center
+       max-w-full
+     "
+   >
+     {websiteLink.replace("https://", "").replace("www.", "")}
+   </a>
+ 
+ )}
+       </div>
+     );
+   })}
+ 
+ </div>
 
-                {/* ===== POPUP IMAGES (ALWAYS 4) ===== */}
-                <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
-                  <div className="grid grid-cols-2 gap-4">
-                    {Array.from({ length: 4 }).map((_, i) => {
-                      const img =
-                        activeService.images[i] ??
-                        activeService.images[
-                          activeService.images.length - 1
-                        ];
+    </div>
+  </div>
+)}
 
-                      return (
-                        <div
-                          key={i}
-                          className="relative aspect-square rounded-xl overflow-hidden bg-gray-100"
-                        >
-                          <Image
-                            src={img}
-                            alt=""
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
 
-                {/* ===== DETAILS ===== */}
-                <div className="w-full md:w-1/3 border-t md:border-t-0 md:border-l p-4 md:p-6 overflow-y-auto">
-                  <h2 className="text-xl font-semibold mb-2">
-                    {activeService.title}
-                  </h2>
-
-                  <p className="text-sm text-black/70 mb-6">
-                    {activeService.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
 </main>
 
 {contactOpen && (
@@ -588,71 +711,98 @@ ${message}
 
 
 {/* ================= FLOATING ACTION BUTTON ================= */}
-<div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+<div className="fixed bottom-8 right-8 z-50">
 
-  {/* EXPANDED BUTTONS */}
-  {fabOpen && (
-    <>
-      {/* WhatsApp */}
-      <button
-        onClick={() => {
-          const msg =
-            "Hello Matamix International,%0A%0AI would like to know more about your services.";
-          window.open(
-            `https://wa.me/919605000694?text=${msg}`,
-            "_blank"
-          );
-        }}
-        className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg hover:scale-110 transition"
-      >
-        <FaWhatsapp size={20} />
-      </button>
+  <div className="relative w-16 h-16">
 
-     {/* Email */}
-<button
-  onClick={() => {
-    window.open(
-      "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
-      "_blank"
-    );
-  }}
-  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-110 transition"
->
-  <FiMail size={20} />
-</button>
+    {/* EXPANDED BUTTONS */}
+    {fabOpen && (
+  <>
+    {/* WhatsApp - Top */}
+    <button
+      onClick={() => {
+        const msg =
+          "Hello Matamix International,%0A%0AI would like to know more about your services.";
+        window.open(
+          `https://wa.me/919605000694?text=${msg}`,
+          "_blank"
+        );
+      }}
+      className="
+        absolute bottom-24 right-2
+        w-12 h-12 rounded-full
+        bg-green-500 text-white
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FaWhatsapp size={20} />
+    </button>
 
+    {/* Email - Middle */}
+    <button
+      onClick={() => {
+        window.open(
+          "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
+          "_blank"
+        );
+      }}
+      className="
+        absolute bottom-18 right-20
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FiMail size={20} />
+    </button>
 
-      {/* Contact Modal */}
-      <button
-        onClick={() => setContactOpen(true)}
-        className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-110 transition"
-      >
-        <FiMessageCircle size={20} />
-      </button>
-    </>
-  )}
+    {/* Contact - Lower */}
+    <button
+      onClick={() => setContactOpen(true)}
+      className="
+        absolute bottom-4 right-28
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FiMessageCircle size={20} />
+    </button>
+  </>
+)}
 
-  {/* MAIN PLUS BUTTON */}
-  <button
-    onClick={() => setFabOpen(!fabOpen)}
-    className="
-      w-14 h-14
-      rounded-full
-      bg-blue-600
-      text-white
-      flex items-center justify-center
-      shadow-xl
-      transition-transform duration-300
-      hover:scale-110
-    "
-  >
-    <FiPlus
-      size={26}
-      className={`transition-transform duration-300 ${
-        fabOpen ? "rotate-45" : ""
-      }`}
-    />
-  </button>
+    {/* MAIN PLUS BUTTON */}
+    <button
+      onClick={() => setFabOpen(!fabOpen)}
+      className="
+        w-14 h-14
+        rounded-full
+        bg-blue-600
+        text-white
+        flex items-center justify-center
+        shadow-xl
+        transition-transform duration-300
+        hover:scale-110
+      "
+    >
+      <FiPlus
+        size={26}
+        className={`transition-transform duration-300 ${
+          fabOpen ? "rotate-45" : ""
+        }`}
+      />
+    </button>
+
+  </div>
 </div>
 
     </div>

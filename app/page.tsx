@@ -804,8 +804,6 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   </a>
 
 )}
-
-
       </div>
     );
   })}
@@ -835,7 +833,6 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     </div>
   </div>
 )}
-
 
 
 
@@ -1022,28 +1019,70 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       </button>
 
     </div>
+{/* ================= DESKTOP SLIDER ================= */}
+<div className="hidden md:block relative overflow-hidden">
 
-    {/* ================= DESKTOP GRID ================= */}
-    <div className="hidden md:grid md:grid-cols-4 gap-6">
-      {mobileApps.map((app, i) => (
-        <div
-          key={i}
-          onClick={() => setActiveMobileApp(app)}
-          className="cursor-pointer hover:-translate-y-3 transition"
-        >
-          <Image
-            src={app.image}
-            alt={app.title}
-            width={900}
-            height={1800}
-            className="w-full h-auto object-contain"
-          />
-        </div>
-      ))}
-    </div>
+  {/* LEFT ARROW */}
+  <button
+    onClick={() =>
+      document.getElementById("desktopSlider")?.scrollBy({
+        left: -1000,
+        behavior: "smooth",
+      })
+    }
+    className="absolute left-0 top-1/2 -translate-y-1/2 z-20
+               bg-white shadow-lg w-11 h-11 rounded-full
+               flex items-center justify-center
+               hover:scale-110 transition"
+  >
+    ❮
+  </button>
+
+  {/* SLIDER */}
+  <div
+    id="desktopSlider"
+    className="flex overflow-x-auto no-scrollbar scroll-smooth"
+  >
+    {mobileApps.map((app, i) => (
+      <div
+        key={i}
+        onClick={() => setActiveMobileApp(app)}
+        className="flex-shrink-0 w-1/3 flex justify-center
+                   cursor-pointer hover:-translate-y-3 transition"
+      >
+        <Image
+          src={app.image}
+          alt={app.title}
+          width={900}
+          height={1800}
+          className="w-[75%] h-auto object-contain"
+        />
+      </div>
+    ))}
+  </div>
+
+  {/* RIGHT ARROW */}
+  <button
+    onClick={() =>
+      document.getElementById("desktopSlider")?.scrollBy({
+        left: 1000,
+        behavior: "smooth",
+      })
+    }
+    className="absolute right-0 top-1/2 -translate-y-1/2 z-20
+               bg-white shadow-lg w-11 h-11 rounded-full
+               flex items-center justify-center
+               hover:scale-110 transition"
+  >
+    ❯
+  </button>
+
+</div>
+
+
 
   </div>
-</section>
+</section><br></br>
 
          
         {/* ================= WHATSAPP INTEREST CTA ================= */}
@@ -1434,73 +1473,99 @@ ${message}
 </footer>
 
 {/* ================= FLOATING ACTION BUTTON ================= */}
-<div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+<div className="fixed bottom-8 right-8 z-50">
 
-  {/* EXPANDED BUTTONS */}
-  {fabOpen && (
-    <>
-      {/* WhatsApp */}
-      <button
-        onClick={() => {
-          const msg =
-            "Hello Matamix International,%0A%0AI would like to know more about your services.";
-          window.open(
-            `https://wa.me/919605000694?text=${msg}`,
-            "_blank"
-          );
-        }}
-        className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg hover:scale-110 transition"
-      >
-        <FaWhatsapp size={20} />
-      </button>
+  <div className="relative w-16 h-16">
 
-     {/* Email */}
-<button
-  onClick={() => {
-    window.open(
-      "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
-      "_blank"
-    );
-  }}
-  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-110 transition"
->
-  <FiMail size={20} />
-</button>
+    {/* EXPANDED BUTTONS */}
+    {fabOpen && (
+  <>
+    {/* WhatsApp - Top */}
+    <button
+      onClick={() => {
+        const msg =
+          "Hello Matamix International,%0A%0AI would like to know more about your services.";
+        window.open(
+          `https://wa.me/919605000694?text=${msg}`,
+          "_blank"
+        );
+      }}
+      className="
+        absolute bottom-24 right-2
+        w-12 h-12 rounded-full
+        bg-green-500 text-white
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FaWhatsapp size={20} />
+    </button>
 
+    {/* Email - Middle */}
+    <button
+      onClick={() => {
+        window.open(
+          "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
+          "_blank"
+        );
+      }}
+      className="
+        absolute bottom-18 right-20
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FiMail size={20} />
+    </button>
 
-      {/* Contact Modal */}
-      <button
-        onClick={() => setContactOpen(true)}
-        className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-110 transition"
-      >
-        <FiMessageCircle size={20} />
-      </button>
-    </>
-  )}
+    {/* Contact - Lower */}
+    <button
+      onClick={() => setContactOpen(true)}
+      className="
+        absolute bottom-4 right-28
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+    >
+      <FiMessageCircle size={20} />
+    </button>
+  </>
+)}
 
-  {/* MAIN PLUS BUTTON */}
-  <button
-    onClick={() => setFabOpen(!fabOpen)}
-    className="
-      w-14 h-14
-      rounded-full
-      bg-blue-600
-      text-white
-      flex items-center justify-center
-      shadow-xl
-      transition-transform duration-300
-      hover:scale-110
-    "
-  >
-    <FiPlus
-      size={26}
-      className={`transition-transform duration-300 ${
-        fabOpen ? "rotate-45" : ""
-      }`}
-    />
-  </button>
+    {/* MAIN PLUS BUTTON */}
+    <button
+      onClick={() => setFabOpen(!fabOpen)}
+      className="
+        w-14 h-14
+        rounded-full
+        bg-blue-600
+        text-white
+        flex items-center justify-center
+        shadow-xl
+        transition-transform duration-300
+        hover:scale-110
+      "
+    >
+      <FiPlus
+        size={26}
+        className={`transition-transform duration-300 ${
+          fabOpen ? "rotate-45" : ""
+        }`}
+      />
+    </button>
+
+  </div>
 </div>
-
 
     </div>
   );
