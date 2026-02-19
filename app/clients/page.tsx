@@ -127,6 +127,34 @@ export default function ClientsPage() {
   </div>
 </section>
 
+{/* ================= CLIENT STATS ================= */}
+<section className="pb-10">
+  <div className="max-w-5xl mx-auto px-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+
+      <div>
+        <h3 className="text-3xl font-bold text-blue-600">50+</h3>
+        <p className="text-sm text-black/60">Projects Delivered</p>
+      </div>
+
+      <div>
+        <h3 className="text-3xl font-bold text-blue-600">30+</h3>
+        <p className="text-sm text-black/60">Happy Clients</p>
+      </div>
+
+      <div>
+        <h3 className="text-3xl font-bold text-blue-600">5+</h3>
+        <p className="text-sm text-black/60">Industries Served</p>
+      </div>
+
+      <div>
+        <h3 className="text-3xl font-bold text-blue-600">100%</h3>
+        <p className="text-sm text-black/60">Client Satisfaction</p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 
 {/* ================= CLIENT GRID ================= */}
@@ -146,54 +174,53 @@ export default function ClientsPage() {
       ];
 
       return (
-        <div className="
-          grid 
-          grid-cols-1 
-          sm:grid-cols-2 
-          md:grid-cols-3 
-          gap-10
-          animate-fadeUp
-        ">
-          {clients.slice(0, 3).map((client, i) => (
-            <div
-              key={i}
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-2xl
-                bg-white/40
-                backdrop-blur-md
-                shadow-lg
-                hover:shadow-2xl
-                transition-all duration-500
-              "
-            >
-              <Image
-                src={client.image}
-                alt="Client Logo"
-                width={500}
-                height={400}
-                className="
-                  w-full
-                  aspect-[4/3]      /* 👈 Perfect uniform shape */
-                  object-cover
-                  transition duration-500
-                  group-hover:scale-110
-                "
-              />
+       <div
+  className="
+    grid 
+    grid-cols-1 
+    sm:grid-cols-2 
+    md:grid-cols-3 
+    gap-6            /* 👈 reduced gap */
+    animate-fadeUp
+  "
+>
+  {clients.slice(0, 3).map((client, i) => (
+    <div
+      key={i}
+      className="
+        group
+        flex
+        justify-center
+        items-center
+        transition-all duration-500
+      "
+    >
+      <div
+        className="
+          relative
+          w-60 h-60        /* 👈 increased circle size */
+          rounded-full
+          overflow-hidden
+          shadow-xl
+          hover:shadow-2xl
+          transition-all duration-500
+        "
+      >
+        <Image
+          src={client.image}
+          alt="Client Logo"
+          fill
+          className="
+            object-cover
+            transition duration-500
+            group-hover:scale-110
+          "
+        />
+      </div>
+    </div>
+  ))}
+</div>
 
-              {/* Subtle Hover Overlay */}
-              <div className="
-                absolute inset-0
-                bg-black/30
-                opacity-0
-                group-hover:opacity-100
-                transition duration-500
-              " />
-            </div>
-          ))}
-        </div>
       );
     })()}
 
