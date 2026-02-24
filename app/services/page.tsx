@@ -114,6 +114,7 @@ const [phone, setPhone] = useState("");
     "/services/video3.avif",
     "/services/video2.jpg",
     "/services/video1.jpg",
+    "/services/video3.avif",
   ],
   videos: [
     "/video/intro_video.mp4",
@@ -121,8 +122,10 @@ const [phone, setPhone] = useState("");
     "/video/memory_video.mp4",
     "/video/team_video.mp4",
     "/video/company_video.mp4",
+    "/video/title_video.mp4",
   ],
   websites: [
+    "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
@@ -447,123 +450,132 @@ const [phone, setPhone] = useState("");
 
 
  {/* ================= SERVICE POPUP ================= */}
- {activeService && (
-   <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
- 
-     {/* BACKDROP */}
-     <div
-       className="absolute inset-0 bg-black/60"
-       onClick={() => setActiveService(null)}
-     />
- 
-     {/* MODAL */}
-     <div
-       className="
-         relative
-         bg-white
-         w-full
-         max-w-5xl
-         rounded-2xl
-         p-8
-       "
-       onClick={(e) => e.stopPropagation()}
-     >
- 
-       {/* CLOSE BUTTON */}
-       <button
-         onClick={() => setActiveService(null)}
-         className="absolute top-5 right-5 text-xl"
-       >
-         <FiX />
-       </button>
- 
-       {/* IMAGE ROW */}
- <div className="grid grid-cols-3 gap-6 mt-6">
- 
-   {(activeService.title === "Digital Marketing"
-   ? activeService.images.slice(0, 3)
-   : activeService.images
- ).map((img, i) => {
- 
-     const websiteLink = activeService.websites?.[i];
-     const videoSrc = activeService.videos?.[i];
- 
-     return (
-       <div key={i} className="flex flex-col items-center">
- 
-        <div
-   className={`
-     relative
-     w-full
-     rounded-xl
-     overflow-hidden
-     group
-     ${
-       activeService.title === "Digital Marketing"
-         ? "aspect-[3/4]"   // 👈 Vertical rectangle
-         : "h-[220px]"      // 👈 Normal size for others
-     }
-   `}
- >
- 
-           {/* IMAGE */}
-           <Image
-             src={img}
-             alt="Service Image"
-             fill
-             className="object-cover group-hover:opacity-0 transition duration-300"
-           />
- 
-           {/* VIDEO */}
-           {videoSrc && (
-             <video
-               src={videoSrc}
-               muted
-               loop
-               playsInline
-               className="
-                 absolute inset-0
-                 w-full h-full
-                 object-cover
-                 opacity-0
-                 group-hover:opacity-100
-                 transition duration-300
-               "
-               autoPlay
-             />
-           )}
-         </div>
- 
-        {/* WEBSITE LINK */}
- {websiteLink && (
-   <a
-     href={websiteLink}
-     target="_blank"
-     rel="noopener noreferrer"
-     className="
-       mt-3
-       text-xs sm:text-sm
-       text-blue-600
-       hover:underline
-       break-all
-       text-center
-       max-w-full
-     "
-   >
-     {websiteLink.replace("https://", "").replace("www.", "")}
-   </a>
- 
- )}
-       </div>
-     );
-   })}
- 
- </div>
+{activeService && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+
+    {/* BACKDROP */}
+    <div
+      className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+      onClick={() => setActiveService(null)}
+    />
+
+    {/* MODAL */}
+    <div
+      className="
+        relative
+        bg-white
+        w-full
+        max-w-5xl
+        rounded-2xl
+        p-8
+      "
+      onClick={(e) => e.stopPropagation()}
+    >
+
+      {/* CLOSE BUTTON */}
+      <button
+        onClick={() => setActiveService(null)}
+        className="absolute top-5 right-5 text-xl hover:scale-110 transition"
+      >
+        <FiX />
+      </button>
+
+      {/* IMAGE ROW */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+
+        {(activeService.title === "Digital Marketing"
+          ? activeService.images.slice(0, 3)
+          : activeService.images
+        ).map((img, i) => {
+
+          const websiteLink = activeService.websites?.[i];
+          const videoSrc = activeService.videos?.[i];
+
+          const Card = (
+            <div
+              className={`
+                relative
+                w-full
+                rounded-xl
+                overflow-hidden
+                group
+                cursor-pointer
+                transition
+                ${
+                  activeService.title === "Digital Marketing"
+                    ? "aspect-[3/4]"
+                    : "h-[220px]"
+                }
+              `}
+            >
+
+              {/* IMAGE */}
+              <Image
+                src={img}
+                alt="Service Image"
+                fill
+                className="object-cover transition duration-500 group-hover:scale-110"
+              />
+
+              {/* VIDEO (Hover Effect) */}
+              {videoSrc && (
+                <video
+                  src={videoSrc}
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  className="
+                    absolute inset-0
+                    w-full h-full
+                    object-cover
+                    opacity-0
+                    group-hover:opacity-100
+                    transition duration-500
+                  "
+                />
+              )}
+
+              {/* DARK OVERLAY */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
+
+              {/* VISIT BUTTON */}
+              {websiteLink && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                  <span className="bg-white text-black text-xs px-4 py-2 rounded-full font-medium shadow">
+                    Visit Site
+                  </span>
+                </div>
+              )}
+
+            </div>
+          );
+
+          return (
+            <div key={i} className="flex flex-col items-center w-full">
+
+              {websiteLink ? (
+                <a
+                  href={websiteLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  {Card}
+                </a>
+              ) : (
+                Card
+              )}
+
+            </div>
+          );
+        })}
+
+      </div>
 
     </div>
   </div>
 )}
-
 
 </main>
 

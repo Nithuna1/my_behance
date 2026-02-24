@@ -262,6 +262,18 @@ const [phone, setPhone] = useState("");
       "poster13.png",
       "poster14.jpeg",
       "poster15.png",
+      "poster16.jpeg",
+      "poster17.jpeg",
+      "poster20.jpeg",
+      "poster21.jpeg",
+      "poster22.jpeg",
+      "poster23.jpeg",
+      "poster25.jpeg",
+      "poster26.jpeg",
+      "poster28.jpeg",
+      "poster30.jpeg",
+      "poster31.jpeg",
+      "poster36.jpeg",
     ].map((poster, i) => (
       <div
         key={i}

@@ -629,7 +629,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   ],
   videos: [
     "/video/intro_video.mp4",
-    "/video/marketing_video.mp4",
+    "/video/title_video.mp4",
     "/video/memory_video.mp4",
   ],
   websites: [
@@ -702,7 +702,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     {/* BACKDROP */}
     <div
-      className="absolute inset-0 bg-black/60"
+      className="absolute inset-0 bg-black/60 backdrop-blur-sm"
       onClick={() => setActiveService(null)}
     />
 
@@ -712,9 +712,11 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         relative
         bg-white
         w-full
-        max-w-5xl
+        max-w-6xl
         rounded-2xl
         p-8
+        max-h-[90vh]
+        overflow-y-auto
       "
       onClick={(e) => e.stopPropagation()}
     >
@@ -722,119 +724,126 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       {/* CLOSE BUTTON */}
       <button
         onClick={() => setActiveService(null)}
-        className="absolute top-5 right-5 text-xl"
+        className="absolute top-5 right-5 text-xl hover:scale-110 transition"
       >
         <FiX />
       </button>
 
-      {/* IMAGE ROW */}
-<div className="grid grid-cols-3 gap-6 mt-6">
+      {/* TITLE */}
+      <h2 className="text-2xl font-semibold mb-6">
+        {activeService.title}
+      </h2>
 
-  {(activeService.title === "Digital Marketing"
-  ? activeService.images.slice(0, 3)
-  : activeService.images
-).map((img, i) => {
+      {/* CONTENT GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-    const websiteLink = activeService.websites?.[i];
-    const videoSrc = activeService.videos?.[i];
+        {activeService.images.map((img, i) => {
 
-    return (
-      <div key={i} className="flex flex-col items-center">
+          const websiteLink = activeService.websites?.[i];
+          const videoSrc = activeService.videos?.[i];
 
-       <div
-  className={`
-    relative
-    w-full
-    rounded-xl
-    overflow-hidden
-    group
-    ${
-      activeService.title === "Digital Marketing"
-        ? "aspect-[3/4]"   // 👈 Vertical rectangle
-        : "h-[220px]"      // 👈 Normal size for others
-    }
-  `}
->
+          const Card = (
+            <div
+              className={`
+                relative
+                w-full
+                rounded-xl
+                overflow-hidden
+                group
+                cursor-pointer
+                transition
+                ${
+                  activeService.title === "Digital Marketing"
+                    ? "aspect-[3/4]"   // ✅ Vertical rectangle
+                    : "h-[240px]"      // ✅ Normal size
+                }
+              `}
+            >
 
-          {/* IMAGE */}
-          <Image
-            src={img}
-            alt="Service Image"
-            fill
-            className="object-cover group-hover:opacity-0 transition duration-300"
-          />
+              {/* IMAGE */}
+              <Image
+                src={img}
+                alt="Service Preview"
+                fill
+                className="object-cover transition duration-500 group-hover:scale-110"
+              />
 
-          {/* VIDEO */}
-          {videoSrc && (
-            <video
-              src={videoSrc}
-              muted
-              loop
-              playsInline
-              className="
-                absolute inset-0
-                w-full h-full
-                object-cover
-                opacity-0
-                group-hover:opacity-100
-                transition duration-300
-              "
-              autoPlay
-            />
-          )}
-        </div>
+              {/* VIDEO */}
+              {videoSrc && (
+                <video
+                  src={videoSrc}
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  className="
+                    absolute inset-0
+                    w-full h-full
+                    object-cover
+                    opacity-0
+                    group-hover:opacity-100
+                    transition duration-500
+                  "
+                />
+              )}
 
-       {/* WEBSITE LINK */}
-{websiteLink && (
-  <a
-    href={websiteLink}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="
-      mt-3
-      text-xs sm:text-sm
-      text-blue-600
-      hover:underline
-      break-all
-      text-center
-      max-w-full
-    "
-  >
-    {websiteLink.replace("https://", "").replace("www.", "")}
-  </a>
+              {/* OVERLAY */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
 
-)}
+              {/* VISIT BUTTON */}
+              {websiteLink && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                  <span className="bg-white text-black text-sm px-4 py-2 rounded-full font-medium shadow">
+                    Visit Site
+                  </span>
+                </div>
+              )}
+
+            </div>
+          );
+
+          return (
+            <div key={i}>
+              {websiteLink ? (
+                <a
+                  href={websiteLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {Card}
+                </a>
+              ) : (
+                Card
+              )}
+            </div>
+          );
+        })}
+
       </div>
-    );
-  })}
 
-</div>
-
-{/* ✅ SINGLE VIEW MORE BUTTON AT BOTTOM */}
-<div className="flex justify-center mt-10">
-  <Link
-    href="/services"
-    className="
-      px-10 py-3
-      rounded-full
-      border border-gray-400
-      text-sm font-medium
-      text-black
-      hover:bg-blue-600
-      hover:text-white
-      hover:border-blue-600
-      transition
-    "
-  >
-    View More
-  </Link>
-</div>
+      {/* VIEW MORE BUTTON */}
+      <div className="flex justify-center mt-10">
+        <Link
+          href="/services"
+          className="
+            px-10 py-3
+            rounded-full
+            border border-gray-400
+            text-sm font-medium
+            text-black
+            hover:bg-blue-600
+            hover:text-white
+            hover:border-blue-600
+            transition
+          "
+        >
+          View More
+        </Link>
+      </div>
 
     </div>
   </div>
 )}
-
-
 
   {/* ================= PROJECT SECTION ================= */}
 <h3 className="text-lg font-semibold mb-2">Projects</h3>
