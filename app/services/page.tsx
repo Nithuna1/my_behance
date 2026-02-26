@@ -91,16 +91,19 @@ const [phone, setPhone] = useState("");
     "/services/digital1.avif",
     "/services/digital2.jpg",
     "/services/marketing.jpg",
+    "/services/market.avif",
   ],
   videos: [
-    "/video/analyitics_video.mp4",
-    "/video/ads_video.mp4",
-    "/video/business_video.mp4",
+    "/video/soocher_video.mp4",
+    "/video/amalgamate_video.mp4",
+    "/video/knot_video.mp4",
+    "/video/laundry_video.mp4",
   ],
   websites: [
-    "https://analytics.google.com",
-    "https://ads.google.com",
-    "https://business.instagram.com",
+    "https://www.instagram.com/soocherapp?igsh=cWhibjVrYjBicHVq",
+    "https://www.instagram.com/amalgamate_technology?igsh=MWtoOTBhZXltYWgwaQ==",
+    "https://www.instagram.com/knot_perfumes?igsh=MTNrazBjcXF4YnN3cg==",
+    "https://www.instagram.com/laundryhubkasargod?igsh=dWo2MTJ3a2p6Njg=",
   ],
       description:
         "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
@@ -465,9 +468,11 @@ const [phone, setPhone] = useState("");
         relative
         bg-white
         w-full
-        max-w-5xl
+        max-w-6xl
         rounded-2xl
         p-8
+        max-h-[90vh]
+        overflow-y-auto
       "
       onClick={(e) => e.stopPropagation()}
     >
@@ -480,13 +485,15 @@ const [phone, setPhone] = useState("");
         <FiX />
       </button>
 
-      {/* IMAGE ROW */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+      {/* TITLE */}
+      <h2 className="text-2xl font-semibold mb-6">
+        {activeService.title}
+      </h2>
 
-        {(activeService.title === "Digital Marketing"
-          ? activeService.images.slice(0, 3)
-          : activeService.images
-        ).map((img, i) => {
+      {/* CONTENT GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+        {activeService.images.map((img, i) => {
 
           const websiteLink = activeService.websites?.[i];
           const videoSrc = activeService.videos?.[i];
@@ -503,8 +510,8 @@ const [phone, setPhone] = useState("");
                 transition
                 ${
                   activeService.title === "Digital Marketing"
-                    ? "aspect-[3/4]"
-                    : "h-[220px]"
+                    ? "aspect-[3/4]"   // ✅ Vertical rectangle
+                    : "h-[240px]"      // ✅ Normal size
                 }
               `}
             >
@@ -512,12 +519,12 @@ const [phone, setPhone] = useState("");
               {/* IMAGE */}
               <Image
                 src={img}
-                alt="Service Image"
+                alt="Service Preview"
                 fill
                 className="object-cover transition duration-500 group-hover:scale-110"
               />
 
-              {/* VIDEO (Hover Effect) */}
+              {/* VIDEO */}
               {videoSrc && (
                 <video
                   src={videoSrc}
@@ -536,7 +543,7 @@ const [phone, setPhone] = useState("");
                 />
               )}
 
-              {/* DARK OVERLAY */}
+              {/* OVERLAY */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
 
               {/* VISIT BUTTON */}
@@ -552,21 +559,18 @@ const [phone, setPhone] = useState("");
           );
 
           return (
-            <div key={i} className="flex flex-col items-center w-full">
-
+            <div key={i}>
               {websiteLink ? (
                 <a
                   href={websiteLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full"
                 >
                   {Card}
                 </a>
               ) : (
                 Card
               )}
-
             </div>
           );
         })}

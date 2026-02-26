@@ -607,14 +607,14 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     "/services/marketing.jpg",
   ],
   videos: [
-    "/video/analyitics_video.mp4",
-    "/video/ads_video.mp4",
-    "/video/business_video.mp4",
+    "/video/soocher_video.mp4",
+    "/video/amalgamate_video.mp4",
+    "/video/knot_video.mp4",
   ],
   websites: [
-    "https://analytics.google.com",
-    "https://ads.google.com",
-    "https://business.instagram.com",
+    "https://www.instagram.com/soocherapp?igsh=cWhibjVrYjBicHVq",
+    "https://www.instagram.com/amalgamate_technology?igsh=MWtoOTBhZXltYWgwaQ==",
+    "https://www.instagram.com/knot_perfumes?igsh=MTNrazBjcXF4YnN3cg==",
   ],
       description:
         "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
