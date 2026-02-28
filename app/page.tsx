@@ -759,27 +759,66 @@ websites: [
       {/* CONTENT AREA */}
       <div className="flex-1 overflow-y-auto">
 
-        {/* ================= DIGITAL MARKETING SLIDER ================= */}
-{activeService.title === "Digital Marketing" ? (
+        {activeService.title === "Digital Marketing" ? (
 
-  <div className="relative w-full flex items-center">
+  <div className="relative w-full flex items-center justify-center">
 
     {/* LEFT ARROW */}
     <button
       onClick={() =>
         setCurrentIndex((prev) =>
           prev === 0
-            ? activeService.images.length - 3
+            ? activeService.images.length - 1
             : prev - 1
         )
       }
-      className="absolute left-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
+      className="absolute left-2 md:left-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
     >
       ◀
     </button>
 
-    {/* 3 IMAGE ROW */}
-    <div className="grid grid-cols-3 gap-5 w-full px-12">
+    {/* ================= MOBILE: ONE IMAGE ================= */}
+    <div className="w-full md:hidden flex justify-center">
+
+      <div className="relative w-[90%] aspect-[3/4] rounded-xl overflow-hidden group">
+
+        <Image
+          src={activeService.images[currentIndex]}
+          alt="Digital Marketing"
+          fill
+          className="object-cover"
+        />
+
+        {activeService.videos?.[currentIndex] && (
+          <video
+            src={activeService.videos[currentIndex]}
+            muted
+            loop
+            playsInline
+            autoPlay
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+
+        {activeService.websites?.[currentIndex] && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <a
+              href={activeService.websites[currentIndex]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
+            >
+              View Project →
+            </a>
+          </div>
+        )}
+
+      </div>
+
+    </div>
+
+    {/* ================= DESKTOP: 3 IMAGES ================= */}
+    <div className="hidden md:grid md:grid-cols-3 gap-5 w-full px-12">
 
       {activeService.images
         .slice(currentIndex, currentIndex + 3)
@@ -789,68 +828,37 @@ websites: [
           const websiteLink = activeService.websites?.[realIndex];
           const videoSrc = activeService.videos?.[realIndex];
 
-          const Card = (
-            <div className="relative aspect-[3/4] rounded-xl overflow-hidden group cursor-pointer">
-
-              {/* IMAGE */}
-              <Image
-                src={img}
-                alt="Digital Marketing"
-                fill
-                className="object-cover transition duration-500 group-hover:scale-110"
-              />
-
-              {/* VIDEO */}
-              {videoSrc && (
-                <video
-                  src={videoSrc}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
-                />
-              )}
-
-              {/* OVERLAY */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
-
-             {/* EXPLORE BUTTON */}
-{websiteLink && (
-  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-    <span className="
-      px-6 py-2.5
-      rounded-full
-      text-sm
-      font-medium
-      bg-white/90
-      text-black
-      backdrop-blur-md
-      shadow-lg
-      hover:bg-black
-      hover:text-white
-      transition duration-300
-    ">
-      View Project →
-    </span>
-  </div>
-)}
-            </div>
-          );
-
           return (
-            <div key={index}>
-              {websiteLink ? (
-                <a
-                  href={websiteLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {Card}
-                </a>
-              ) : (
-                Card
-              )}
+            <div key={realIndex}>
+              <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
+
+                <Image
+                  src={img}
+                  alt="Digital Marketing"
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-110"
+                />
+
+                {videoSrc && (
+                  <video
+                    src={videoSrc}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
+                  />
+                )}
+
+                {websiteLink && (
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                    <span className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg">
+                      View Project →
+                    </span>
+                  </div>
+                )}
+
+              </div>
             </div>
           );
         })}
@@ -861,12 +869,12 @@ websites: [
     <button
       onClick={() =>
         setCurrentIndex((prev) =>
-          prev + 3 >= activeService.images.length
+          prev === activeService.images.length - 1
             ? 0
             : prev + 1
         )
       }
-      className="absolute right-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
+      className="absolute right-2 md:right-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
     >
       ▶
     </button>
@@ -1200,79 +1208,81 @@ websites: [
     </div>
 
     {/* ================= DESKTOP SLIDER ================= */}
-    <div className="hidden md:block relative overflow-hidden">
+<div className="hidden md:block relative overflow-hidden">
 
-      {/* LEFT ARROW */}
-      <button
-        onClick={() =>
-          document.getElementById("desktopSlider")?.scrollBy({
-            left: -1000,
-            behavior: "smooth",
-          })
-        }
-        className="
-          absolute left-0 top-1/2 -translate-y-1/2 z-20
-          bg-white shadow-lg w-11 h-11 rounded-full
-          flex items-center justify-center
-          text-blue-600 hover:bg-blue-600 hover:text-white
-          hover:scale-110 transition
-        "
-      >
-        ❮
-      </button>
+  {/* LEFT ARROW */}
+  <button
+    onClick={() =>
+      document.getElementById("desktopSlider")?.scrollBy({
+        left: -1200,
+        behavior: "smooth",
+      })
+    }
+    className="
+      absolute left-0 top-1/2 -translate-y-1/2 z-20
+      bg-white shadow-lg w-11 h-11 rounded-full
+      flex items-center justify-center
+      text-blue-600 hover:bg-blue-600 hover:text-white
+      hover:scale-110 transition
+    "
+  >
+    ❮
+  </button>
 
-      {/* SLIDER */}
+  {/* SLIDER */}
+  <div
+    id="desktopSlider"
+    className="
+      flex
+      gap-2
+      overflow-hidden
+      scroll-smooth
+    "
+  >
+    {mobileApps.map((app, i) => (
       <div
-        id="desktopSlider"
+        key={i}
+        onClick={() => setActiveMobileApp(app)}
         className="
-          flex
-          overflow-hidden
-          scroll-smooth
+          flex-shrink-0 w-1/4 flex justify-center
+          cursor-pointer hover:-translate-y-3 transition
         "
       >
-        {mobileApps.map((app, i) => (
-          <div
-            key={i}
-            onClick={() => setActiveMobileApp(app)}
-            className="
-              flex-shrink-0 w-1/3 flex justify-center
-              cursor-pointer hover:-translate-y-3 transition
-            "
-          >
-            <Image
-              src={app.image}
-              alt={app.title}
-              width={900}
-              height={1800}
-              className="w-[75%] h-auto object-contain"
-            />
-          </div>
-        ))}
+        <Image
+          src={app.image}
+          alt={app.title}
+          width={900}
+          height={1800}
+          className="w-[90%] h-auto object-contain"
+        />
       </div>
+    ))}
+  </div>
 
-      {/* RIGHT ARROW */}
-      <button
-        onClick={() =>
-          document.getElementById("desktopSlider")?.scrollBy({
-            left: 1000,
-            behavior: "smooth",
-          })
-        }
-        className="
-          absolute right-0 top-1/2 -translate-y-1/2 z-20
-          bg-white shadow-lg w-11 h-11 rounded-full
-          flex items-center justify-center
-          text-blue-600 hover:bg-blue-600 hover:text-white
-          hover:scale-110 transition
-        "
-      >
-        ❯
-      </button>
+  {/* RIGHT ARROW */}
+  <button
+    onClick={() =>
+      document.getElementById("desktopSlider")?.scrollBy({
+        left: 1200,
+        behavior: "smooth",
+      })
+    }
+    className="
+      absolute right-0 top-1/2 -translate-y-1/2 z-20
+      bg-white shadow-lg w-11 h-11 rounded-full
+      flex items-center justify-center
+      text-blue-600 hover:bg-blue-600 hover:text-white
+      hover:scale-110 transition
+    "
+  >
+    ❯
+  </button>
 
-    </div>
+</div>
 
   </div>
 </section><br></br>
+
          
         {/* ================= WHATSAPP INTEREST CTA ================= */}
 <section className="mt-2 mb-6">
