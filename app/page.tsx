@@ -725,18 +725,18 @@ websites: [
     />
 
     {/* MODAL */}
-    <div
-      className="
-        relative
-        bg-white
-        w-full
-        max-w-6xl
-        rounded-2xl
-        p-8
-        h-[95vh]
-        flex
-        flex-col
-      "
+   <div
+  className="
+    relative
+    bg-white
+    w-full
+    max-w-6xl
+    rounded-2xl
+    p-6 md:p-8
+    max-h-[95vh]
+    flex
+    flex-col
+  "
       onClick={(e) => e.stopPropagation()}
     >
 
@@ -757,7 +757,7 @@ websites: [
       </h2>
 
       {/* CONTENT AREA */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-y-auto">
 
         {/* ================= DIGITAL MARKETING SLIDER ================= */}
 {activeService.title === "Digital Marketing" ? (
@@ -901,7 +901,7 @@ websites: [
                     transition
                     ${
                       activeService.title === "Ui/Ux Design"
-                        ? "aspect-[4/8]"
+                        ? "aspect-[4/6]"
                         : activeService.title === "Digital Marketing"
                         ? "aspect-[3/4]"
                         : "h-[220px]"
