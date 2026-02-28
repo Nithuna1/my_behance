@@ -87,14 +87,22 @@ export default function PostersSection() {
 
         <div className="relative flex items-center">
 
-          {/* LEFT ARROW */}
-          <button
-            onClick={prevSlide}
-            disabled={currentIndex === 0}
-            className="absolute left-0 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition disabled:opacity-30"
-          >
-            ←
-          </button>
+        {/* LEFT ARROW */}
+<button
+  onClick={prevSlide}
+  disabled={currentIndex === 0}
+  className="
+    absolute left-0 z-10
+    bg-white shadow-md
+    w-10 h-10 rounded-full
+    flex items-center justify-center
+    text-blue-800 hover:text-blue-700
+    hover:scale-110 transition
+    disabled:opacity-30
+  "
+>
+  ←
+</button>
 
           {/* SLIDER */}
           <div className="overflow-hidden w-full">
@@ -121,14 +129,22 @@ export default function PostersSection() {
             </div>
           </div>
 
-          {/* RIGHT ARROW */}
-          <button
-            onClick={nextSlide}
-            disabled={currentIndex === slides.length - 1}
-            className="absolute right-0 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition disabled:opacity-30"
-          >
-            →
-          </button>
+         {/* RIGHT ARROW */}
+<button
+  onClick={nextSlide}
+  disabled={currentIndex === slides.length - 1}
+  className="
+    absolute right-0 z-10
+    bg-white shadow-md
+    w-10 h-10 rounded-full
+    flex items-center justify-center
+    text-blue-800 hover:text-blue-700
+    hover:scale-110 transition
+    disabled:opacity-30
+  "
+>
+  →
+</button>
 
         </div>
       </section>

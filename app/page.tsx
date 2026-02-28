@@ -65,6 +65,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [activeMobileApp, setActiveMobileApp] = useState<MobileApp | null>(null);
   const [activeSet, setActiveSet] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
 
 
@@ -237,16 +238,13 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
   return (
-  <div
+ <div
   className="
     min-h-screen
     w-full
-    overflow-x-hidden  
+    overflow-x-hidden
     text-black
-    bg-gradient-to-br
-    from-[#1e293b]
-    via-[#e0e7ff]
-    to-[#ffffff]
+    bg-white
   "
 >
 
@@ -580,20 +578,23 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   title: "Ui/Ux Design",
   tags: ["Prototyping", "User Flows", "Product UX"],
   images: [
-    "/services/web1.avif",
-    "/services/web2.avif",
-    "/services/web3.jpg",
-  ],
-  videos: [
-    "/video/figma_video.mp4",
-    "/video/dribble_video.mp4",
-    "/video/awards_video.mp4",
-  ],
-  websites: [
-    "https://www.figma.com/proto/eNSvJGp6L4vK8asm2EPF2z/vishnu2?node-id=618-3502&p=f&t=7SQAgsDcqi6PHJjj-0",
-    "https://dribbble.com",
-    "https://www.awwwards.com",
-  ],
+  "/services/web1.avif",
+  "/services/web2.avif",
+  "/services/web3.jpg",
+  "/services/web4.jpg",   
+],
+videos: [
+  "/video/figma_video.mp4",
+  "/video/dribble_video.mp4",
+  "/video/awards_video.mp4",
+  "/video/behance_video.mp4",  
+],
+websites: [
+  "https://www.figma.com/proto/eNSvJGp6L4vK8asm2EPF2z/vishnu2?node-id=618-3502&p=f&t=7SQAgsDcqi6PHJjj-0",
+  "https://dribbble.com",
+  "https://www.awwwards.com",
+  "https://www.behance.net",   
+],
   description:
     "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. Through research, wireframing, interactive prototyping, and usability testing, we design interfaces that are efficient, visually compelling, and conversion-driven. By combining modern design systems and responsive layouts, we deliver scalable UI/UX solutions that enhance usability and strengthen brand perception across web and mobile platforms.",
 }
@@ -605,16 +606,19 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     "/services/digital1.avif",
     "/services/digital2.jpg",
     "/services/marketing.jpg",
+    "/services/market.avif",
   ],
   videos: [
     "/video/soocher_video.mp4",
     "/video/amalgamate_video.mp4",
     "/video/knot_video.mp4",
+    "/video/laundry_video.mp4",
   ],
   websites: [
     "https://www.instagram.com/soocherapp?igsh=cWhibjVrYjBicHVq",
     "https://www.instagram.com/amalgamate_technology?igsh=MWtoOTBhZXltYWgwaQ==",
     "https://www.instagram.com/knot_perfumes?igsh=MTNrazBjcXF4YnN3cg==",
+    "https://www.instagram.com/laundryhubkasargod?igsh=dWo2MTJ3a2p6Njg=",
   ],
       description:
         "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
@@ -626,13 +630,22 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     "/services/video1.jpg",
     "/services/video2.jpg",
     "/services/video3.avif",
+    "/services/video2.jpg",
+    "/services/video1.jpg",
+    "/services/video3.avif",
   ],
   videos: [
     "/video/intro_video.mp4",
     "/video/title_video.mp4",
     "/video/memory_video.mp4",
+     "/video/team_video.mp4",
+    "/video/company_video.mp4",
+    "/video/marketing_video.mp4",
   ],
   websites: [
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
@@ -696,6 +709,8 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   </Link>
 </div>
 
+
+
 {/* ================= SERVICE POPUP ================= */}
 {activeService && (
   <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
@@ -703,7 +718,10 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     {/* BACKDROP */}
     <div
       className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-      onClick={() => setActiveService(null)}
+      onClick={() => {
+        setActiveService(null);
+        setCurrentIndex(0);
+      }}
     />
 
     {/* MODAL */}
@@ -715,15 +733,19 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         max-w-6xl
         rounded-2xl
         p-8
-        max-h-[90vh]
-        overflow-y-auto
+        h-[95vh]
+        flex
+        flex-col
       "
       onClick={(e) => e.stopPropagation()}
     >
 
       {/* CLOSE BUTTON */}
       <button
-        onClick={() => setActiveService(null)}
+        onClick={() => {
+          setActiveService(null);
+          setCurrentIndex(0);
+        }}
         className="absolute top-5 right-5 text-xl hover:scale-110 transition"
       >
         <FiX />
@@ -734,36 +756,46 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         {activeService.title}
       </h2>
 
-      {/* CONTENT GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {/* CONTENT AREA */}
+      <div className="flex-1 overflow-hidden">
 
-        {activeService.images.map((img, i) => {
+        {/* ================= DIGITAL MARKETING SLIDER ================= */}
+{activeService.title === "Digital Marketing" ? (
 
-          const websiteLink = activeService.websites?.[i];
-          const videoSrc = activeService.videos?.[i];
+  <div className="relative w-full flex items-center">
+
+    {/* LEFT ARROW */}
+    <button
+      onClick={() =>
+        setCurrentIndex((prev) =>
+          prev === 0
+            ? activeService.images.length - 3
+            : prev - 1
+        )
+      }
+      className="absolute left-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
+    >
+      ◀
+    </button>
+
+    {/* 3 IMAGE ROW */}
+    <div className="grid grid-cols-3 gap-5 w-full px-12">
+
+      {activeService.images
+        .slice(currentIndex, currentIndex + 3)
+        .map((img, index) => {
+
+          const realIndex = currentIndex + index;
+          const websiteLink = activeService.websites?.[realIndex];
+          const videoSrc = activeService.videos?.[realIndex];
 
           const Card = (
-            <div
-              className={`
-                relative
-                w-full
-                rounded-xl
-                overflow-hidden
-                group
-                cursor-pointer
-                transition
-                ${
-                  activeService.title === "Digital Marketing"
-                    ? "aspect-[3/4]"   // ✅ Vertical rectangle
-                    : "h-[240px]"      // ✅ Normal size
-                }
-              `}
-            >
+            <div className="relative aspect-[3/4] rounded-xl overflow-hidden group cursor-pointer">
 
               {/* IMAGE */}
               <Image
                 src={img}
-                alt="Service Preview"
+                alt="Digital Marketing"
                 fill
                 className="object-cover transition duration-500 group-hover:scale-110"
               />
@@ -776,34 +808,38 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
                   loop
                   playsInline
                   autoPlay
-                  className="
-                    absolute inset-0
-                    w-full h-full
-                    object-cover
-                    opacity-0
-                    group-hover:opacity-100
-                    transition duration-500
-                  "
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
                 />
               )}
 
               {/* OVERLAY */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
 
-              {/* VISIT BUTTON */}
-              {websiteLink && (
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-                 <span className="bg-white text-blue-600 text-sm px-4 py-2 rounded-full font-medium shadow-md hover:bg-gray-800 transition">
-  Explore Site
-</span>
-                </div>
-              )}
-
+             {/* EXPLORE BUTTON */}
+{websiteLink && (
+  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+    <span className="
+      px-6 py-2.5
+      rounded-full
+      text-sm
+      font-medium
+      bg-white/90
+      text-black
+      backdrop-blur-md
+      shadow-lg
+      hover:bg-black
+      hover:text-white
+      transition duration-300
+    ">
+      View Project →
+    </span>
+  </div>
+)}
             </div>
           );
 
           return (
-            <div key={i}>
+            <div key={index}>
               {websiteLink ? (
                 <a
                   href={websiteLink}
@@ -819,31 +855,162 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
           );
         })}
 
+    </div>
+
+    {/* RIGHT ARROW */}
+    <button
+      onClick={() =>
+        setCurrentIndex((prev) =>
+          prev + 3 >= activeService.images.length
+            ? 0
+            : prev + 1
+        )
+      }
+      className="absolute right-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
+    >
+      ▶
+    </button>
+
+  </div>
+
+) : (
+
+          /* ================= NORMAL GRID ================= */
+          <div
+            className={`grid gap-5 ${
+              activeService.title === "Ui/Ux Design"
+                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
+                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+            }`}
+          >
+
+            {activeService.images.map((img, i) => {
+
+              const websiteLink = activeService.websites?.[i];
+              const videoSrc = activeService.videos?.[i];
+
+              const Card = (
+                <div
+                  className={`
+                    relative
+                    w-full
+                    rounded-xl
+                    overflow-hidden
+                    group
+                    cursor-pointer
+                    transition
+                    ${
+                      activeService.title === "Ui/Ux Design"
+                        ? "aspect-[4/8]"
+                        : activeService.title === "Digital Marketing"
+                        ? "aspect-[3/4]"
+                        : "h-[220px]"
+                    }
+                  `}
+                >
+
+                  <Image
+                    src={img}
+                    alt="Service Preview"
+                    fill
+                    className="object-cover transition duration-500 group-hover:scale-110"
+                  />
+
+                  {videoSrc && (
+                    <video
+                      src={videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      className="
+                        absolute inset-0
+                        w-full h-full
+                        object-cover
+                        opacity-0
+                        group-hover:opacity-100
+                        transition duration-500
+                      "
+                    />
+                  )}
+
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
+
+                  {websiteLink && (
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                      <span
+                        className={`
+                          px-5 py-2
+                          rounded-full
+                          text-sm
+                          font-medium
+                          shadow-lg
+                          backdrop-blur-md
+                          transition
+                          ${
+                            activeService.title === "Video Production"
+                              ? "bg-white/90 text-black hover:bg-black hover:text-white"
+                              : "bg-white text-blue-600 hover:bg-gray-800 hover:text-white"
+                          }
+                        `}
+                      >
+                        {activeService.title === "Video Production"
+                          ? "View Project"
+                          : "Explore Site"}
+                      </span>
+                    </div>
+                  )}
+
+                </div>
+              );
+
+              return (
+                <div key={i}>
+                  {websiteLink ? (
+                    <a
+                      href={websiteLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {Card}
+                    </a>
+                  ) : (
+                    Card
+                  )}
+                </div>
+              );
+            })}
+
+          </div>
+        )}
       </div>
 
-      {/* VIEW MORE BUTTON */}
-      <div className="flex justify-center mt-10">
-        <Link
-          href="/services"
-          className="
-            px-10 py-3
-            rounded-full
-            border border-gray-400
-            text-sm font-medium
-            text-black
-            hover:bg-blue-600
-            hover:text-white
-            hover:border-blue-600
-            transition
-          "
-        >
-          View More
-        </Link>
-      </div>
+      {/* VIEW MORE BUTTON (Hidden for Digital Marketing) */}
+      {activeService.title !== "Digital Marketing" && (
+        <div className="flex justify-center mt-8">
+          <Link
+            href="/services"
+            className="
+              px-10 py-3
+              rounded-full
+              border border-gray-400
+              text-sm font-medium
+              text-black
+              hover:bg-blue-600
+              hover:text-white
+              hover:border-blue-600
+              transition
+            "
+          >
+            View More
+          </Link>
+        </div>
+      )}
 
     </div>
   </div>
 )}
+
 
   {/* ================= PROJECT SECTION ================= */}
 <h3 className="text-lg font-semibold mb-2">Projects</h3>
@@ -954,145 +1121,156 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       <button
         onClick={() =>
           document.getElementById("mobileSlider")?.scrollBy({
-            left: -300,
+            left: -350,
             behavior: "smooth",
           })
         }
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 
-                   bg-white shadow-md w-9 h-9 rounded-full 
-                   flex items-center justify-center"
+        className="
+          absolute left-0 top-1/2 -translate-y-1/2 z-10
+          bg-white shadow-md w-9 h-9 rounded-full
+          flex items-center justify-center
+          text-blue-600 hover:bg-blue-600 hover:text-white
+          transition
+        "
       >
         ←
       </button>
 
-     
-{/* SLIDER */}
-<div
-  id="mobileSlider"
-  className="
-    flex
-    overflow-x-auto
-    snap-x snap-mandatory
-    pb-6
-    no-scrollbar
-    px-6
-  "
->
-
-  {mobileApps.map((app, i) => (
-    <div
-      key={i}
-      onClick={() => setActiveMobileApp(app)}
-      className="
-        w-full
-        flex
-        justify-center
-        snap-center
-        flex-shrink-0
-        cursor-pointer
-      "
-    >
-      <div className="w-[350px]">
-        <Image
-          src={app.image}
-          alt={app.title}
-          width={1000}
-          height={1900}
-          className="
-            w-full
-            h-auto
-            object-contain
-            rounded-2xl
-          "
-        />
+      {/* SLIDER */}
+      <div
+        id="mobileSlider"
+        className="
+          flex
+          overflow-hidden
+          pb-6
+          px-10
+        "
+      >
+        {mobileApps.map((app, i) => (
+          <div
+            key={i}
+            onClick={() => setActiveMobileApp(app)}
+            className="
+              w-full
+              flex
+              justify-center
+              flex-shrink-0
+              cursor-pointer
+            "
+          >
+            <div className="w-[350px]">
+              <Image
+                src={app.image}
+                alt={app.title}
+                width={1000}
+                height={1900}
+                className="
+                  w-full
+                  h-auto
+                  object-contain
+                  rounded-2xl
+                "
+              />
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-  ))}
-
-</div>
-
 
       {/* RIGHT ARROW */}
       <button
         onClick={() =>
           document.getElementById("mobileSlider")?.scrollBy({
-            left: 300,
+            left: 350,
             behavior: "smooth",
           })
         }
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 
-                   bg-white shadow-md w-9 h-9 rounded-full 
-                   flex items-center justify-center"
+        className="
+          absolute right-0 top-1/2 -translate-y-1/2 z-10
+          bg-white shadow-md w-9 h-9 rounded-full
+          flex items-center justify-center
+          text-blue-600 hover:bg-blue-600 hover:text-white
+          transition
+        "
       >
         →
       </button>
 
     </div>
-{/* ================= DESKTOP SLIDER ================= */}
-<div className="hidden md:block relative overflow-hidden">
 
-  {/* LEFT ARROW */}
-  <button
-    onClick={() =>
-      document.getElementById("desktopSlider")?.scrollBy({
-        left: -1000,
-        behavior: "smooth",
-      })
-    }
-    className="absolute left-0 top-1/2 -translate-y-1/2 z-20
-               bg-white shadow-lg w-11 h-11 rounded-full
-               flex items-center justify-center
-               hover:scale-110 transition"
-  >
-    ❮
-  </button>
+    {/* ================= DESKTOP SLIDER ================= */}
+    <div className="hidden md:block relative overflow-hidden">
 
-  {/* SLIDER */}
-  <div
-    id="desktopSlider"
-    className="flex overflow-x-auto no-scrollbar scroll-smooth"
-  >
-    {mobileApps.map((app, i) => (
-      <div
-        key={i}
-        onClick={() => setActiveMobileApp(app)}
-        className="flex-shrink-0 w-1/3 flex justify-center
-                   cursor-pointer hover:-translate-y-3 transition"
+      {/* LEFT ARROW */}
+      <button
+        onClick={() =>
+          document.getElementById("desktopSlider")?.scrollBy({
+            left: -1000,
+            behavior: "smooth",
+          })
+        }
+        className="
+          absolute left-0 top-1/2 -translate-y-1/2 z-20
+          bg-white shadow-lg w-11 h-11 rounded-full
+          flex items-center justify-center
+          text-blue-600 hover:bg-blue-600 hover:text-white
+          hover:scale-110 transition
+        "
       >
-        <Image
-          src={app.image}
-          alt={app.title}
-          width={900}
-          height={1800}
-          className="w-[75%] h-auto object-contain"
-        />
+        ❮
+      </button>
+
+      {/* SLIDER */}
+      <div
+        id="desktopSlider"
+        className="
+          flex
+          overflow-hidden
+          scroll-smooth
+        "
+      >
+        {mobileApps.map((app, i) => (
+          <div
+            key={i}
+            onClick={() => setActiveMobileApp(app)}
+            className="
+              flex-shrink-0 w-1/3 flex justify-center
+              cursor-pointer hover:-translate-y-3 transition
+            "
+          >
+            <Image
+              src={app.image}
+              alt={app.title}
+              width={900}
+              height={1800}
+              className="w-[75%] h-auto object-contain"
+            />
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
 
-  {/* RIGHT ARROW */}
-  <button
-    onClick={() =>
-      document.getElementById("desktopSlider")?.scrollBy({
-        left: 1000,
-        behavior: "smooth",
-      })
-    }
-    className="absolute right-0 top-1/2 -translate-y-1/2 z-20
-               bg-white shadow-lg w-11 h-11 rounded-full
-               flex items-center justify-center
-               hover:scale-110 transition"
-  >
-    ❯
-  </button>
+      {/* RIGHT ARROW */}
+      <button
+        onClick={() =>
+          document.getElementById("desktopSlider")?.scrollBy({
+            left: 1000,
+            behavior: "smooth",
+          })
+        }
+        className="
+          absolute right-0 top-1/2 -translate-y-1/2 z-20
+          bg-white shadow-lg w-11 h-11 rounded-full
+          flex items-center justify-center
+          text-blue-600 hover:bg-blue-600 hover:text-white
+          hover:scale-110 transition
+        "
+      >
+        ❯
+      </button>
 
-</div>
-
-
+    </div>
 
   </div>
 </section><br></br>
-
          
         {/* ================= WHATSAPP INTEREST CTA ================= */}
 <section className="mt-2 mb-6">

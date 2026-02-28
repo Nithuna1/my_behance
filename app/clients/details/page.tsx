@@ -19,18 +19,15 @@ export default function ClientsDetailsPage() {
 }>(null);
 
   return (
-     <div
-   className="
-     min-h-screen
-     w-full
-     overflow-x-hidden   /* 👈 MOST IMPORTANT */
-     text-black
-     bg-gradient-to-br
-     from-[#1e293b]
-     via-[#e0e7ff]
-     to-[#ffffff]
-   "
- >
+    <div
+  className="
+    min-h-screen
+    w-full
+    overflow-x-hidden
+    text-black
+    bg-white
+  "
+>
 
 
       {/* ================= COVER (UNCHANGED) ================= */}
@@ -99,7 +96,7 @@ export default function ClientsDetailsPage() {
 <section className="py-10 animate-page">
   <div className="max-w-7xl mx-auto px-6">
 
-    <h2 className="text-3xl font-semibold text-center mb-16 text-blue-800 tracking-wide">
+    <h2 className="text-3xl font-semibold text-center mb-16 text-black tracking-wide">
       Our Valued Clients & Partnerships
     </h2>
 
@@ -213,7 +210,7 @@ export default function ClientsDetailsPage() {
     {/* BACK BUTTON */}
     <div className="flex justify-center mt-20">
       <Link
-        href="/clients"
+        href="/"
         className="
           px-10 py-3
           rounded-full
@@ -225,7 +222,7 @@ export default function ClientsDetailsPage() {
           hover:shadow-xl
         "
       >
-        ← Back to Clients
+        ← Back
       </Link>
     </div>
 

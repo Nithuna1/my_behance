@@ -198,17 +198,14 @@ const [phone, setPhone] = useState("");
 
   return (
    <div
-     className="
-       min-h-screen
-       w-full
-       overflow-x-hidden   /* 👈 MOST IMPORTANT */
-       text-black
-       bg-gradient-to-br
-       from-[#1e293b]
-       via-[#e0e7ff]
-       to-[#ffffff]
-     "
-   >
+  className="
+    min-h-screen
+    w-full
+    overflow-x-hidden
+    text-black
+    bg-white
+  "
+>
    
    
    

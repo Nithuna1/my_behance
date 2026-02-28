@@ -13,17 +13,14 @@ export default function ClientsPage() {
    const [contactOpen, setContactOpen] = useState(false);
   return (
    <div
-   className="
-     min-h-screen
-     w-full
-     overflow-x-hidden   /* 👈 MOST IMPORTANT */
-     text-black
-     bg-gradient-to-br
-     from-[#1e293b]
-     via-[#e0e7ff]
-     to-[#ffffff]
-   "
- >
+  className="
+    min-h-screen
+    w-full
+    overflow-x-hidden
+    text-black
+    bg-white
+  "
+>
  
  
  
@@ -98,18 +95,15 @@ export default function ClientsPage() {
 <section className="py-5 md:py-10">
   <div className="max-w-6xl mx-auto px-6 text-center">
 
-    <h1 className="
-      text-3xl md:text-5xl 
-      font-semibold 
-      mb-6 
-      bg-gradient-to-r 
-      from-blue-700 to-indigo-600 
-      bg-clip-text 
-      text-transparent
-      animate-fadeUp
-    ">
-      Our Clients
-    </h1>
+   <h1 className="
+  text-3xl md:text-5xl
+  font-semibold
+  mb-6
+  text-black
+  animate-fadeUp
+">
+  Our Clients
+</h1>
 
     <p className="
       text-black/70 
