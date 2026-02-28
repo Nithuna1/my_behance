@@ -916,23 +916,25 @@ websites: [
                     className="object-cover transition duration-500 group-hover:scale-110"
                   />
 
-                  {videoSrc && (
-                    <video
-                      src={videoSrc}
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
-                      className="
-                        absolute inset-0
-                        w-full h-full
-                        object-cover
-                        opacity-0
-                        group-hover:opacity-100
-                        transition duration-500
-                      "
-                    />
-                  )}
+                 {videoSrc && (
+  <video
+    src={videoSrc}
+    muted={true}
+    loop
+    playsInline={true}
+    autoPlay={true}
+    preload="auto"
+    className="
+      absolute inset-0
+      w-full h-full
+      object-cover
+      transition duration-500
+      opacity-100
+      md:opacity-0
+      md:group-hover:opacity-100
+    "
+  />
+)}
 
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
 
