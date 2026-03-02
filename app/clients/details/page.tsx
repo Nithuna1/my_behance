@@ -10,6 +10,7 @@ import { FiMail, FiX } from "react-icons/fi";
 
 
 export default function ClientsDetailsPage() {
+  const [showAllClients, setShowAllClients] = useState(false);
    const [fabOpen, setFabOpen] = useState(false);
    const [contactOpen, setContactOpen] = useState(false);
     const [activeClient, setActiveClient] = useState<null | {
@@ -208,7 +209,7 @@ export default function ClientsDetailsPage() {
     })()}
 
     {/* BACK BUTTON */}
-    <div className="flex justify-center mt-20">
+    <div className="flex justify-center mt-5">
       <Link
         href="/"
         className="
@@ -225,6 +226,26 @@ export default function ClientsDetailsPage() {
         ← Back
       </Link>
     </div>
+
+    {/* VIEW MORE CLIENTS BUTTON */}
+<div className="flex justify-center mt-2">
+  <button
+    onClick={() => setShowAllClients(true)}
+    className="
+      px-6 py-2
+      rounded-full
+      border border-gray-400
+      text-sm font-medium
+      text-black
+      hover:bg-black hover:text-white
+      transition
+    "
+  >
+    View All
+  </button>
+</div>
+    
+    
 
   </div>
 </section>

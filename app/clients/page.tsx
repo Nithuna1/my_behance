@@ -11,6 +11,8 @@ import { FiMail, FiX } from "react-icons/fi";
 export default function ClientsPage() {
    const [fabOpen, setFabOpen] = useState(false);
    const [contactOpen, setContactOpen] = useState(false);
+   const [showAllClients, setShowAllClients] = useState(false);
+const [selectedClient, setSelectedClient] = useState<any>(null);
   return (
    <div
   className="
@@ -156,16 +158,16 @@ export default function ClientsPage() {
   <div className="max-w-6xl mx-auto px-6">
 
     {(() => {
-      const clients = [
-        { image: "/clients/client1.avif" },
-        { image: "/clients/client2.png" },
-        { image: "/clients/client10.webp" },
-        { image: "/clients/client9.jpg" },
-        { image: "/clients/client5.jpg" },
-        { image: "/clients/client6.jpg" },
-        { image: "/clients/client13.jpg" },
-        { image: "/clients/client12.webp" },
-      ];
+     const clients = [
+  { image: "/clients/client1.avif", review: "Very professional service." },
+  { image: "/clients/client2.png", review: "Excellent marketing results." },
+  { image: "/clients/client10.webp", review: "Highly recommended team." },
+  { image: "/clients/client9.jpg", review: "Creative and reliable." },
+  { image: "/clients/client5.jpg", review: "Delivered on time." },
+  { image: "/clients/client6.jpg", review: "Great communication." },
+  { image: "/clients/client13.jpg", review: "Amazing experience." },
+  { image: "/clients/client12.webp", review: "Top quality work." },
+];
 
       return (
        <div
