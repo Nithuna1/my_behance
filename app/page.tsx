@@ -776,25 +776,32 @@ websites: [
       </h2>
 
       {/* CONTENT AREA */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1">
 
         {activeService.title === "Digital Marketing" ? (
 
   <div className="relative w-full flex items-center justify-center">
 
     {/* LEFT ARROW */}
-    <button
-      onClick={() =>
-        setCurrentIndex((prev) =>
-          prev === 0
-            ? activeService.images.length - 1
-            : prev - 1
-        )
-      }
-      className="absolute left-2 md:left-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
-    >
-      ◀
-    </button>
+   <button
+  onClick={() =>
+    setCurrentIndex((prev) =>
+      prev === 0
+        ? activeService.images.length - 1
+        : prev - 1
+    )
+  }
+  className="
+    absolute left-0 top-1/2 -translate-y-1/2
+    z-20
+    text-4xl
+    text-gray-700
+    hover:text-black
+    transition
+  "
+>
+  ❮
+</button>
 
     {/* ================= MOBILE: ONE IMAGE ================= */}
     <div className="w-full md:hidden flex justify-center">
@@ -886,17 +893,24 @@ websites: [
 
     {/* RIGHT ARROW */}
     <button
-      onClick={() =>
-        setCurrentIndex((prev) =>
-          prev === activeService.images.length - 1
-            ? 0
-            : prev + 1
-        )
-      }
-      className="absolute right-2 md:right-0 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-md transition"
-    >
-      ▶
-    </button>
+  onClick={() =>
+    setCurrentIndex((prev) =>
+      prev === activeService.images.length - 1
+        ? 0
+        : prev + 1
+    )
+  }
+  className="
+    absolute right-0 top-1/2 -translate-y-1/2
+    z-20
+    text-4xl
+    text-gray-700
+    hover:text-black
+    transition
+  "
+>
+  ❯
+</button>
 
   </div>
 
