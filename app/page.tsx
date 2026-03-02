@@ -776,7 +776,7 @@ websites: [
       </h2>
 
       {/* CONTENT AREA */}
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-auto">
 
         {activeService.title === "Digital Marketing" ? (
 
