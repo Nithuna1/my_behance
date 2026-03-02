@@ -1133,7 +1133,6 @@ websites: [
 </section>
 
 
-
 {/* ================= MOBILE APPLICATIONS ================= */}
 <section className="mt-10">
   <div className="max-w-[1600px] mx-auto px-4 md:px-6">
@@ -1143,88 +1142,74 @@ websites: [
       <h3 className="text-lg font-semibold">Mobile Applications</h3>
     </div>
 
-    {/* ================= MOBILE SLIDER ================= */}
-    <div className="relative md:hidden">
+   {/* ================= MOBILE SLIDER ================= */}
+<div className="relative md:hidden">
 
-      {/* LEFT ARROW */}
-      <button
-        onClick={() =>
-          document.getElementById("mobileSlider")?.scrollBy({
-            left: -350,
-            behavior: "smooth",
-          })
-        }
-        className="
-          absolute left-0 top-1/2 -translate-y-1/2 z-10
-          bg-white shadow-md w-9 h-9 rounded-full
-          flex items-center justify-center
-          text-blue-600 hover:bg-blue-600 hover:text-white
-          transition
-        "
-      >
-        ←
-      </button>
+  {/* LEFT ARROW */}
+  <button
+    onClick={() =>
+      setCurrentIndex((prev) =>
+        prev === 0 ? mobileApps.length - 1 : prev - 1
+      )
+    }
+    className="
+      absolute left-3 top-1/2 -translate-y-1/2 z-20
+      bg-white shadow-md w-9 h-9 rounded-full
+      flex items-center justify-center
+      text-blue-600
+    "
+  >
+    ←
+  </button>
 
-      {/* SLIDER */}
-      <div
-        id="mobileSlider"
-        className="
-          flex
-          overflow-hidden
-          pb-6
-          px-10
-        "
-      >
-        {mobileApps.map((app, i) => (
-          <div
-            key={i}
-            onClick={() => setActiveMobileApp(app)}
-            className="
-              w-full
-              flex
-              justify-center
-              flex-shrink-0
-              cursor-pointer
-            "
-          >
-            <div className="w-[350px]">
-              <Image
-                src={app.image}
-                alt={app.title}
-                width={1000}
-                height={1900}
-                className="
-                  w-full
-                  h-auto
-                  object-contain
-                  rounded-2xl
-                "
-              />
-            </div>
+  {/* SLIDER VIEW */}
+  <div className="overflow-hidden">
+
+    <div
+      className="flex transition-transform duration-500 ease-in-out"
+      style={{
+        transform: `translateX(-${currentIndex * 100}%)`,
+      }}
+    >
+      {mobileApps.map((app, i) => (
+        <div
+          key={i}
+          className="min-w-full flex justify-center"
+          onClick={() => setActiveMobileApp(app)}
+        >
+          <div className="w-[85%]">
+            <Image
+              src={app.image}
+              alt={app.title}
+              width={1000}
+              height={1900}
+              className="w-full h-auto object-contain rounded-2xl"
+            />
           </div>
-        ))}
-      </div>
-
-      {/* RIGHT ARROW */}
-      <button
-        onClick={() =>
-          document.getElementById("mobileSlider")?.scrollBy({
-            left: 350,
-            behavior: "smooth",
-          })
-        }
-        className="
-          absolute right-0 top-1/2 -translate-y-1/2 z-10
-          bg-white shadow-md w-9 h-9 rounded-full
-          flex items-center justify-center
-          text-blue-600 hover:bg-blue-600 hover:text-white
-          transition
-        "
-      >
-        →
-      </button>
-
+        </div>
+      ))}
     </div>
+
+  </div>
+
+  {/* RIGHT ARROW */}
+  <button
+    onClick={() =>
+      setCurrentIndex((prev) =>
+        prev === mobileApps.length - 1 ? 0 : prev + 1
+      )
+    }
+    className="
+      absolute right-3 top-1/2 -translate-y-1/2 z-20
+      bg-white shadow-md w-9 h-9 rounded-full
+      flex items-center justify-center
+      text-blue-600
+    "
+  >
+    →
+  </button>
+
+</div>
 
     {/* ================= DESKTOP SLIDER ================= */}
 <div className="hidden md:block relative overflow-hidden">
