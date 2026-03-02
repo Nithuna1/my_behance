@@ -834,7 +834,7 @@ websites: [
               rel="noopener noreferrer"
               className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
             >
-              View Project →
+              View Profile →
             </a>
           </div>
         )}
@@ -879,7 +879,7 @@ websites: [
                 {websiteLink && (
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
                     <span className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg">
-                      View Project →
+                      View profile →
                     </span>
                   </div>
                 )}
