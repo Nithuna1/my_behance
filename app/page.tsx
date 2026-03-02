@@ -234,6 +234,25 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     bestFor:
       "Business owners, managers, and decision-makers who rely on data-driven insights.",
   },
+
+  {
+    title: "Business ERP App",
+    image: "/mobile/home.png",
+    shortDescription:
+      "A complete ERP mobile solution to manage sales, purchases, expenses, and real-time business analytics.",
+    fullDescription:
+      "The Business ERP App is an all-in-one mobile platform designed to give business owners complete control over operations from anywhere. It centralizes sales, purchases, expenses, banking, and performance analytics into a single, intuitive dashboard. With real-time updates and clear financial insights, businesses can make faster, data-driven decisions and maintain full operational visibility.",
+    features: [
+      "Real-time sales, purchase, and expense tracking",
+      "Cash and bank balance monitoring",
+      "Profit calculation and revenue growth indicators",
+      "Date-based reports (Today, Yesterday, Custom)",
+      "Multi-shop and branch support",
+    ],
+    bestFor:
+      "Retail stores, distributors, wholesalers, and businesses that need a complete ERP system on mobile.",
+  },
+
 ];
 
 
@@ -603,10 +622,10 @@ websites: [
   title: "Digital Marketing",
   tags: ["SEO Strategy", "Social Ads", "Analytics"],
   images: [
-    "/services/digital1.avif",
-    "/services/digital2.jpg",
-    "/services/marketing.jpg",
-    "/services/market.avif",
+    "/services/insta1.jpeg",
+    "/services/insta2.jpeg",
+    "/services/insta3.jpeg",
+    "/services/insta4.jpeg",
   ],
   videos: [
     "/video/soocher_video.mp4",
@@ -997,11 +1016,11 @@ websites: [
 
       {/* VIEW MORE BUTTON (Hidden for Digital Marketing) */}
       {activeService.title !== "Digital Marketing" && (
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mt-2">
           <Link
             href="/services"
             className="
-              px-10 py-3
+              px-5 py-2
               rounded-full
               border border-gray-400
               text-sm font-medium
