@@ -143,61 +143,6 @@ const [phone, setPhone] = useState("");
         "Our Video Production services bring your brand story to life through high-quality, cinematic visual content. From corporate films and product showcases to promotional campaigns and social media reels, we handle the complete production process — scripting, storyboarding, shooting, editing, and post-production. With professional equipment, creative direction, and strategic storytelling, we create compelling videos that engage audiences, strengthen brand identity, and drive measurable results across digital platforms.",
     },
     
- {
-  title: "Mobile App Development",
-  tags: ["iOS", "Android", "App UI/UX"],
-  images: [
-    "/services/app.jpg",
-    "/services/mobile1.jpg",
-    "/services/mobile2.jpg",
-    "/services/mobile3.jpg",
-  ],
-
-  videos: [
-    "/video/dribble_video.mp4",
-    "/video/flipkart_video.mp4",
-    "/video/domain_video.mp4",
-    "/video/alrayyan_video.mp4",
-  ],
-
-  websites: [
-    "https://play.google.com/store",
-    "https://apps.apple.com",
-    "https://flutter.dev/showcase",
-    "https://reactnative.dev/showcase",
-  ],
-
-  description:
-    "We design and develop high-performance mobile applications that deliver seamless, user-centric experiences across iOS and Android platforms. From concept validation and UX design to scalable development and performance optimization, our apps are built for reliability, security, and growth. We focus on intuitive navigation, smooth interactions, and robust architecture to help businesses engage users, drive retention, and scale confidently.",
-},
-   {
-  title: "Web Development",
-  tags: ["Frontend", "Backend", "Responsive Design"],
-  images: [
-    "/services/develop1.jpg",
-    "/services/web.avif",
-    "/services/develop2.avif",
-    "/services/develop3.avif",
-  ],
-
-  videos: [
-    "/video/awards_video.mp4",
-    "/video/business_video.mp4",
-    "/video/intro_video.mp4",
-    "/video/ads_video.mp4",
-  ],
-
-  websites: [
-    "https://www.apple.com",
-    "https://www.airbnb.com",
-    "https://www.spotify.com",
-    "https://www.shopify.com",
-  ],
-
-  description:
-    "We build fast, secure, and scalable websites tailored to your business objectives. Our web development process combines clean code, responsive design, and modern technologies to deliver high-performance websites that work seamlessly across all devices. From custom development and CMS integration to performance optimization and SEO readiness, we create websites that are reliable, easy to manage, and built for long-term growth.",
-},
-
   ];
 
   return (
@@ -322,14 +267,6 @@ const [phone, setPhone] = useState("");
       >
         Posters
       </Link>
-
-      <Link
-        href="/applications"
-        className="text-black/50 hover:text-black pb-2"
-      >
-        Applications
-      </Link>
-
     </div>
   </div>
 </section>

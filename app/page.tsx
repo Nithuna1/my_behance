@@ -376,13 +376,6 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         Posters
       </Link>
 
-      <Link
-        href="/applications"
-        className="text-black/50 hover:text-black pb-2"
-      >
-        Applications
-      </Link>
-
     </div>
   </div>
 </section>
