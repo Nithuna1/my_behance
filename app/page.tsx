@@ -1063,7 +1063,7 @@ websites: [
   "
 >
   {/* IMAGE */}
-  <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
+  <div className="relative w-full aspect-[4/3] overflow-hidden rectangle-xl">
     <Image
       src={project.image}
       alt={project.title}
@@ -1073,22 +1073,23 @@ websites: [
   </div>
 
   {/* TEXT OVERLAY */}
-  <div
-    className="
-      absolute inset-x-0 bottom-0
-      px-4 py-3
-      text-sm
-      opacity-0 group-hover:opacity-100
-      transition
-    "
-  >
-    <p className="font-semibold text-black drop-shadow-md">
-      {project.title}
-    </p>
-    <p className="text-xs text-black/70 drop-shadow-md">
-      {project.author}
-    </p>
-  </div>
+<div
+  className="
+    absolute inset-x-0 bottom-0
+    px-4 py-3
+    text-sm
+    opacity-100
+    md:opacity-0 md:group-hover:opacity-100
+    transition
+  "
+>
+  <p className="font-semibold text-black drop-shadow-md">
+    {project.title}
+  </p>
+  <p className="text-xs text-black/70 drop-shadow-md">
+    {project.category}
+  </p>
+</div>
 </div>
 
   ))}

@@ -129,22 +129,22 @@ const [selectedClient, setSelectedClient] = useState<any>(null);
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
 
       <div>
-        <h3 className="text-3xl font-bold text-blue-600">50+</h3>
+        <h3 className="text-3xl font-bold text-blue-900">50+</h3>
         <p className="text-sm text-black/60">Projects Delivered</p>
       </div>
 
       <div>
-        <h3 className="text-3xl font-bold text-blue-600">30+</h3>
+        <h3 className="text-3xl font-bold text-blue-900">30+</h3>
         <p className="text-sm text-black/60">Happy Clients</p>
       </div>
 
       <div>
-        <h3 className="text-3xl font-bold text-blue-600">5+</h3>
+        <h3 className="text-3xl font-bold text-blue-900">5+</h3>
         <p className="text-sm text-black/60">Industries Served</p>
       </div>
 
       <div>
-        <h3 className="text-3xl font-bold text-blue-600">100%</h3>
+        <h3 className="text-3xl font-bold text-blue-900">100%</h3>
         <p className="text-sm text-black/60">Client Satisfaction</p>
       </div>
 
