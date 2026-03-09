@@ -27,6 +27,7 @@ const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [message, setMessage] = useState("");
 const [phone, setPhone] = useState("");
+const [menuOpen, setMenuOpen] = useState(false);
 
 
   const [activeService, setActiveService] = useState<Service | null>(null);
@@ -119,9 +120,9 @@ const [phone, setPhone] = useState("");
     "/services/video1.jpg",
     "/services/video2.jpg",
     "/services/video3.avif",
-    "/services/video2.jpg",
-    "/services/video1.jpg",
-    "/services/video3.avif",
+    "/services/short.jpg",
+    "/services/short2.jpg",
+    "/services/short3.jpg",
   ],
   videos: [
     "/video/intro_video.mp4",
@@ -270,6 +271,38 @@ const [phone, setPhone] = useState("");
     </div>
   </div>
 </section>
+
+
+{/* ================= MOBILE NAVBAR ================= */}
+<section className="md:hidden border-b border-black/10">
+  <div className="max-w-7xl mx-auto px-4 py-2 flex justify-end items-center">
+
+    {/* Hamburger */}
+    <button
+      onClick={() => setMenuOpen(!menuOpen)}
+      className="flex flex-col gap-1"
+    >
+      <span className="w-6 h-[2px] bg-black"></span>
+      <span className="w-6 h-[2px] bg-black"></span>
+      <span className="w-6 h-[2px] bg-black"></span>
+    </button>
+
+  </div>
+
+  {/* Mobile Menu Links */}
+  {menuOpen && (
+    <div className="flex flex-col px-4 pb-4 gap-3 text-sm">
+
+      <Link href="/">Work</Link>
+      <Link href="/websites">Websites</Link>
+      <Link href="/services" className="font-semibold">Services</Link>
+      <Link href="/projects">Projects</Link>
+      <Link href="/posters">Posters</Link>
+
+    </div>
+  )}
+</section>
+
 
 
       {/* ================= ABOUT SERVICES ================= */}
