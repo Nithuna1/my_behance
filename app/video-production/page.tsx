@@ -56,17 +56,23 @@ export default function VideoProductionPage() {
                 className="object-cover transition duration-500 group-hover:scale-110"
               />
 
-              {video && (
-                <video
-                  src={video}
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
-                />
-              )}
-
+              {/* VIDEO */}
+{video && (
+  <video
+    src={video}
+    muted
+    loop
+    autoPlay
+    playsInline
+    preload="auto"
+    className="
+      absolute inset-0 w-full h-full object-cover
+      opacity-100
+      md:opacity-0 md:group-hover:opacity-100
+      transition duration-500
+    "
+  />
+)}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition duration-500" />
 
               {website && (

@@ -1194,6 +1194,7 @@ websites: [
       <h3 className="text-lg font-semibold">Mobile Applications</h3>
     </div>
 
+
    {/* ================= MOBILE SLIDER ================= */}
 <div className="relative md:hidden">
 
@@ -1215,7 +1216,7 @@ websites: [
   </button>
 
   {/* SLIDER VIEW */}
-  <div className="overflow-hidden">
+  <div className="overflow-hidden h-[420px] flex items-center">
 
     <div
       className="flex transition-transform duration-500 ease-in-out"
@@ -1233,8 +1234,8 @@ websites: [
             <Image
               src={app.image}
               alt={app.title}
-              width={1000}
-              height={1900}
+              width={900}
+              height={1800}
               className="w-full h-auto object-contain rounded-2xl"
             />
           </div>
