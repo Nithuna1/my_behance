@@ -35,9 +35,9 @@ export default function EcommercePage() {
   return (
     <div className="min-h-screen bg-white py-16 px-6">
 
-      <h1 className="text-3xl font-semibold mb-10 text-center">
-        E-Commerce Solutions
-      </h1>
+     <h1 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-10 text-center">
+  E-Commerce Solutions
+</h1>
 
       <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 

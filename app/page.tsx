@@ -1216,7 +1216,7 @@ websites: [
   </button>
 
   {/* SLIDER VIEW */}
-  <div className="overflow-hidden h-[420px] flex items-center">
+ <div className="overflow-hidden flex items-center">
 
     <div
       className="flex transition-transform duration-500 ease-in-out"
@@ -1230,7 +1230,7 @@ websites: [
           className="min-w-full flex justify-center"
           onClick={() => setActiveMobileApp(app)}
         >
-          <div className="w-[85%]">
+          <div className="w-[70%] max-w-[260px]">
             <Image
               src={app.image}
               alt={app.title}

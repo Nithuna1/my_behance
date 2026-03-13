@@ -29,7 +29,7 @@ export default function UiUxPage() {
   return (
     <div className="min-h-screen bg-white py-16 px-6">
 
-      <h1 className="text-3xl font-semibold mb-10 text-center">
+      <h1 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-10 text-center">
         UI / UX Design
       </h1>
 
@@ -91,7 +91,7 @@ export default function UiUxPage() {
       <div className="flex justify-center mt-10">
         <Link
           href="/"
-          className="px-6 py-2 rounded-full border border-gray-400 text-sm font-medium hover:bg-blue-600 hover:text-white transition"
+          className="px-6 py-2 rounded-full border border-gray-400 text-sm font-medium text-black hover:bg-blue-600 hover:text-white hover:border-blue-600 transition"
         >
           ← Back to Home
         </Link>
