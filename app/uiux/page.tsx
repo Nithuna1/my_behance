@@ -29,7 +29,7 @@ export default function UiUxPage() {
   return (
     <div className="min-h-screen bg-white py-16 px-6">
 
-      <h1 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-10 text-center">
+      <h1 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-10 text-center text-black">
         UI / UX Design
       </h1>
 
