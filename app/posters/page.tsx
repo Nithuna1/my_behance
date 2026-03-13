@@ -145,35 +145,7 @@ const [menuOpen, setMenuOpen] = useState(false);
   </div>
 </section>
 
-{/* ================= MOBILE NAVBAR ================= */}
-<section className="md:hidden border-b border-black/10">
-  <div className="max-w-7xl mx-auto px-4 py-2 flex justify-end items-center">
 
-    {/* Hamburger */}
-    <button
-      onClick={() => setMenuOpen(!menuOpen)}
-      className="flex flex-col gap-1"
-    >
-      <span className="w-6 h-[2px] bg-black"></span>
-      <span className="w-6 h-[2px] bg-black"></span>
-      <span className="w-6 h-[2px] bg-black"></span>
-    </button>
-
-  </div>
-
-  {/* Mobile Menu Links */}
-  {menuOpen && (
-    <div className="flex flex-col px-4 pb-4 gap-3 text-sm">
-
-      <Link href="/websites">Work</Link>
-      <Link href="/websites">Websites</Link>
-      <Link href="/services">Services</Link>
-      <Link href="/projects">Projects</Link>
-      <Link href="/posters" className="font-semibold">Posters</Link>
-
-    </div>
-  )}
-</section>
 
 
             {/* ================= ABOUT POSTERS ================= */}
