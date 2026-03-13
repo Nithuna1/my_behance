@@ -9,6 +9,7 @@ import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import PostersSection from "./components/PostersSection";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 
 
@@ -19,7 +20,8 @@ type Service = {
   images: string[];
   description: string;
   websites?: string[];
-  videos?: string[]; // ✅ ADD THIS
+  videos?: string[];
+  page?: string; // ✅ ADD THIS
 };
 
 
@@ -589,7 +591,9 @@ const [menuOpen, setMenuOpen] = useState(false);
   {[
   {
   title: "E-Commerce Solutions",
+  page: "/ecommerce",
   tags: ["Shopify", "Online Store", "Payments"],
+
   images: [
     "/services/commerce1.webp",
     "/services/commerce.jpeg",
@@ -598,6 +602,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     "/services/commerce5.webp",
     "/services/commerce6.png",
   ],
+
   videos: [
     "/video/alrayyan_video.mp4",
     "/video/flipkart_video.mp4",
@@ -606,6 +611,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     "/video/ajio_video.mp4",
     "/video/tac_video.mp4",
   ],
+
   websites: [
     "https://amg-ecommerce-web.vercel.app/",
     "https://www.flipkart.com",
@@ -614,11 +620,13 @@ const [menuOpen, setMenuOpen] = useState(false);
     "https://www.ajio.com",
     "https://www.tatacliq.com",
   ],
-      description:
-        "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue and improve customer retention.",
-    },
+
+  description:
+    "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise."
+},
     {
   title: "Ui/Ux Design",
+  page: "/uiux",
   tags: ["Prototyping", "User Flows", "Product UX"],
   images: [
   "/services/web1.avif",
@@ -668,6 +676,7 @@ websites: [
     },
     {
   title: "Video Production",
+  page: "/video-production",
   tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
   images: [
     "/services/video1.jpg",
@@ -1058,24 +1067,24 @@ websites: [
 
       {/* VIEW MORE BUTTON (Hidden for Digital Marketing) */}
       {activeService.title !== "Digital Marketing" && (
-        <div className="flex justify-center mt-2">
-          <Link
-            href="/services"
-            className="
-              px-5 py-2
-              rounded-full
-              border border-gray-400
-              text-sm font-medium
-              text-black
-              hover:bg-blue-600
-              hover:text-white
-              hover:border-blue-600
-              transition
-            "
-          >
-            View More
-          </Link>
-        </div>
+       <div className="flex justify-center mt-2">
+  <Link
+    href={activeService?.page || "#"}
+    className="
+      px-5 py-2
+      rounded-full
+      border border-gray-400
+      text-sm font-medium
+      text-black
+      hover:bg-blue-600
+      hover:text-white
+      hover:border-blue-600
+      transition
+    "
+  >
+    View More
+  </Link>
+</div>
       )}
 
     </div>
@@ -1255,37 +1264,39 @@ websites: [
 </div>
 
     {/* ================= DESKTOP SLIDER ================= */}
-<div className="hidden md:block relative overflow-hidden">
+<div className="hidden md:block relative px-20">
 
   {/* LEFT ARROW */}
-  <button
-    onClick={() =>
-      document.getElementById("desktopSlider")?.scrollBy({
-        left: -1200,
-        behavior: "smooth",
-      })
-    }
-    className="
-      absolute left-0 top-1/2 -translate-y-1/2 z-20
-      bg-white shadow-lg w-11 h-11 rounded-full
-      flex items-center justify-center
-      text-blue-600 hover:bg-blue-600 hover:text-white
-      hover:scale-110 transition
-    "
-  >
-    ❮
-  </button>
+ <button
+  onClick={() =>
+    document.getElementById("desktopSlider")?.scrollBy({
+      left: -1200,
+      behavior: "smooth",
+    })
+  }
+  className="
+    absolute left-4 top-1/2 -translate-y-1/2 z-20
+    bg-white shadow-md w-10 h-10 rounded-full
+    flex items-center justify-center
+    text-gray-700 hover:bg-blue-600 hover:text-white
+    transition
+  "
+>
+  <FiChevronLeft size={20} />
+</button>
 
   {/* SLIDER */}
-  <div
-    id="desktopSlider"
-    className="
-      flex
-      gap-2
-      overflow-hidden
-      scroll-smooth
-    "
-  >
+ <div
+  id="desktopSlider"
+  className="
+    flex
+    gap-2
+    overflow-hidden
+    scroll-smooth
+    px-16
+  "
+>
+  
     {mobileApps.map((app, i) => (
       <div
         key={i}
@@ -1307,23 +1318,23 @@ websites: [
   </div>
 
   {/* RIGHT ARROW */}
-  <button
-    onClick={() =>
-      document.getElementById("desktopSlider")?.scrollBy({
-        left: 1200,
-        behavior: "smooth",
-      })
-    }
-    className="
-      absolute right-0 top-1/2 -translate-y-1/2 z-20
-      bg-white shadow-lg w-11 h-11 rounded-full
-      flex items-center justify-center
-      text-blue-600 hover:bg-blue-600 hover:text-white
-      hover:scale-110 transition
-    "
-  >
-    ❯
-  </button>
+ <button
+  onClick={() =>
+    document.getElementById("desktopSlider")?.scrollBy({
+      left: 1200,
+      behavior: "smooth",
+    })
+  }
+  className="
+    absolute right-0 top-1/2 -translate-y-1/2 z-20
+    bg-white shadow-md w-10 h-10 rounded-full
+    flex items-center justify-center
+    text-gray-700 hover:bg-blue-600 hover:text-white
+    transition
+  "
+>
+  <FiChevronRight size={20} />
+</button>
 
 </div>
 

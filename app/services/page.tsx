@@ -726,27 +726,7 @@ const [menuOpen, setMenuOpen] = useState(false);
         )}
       </div>
 
-      {/* VIEW MORE BUTTON (Hidden for Digital Marketing) */}
-      {activeService.title !== "Digital Marketing" && (
-        <div className="flex justify-center mt-2">
-          <Link
-            href="/services"
-            className="
-              px-5 py-2
-              rounded-full
-              border border-gray-400
-              text-sm font-medium
-              text-black
-              hover:bg-blue-600
-              hover:text-white
-              hover:border-blue-600
-              transition
-            "
-          >
-            View More
-          </Link>
-        </div>
-      )}
+      
 
     </div>
   </div>

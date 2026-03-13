@@ -174,4 +174,16 @@ body {
   animation: popupScale 0.3s ease forwards;
 }
 
+.rotate-y-180 {
+  animation: flipCards 0.4s ease;
+}
+
+@keyframes flipCards {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
 

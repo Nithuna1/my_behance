@@ -13,6 +13,9 @@ export default function ClientsDetailsPage() {
   const [showAllClients, setShowAllClients] = useState(false);
    const [fabOpen, setFabOpen] = useState(false);
    const [contactOpen, setContactOpen] = useState(false);
+   const [showMore, setShowMore] = useState(false);
+   const [isFlipping, setIsFlipping] = useState(false);
+   const [animate, setAnimate] = useState(false);
     const [activeClient, setActiveClient] = useState<null | {
   image: string;
   name: string;
@@ -102,72 +105,119 @@ export default function ClientsDetailsPage() {
     </h2>
 
     {(() => {
-      const clients = [
-        {
-          image: "/clients/client1.avif",
-          name: "Apex Technologies",
-          review:
-            "Matamix delivered exceptional branding and web solutions that elevated our business presence.",
-        },
-        {
-          image: "/clients/client2.png",
-          name: "Nova Retail Group",
-          review:
-            "Highly professional team with outstanding attention to detail and execution.",
-        },
-        {
-          image: "/clients/client10.webp",
-          name: "Zenith Enterprises",
-          review:
-            "Strategic, creative, and result-driven approach. Truly impactful collaboration.",
-        },
-        {
-          image: "/clients/client9.jpg",
-          name: "UrbanEdge Solutions",
-          review:
-            "Reliable digital partner with measurable performance outcomes.",
-        },
-        {
-          image: "/clients/client5.jpg",
-          name: "BrightWave Media",
-          review:
-            "Innovative UI/UX and seamless project delivery experience.",
-        },
-        {
-          image: "/clients/client6.jpg",
-          name: "Skyline Developers",
-          review:
-            "Exceptional digital marketing strategies that boosted engagement significantly.",
-        },
-        {
-          image: "/clients/client13.jpg",
-          name: "GlobalCore Industries",
-          review:
-            "Professional execution across branding and enterprise solutions.",
-        },
-        {
-          image: "/clients/client12.webp",
-          name: "NextGen Innovations",
-          review:
-            "Creative excellence combined with strategic thinking.",
-        },
-      ];
+    const clientsFront = [
+  {
+    image: "/clients/client1.avif",
+    name: "Apex Technologies",
+    review: "Matamix delivered exceptional branding and web solutions that elevated our business presence."
+  },
+  {
+    image: "/clients/client2.png",
+    name: "Nova Retail Group",
+    review: "Highly professional team with outstanding attention to detail and execution."
+  },
+  {
+    image: "/clients/client10.webp",
+    name: "Zenith Enterprises",
+    review: "Strategic, creative, and result-driven approach. Truly impactful collaboration."
+  },
+  {
+    image: "/clients/client9.jpg",
+    name: "UrbanEdge Solutions",
+    review: "Reliable digital partner with measurable performance outcomes."
+  },
+  {
+    image: "/clients/client5.jpg",
+    name: "BrightWave Media",
+    review: "Innovative UI/UX and seamless project delivery experience."
+  },
+  {
+    image: "/clients/client6.jpg",
+    name: "Skyline Developers",
+    review: "Exceptional digital marketing strategies that boosted engagement significantly."
+  },
+  {
+    image: "/clients/client13.jpg",
+    name: "GlobalCore Industries",
+    review: "Professional execution across branding and enterprise solutions."
+  },
+  {
+    image: "/clients/client12.webp",
+    name: "NextGen Innovations",
+    review: "Creative excellence combined with strategic thinking."
+  }
+];
 
-      return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
-          {clients.map((client, i) => (
+const clientsBack = [
+  {
+    image: "/clients/client14.jpg",
+    name: "BrightWave Media",
+    review: "Innovative UI/UX and seamless project delivery experience."
+  },
+  {
+    image: "/clients/client15.avif",
+    name: "Skyline Developers",
+    review: "Exceptional digital marketing strategies that boosted engagement significantly."
+  },
+  {
+    image: "/clients/client16.jpeg",
+    name: "GlobalCore Industries",
+    review: "Professional execution across branding and enterprise solutions."
+  },
+  {
+    image: "/clients/client17.png",
+    name: "NextGen Innovations",
+    review: "Creative excellence combined with strategic thinking."
+  },
+  {
+    image: "/clients/client18.webp",
+    name: "Apex Technologies",
+    review: "Matamix delivered exceptional branding and web solutions that elevated our business presence."
+  },
+  {
+    image: "/clients/client19.jpg",
+    name: "Nova Retail Group",
+    review: "Highly professional team with outstanding attention to detail and execution."
+  },
+  {
+    image: "/clients/client20.jpg",
+    name: "Zenith Enterprises",
+    review: "Strategic, creative, and result-driven approach. Truly impactful collaboration."
+  },
+  {
+    image: "/clients/client21.jpg",
+    name: "UrbanEdge Solutions",
+    review: "Reliable digital partner with measurable performance outcomes."
+  }
+];
+
+      const clients = showMore ? clientsBack : clientsFront;
+
+return (
+  <div
+  className={`
+    grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8
+    transition-all duration-300
+    ${animate ? "opacity-0 translate-x-10" : "opacity-100 translate-x-0"}
+  `}
+>
+    {clients.map((client, i) => (
             <div
-              key={i}
-              onClick={() => setActiveClient(client)}
-              className="
-                group
-                cursor-pointer
-                animate-reveal
-                transition-all duration-500
-                hover:-translate-y-4
-              "
-              style={{ animationDelay: `${i * 0.08}s` }}
-            >
+  key={i}
+  onClick={() => setActiveClient(client)}
+  className={`
+    group
+    cursor-pointer
+    animate-reveal
+    transition-all duration-500
+    hover:-translate-y-4
+    ${isFlipping ? "rotate-y-180" : ""}
+  `}
+  style={{
+    animationDelay: `${i * 0.08}s`,
+    transformStyle: "preserve-3d"
+  }}
+>
               <div
                 className="
                   relative
@@ -207,44 +257,52 @@ export default function ClientsDetailsPage() {
         </div>
       );
     })()}
-
-    {/* BACK BUTTON */}
-    <div className="flex justify-center mt-5">
-      <Link
-        href="/"
-        className="
-          px-10 py-3
-          rounded-full
-          bg-blue-600
-          text-white
-          hover:bg-blue-700
-          transition
-          shadow-lg
-          hover:shadow-xl
-        "
-      >
-        ← Back
-      </Link>
-    </div>
+    
 
     {/* VIEW MORE CLIENTS BUTTON */}
 <div className="flex justify-center mt-2">
   <button
-    onClick={() => setShowAllClients(true)}
+  onClick={() => {
+    setAnimate(true);
+
+    setTimeout(() => {
+      setShowMore(!showMore);
+      setAnimate(false);
+    }, 300);
+  }}
+  className="
+    px-6 py-2
+    rounded-full
+    border border-gray-400
+    text-sm font-medium
+    text-black
+    hover:bg-black hover:text-white
+    transition
+  "
+>
+  Next
+</button>
+</div>
+
+{/* BACK BUTTON */}
+<div className="flex justify-center mt-5">
+  <Link
+    href="/"
     className="
       px-6 py-2
       rounded-full
-      border border-gray-400
-      text-sm font-medium
-      text-black
-      hover:bg-black hover:text-white
+      bg-blue-600
+      text-white
+      text-sm
+      hover:bg-blue-700
       transition
+      shadow-md
+      hover:shadow-lg
     "
   >
-    View All
-  </button>
+    ← Back
+  </Link>
 </div>
-    
     
 
   </div>
@@ -252,7 +310,7 @@ export default function ClientsDetailsPage() {
 
 
         {/* ================= FOOTER ================= */}
-<footer className="bg-[#022549] text-white mt-5 md:mt-5">
+<footer className="bg-[#022549] text-white mt-5 md:mt-2">
   <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
     <div
