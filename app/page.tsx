@@ -18,7 +18,6 @@ type Service = {
   title: string;
   tags: string[];
   images: string[];
-  description: string;
   websites?: string[];
   videos?: string[];
   page?: string; // ✅ ADD THIS
@@ -29,8 +28,6 @@ type Project = {
   title: string;
   author: string;
   image: string;
-  likes: number;
-  views: number;
   year: string;
   category: string;
   description: string;
@@ -40,7 +37,6 @@ type Project = {
 type MobileApp = {
   title: string;
   image: string;
-  shortDescription: string;
   fullDescription: string;
   features: string[];
   bestFor: string;
@@ -78,8 +74,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "AMBER",
       author: "Matamix",
       image: "/projects/amb2.jpg",
-      likes: 29,
-      views: 276,
       year: "2024",
       category: "POS Software Solution",
       description:
@@ -93,8 +87,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "GOZZBE",
       author: "Matamix",
       image: "/projects/gooz.jpg",
-      likes: 112,
-      views: 1340,
       year: "2023",
       category: "Laundry Management Software",
       description:
@@ -108,8 +100,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "ZOOMIE",
       author: "Matamix",
       image: "/projects/zoom.jpg",
-      likes: 87,
-      views: 980,
       year: "2024",
       category: "Restaurant POS System",
       description:
@@ -123,8 +113,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "AMALGAMATE",
       author: "Matamix",
       image: "/projects/new _amalgamate.jpg",
-      likes: 64,
-      views: 720,
       year: "2023",
       category: "Custom Mobile App Solutions",
       description:
@@ -138,8 +126,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "AMBER",
       author: "Matamix",
       image: "/projects/amb1.jpg",
-      likes: 64,
-      views: 720,
       year: "2023",
       category: "ERP Inventory Management",
       description:
@@ -152,8 +138,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "DOSO",
       author: "Matamix",
       image: "/projects/doso.jpg",
-      likes: 45,
-      views: 560,
       year: "2022",
       category: "Enterprise ERP Software",
       description:
@@ -169,8 +153,6 @@ const [menuOpen, setMenuOpen] = useState(false);
   {
     title: "Business ERP App",
     image: "/mobile/home.png",
-    shortDescription:
-      "A complete ERP mobile solution to manage sales, purchases, expenses, and real-time business analytics.",
     fullDescription:
       "The Business ERP App is an all-in-one mobile platform designed to give business owners complete control over operations from anywhere. It centralizes sales, purchases, expenses, banking, and performance analytics into a single, intuitive dashboard. With real-time updates and clear financial insights, businesses can make faster, data-driven decisions and maintain full operational visibility.",
     features: [
@@ -187,8 +169,6 @@ const [menuOpen, setMenuOpen] = useState(false);
   {
     title: "Shop Management App",
     image: "/mobile/shop.png",
-    shortDescription:
-      "Mobile-first shop management app to track daily revenue, branch performance, and inventory.",
     fullDescription:
       "The Shop Management App simplifies daily shop operations by providing a clear overview of sales, expenses, and purchases. Designed for speed and clarity, it allows shop owners and managers to quickly assess performance, monitor cash flow, and manage multiple branches without complexity.",
     features: [
@@ -205,8 +185,6 @@ const [menuOpen, setMenuOpen] = useState(false);
   {
     title: "Accounting & Finance App",
     image: "/mobile/analytics.png",
-    shortDescription:
-      "Smart accounting application with cash book, day book, profit analysis, and balance insights.",
     fullDescription:
       "The Accounting & Finance App is built for accurate financial control and transparency. It provides structured views of cash sales, bank transactions, credit activity, and account balances. With integrated cash book and day book features, users can maintain clean financial records and reduce manual accounting effort.",
     features: [
@@ -223,8 +201,6 @@ const [menuOpen, setMenuOpen] = useState(false);
   {
     title: "Analytics Dashboard App",
     image: "/mobile/trade1.png",
-    shortDescription:
-      "Advanced analytics dashboard offering business insights, growth tracking, and performance reports.",
     fullDescription:
       "The Analytics Dashboard App transforms raw business data into actionable insights. It provides visual reports on performance, profitability, and growth trends, helping decision-makers understand what’s working and where improvements are needed. The app integrates seamlessly with ERP systems for automated insights.",
     features: [
@@ -241,8 +217,6 @@ const [menuOpen, setMenuOpen] = useState(false);
   {
     title: "Business ERP App",
     image: "/mobile/home.png",
-    shortDescription:
-      "A complete ERP mobile solution to manage sales, purchases, expenses, and real-time business analytics.",
     fullDescription:
       "The Business ERP App is an all-in-one mobile platform designed to give business owners complete control over operations from anywhere. It centralizes sales, purchases, expenses, banking, and performance analytics into a single, intuitive dashboard. With real-time updates and clear financial insights, businesses can make faster, data-driven decisions and maintain full operational visibility.",
     features: [
@@ -591,10 +565,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     "https://www.ajio.com",
     "https://www.tatacliq.com",
   ],
-
-  description:
-    "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise."
-},
+  },
     {
   title: "Ui/Ux Design",
   page: "/uiux",
@@ -617,10 +588,7 @@ websites: [
   "https://www.awwwards.com",
   "https://www.behance.net",   
 ],
-  description:
-    "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. Through research, wireframing, interactive prototyping, and usability testing, we design interfaces that are efficient, visually compelling, and conversion-driven. By combining modern design systems and responsive layouts, we deliver scalable UI/UX solutions that enhance usability and strengthen brand perception across web and mobile platforms.",
-}
-,
+},
     {
   title: "Digital Marketing",
   tags: ["SEO Strategy", "Social Ads", "Analytics"],
@@ -642,8 +610,6 @@ websites: [
     "https://www.instagram.com/knot_perfumes?igsh=MTNrazBjcXF4YnN3cg==",
     "https://www.instagram.com/laundryhubkasargod?igsh=dWo2MTJ3a2p6Njg=",
   ],
-      description:
-        "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
     },
     {
   title: "Video Production",
@@ -673,8 +639,6 @@ websites: [
     "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
   ],
-      description:
-        "Our Video Production services bring your brand story to life through high-quality, cinematic visual content. From corporate films and product showcases to promotional campaigns and social media reels, we handle the complete production process — scripting, storyboarding, shooting, editing, and post-production. With professional equipment, creative direction, and strategic storytelling, we create compelling videos that engage audiences, strengthen brand identity, and drive measurable results across digital platforms.",
     },
   ].map((service, i) => (
     <div
@@ -1593,10 +1557,6 @@ ${message}
           {activeMobileApp.title}
         </h2>
 
-        {/* SHORT DESCRIPTION */}
-        <p className="text-sm text-black/60 mb-4">
-          {activeMobileApp.shortDescription}
-        </p>
 
         {/* FULL DESCRIPTION */}
         <p className="text-black/80 leading-relaxed mb-6">

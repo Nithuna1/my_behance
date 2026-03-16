@@ -14,8 +14,6 @@ type Project = {
   title: string;
   author: string;
   image: string;
-  likes: number;
-  views: number;
   year: string;
   category: string;
   description: string;
@@ -40,8 +38,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "AMBER",
       author: "Matamix",
       image: "/projects/amb2.jpg",
-      likes: 29,
-      views: 276,
       year: "2024",
       category: "POS Software Solution",
       description:
@@ -55,8 +51,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "GOZZBE",
       author: "Matamix",
       image: "/projects/gooz.jpg",
-      likes: 112,
-      views: 1340,
       year: "2023",
       category: "Laundry Management Software",
       description:
@@ -70,8 +64,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "ZOOMIE",
       author: "Matamix",
       image: "/projects/zoom.jpg",
-      likes: 87,
-      views: 980,
       year: "2024",
       category: "Restaurant POS System",
       description:
@@ -85,8 +77,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "AMALGAMATE",
       author: "Matamix",
       image: "/projects/new _amalgamate.jpg",
-      likes: 64,
-      views: 720,
       year: "2023",
       category: "Custom Mobile App Solutions",
       description:
@@ -100,8 +90,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "AMBER",
       author: "Matamix",
       image: "/projects/amb1.jpg",
-      likes: 64,
-      views: 720,
       year: "2023",
       category: "ERP Inventory Management",
       description:
@@ -114,8 +102,6 @@ const [menuOpen, setMenuOpen] = useState(false);
       title: "DOSO",
       author: "Matamix",
       image: "/projects/doso.jpg",
-      likes: 45,
-      views: 560,
       year: "2022",
       category: "Enterprise ERP Software",
       description:

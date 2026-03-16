@@ -13,7 +13,6 @@ type Service = {
   title: string;
   tags: string[];
   images: string[];
-  description: string;
   websites?: string[];
   videos?: string[]; 
 };
@@ -62,8 +61,6 @@ const [menuOpen, setMenuOpen] = useState(false);
     "https://www.ajio.com",
     "https://www.tatacliq.com",
   ],
-      description:
-        "Our E-Commerce Solutions are designed to help businesses launch, scale, and optimize high-performing online stores that convert visitors into loyal customers. We specialize in building secure, fast, and user-friendly e-commerce platforms tailored to your business model, whether you are a startup, a growing brand, or an enterprise. From intuitive product catalogs and seamless checkout experiences to secure payment gateway integration and inventory management, we ensure every touchpoint is optimized for performance and usability. With scalable architecture, mobile-first design, SEO optimization, and ongoing performance enhancements, we help businesses grow revenue and improve customer retention.",
     },
     {
   title: "Ui/Ux Design",
@@ -86,8 +83,6 @@ const [menuOpen, setMenuOpen] = useState(false);
     "https://www.awwwards.com",
     "https://www.behance.net",
   ],
-  description:
-    "Our UI/UX Design services focus on creating intuitive, engaging, and user-centered digital experiences that align with both business objectives and user needs. Through research, wireframing, interactive prototyping, and usability testing, we design interfaces that are efficient, visually compelling, and conversion-driven. By combining modern design systems and responsive layouts, we deliver scalable UI/UX solutions that enhance usability and strengthen brand perception across web and mobile platforms.",
 },
     {
   title: "Digital Marketing",
@@ -110,8 +105,6 @@ const [menuOpen, setMenuOpen] = useState(false);
     "https://www.instagram.com/knot_perfumes?igsh=MTNrazBjcXF4YnN3cg==",
     "https://www.instagram.com/laundryhubkasargod?igsh=dWo2MTJ3a2p6Njg=",
   ],
-      description:
-        "Our Digital Marketing services help businesses increase visibility, attract the right audience, and convert traffic into measurable growth. We develop data-driven strategies combining SEO, paid advertising, and social media marketing to maximize reach and ROI. Using advanced analytics and continuous optimization, we scale campaigns that generate quality leads and sustainable business growth.",
     },
     {
   title: "Video Production",
@@ -140,9 +133,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     "https://www.instagram.com/matamix_international/",
     "https://www.instagram.com/matamix_international/",
   ],
-      description:
-        "Our Video Production services bring your brand story to life through high-quality, cinematic visual content. From corporate films and product showcases to promotional campaigns and social media reels, we handle the complete production process — scripting, storyboarding, shooting, editing, and post-production. With professional equipment, creative direction, and strategic storytelling, we create compelling videos that engage audiences, strengthen brand identity, and drive measurable results across digital platforms.",
-    },
+},
     
   ];
 
@@ -378,10 +369,6 @@ const [menuOpen, setMenuOpen] = useState(false);
                 <h4 className="font-medium text-base mb-1">
                   {service.title}
                 </h4>
-
-                <p className="text-sm text-black/80 leading-relaxed mb-4 line-clamp-3">
-                  {service.description}
-                </p>
 
                 <button
                   onClick={() => setActiveService(service)}
