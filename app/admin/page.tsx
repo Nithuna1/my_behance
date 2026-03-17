@@ -1,95 +1,115 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function AdminDashboard() {
 
+  const [stats, setStats] = useState({
+    projects: 0,
+    apps: 0,
+    services: 0,
+    websites: 0,
+    posters: 0,
+  });
+
+  const [authorized, setAuthorized] = useState(false);
+  const router = useRouter();
+
+  const logout = () => {
+    localStorage.removeItem("admin");
+    router.push("/admin/login");
+  };
+
+  // ✅ AUTH CHECK
+  useEffect(() => {
+    const admin = localStorage.getItem("admin");
+
+    if (!admin) {
+      window.location.href = "/admin/login";
+    } else {
+      setAuthorized(true);
+    }
+  }, []);
+
+  // ✅ FETCH DATA
+  useEffect(() => {
+    if (!authorized) return;
+
+    async function fetchStats() {
+      const res = await fetch("/api/admin/stats");
+      const data = await res.json();
+      setStats(data);
+    }
+
+    fetchStats();
+  }, [authorized]);
+
+  if (!authorized) return null;
+
   return (
+    <div className="min-h-screen bg-gray-100">
 
-    <div>
+      {/* 🔥 TOP HEADER */}
+      <div className="bg-[#1e293b] text-white px-6 py-4 flex justify-between items-center shadow">
+        <h1 className="text-lg font-semibold">Admin Dashboard</h1>
 
-      <h1 className="text-3xl font-bold mb-8">
-        Admin Dashboard
-      </h1>
+       <button
+  onClick={logout}
+  style={{ backgroundColor: "#dc2626", color: "#fff" }}
+  className="fixed top-5 right-5 px-4 py-2 rounded-lg text-sm shadow-lg z-50"
+>
+  Logout
+</button>
+      </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      {/* 🔥 CONTENT */}
+      <div className="p-8">
 
-        <a
-          href="/admin/projects"
-          className="bg-white shadow p-6 rounded hover:bg-gray-50"
-        >
-          <h2 className="text-lg font-semibold">
-            Manage Projects
+        <div className="bg-white rounded-xl shadow-md p-8 mb-8">
+
+          <h2 className="text-2xl font-semibold mb-2">
+            Welcome, Admin
           </h2>
+
           <p className="text-gray-500">
-            Add, edit or delete portfolio projects
+            Manage portfolio content and website settings from here.
           </p>
-        </a>
 
+          {/* 🔥 STATS GRID */}
+          <div className="grid md:grid-cols-3 gap-6 mt-8">
 
-        <a
-          href="/admin/apps"
-          className="bg-white shadow p-6 rounded hover:bg-gray-50"
-        >
-          <h2 className="text-lg font-semibold">
-            Manage Apps
-          </h2>
-          <p className="text-gray-500">
-            Manage mobile applications
-          </p>
-        </a>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+              <p className="text-gray-500 text-sm">TOTAL PROJECTS</p>
+              <p className="text-3xl font-bold mt-2">{stats.projects}</p>
+            </div>
 
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border-l-4 border-green-500">
+              <p className="text-gray-500 text-sm">TOTAL APPS</p>
+              <p className="text-3xl font-bold mt-2">{stats.apps}</p>
+            </div>
 
-        <a
-          href="/admin/services"
-          className="bg-white shadow p-6 rounded hover:bg-gray-50"
-        >
-          <h2 className="text-lg font-semibold">
-            Manage Services
-          </h2>
-          <p className="text-gray-500">
-            Add or update services
-          </p>
-        </a>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
+              <p className="text-gray-500 text-sm">TOTAL SERVICES</p>
+              <p className="text-3xl font-bold mt-2">{stats.services}</p>
+            </div>
 
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border-l-4 border-yellow-500">
+              <p className="text-gray-500 text-sm">TOTAL WEBSITES</p>
+              <p className="text-3xl font-bold mt-2">{stats.websites}</p>
+            </div>
 
-        <a
-          href="/admin/websites"
-          className="bg-white shadow p-6 rounded hover:bg-gray-50"
-        >
-          <h2 className="text-lg font-semibold">
-            Manage Websites
-          </h2>
-          <p className="text-gray-500">
-            Manage website portfolio
-          </p>
-        </a>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border-l-4 border-pink-500">
+              <p className="text-gray-500 text-sm">TOTAL POSTERS</p>
+              <p className="text-3xl font-bold mt-2">{stats.posters}</p>
+            </div>
 
+          </div>
 
-        <a
-          href="/admin/posters"
-          className="bg-white shadow p-6 rounded hover:bg-gray-50"
-        >
-          <h2 className="text-lg font-semibold">
-            Manage Posters
-          </h2>
-          <p className="text-gray-500">
-            Upload and manage posters
-          </p>
-        </a>
-
-
-        <a
-          href="/"
-          className="bg-white shadow p-6 rounded hover:bg-gray-50"
-        >
-          <h2 className="text-lg font-semibold">
-            View Website
-          </h2>
-          <p className="text-gray-500">
-            Open the public portfolio
-          </p>
-        </a>
+        </div>
 
       </div>
 
     </div>
-
   );
 }

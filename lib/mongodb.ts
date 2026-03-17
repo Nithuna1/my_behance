@@ -1,9 +1,26 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-
 export async function connectDB() {
-  if (mongoose.connection.readyState >= 1) return;
+  try {
+    if (mongoose.connection.readyState >= 1) {
+      console.log("Already connected ✅");
+      return;
+    }
 
-  return mongoose.connect(MONGODB_URI);
+    const uri = process.env.MONGODB_URI; // ✅ MOVE INSIDE FUNCTION
+
+    console.log("MONGO URI:", uri); // 🔥 DEBUG
+
+    if (!uri) {
+      throw new Error("MONGODB_URI is missing ❌");
+    }
+
+    await mongoose.connect(uri);
+
+    console.log("MongoDB Connected ✅");
+
+  } catch (error) {
+    console.log("MongoDB ERROR ❌:", error);
+    throw error;
+  }
 }

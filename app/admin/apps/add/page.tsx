@@ -3,29 +3,26 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function AddProject() {
+export default function AddApp() {
   const router = useRouter();
 
   const [form, setForm] = useState({
     title: "",
-    author: "",
-    year: "",
-    category: "",
-    description: "",
+    fullDescription: "",
+    features: "",
+    bestFor: "",
   });
 
-  // ✅ Use File[] (not FileList)
   const [images, setImages] = useState<File[]>([]);
 
   const change = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ✅ Safe file handling
- const handleFileChange = (e: any) => {
-  const files = Array.from(e.target.files || []) as File[];
-  setImages(files);
-};
+  const handleFileChange = (e: any) => {
+    const files = Array.from(e.target.files || []) as File[];
+    setImages(files);
+  };
 
   const submit = async (e: any) => {
     e.preventDefault();
@@ -33,17 +30,23 @@ export default function AddProject() {
     const formData = new FormData();
 
     formData.append("title", form.title);
-    formData.append("author", form.author);
-    formData.append("year", form.year);
-    formData.append("category", form.category);
-    formData.append("description", form.description);
+    formData.append("fullDescription", form.fullDescription);
+    formData.append("bestFor", form.bestFor);
 
-    // ✅ Send all images
+    // ✅ features array
+    const featuresArray = form.features
+      .split(",")
+      .map((f) => f.trim())
+      .filter((f) => f !== "");
+
+    formData.append("features", JSON.stringify(featuresArray));
+
+    // ✅ images
     images.forEach((img) => {
       formData.append("images", img);
     });
 
-    const res = await fetch("/api/projects", {
+    const res = await fetch("/api/apps", {
       method: "POST",
       body: formData,
     });
@@ -51,8 +54,8 @@ export default function AddProject() {
     const data = await res.json();
 
     if (data.success) {
-      alert("Saved ✅");
-      router.push("/admin/projects");
+      alert("App Saved ✅");
+      router.push("/admin/apps");
     } else {
       alert("Failed ❌");
     }
@@ -62,17 +65,17 @@ export default function AddProject() {
     <div className="p-8 bg-gray-100 min-h-screen">
 
       <h1 className="text-2xl font-bold mb-6">
-        Add Project
+        Add App
       </h1>
 
       <div className="bg-white rounded-xl shadow-md p-8 max-w-4xl">
 
         <form onSubmit={submit} className="space-y-5">
 
-          {/* Title */}
+          {/* TITLE */}
           <div>
             <label className="block text-sm font-medium mb-1">
-              Project Title
+              App Title
             </label>
             <input
               name="title"
@@ -82,23 +85,23 @@ export default function AddProject() {
             />
           </div>
 
-          {/* Description */}
+          {/* DESCRIPTION */}
           <div>
             <label className="block text-sm font-medium mb-1">
-              Description
+              Full Description
             </label>
             <textarea
-              name="description"
-              value={form.description}
+              name="fullDescription"
+              value={form.fullDescription}
               onChange={change}
               className="w-full border rounded-lg px-3 py-2 h-32 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
-          {/* Images */}
+          {/* IMAGES */}
           <div>
             <label className="block text-sm font-medium mb-1">
-              Project Images
+              App Images
             </label>
 
             <input
@@ -109,10 +112,10 @@ export default function AddProject() {
             />
 
             <p className="text-sm text-gray-500 mt-1">
-              First image will be set as primary
+              First image will be used as main image
             </p>
 
-            {/* ✅ Preview */}
+            {/* PREVIEW */}
             <div className="flex gap-3 mt-3 flex-wrap">
               {images.map((img, i) => {
                 const preview = URL.createObjectURL(img);
@@ -125,10 +128,10 @@ export default function AddProject() {
                       className={`h-24 w-24 object-cover rounded border ${
                         i === 0 ? "ring-2 ring-blue-500" : ""
                       }`}
-                      onLoad={() => URL.revokeObjectURL(preview)} // ✅ prevent memory leak
+                      onLoad={() => URL.revokeObjectURL(preview)}
                     />
 
-                    {/* Remove */}
+                    {/* REMOVE */}
                     <button
                       type="button"
                       onClick={() =>
@@ -143,60 +146,45 @@ export default function AddProject() {
                 );
               })}
             </div>
-
-            <button
-              type="button"
-              className="mt-3 bg-gray-600 text-white px-4 py-2 rounded"
-            >
-              + Add More Images
-            </button>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-2 gap-4">
-
-            <div>
-              <label className="text-sm font-medium">Author</label>
-              <input
-                name="author"
-                value={form.author}
-                onChange={change}
-                className="w-full border rounded-lg px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium">Year</label>
-              <input
-                name="year"
-                value={form.year}
-                onChange={change}
-                className="w-full border rounded-lg px-3 py-2"
-              />
-            </div>
-
-            <div className="col-span-2">
-              <label className="text-sm font-medium">Category</label>
-              <input
-                name="category"
-                value={form.category}
-                onChange={change}
-                className="w-full border rounded-lg px-3 py-2"
-              />
-            </div>
-
+          {/* FEATURES */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Features (comma separated)
+            </label>
+            <input
+              name="features"
+              value={form.features}
+              onChange={change}
+              placeholder="Login, Dashboard, Analytics"
+              className="w-full border rounded-lg px-3 py-2"
+            />
           </div>
 
-          {/* Buttons */}
+          {/* BEST FOR */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Best For
+            </label>
+            <input
+              name="bestFor"
+              value={form.bestFor}
+              onChange={change}
+              className="w-full border rounded-lg px-3 py-2"
+            />
+          </div>
+
+          {/* BUTTONS */}
           <div className="flex gap-3 pt-4">
 
             <button className="bg-blue-600 text-white px-5 py-2 rounded-lg">
-              Save Project
+              Save App
             </button>
 
-            <button
+             <button
               type="button"
-              onClick={() => router.push("/admin/projects")}
+              onClick={() => router.push("/admin/apps")}
               className="bg-blue-600 text-white px-5 py-2 rounded-lg"
             >
               Cancel

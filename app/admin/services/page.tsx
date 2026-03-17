@@ -1,63 +1,158 @@
 "use client";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-export default function ServicesAdmin(){
+export default function ServicesAdmin() {
 
-  const [data,setData] = useState<any[]>([]);
-  const [form,setForm] = useState({title:""});
+  const [services, setServices] = useState<any[]>([]);
 
-  const [editId,setEditId] = useState<string|null>(null);
-
-  const load = async()=>{
+  const load = async () => {
     const res = await fetch("/api/services");
-    setData(await res.json());
-  };
+    const data = await res.json();
 
-  useEffect(()=>{load();},[]);
+    console.log("SERVICES DATA:", data);
 
-  const change=(e:any)=>{
-    setForm({...form,[e.target.name]:e.target.value});
-  };
-
-  const submit=async()=>{
-
-    if(editId){
-      await fetch("/api/services",{method:"PUT",body:JSON.stringify({id:editId,...form})});
-      setEditId(null);
-    }else{
-      await fetch("/api/services",{method:"POST",body:JSON.stringify(form)});
+    if (Array.isArray(data)) {
+      setServices(data);
+    } else {
+      console.error("API did not return array:", data);
+      setServices([]);
     }
+  };
 
-    setForm({title:""});
+  useEffect(() => {
+    load();
+  }, []);
+
+  const remove = async (id: string) => {
+    await fetch("/api/services", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    });
+
     load();
   };
 
-  const edit=(item:any)=>{
-    setForm(item);
-    setEditId(item._id);
-  };
+  return (
+    <div>
 
-  const del=async(id:string)=>{
-    await fetch("/api/services",{method:"DELETE",body:JSON.stringify({id})});
-    load();
-  };
+      {/* HEADER */}
+      <div className="flex justify-between mb-6">
 
-  return(
-    <div className="p-10">
+        <h1 className="text-2xl font-bold">
+          Services Listing
+        </h1>
 
-      <h1>Services</h1>
+        <Link
+          href="/admin/services/add"
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          + Add Service
+        </Link>
 
-      <input name="title" placeholder="Title" value={form.title} onChange={change}/>
-      <button onClick={submit}>{editId ? "Update":"Add"}</button>
+      </div>
 
-      {data.map((item)=>(
-        <div key={item._id}>
-          {item.title}
-          <button onClick={()=>edit(item)}>Edit</button>
-          <button onClick={()=>del(item._id)}>Delete</button>
-        </div>
-      ))}
+      {/* TABLE */}
+      <div className="bg-white shadow rounded overflow-x-auto">
+
+        <table className="w-full">
+
+          {/* HEADER */}
+          <thead className="bg-blue-700 text-white">
+            <tr>
+              <th className="p-3 w-[80px]">Image</th>
+              <th className="p-3">Title</th>
+              <th className="p-3">Tags</th>
+              <th className="p-3">Websites</th>
+              <th className="p-3">Videos</th>
+              <th className="p-3 text-right w-[180px]">Actions</th>
+            </tr>
+          </thead>
+
+          {/* BODY */}
+          <tbody>
+
+            {services.length === 0 && (
+              <tr>
+                <td colSpan={6} className="text-center p-4">
+                  No services found
+                </td>
+              </tr>
+            )}
+
+            {services.map((s) => (
+              <tr key={s._id} className="border-t">
+
+                {/* IMAGE (first image) */}
+                <td className="p-3">
+                  <img
+                    src={s.images?.[0] || "https://via.placeholder.com/100"}
+                    className="h-12 w-12 object-cover rounded border"
+                  />
+                </td>
+
+                {/* TITLE */}
+                <td className="p-3 font-medium">{s.title}</td>
+
+                {/* TAGS */}
+                <td className="p-3">
+                  {s.tags?.join(", ") || "—"}
+                </td>
+
+                {/* WEBSITES */}
+                <td className="p-3 max-w-[200px] truncate">
+                  {s.websites?.length ? (
+                    <a
+                      href={s.websites[0]}
+                      target="_blank"
+                      className="text-blue-600 underline"
+                    >
+                      {s.websites[0]}
+                    </a>
+                  ) : "—"}
+                </td>
+
+                {/* VIDEOS */}
+                <td className="p-3">
+                  {s.videos?.length ? (
+                    <a
+                      href={s.videos[0]}
+                      target="_blank"
+                      className="text-blue-600 underline"
+                    >
+                      View Video
+                    </a>
+                  ) : "—"}
+                </td>
+
+                {/* ACTIONS */}
+                <td className="space-x-2 whitespace-nowrap text-right">
+
+                  <Link href={`/admin/services/edit/${s._id}`}>
+                    <button className="bg-green-600 text-white px-3 py-1 rounded">
+                      Edit
+                    </button>
+                  </Link>
+
+                  <button
+                    onClick={() => remove(s._id)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm transition"
+                  >
+                    Delete
+                  </button>
+
+                </td>
+
+              </tr>
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
   );
