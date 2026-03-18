@@ -57,16 +57,16 @@ export default function WebsitesAdmin() {
       {/* TABLE */}
       <div className="bg-white shadow rounded overflow-x-auto">
 
-        <table className="w-full">
+        <table className="w-full table-fixed border-collapse">
 
           {/* HEADER */}
-          <thead className="bg-blue-700 text-white">
+          <thead className="bg-blue-600 text-white px-4 py-2 rounded">
             <tr>
-              <th className="p-3 w-[80px]">Image</th>
-              <th className="p-3">Name</th>
-              <th className="p-3">URL</th>
-              <th className="p-3">Video</th>
-              <th className="p-3 text-right w-[180px]">Actions</th>
+              <th className="p-3 w-[80px] text-center">Image</th>
+              <th className="p-3 w-[250px]">Name</th>
+              <th className="p-3 w-[100px] text-center">URL</th>
+              <th className="p-3 w-[220px]">Video</th>
+              <th className="p-3 w-[180px] text-right">Actions</th>
             </tr>
           </thead>
 
@@ -85,28 +85,24 @@ export default function WebsitesAdmin() {
               <tr key={w._id} className="border-t">
 
                 {/* IMAGE */}
-                <td className="p-3">
-                  <img
-                    src={w.image && w.image !== "" ? w.image : "https://via.placeholder.com/100"}
-                    className="h-12 w-12 object-cover rounded border"
-                    onError={(e: any) => {
-                      e.target.src = "https://via.placeholder.com/100";
-                    }}
-                  />
-                </td>
-
+          <td className="p-3 text-center align-middle">
+            <img
+              src={w.image || "https://via.placeholder.com/100"}
+              className="h-12 w-12 object-cover rounded border mx-auto"
+            />
+          </td>
                 {/* NAME */}
-                <td className="p-3 font-medium">{w.name}</td>
+                <td className="p-3 text-center align-middle">{w.name}</td>
 
                 {/* URL */}
-                <td className="p-3 text-blue-600 underline truncate max-w-[200px]">
+                <td className="p-3 text-center align-middle">
                   <a href={w.url} target="_blank">
                     {w.url}
                   </a>
                 </td>
 
                 {/* VIDEO */}
-                <td className="p-3 truncate max-w-[200px]">
+                <td className="p-3 text-center align-middle">
                   {w.video ? (
                     <a href={w.video} target="_blank" className="text-blue-600 underline">
                       View Video
@@ -117,17 +113,17 @@ export default function WebsitesAdmin() {
                 </td>
 
                 {/* ACTIONS */}
-                <td className="space-x-2 whitespace-nowrap text-right">
+                <td className="p-3 text-center align-middle">
 
                   <Link href={`/admin/websites/edit/${w._id}`}>
-                    <button className="bg-green-600 text-white px-3 py-1 rounded">
+                    <button className="bg-green-600 text-black px-3 py-1 rounded">
                       Edit
                     </button>
                   </Link>
 
                   <button
                     onClick={() => remove(w._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm transition"
+                    className="bg-red-500 hover:bg-red-600 text-black px-3 py-1 rounded-md text-sm transition"
                   >
                     Delete
                   </button>

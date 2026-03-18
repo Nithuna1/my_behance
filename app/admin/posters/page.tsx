@@ -58,16 +58,16 @@ export default function PostersAdmin() {
       {/* TABLE */}
       <div className="bg-white shadow rounded overflow-x-auto">
 
-        <table className="w-full">
+        <table className="w-full table-fixed border-collapse">
 
           {/* HEADER */}
-          <thead className="bg-blue-700 text-white">
+          <thead className="bg-blue-600 text-white px-4 py-2 rounded">
             <tr>
-              <th className="p-3 w-[80px]">Image</th>
-              <th className="p-3">Title</th>
-              <th className="p-3">Category</th>
-              <th className="p-3">Created</th>
-              <th className="p-3 text-right w-[180px]">Actions</th>
+              <th className="p-3 w-[80px] text-center">Image</th>
+              <th className="p-3 w-[250px]">Title</th>
+              <th className="p-3 w-[100px] text-center">Category</th>
+              <th className="p-3 w-[220px]">Created</th>
+              <th className="p-3 w-[180px] text-right">Actions</th>
             </tr>
           </thead>
 
@@ -86,39 +86,36 @@ export default function PostersAdmin() {
               <tr key={p._id} className="border-t">
 
                 {/* IMAGE */}
-                <td className="p-3">
-                  <img
-                    src={p.image && p.image !== "" ? p.image : "https://via.placeholder.com/100"}
-                    className="h-12 w-12 object-cover rounded border"
-                    onError={(e: any) => {
-                      e.target.src = "https://via.placeholder.com/100";
-                    }}
-                  />
-                </td>
+          <td className="p-3 text-center align-middle">
+            <img
+              src={p.image || "https://via.placeholder.com/100"}
+              className="h-12 w-12 object-cover rounded border mx-auto"
+            />
+          </td>
 
                 {/* TITLE */}
-                <td className="p-3">{p.title}</td>
+                <td className="p-3 text-center align-middle">{p.title}</td>
 
                 {/* CATEGORY */}
-                <td className="p-3">{p.category}</td>
+                <td className="p-3 text-center align-middle">{p.category}</td>
 
                 {/* CREATED DATE */}
-                <td className="p-3">
+                <td className="p-3 text-center align-middle">
                   {new Date(p.createdAt).toLocaleDateString()}
                 </td>
 
                 {/* ACTIONS */}
-                <td className="space-x-2 whitespace-nowrap text-right">
+                <td className="p-3 text-center align-middle"> 
 
                   <Link href={`/admin/posters/edit/${p._id}`}>
-                    <button className="bg-green-600 text-white px-3 py-1 rounded">
+                    <button className="bg-green-600 text-black px-3 py-1 rounded">
                       Edit
                     </button>
                   </Link>
 
                   <button
                     onClick={() => remove(p._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm transition"
+                    className="bg-red-500 hover:bg-red-600 text-black px-3 py-1 rounded-md text-sm transition"
                   >
                     Delete
                   </button>

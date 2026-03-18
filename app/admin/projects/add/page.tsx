@@ -146,7 +146,7 @@ export default function AddProject() {
 
             <button
               type="button"
-              className="mt-3 bg-gray-600 text-white px-4 py-2 rounded"
+              className="bg-gray-600 text-white px-4 py-2 rounded"
             >
               + Add More Images
             </button>

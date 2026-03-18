@@ -17,26 +17,56 @@ export default function EditProject() {
 
   const [images, setImages] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // ✅ LOAD PROJECT DATA
+  // ✅ SAFE ID
+  const getId = () => {
+    if (!params?.id) return null;
+
+    return Array.isArray(params.id)
+      ? params.id[0]
+      : params.id;
+  };
+
+  // ✅ LOAD PROJECT
   const loadProject = async () => {
-    const res = await fetch(`/api/projects/${params.id}`);
-    const data = await res.json();
+    try {
+      const id = getId();
+      if (!id) return;
 
-    setForm({
-      title: data.title || "",
-      author: data.author || "",
-      year: data.year || "",
-      category: data.category || "",
-      description: data.description || "",
-    });
+      console.log("FRONTEND ID:", id); // 🔍 DEBUG
 
-    setExistingImages(data.gallery || []);
+      const res = await fetch(`/api/projects/${id}`);
+      const data = await res.json();
+
+      console.log("PROJECT DATA:", data);
+
+      if (!res.ok || data.success === false) {
+        console.error("Project not found");
+        setLoading(false);
+        return;
+      }
+
+      setForm({
+        title: data.title || "",
+        author: data.author || "",
+        year: data.year || "",
+        category: data.category || "",
+        description: data.description || "",
+      });
+
+      setExistingImages(data.gallery || []);
+
+    } catch (err) {
+      console.error("Error loading project:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    if (params.id) loadProject();
-  }, [params.id]);
+    loadProject();
+  }, []);
 
   const change = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -49,7 +79,11 @@ export default function EditProject() {
 
   // ✅ UPDATE
   const submit = async (e: any) => {
-    e.preventDefault();
+  e.preventDefault();
+
+  try {
+    const id = getId();
+    if (!id) return;
 
     const formData = new FormData();
 
@@ -61,96 +95,163 @@ export default function EditProject() {
       formData.append("images", img);
     });
 
-    const res = await fetch(`/api/projects/${params.id}`, {
+    const res = await fetch(`/api/projects/${id}`, {
       method: "PUT",
       body: formData,
     });
 
     const data = await res.json();
 
+    console.log("UPDATE RESPONSE:", data); // 🔥 ADD THIS
+
     if (data.success) {
       alert("Updated ✅");
       router.push("/admin/projects");
     } else {
-      alert("Failed ❌");
+      alert(data.message || "Failed ❌"); // 🔥 SHOW REAL ERROR
     }
-  };
+
+  } catch (err) {
+    console.error("Update error:", err);
+    alert("Something went wrong ❌");
+  }
+};
+  if (loading) {
+    return <div className="p-8">Loading project...</div>;
+  }
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
+  <div className="bg-gray-100 min-h-screen py-10 px-4">
 
-      <h1 className="text-2xl font-bold mb-6">
+    {/* PAGE WRAPPER */}
+    <div className="max-w-6xl mx-auto">
+
+      <h1 className="text-3xl font-bold mb-8">
         Edit Project
       </h1>
 
-      <div className="bg-white rounded-xl shadow-md p-8 max-w-4xl">
+      <div className="bg-white rounded-2xl shadow-lg p-8">
 
-        <form onSubmit={submit} className="space-y-5">
+        <form
+  onSubmit={submit}
+  className="grid md:grid-cols-[1.4fr_1fr] gap-12"
+>
 
-          {/* Title */}
-          <input
-            name="title"
-            value={form.title}
-            onChange={change}
-            placeholder="Title"
-            className="w-full border p-2 rounded"
-          />
+          {/* LEFT SIDE */}
+          <div className="space-y-6">
 
-          {/* Description */}
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={change}
-            className="w-full border p-2 rounded"
-          />
-
-          {/* Existing Images */}
-          <div className="flex gap-3 flex-wrap">
-            {existingImages.map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                className="h-20 w-20 object-cover rounded border"
+            <div>
+              <label className="text-sm text-gray-600">Title</label>
+              <input
+                name="title"
+                value={form.title}
+                onChange={change}
+                className="w-full mt-1 border p-3 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
-            ))}
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-600">Description</label>
+              <textarea
+                name="description"
+                value={form.description}
+                onChange={change}
+                className="w-full mt-1 border p-3 rounded-lg h-32 focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                name="author"
+                value={form.author}
+                onChange={change}
+                placeholder="Author"
+                className="border p-3 rounded-lg"
+              />
+
+              <input
+                name="year"
+                value={form.year}
+                onChange={change}
+                placeholder="Year"
+                className="border p-3 rounded-lg"
+              />
+            </div>
+
+            <input
+              name="category"
+              value={form.category}
+              onChange={change}
+              placeholder="Category"
+              className="w-full border p-3 rounded-lg"
+            />
+
+            <div>
+              <label className="text-sm text-gray-600">Upload Images</label>
+              <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className="w-full mt-2 border p-2 rounded-lg"
+              />
+            </div>
+
+           
+
+          </div><br></br>
+
+          {/* RIGHT SIDE */}
+          <div className="space-y-4 ml-4">
+
+            <h3 className="font-semibold text-gray-700">
+              Image Preview
+            </h3>
+
+            {existingImages.length > 0 ? (
+              <div className="grid grid-cols-3 gap-3">
+
+                {existingImages.map((img, i) => (
+                  <div
+                    key={i}
+                    className="rounded-xl overflow-hidden shadow-sm border"
+                  >
+                    <img
+                      src={img}
+                      className="w-full h-36 object-cover hover:scale-105 transition"
+                    />
+                  </div>
+                ))}
+
+              </div>
+            ) : (
+              <p className="text-gray-400">No images available</p>
+            )}
+
           </div>
 
-          {/* Upload New */}
-          <input type="file" multiple onChange={handleFileChange} />
 
-          {/* Other fields */}
-          <input
-            name="author"
-            value={form.author}
-            onChange={change}
-            placeholder="Author"
-            className="w-full border p-2 rounded"
-          />
+           {/* BUTTONS */}
+            <div className="flex gap-4 pt-4">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
+                Update
+              </button>
 
-          <input
-            name="year"
-            value={form.year}
-            onChange={change}
-            placeholder="Year"
-            className="w-full border p-2 rounded"
-          />
+               <button
+                  type="button"
+                  onClick={() => router.push("/admin/projects")}
+                  className="bg-gray-300 px-6 py-2 rounded-lg"
+                >
+                  Cancel
+                </button>
+            </div>
 
-          <input
-            name="category"
-            value={form.category}
-            onChange={change}
-            placeholder="Category"
-            className="w-full border p-2 rounded"
-          />
-
-          <button className="bg-blue-600 text-white px-4 py-2 rounded">
-            Update Project
-          </button>
 
         </form>
 
       </div>
 
     </div>
-  );
+
+  </div>
+);
 }

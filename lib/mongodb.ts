@@ -7,9 +7,9 @@ export async function connectDB() {
       return;
     }
 
-    const uri = process.env.MONGODB_URI; // ✅ MOVE INSIDE FUNCTION
+    const uri = process.env.MONGODB_URI; 
 
-    console.log("MONGO URI:", uri); // 🔥 DEBUG
+    console.log("MONGO URI:", uri); 
 
     if (!uri) {
       throw new Error("MONGODB_URI is missing ❌");

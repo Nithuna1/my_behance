@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiX, FiMail } from "react-icons/fi";
 import FollowButton from "../components/FollowButton";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
@@ -11,13 +11,14 @@ import { FaWhatsapp } from "react-icons/fa"
 
 /* ================= TYPES ================= */
 type Project = {
+  _id?: string;
   title: string;
-  author: string;
+  author?: string;
   image: string;
-  year: string;
-  category: string;
-  description: string;
-  gallery: string[];
+  year?: string;
+  category?: string;
+  description?: string;
+  gallery?: string[];
 };
 
 export default function ProjectsPage() {
@@ -33,85 +34,31 @@ const [menuOpen, setMenuOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   /* ================= PROJECT DATA ================= */
-   const projects: Project[] = [
-    {
-      title: "AMBER",
-      author: "Matamix",
-      image: "/projects/amb2.jpg",
-      year: "2024",
-      category: "POS Software Solution",
-      description:
-        "AMBER POS Software is an advanced point-of-sale solution designed to boost business efficiency and streamline daily operations. It enables seamless sales management and accurate inventory tracking while providing real-time reporting and analytics to help businesses make informed decisions. The system includes robust customer management with integrated loyalty programs, ensuring stronger customer engagement and retention. With secure payment processing, quick billing, and easy invoicing, AMBER simplifies transactions at every touchpoint. Automated daily sales reports further enhance control and visibility, making AMBER a reliable and scalable POS solution for modern businesses looking to optimize performance and growth.",
-      gallery: [
-        "/projects/machine.jpg",
-        "/projects/machine1.jpg",
-      ],
-    },
-    {
-      title: "GOZZBE",
-      author: "Matamix",
-      image: "/projects/gooz.jpg",
-      year: "2023",
-      category: "Laundry Management Software",
-      description:
-        "Gozzbe is a smart, end-to-end digital solution designed to modernize and simplify laundry business operations. Built for laundromats, dry cleaners, and laundry service providers, Gozzbe seamlessly connects customers and businesses through an intuitive mobile app and a powerful web-based management dashboard. Customers can easily place orders, track laundry status, and manage pickups or deliveries, while business owners gain full control over orders, inventory, pricing, and workflow in real time. With automated order tracking, customer management, service categorization, and data-driven insights, Gozzbe reduces manual effort, minimizes errors, and improves turnaround time.",
-      gallery: [
-        "/projects/laundry.jpg",
-        "/projects/laundry1.jpg",
-      ],
-    },
-    {
-      title: "ZOOMIE",
-      author: "Matamix",
-      image: "/projects/zoom.jpg",
-      year: "2024",
-      category: "Restaurant POS System",
-      description:
-        "Zoomie is an intelligent, all-in-one restaurant and hospitality POS solution designed to help businesses turn tables faster and operate smarter. Built specifically for cafés, restaurants, and food service environments, Zoomie streamlines order taking, billing, and kitchen coordination with a fast, intuitive interface that reduces wait times and improves service efficiency. Its visually rich menu system, seamless order management, and real-time synchronization between front-of-house and kitchen ensure accuracy and speed at every stage of service. Combined with powerful reporting, inventory control, and flexible payment handling, Zoomie empowers restaurant owners and staff to deliver a smoother dining experience, maximize productivity, and increase revenue — all while maintaining complete operational control.",
-      gallery: [
-        "/projects/hotel.jpg",
-        "/projects/hotel1.jpg",
-      ],
-    },
-    {
-      title: "AMALGAMATE",
-      author: "Matamix",
-      image: "/projects/new _amalgamate.jpg",
-      year: "2023",
-      category: "Custom Mobile App Solutions",
-      description:
-        "Amalgamate Technology’s Mobile Application Development services are designed to help businesses transform their digital presence and succeed in today’s mobile-first world. We build high-performance, user-centric mobile applications that combine intuitive design with robust functionality, ensuring seamless experiences across devices and platforms. From concept and UI/UX design to development, testing, and deployment, our solutions are fully customized to meet specific business goals and user needs. By leveraging modern technologies, data-driven insights, and continuous optimization, we create scalable mobile apps that enhance user engagement, streamline operations, and drive measurable growth.",
-      gallery: [
-        "/projects/new _amalgamate.jpg",
-        "/projects/user.png",
-      ],
-    },
-    {
-      title: "AMBER",
-      author: "Matamix",
-      image: "/projects/amb1.jpg",
-      year: "2023",
-      category: "ERP Inventory Management",
-      description:
-        "AMBER’s Stock Ageing Reports provide businesses with real-time visibility into inventory movement, helping them manage stock more intelligently and efficiently. By clearly identifying slow-moving and ageing items, the system enables businesses to take timely actions such as replenishment adjustments, promotions, or stock clearance to reduce wastage. With accurate insights into inventory levels, AMBER helps optimize purchasing decisions, prevent overstocking or shortages, and improve overall cash flow. The automated reporting and data-driven analysis empower decision-makers to maintain healthier inventory cycles, minimize losses, and ensure that working capital is used effectively. Designed as part of AMBER’s powerful ERP solution, stock ageing reports transform inventory management from guesswork into a strategic, controlled process.",
-      gallery: [
-        "/projects/amber_new.jpg",
-      ],
-    },
-    {
-      title: "DOSO",
-      author: "Matamix",
-      image: "/projects/doso.jpg",
-      year: "2022",
-      category: "Enterprise ERP Software",
-      description:
-        "DOSO Enterprise ERP Software Solutions are designed to streamline, integrate, and optimize core business operations through a robust and scalable digital platform. Built to support growing and enterprise-level organizations, DOSO centralizes critical functions such as finance, inventory, operations, human resources, and reporting into a single, unified system. With real-time data visibility and intelligent dashboards, businesses gain better control over processes, improve decision-making, and enhance operational efficiency. The flexible, modular architecture allows organizations to customize the ERP according to their unique workflows while ensuring seamless integration across departments. Secure, scalable, and performance-driven, DOSO empowers businesses to reduce complexity, improve productivity, and build a strong foundation for long-term digital transformation.",
-      gallery: [
-        "/projects/disc2.jpg",
-        "/projects/solutions.jpg",
-      ],
-    },
-  ];
+ const [projects, setProjects] = useState<Project[]>([]);
+
+// ✅ ADD BELOW THIS
+useEffect(() => {
+  loadProjects();
+}, []);
+
+const loadProjects = async () => {
+  try {
+    const res = await fetch("/api/projects");
+    const data = await res.json();
+
+    console.log("PROJECTS:", data);
+
+    if (Array.isArray(data)) {
+      setProjects(data);
+    } else if (data.projects) {
+      setProjects(data.projects);
+    } else {
+      setProjects([]);
+    }
+  } catch (err) {
+    console.error("Fetch error:", err);
+  }
+};
 
   return (
     <div
@@ -333,22 +280,22 @@ const [menuOpen, setMenuOpen] = useState(false);
       >
         {/* IMAGE */}
             <div className="relative w-full h-[320px] overflow-hidden">
-         <Image
-           src={project.image}
-           alt={project.title}
-           fill
-           className="object-half-contain"
-         />
+         <img
+  src={project.image}
+  alt={project.title}
+  className="w-full h-full object-cover"
+/>
        </div>
        
 
         {/* TEXT */}
         <div className="mt-4 px-1">
-          <p className="font-medium">{project.title}</p>
-          <p className="text-xs text-black/60">
-            {project.category}
-          </p>
-        </div>
+  <p className="font-medium">{project.title}</p>
+
+  <p className="text-xs text-black/60">
+    {project.category}
+  </p>
+</div>
       </div>
     ))}
   </div>
@@ -502,7 +449,7 @@ ${message}
         "
       >
         <div className="grid grid-cols-2 gap-3 md:gap-4">
-          {activeProject.gallery.map((img, i) => (
+          {activeProject.gallery?.map((img, i) => (
             <div
               key={i}
               className="relative aspect-square rounded-xl overflow-hidden"
@@ -536,8 +483,9 @@ ${message}
         </p>
 
         <p className="text-sm text-black/70 leading-relaxed">
-          {activeProject.description}
-        </p>
+  {activeProject.description}
+</p>
+
       </div>
 
     </div>
