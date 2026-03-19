@@ -7,6 +7,7 @@ import FollowButton from "../components/FollowButton";
 import { FiMail } from "react-icons/fi";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa"
+import { useEffect } from "react";
 
 export default function WebsitePage() {
   const [fabOpen, setFabOpen] = useState(false);
@@ -18,6 +19,31 @@ const [email, setEmail] = useState("");
 const [message, setMessage] = useState("");
 const [phone, setPhone] = useState("");
 const [menuOpen, setMenuOpen] = useState(false);
+const [websites, setWebsites] = useState<any[]>([]);
+
+useEffect(() => {
+  loadWebsites();
+}, []);
+
+const loadWebsites = async () => {
+  try {
+    const res = await fetch("/api/websites");
+    const data = await res.json();
+
+    console.log("WEBSITES:", data);
+
+    if (Array.isArray(data)) {
+      setWebsites(data);
+    } else if (data.websites) {
+      setWebsites(data.websites);
+    } else {
+      setWebsites([]);
+    }
+
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 
   return (
@@ -260,26 +286,10 @@ const [menuOpen, setMenuOpen] = useState(false);
             <h3 className="text-lg font-semibold mb-4">Websites</h3>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-  {
-    name: "www.matamix.com",
-    url: "https://matamix.com",
-    image: "/projects/collage.jpg",
-    video: "/video/matamix_video.mp4",
-  },
-  {
-    name: "www.vitara.com",
-    url: "https://nithuna1.github.io/vitara/index.html",
-    image: "/services/business.jpg",
-    video: "/video/vitara_video.mp4",
-  },
-  {
-    name: "www.domain.com",
-    url: "https://www.domainnow.com/domain-registration/?gad_source=1&gad_campaignid=2701056&gbraid=0AAAAAD_fDRToMhRNnIt7KFUKtuKgCSl_k&gclid=CjwKCAiAj8LLBhAkEiwAJjbY7xOLG6KWLXXIg4cnjCICMHdMhRqf47DijEAVrXnkoDMyWlz8Ck1JtxoC15QQAvD_BwE",
-    image: "/services/digital2.jpg",
-    video: "/video/domain_video.mp4",
-  },
-].map((site, i) => (
+              {websites.length === 0 && (
+  <p className="text-gray-500">No websites found</p>
+)}
+              {websites.map((site, i) => (
                 <a
                  key={i}
                  href={site.url}
