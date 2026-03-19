@@ -7,7 +7,6 @@ import FollowButton from "../components/FollowButton";
 import { FiMail, FiX } from "react-icons/fi";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa"
-import { useEffect } from "react";
 
 /* ================= TYPES ================= */
 type Service = {
@@ -33,28 +32,110 @@ const [menuOpen, setMenuOpen] = useState(false);
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
- const [services, setServices] = useState<Service[]>([]);
+  const services: Service[] = [
 
- useEffect(() => {
-  loadServices();
-}, []);
-
-const loadServices = async () => {
-  try {
-    const res = await fetch("/api/services");
-    const data = await res.json();
-
-    console.log("SERVICES:", data);
-
-    if (Array.isArray(data)) {
-      setServices(data);
-    } else {
-      setServices([]);
-    }
-  } catch (err) {
-    console.error("Error:", err);
-  }
-};
+     {
+  title: "E-Commerce Solutions",
+  tags: ["Shopify", "Online Store", "Payments"],
+  images: [
+    "/services/commerce1.webp",
+    "/services/commerce.jpeg",
+    "/services/commerce2.jpg",
+    "/services/commerce4.webp",
+    "/services/commerce5.webp",
+    "/services/commerce6.png",
+  ],
+  videos: [
+    "/video/alrayyan_video.mp4",
+    "/video/flipkart_video.mp4",
+    "/video/myntra_video.mp4",
+    "/video/amazon_video.mp4",
+    "/video/ajio_video.mp4",
+    "/video/tac_video.mp4",
+  ],
+  websites: [
+    "https://amg-ecommerce-web.vercel.app/",
+    "https://www.flipkart.com",
+    "https://www.myntra.com",
+    "https://www.amazon.in",
+    "https://www.ajio.com",
+    "https://www.tatacliq.com",
+  ],
+    },
+    {
+  title: "Ui/Ux Design",
+  tags: ["Prototyping", "User Flows", "Product UX"],
+  images: [
+    "/services/web1.avif",
+    "/services/web2.avif",
+    "/services/web3.jpg",
+    "/services/web4.jpg",
+  ],
+  videos: [
+    "/video/figma_video.mp4",
+    "/video/dribble_video.mp4",
+    "/video/awards_video.mp4",
+    "/video/behance_video.mp4",
+  ],
+  websites: [
+    "https://www.figma.com/proto/eNSvJGp6L4vK8asm2EPF2z/vishnu2?node-id=618-3502&p=f&t=7SQAgsDcqi6PHJjj-0",
+    "https://dribbble.com",
+    "https://www.awwwards.com",
+    "https://www.behance.net",
+  ],
+},
+    {
+  title: "Digital Marketing",
+  tags: ["SEO Strategy", "Social Ads", "Analytics"],
+  images: [
+    "/services/insta1.jpeg",
+    "/services/insta2.jpeg",
+    "/services/insta3.jpeg",
+    "/services/insta4.jpeg",
+  ],
+  videos: [
+    "/video/soocher_video.mp4",
+    "/video/amalgamate_video.mp4",
+    "/video/knot_video.mp4",
+    "/video/laundry_video.mp4",
+  ],
+  websites: [
+    "https://www.instagram.com/soocherapp?igsh=cWhibjVrYjBicHVq",
+    "https://www.instagram.com/amalgamate_technology?igsh=MWtoOTBhZXltYWgwaQ==",
+    "https://www.instagram.com/knot_perfumes?igsh=MTNrazBjcXF4YnN3cg==",
+    "https://www.instagram.com/laundryhubkasargod?igsh=dWo2MTJ3a2p6Njg=",
+  ],
+    },
+    {
+  title: "Video Production",
+  tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
+  images: [
+    "/services/video1.jpg",
+    "/services/video2.jpg",
+    "/services/video3.avif",
+    "/services/short.jpg",
+    "/services/short2.jpg",
+    "/services/short3.jpg",
+  ],
+  videos: [
+    "/video/intro_video.mp4",
+    "/video/marketing_video.mp4",
+    "/video/memory_video.mp4",
+    "/video/team_video.mp4",
+    "/video/company_video.mp4",
+    "/video/title_video.mp4",
+  ],
+  websites: [
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+    "https://www.instagram.com/matamix_international/",
+  ],
+},
+    
+  ];
 
   return (
    <div
