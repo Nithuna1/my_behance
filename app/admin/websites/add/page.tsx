@@ -166,9 +166,12 @@ const [video, setVideo] = useState<File | null>(null);
           {/* BUTTONS */}
           <div className="flex gap-3 pt-4">
 
-            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg">
-              Save Website
-            </button>
+           <button
+  type="submit"
+  className="bg-blue-600 text-white px-5 py-2 rounded-lg"
+>
+  Save Website
+</button>
 
             <button
               type="button"
