@@ -7,6 +7,7 @@ import FollowButton from "../components/FollowButton";
 import { FiMail } from "react-icons/fi";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import { useEffect } from "react";
 
 export default function PostersPage() {
   const [fabOpen, setFabOpen] = useState(false);
@@ -18,6 +19,28 @@ const [email, setEmail] = useState("");
 const [message, setMessage] = useState("");
 const [phone, setPhone] = useState("");
 const [menuOpen, setMenuOpen] = useState(false);
+const [posters, setPosters] = useState<any[]>([]);
+
+useEffect(() => {
+  loadPosters();
+}, []);
+
+const loadPosters = async () => {
+  try {
+    const res = await fetch("/api/posters");
+    const data = await res.json();
+
+    console.log("POSTERS:", data);
+
+    if (Array.isArray(data)) {
+      setPosters(data);
+    } else {
+      setPosters([]);
+    }
+  } catch (err) {
+    console.error("Error loading posters:", err);
+  }
+};
 
   return (
   <div
@@ -239,35 +262,7 @@ const [menuOpen, setMenuOpen] = useState(false);
       gap-y-6
     "
   >
-    {[
-      "poster1.jpeg",
-      "poster2.jpeg",
-      "poster3.jpeg",
-      "poster4.png",
-      "poster5.jpeg",
-      "poster6.jpeg",
-      "poster7.jpeg",
-      "poster8.jpeg",
-      "poster9.jpeg",
-      "poster10.jpeg",
-      "poster11.jpeg",
-      "poster12.jpeg",
-      "poster13.png",
-      "poster14.jpeg",
-      "poster15.png",
-      "poster16.jpeg",
-      "poster17.jpeg",
-      "poster20.jpeg",
-      "poster21.jpeg",
-      "poster22.jpeg",
-      "poster23.jpeg",
-      "poster25.jpeg",
-      "poster26.jpeg",
-      "poster28.jpeg",
-      "poster30.jpeg",
-      "poster31.jpeg",
-      "poster36.jpeg",
-    ].map((poster, i) => (
+    {posters.map((poster, i) => (
       <div
         key={i}
         className="
@@ -281,7 +276,7 @@ const [menuOpen, setMenuOpen] = useState(false);
         "
       >
         <Image
-          src={`/posters/${poster}`}
+          src={poster.image}
           alt={`Poster ${i + 1}`}
           fill
           className="

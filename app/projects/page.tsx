@@ -449,7 +449,9 @@ ${message}
         "
       >
         <div className="grid grid-cols-2 gap-3 md:gap-4">
-          {activeProject.gallery?.map((img, i) => (
+          {activeProject.gallery
+  ?.slice(1) // ✅ remove first image (primary)
+  .map((img, i) => (
             <div
               key={i}
               className="relative aspect-square rounded-xl overflow-hidden"
