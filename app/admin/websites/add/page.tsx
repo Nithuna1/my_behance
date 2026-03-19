@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 export default function AddWebsite() {
   const router = useRouter();
 
-  const [form, setForm] = useState({
-    name: "",
-    url: "",
-    video: "",
-  });
+ const [form, setForm] = useState({
+  name: "",
+  url: "",
+});
 
+const [video, setVideo] = useState<File | null>(null);
   const [images, setImages] = useState<File[]>([]);
 
   const change = (e: any) => {
@@ -30,7 +30,9 @@ export default function AddWebsite() {
 
     formData.append("name", form.name);
     formData.append("url", form.url);
-    formData.append("video", form.video);
+    if (video) {
+  formData.append("video", video);
+}
 
     // ✅ images
     images.forEach((img) => {
@@ -92,18 +94,25 @@ export default function AddWebsite() {
 
           {/* VIDEO */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Video URL (optional)
-            </label>
-            <input
-              name="video"
-              value={form.video}
-              onChange={change}
-              placeholder="https://youtube.com/..."
-              className="w-full border rounded-lg px-3 py-2"
-            />
-          </div>
+  <label className="block text-sm font-medium mb-1">
+    Upload Video (optional)
+  </label>
 
+  <input
+    type="file"
+    accept="video/*"
+    onChange={(e) => {
+      const file = e.target.files?.[0];
+      if (file) setVideo(file);
+    }}
+  />
+
+  {video && (
+    <p className="text-sm text-green-600 mt-1">
+      {video.name}
+    </p>
+  )}
+</div>
           {/* IMAGES */}
           <div>
             <label className="block text-sm font-medium mb-1">
