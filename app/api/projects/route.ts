@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/mongodb";
 import Project from "@/models/Project";
 import { NextResponse } from "next/server";
 
+
 // ✅ GET ALL PROJECTS
 export async function GET() {
   try {

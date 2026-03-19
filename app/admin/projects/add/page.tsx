@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+
 
 export default function AddProject() {
   const router = useRouter();
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const [form, setForm] = useState({
     title: "",
@@ -24,7 +26,7 @@ export default function AddProject() {
   // ✅ Safe file handling
  const handleFileChange = (e: any) => {
   const files = Array.from(e.target.files || []) as File[];
-  setImages(files);
+  setImages((prev) => [...prev, ...files]); 
 };
 
   const submit = async (e: any) => {
@@ -101,13 +103,13 @@ export default function AddProject() {
               Project Images
             </label>
 
-            <input
-              type="file"
-              multiple
-              onChange={handleFileChange}
-              className="block"
-            />
-
+           <input
+  ref={fileRef}
+  type="file"
+  multiple
+  onChange={handleFileChange}
+  className="hidden"
+/>
             <p className="text-sm text-gray-500 mt-1">
               First image will be set as primary
             </p>
@@ -145,11 +147,12 @@ export default function AddProject() {
             </div>
 
             <button
-              type="button"
-              className="bg-gray-600 text-white px-4 py-2 rounded"
-            >
-              + Add More Images
-            </button>
+  type="button"
+  onClick={() => fileRef.current?.click()}
+  className="bg-gray-600 text-black px-4 py-2 rounded"
+>
+  + Add More Images
+</button>
           </div>
 
           {/* Grid */}

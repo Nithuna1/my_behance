@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 
 export default function EditProject() {
   const router = useRouter();
   const params = useParams();
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const [form, setForm] = useState({
     title: "",
@@ -74,7 +75,7 @@ export default function EditProject() {
 
   const handleFileChange = (e: any) => {
     const files = Array.from(e.target.files || []) as File[];
-    setImages(files);
+    setImages((prev) => [...prev, ...files]);
   };
 
   // ✅ UPDATE
@@ -188,12 +189,21 @@ export default function EditProject() {
 
             <div>
               <label className="text-sm text-gray-600">Upload Images</label>
-              <input
-                type="file"
-                multiple
-                onChange={handleFileChange}
-                className="w-full mt-2 border p-2 rounded-lg"
-              />
+             <input
+  ref={fileRef}
+  type="file"
+  multiple
+  onChange={handleFileChange}
+  className="hidden"
+/>
+
+<button
+  type="button"
+  onClick={() => fileRef.current?.click()}
+  className="bg-gray-600 text-black px-4 py-2 rounded mt-2"
+>
+  + Add More Images
+</button>
             </div>
 
            
@@ -221,6 +231,27 @@ export default function EditProject() {
                     />
                   </div>
                 ))}
+
+                {images.length > 0 && (
+  <div className="mt-4">
+    <h4 className="text-sm text-gray-600 mb-2">New Images</h4>
+
+    <div className="grid grid-cols-3 gap-3">
+      {images.map((img, i) => {
+        const preview = URL.createObjectURL(img);
+
+        return (
+          <img
+            key={i}
+            src={preview}
+            className="w-full h-36 object-cover rounded"
+            onLoad={() => URL.revokeObjectURL(preview)}
+          />
+        );
+      })}
+    </div>
+  </div>
+)}
 
               </div>
             ) : (
