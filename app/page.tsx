@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiMail, FiX } from "react-icons/fi";
 import FollowButton from "./components/FollowButton";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
@@ -35,13 +35,14 @@ type Project = {
 };
 
 type MobileApp = {
+  _id?: string;
   title: string;
   image: string;
   fullDescription: string;
   features: string[];
   bestFor: string;
+  gallery?: string[];
 };
-
 
 
 export default function Home() {
@@ -65,6 +66,7 @@ const [menuOpen, setMenuOpen] = useState(false);
   const [activeMobileApp, setActiveMobileApp] = useState<MobileApp | null>(null);
   const [activeSet, setActiveSet] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [apps, setApps] = useState<MobileApp[]>([]);
 
 
 
@@ -149,88 +151,26 @@ const [menuOpen, setMenuOpen] = useState(false);
     },
   ];
 
-  const mobileApps: MobileApp[] = [
-  {
-    title: "Business ERP App",
-    image: "/mobile/home.png",
-    fullDescription:
-      "The Business ERP App is an all-in-one mobile platform designed to give business owners complete control over operations from anywhere. It centralizes sales, purchases, expenses, banking, and performance analytics into a single, intuitive dashboard. With real-time updates and clear financial insights, businesses can make faster, data-driven decisions and maintain full operational visibility.",
-    features: [
-      "Real-time sales, purchase, and expense tracking",
-      "Cash and bank balance monitoring",
-      "Profit calculation and revenue growth indicators",
-      "Date-based reports (Today, Yesterday, Custom)",
-      "Multi-shop and branch support",
-    ],
-    bestFor:
-      "Retail stores, distributors, wholesalers, and businesses that need a complete ERP system on mobile.",
-  },
+ 
 
-  {
-    title: "Shop Management App",
-    image: "/mobile/shop.png",
-    fullDescription:
-      "The Shop Management App simplifies daily shop operations by providing a clear overview of sales, expenses, and purchases. Designed for speed and clarity, it allows shop owners and managers to quickly assess performance, monitor cash flow, and manage multiple branches without complexity.",
-    features: [
-      "Daily sales and purchase summaries",
-      "Expense tracking with profit calculation",
-      "Branch-wise and head-office views",
-      "Quick shop selection and filtering",
-      "Clean UI optimized for fast decisions",
-    ],
-    bestFor:
-      "Single-store and multi-branch shop owners who want fast insights into daily operations.",
-  },
+useEffect(() => {
+  const loadApps = async () => {
+    try {
+      const res = await fetch("/api/apps");
+      const data = await res.json();
 
-  {
-    title: "Accounting & Finance App",
-    image: "/mobile/analytics.png",
-    fullDescription:
-      "The Accounting & Finance App is built for accurate financial control and transparency. It provides structured views of cash sales, bank transactions, credit activity, and account balances. With integrated cash book and day book features, users can maintain clean financial records and reduce manual accounting effort.",
-    features: [
-      "Cash sales, bank sales, and credit sales tracking",
-      "Cash book and day book access",
-      "Credit purchase and account summaries",
-      "Bank account balance monitoring",
-      "Clear financial breakdowns in real time",
-    ],
-    bestFor:
-      "Accountants, finance teams, and business owners who need precise financial tracking.",
-  },
+      console.log("DYNAMIC APPS:", data);
 
-  {
-    title: "Analytics Dashboard App",
-    image: "/mobile/trade1.png",
-    fullDescription:
-      "The Analytics Dashboard App transforms raw business data into actionable insights. It provides visual reports on performance, profitability, and growth trends, helping decision-makers understand what’s working and where improvements are needed. The app integrates seamlessly with ERP systems for automated insights.",
-    features: [
-      "Business and branch performance analysis",
-      "Profit and loss insights",
-      "Balance sheet and financial reports",
-      "Growth comparison with previous periods",
-      "ERP automation and reporting highlights",
-    ],
-    bestFor:
-      "Business owners, managers, and decision-makers who rely on data-driven insights.",
-  },
+      if (Array.isArray(data)) {
+        setApps(data);
+      }
+    } catch (err) {
+      console.error("Error loading apps:", err);
+    }
+  };
 
-  {
-    title: "Business ERP App",
-    image: "/mobile/home.png",
-    fullDescription:
-      "The Business ERP App is an all-in-one mobile platform designed to give business owners complete control over operations from anywhere. It centralizes sales, purchases, expenses, banking, and performance analytics into a single, intuitive dashboard. With real-time updates and clear financial insights, businesses can make faster, data-driven decisions and maintain full operational visibility.",
-    features: [
-      "Real-time sales, purchase, and expense tracking",
-      "Cash and bank balance monitoring",
-      "Profit calculation and revenue growth indicators",
-      "Date-based reports (Today, Yesterday, Custom)",
-      "Multi-shop and branch support",
-    ],
-    bestFor:
-      "Retail stores, distributors, wholesalers, and businesses that need a complete ERP system on mobile.",
-  },
-
-];
+  loadApps();
+}, []);
 
 
   return (
@@ -1137,7 +1077,7 @@ websites: [
   <button
     onClick={() =>
       setCurrentIndex((prev) =>
-        prev === 0 ? mobileApps.length - 1 : prev - 1
+        prev === 0 ? apps.length - 1 : prev - 1
       )
     }
     className="
@@ -1159,7 +1099,7 @@ websites: [
         transform: `translateX(-${currentIndex * 100}%)`,
       }}
     >
-      {mobileApps.map((app, i) => (
+      {apps.map((app, i) => (
         <div
           key={i}
           className="min-w-full flex justify-center"
@@ -1184,7 +1124,7 @@ websites: [
   <button
     onClick={() =>
       setCurrentIndex((prev) =>
-        prev === mobileApps.length - 1 ? 0 : prev + 1
+        prev === apps.length - 1 ? 0 : prev + 1
       )
     }
     className="
@@ -1203,77 +1143,56 @@ websites: [
 <div className="hidden md:block relative px-20">
 
   {/* LEFT ARROW */}
- <button
-  onClick={() =>
-    document.getElementById("desktopSlider")?.scrollBy({
-      left: -1200,
-      behavior: "smooth",
-    })
-  }
-  className="
-    absolute left-4 top-1/2 -translate-y-1/2 z-20
-    bg-white shadow-md w-10 h-10 rounded-full
-    flex items-center justify-center
-    text-gray-700 hover:bg-blue-600 hover:text-white
-    transition
-  "
->
-  <FiChevronLeft size={20} />
-</button>
+  <button
+    onClick={() =>
+      document.getElementById("desktopSlider")?.scrollBy({
+        left: -1200,
+        behavior: "smooth",
+      })
+    }
+    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white transition"
+  >
+    <FiChevronLeft size={20} />
+  </button>
 
   {/* SLIDER */}
- <div
-  id="desktopSlider"
-  className="
-    flex
-    gap-2
-    overflow-hidden
-    scroll-smooth
-    px-16
-  "
->
-  
-    {mobileApps.map((app, i) => (
+  <div
+    id="desktopSlider"
+    className="flex gap-12 overflow-x-auto scroll-smooth px-20"
+  >
+    {apps.map((app, i) => (
       <div
-        key={i}
+        key={app._id || i}
         onClick={() => setActiveMobileApp(app)}
-        className="
-          flex-shrink-0 w-1/4 flex justify-center
-          cursor-pointer hover:-translate-y-3 transition
-        "
+        className="flex-shrink-0 w-[260px] flex justify-center cursor-pointer hover:-translate-y-3 transition"
       >
-        <Image
-          src={app.image}
-          alt={app.title}
-          width={900}
-          height={1800}
-          className="w-[200%] h-auto object-contain" 
-        />
+        <div className="h-[550px] flex items-center justify-center">
+          <Image
+            src={app.gallery?.[0] || app.image}
+            alt={app.title}
+            width={900}
+            height={1800}
+            className="h-full w-auto object-contain transition duration-300 hover:scale-105"
+          />
+        </div>
       </div>
-    ))}r
+    ))}
   </div>
 
   {/* RIGHT ARROW */}
- <button
-  onClick={() =>
-    document.getElementById("desktopSlider")?.scrollBy({
-      left: 1200,
-      behavior: "smooth",
-    })
-  }
-  className="
-    absolute right-0 top-1/2 -translate-y-1/2 z-20
-    bg-white shadow-md w-10 h-10 rounded-full
-    flex items-center justify-center
-    text-gray-700 hover:bg-blue-600 hover:text-white
-    transition
-  "
->
-  <FiChevronRight size={20} />
-</button>
+  <button
+    onClick={() =>
+      document.getElementById("desktopSlider")?.scrollBy({
+        left: 1200,
+        behavior: "smooth",
+      })
+    }
+    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white transition"
+  >
+    <FiChevronRight size={20} />
+  </button>
 
 </div>
-
   </div>
 </section><br></br>
 
