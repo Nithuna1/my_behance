@@ -15,17 +15,11 @@ export default function AddEcommerce() {
 
     const formData = new FormData();
 
-    // ✅ REQUIRED FIELDS FOR SERVICE
-    formData.append("title", "Ecommerce"); // or dynamic later
+    formData.append("title", "Ecommerce");
     formData.append("type", "ecommerce");
-
-    // ✅ ARRAY FORMAT (matches your services API)
     formData.append("websites", JSON.stringify([website]));
-
-    // optional empty arrays
     formData.append("tags", JSON.stringify([]));
 
-    // ✅ FILES
     if (image) formData.append("images", image);
     if (video) formData.append("videos", video);
 
@@ -37,39 +31,24 @@ export default function AddEcommerce() {
     const data = await res.json();
 
     if (data.success) {
-      alert("Saved ✅");
-
-      // ✅ redirect to filtered services
-      router.push("/admin/services?type=ecommerce");
-    } else {
-      alert("Failed ❌");
+      router.push("/admin/services/ecommerce");
     }
   };
 
   return (
     <form onSubmit={submit} className="p-6 space-y-4">
 
-      {/* WEBSITE */}
       <input
-        placeholder="Website"
+        placeholder="Website URL"
         value={website}
         onChange={(e) => setWebsite(e.target.value)}
-        className="w-full border px-3 py-2 rounded"
+        className="border px-3 py-2 w-full"
       />
 
-      {/* IMAGE */}
-      <input
-        type="file"
-        onChange={(e) => setImage(e.target.files?.[0] || null)}
-      />
+      <input type="file" onChange={(e) => setImage(e.target.files?.[0] || null)} />
+      <input type="file" onChange={(e) => setVideo(e.target.files?.[0] || null)} />
 
-      {/* VIDEO */}
-      <input
-        type="file"
-        onChange={(e) => setVideo(e.target.files?.[0] || null)}
-      />
-
-      <button className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button className="bg-blue-600 text-white px-4 py-2">
         Save
       </button>
 

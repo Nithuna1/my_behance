@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: any) {
     </a>
 
     <a
-      href="/admin/services?type=ecommerce"
+      href="/admin/ecommerce"
       className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
     >
       <ShoppingCart size={14} />
