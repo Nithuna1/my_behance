@@ -137,9 +137,12 @@ export default function AddWebsite() {
             ))}
           </div>
 
-          <button className="bg-blue-600 text-white px-5 py-2 rounded">
-            Save Website
-          </button>
+         <button
+  disabled={!images.length}
+  className="bg-blue-600 text-white px-5 py-2 rounded disabled:opacity-50"
+>
+  Save Website
+</button>
         </form>
       </div>
     </div>
