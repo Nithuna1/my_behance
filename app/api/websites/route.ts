@@ -29,64 +29,21 @@ export async function POST(req: Request) {
   try {
     await connectDB();
 
-    const formData = await req.formData();
-
-    const name = formData.get("name") as string;
-    const url = formData.get("url") as string;
-
-    const videoFile = formData.get("video") as File | null;
-    const imageFiles = formData.getAll("images") as File[];
-
-    let imageUrls: string[] = [];
-    let videoUrl = "";
-
-    // ✅ Upload images
-    for (const file of imageFiles) {
-      if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const result: any = await new Promise((resolve, reject) => {
-          cloudinary.uploader.upload_stream(
-            { resource_type: "image" },
-            (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            }
-          ).end(buffer);
-        });
-
-        imageUrls.push(result.secure_url);
-      }
-    }
-
-    // ✅ Upload video
-    if (videoFile && videoFile.size > 0) {
-      const bytes = await videoFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      const result: any = await new Promise((resolve, reject) => {
-        cloudinary.uploader.upload_stream(
-          { resource_type: "video" },
-          (error, result) => {
-            if (error) reject(error);
-            else resolve(result);
-          }
-        ).end(buffer);
-      });
-
-      videoUrl = result.secure_url;
-    }
+    // ✅ GET JSON (NOT formData)
+    const body = await req.json();
 
     const website = await Website.create({
-      name,
-      url,
-      image: imageUrls[0] || "",
-      images: imageUrls,
-      video: videoUrl,
+      name: body.name,
+      url: body.url,
+      image: body.image,
+      images: body.images,
+      video: body.video,
     });
 
-    return NextResponse.json({ success: true, website });
+    return NextResponse.json({
+      success: true,
+      website,
+    });
 
   } catch (error: any) {
     console.log("POST ERROR:", error);
