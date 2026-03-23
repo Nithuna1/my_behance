@@ -1190,7 +1190,7 @@ websites: [
           className="w-[200%] h-auto object-contain" 
         />
       </div>
-    ))}r
+    ))}
   </div>
 
   {/* RIGHT ARROW */}
