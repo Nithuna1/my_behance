@@ -13,16 +13,12 @@ export default function ServicesAdmin() {
 
     console.log("SERVICES DATA:", data);
 
-   if (Array.isArray(data)) {
-
-  const filtered = data.filter((s: any) => s.type !== "ecommerce");
-
-  setServices(filtered);
-
-} else {
-  console.error("API did not return array:", data);
-  setServices([]);
-}
+    if (Array.isArray(data)) {
+      setServices(data);
+    } else {
+      console.error("API did not return array:", data);
+      setServices([]);
+    }
   };
 
   useEffect(() => {
