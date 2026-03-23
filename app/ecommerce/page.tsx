@@ -1,82 +1,77 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function EcommercePage() {
 
-  const ecommerce = {
-    images: [
-      "/services/commerce1.webp",
-      "/services/commerce.jpeg",
-      "/services/commerce2.jpg",
-      "/services/commerce4.webp",
-      "/services/commerce5.webp",
-      "/services/commerce6.png",
-    ],
+  const [items, setItems] = useState<any[]>([]);
 
-    videos: [
-      "/video/alrayyan_video.mp4",
-      "/video/flipkart_video.mp4",
-      "/video/myntra_video.mp4",
-      "/video/amazon_video.mp4",
-      "/video/ajio_video.mp4",
-      "/video/tac_video.mp4",
-    ],
+  const load = async () => {
+    const res = await fetch("/api/services");
+    const data = await res.json();
 
-    websites: [
-      "https://amg-ecommerce-web.vercel.app/",
-      "https://www.flipkart.com",
-      "https://www.myntra.com",
-      "https://www.amazon.in",
-      "https://www.ajio.com",
-      "https://www.tatacliq.com",
-    ],
+    // ✅ FILTER ONLY ECOMMERCE
+    const ecommerce = Array.isArray(data)
+      ? data.filter((s: any) => s.type === "ecommerce")
+      : [];
+
+    setItems(ecommerce);
   };
+
+  useEffect(() => {
+    load();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white py-16 px-6">
 
-    <h1 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-10 text-center text-black">
-  E-Commerce Solutions
-</h1>
+      <h1 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-10 text-center text-black">
+        E-Commerce Solutions
+      </h1>
 
       <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
-        {ecommerce.images.map((img, i) => {
+        {items.map((item, i) => {
 
-          const video = ecommerce.videos[i];
-          const website = ecommerce.websites[i];
+          const image = item.images?.[0];
+          const video = item.videos?.[0];
+          const website = item.websites?.[0];
 
           return (
             <div
-              key={i}
+              key={item._id}
               className="relative h-56 rounded-xl overflow-hidden group"
             >
 
               {/* IMAGE */}
-              <Image
-                src={img}
-                alt="Ecommerce"
-                fill
-                className="object-cover transition duration-500 group-hover:scale-110"
-              />
+              {image && (
+                <Image
+                  src={image}
+                  alt="Ecommerce"
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-110"
+                />
+              )}
 
-             {/* VIDEO */}
-{video && (
-  <video
-    src={video}
-    muted
-    loop
-    autoPlay
-    playsInline
-    preload="auto"
-    className="
-      absolute inset-0 w-full h-full object-cover
-      opacity-100
-      md:opacity-0 md:group-hover:opacity-100
-      transition duration-500
-    "
-  />
-)}
+              {/* VIDEO */}
+              {video && (
+                <video
+                  src={video}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  className="
+                    absolute inset-0 w-full h-full object-cover
+                    opacity-100
+                    md:opacity-0 md:group-hover:opacity-100
+                    transition duration-500
+                  "
+                />
+              )}
 
               {/* OVERLAY */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition duration-500" />
@@ -100,6 +95,13 @@ export default function EcommercePage() {
         })}
 
       </div>
+
+      {/* EMPTY STATE */}
+      {items.length === 0 && (
+        <p className="text-center mt-10 text-gray-500">
+          No ecommerce items found
+        </p>
+      )}
 
       {/* BACK BUTTON */}
       <div className="flex justify-center mt-10">
