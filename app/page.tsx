@@ -1165,34 +1165,27 @@ websites: [
  <div
   id="desktopSlider"
   className="
-    flex
-    gap-2
-    overflow-hidden
-    scroll-smooth
-    px-16
+    flex justify-center items-center gap-16 px-6
   "
 >
-  
-    {apps.map((app, i) => (
-      <div
-        key={i}
-        onClick={() => setActiveMobileApp(app)}
-        className="
-          flex-shrink-0 w-1/4 flex justify-center
-          cursor-pointer hover:-translate-y-3 transition
-        "
-      >
+  {apps.slice(0, 3).map((app, i) => (
+    <div
+      key={app._id || i}
+      onClick={() => setActiveMobileApp(app)}
+      className="w-[260px] flex justify-center cursor-pointer hover:-translate-y-3 transition"
+    >
+      <div className="h-[550px] flex items-center justify-center">
         <Image
-          src={app.image}
+          src={app.gallery?.[0] || app.image}
           alt={app.title}
           width={900}
           height={1800}
-          className="w-[200%] h-auto object-contain" 
+          className="h-full w-auto object-contain transition duration-300 hover:scale-105"
         />
       </div>
-    ))}r
-  </div>
-
+    </div>
+  ))}
+</div>
   {/* RIGHT ARROW */}
  <button
   onClick={() =>
