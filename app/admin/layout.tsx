@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Globe, Settings, Folder, Image, Smartphone } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
 export default function AdminLayout({ children }: any) {
   const pathname = usePathname();
@@ -43,10 +44,33 @@ export default function AdminLayout({ children }: any) {
       Manage Websites
     </a>
 
-    <a href="/admin/services" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-blue-600">
-      <Settings size={18} />
-      Manage Services
+   <div>
+  {/* MAIN */}
+  <div className="flex items-center gap-3 px-3 py-2 font-medium text-gray-800">
+    <Settings size={18} />
+    Manage Services
+  </div>
+
+  {/* SUB MENU */}
+  <div className="ml-6 mt-2 space-y-1 text-sm">
+
+    <a
+      href="/admin/services"
+      className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
+    >
+      • All Services
     </a>
+
+    <a
+      href="/admin/services?type=ecommerce"
+      className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
+    >
+      <ShoppingCart size={14} />
+      Ecommerce
+    </a>
+
+  </div>
+</div>
 
     <a href="/admin/projects" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-blue-600">
       <Folder size={18} />
