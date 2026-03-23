@@ -7,7 +7,7 @@ export default function EcommerceAdmin() {
   const [items, setItems] = useState<any[]>([]);
 
   const load = async () => {
-    const res = await fetch("/api/services");
+    const res = await fetch("/api/services?type=ecommerce");
     const data = await res.json();
 
     const ecommerce = Array.isArray(data)
