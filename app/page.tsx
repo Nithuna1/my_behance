@@ -1061,11 +1061,11 @@ websites: [
 
 
 {/* ================= MOBILE APPLICATIONS ================= */}
-<section className="mt-10">
+<section className="py-12">
   <div className="max-w-[1600px] mx-auto px-4 md:px-6">
 
     {/* HEADING */}
-    <div className="mb-6">
+    <div className="mb-4">
       <h3 className="text-lg font-semibold">Mobile Applications</h3>
     </div>
 
@@ -1174,7 +1174,7 @@ websites: [
       onClick={() => setActiveMobileApp(app)}
       className="w-[260px] flex justify-center cursor-pointer hover:-translate-y-3 transition"
     >
-      <div className="h-[550px] flex items-center justify-center">
+      <div className="h-[480px] flex items-center justify-center">
         <Image
           src={app.gallery?.[0] || app.image}
           alt={app.title}
