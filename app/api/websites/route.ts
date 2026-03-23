@@ -11,7 +11,7 @@ export async function GET() {
 
     const websites = await Website.find().sort({ _id: -1 });
 
-  return NextResponse.json({ websites });
+  return NextResponse.json(websites);
 
   } catch (error: any) {
     console.log("GET ERROR:", error);
@@ -29,21 +29,42 @@ export async function POST(req: Request) {
   try {
     await connectDB();
 
-    // ✅ GET JSON (NOT formData)
-    const body = await req.json();
+    const formData = await req.formData();
+
+    const name = formData.get("name");
+    const url = formData.get("url");
+    const video = formData.get("video");
+    const images = formData.getAll("images");
+
+    const imageUrls: string[] = [];
+
+    for (const file of images as File[]) {
+      if (file && file.size > 0) {
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
+        imageUrls.push(base64);
+      }
+    }
+
+    let videoUrl = "";
+    if (video && (video as File).size > 0) {
+      const bytes = await (video as File).arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      videoUrl = `data:${(video as File).type};base64,${buffer.toString("base64")}`;
+    }
 
     const website = await Website.create({
-      name: body.name,
-      url: body.url,
-      image: body.image,
-      images: body.images,
-      video: body.video,
+      name,
+      url,
+      image: imageUrls[0] || "",
+      images: imageUrls,
+      video: videoUrl,
     });
 
-    return NextResponse.json({
-      success: true,
-      website,
-    });
+    return NextResponse.json({ success: true, website });
 
   } catch (error: any) {
     console.log("POST ERROR:", error);

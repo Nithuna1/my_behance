@@ -9,6 +9,7 @@ export default function WebsitesAdmin() {
 
   const load = async () => {
     const res = await fetch("/api/websites");
+    console.log(res,"response...")
     const data = await res.json();
 
     console.log("WEBSITES DATA:", data);
