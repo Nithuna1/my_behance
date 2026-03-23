@@ -151,9 +151,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     },
   ];
 
- 
-
-useEffect(() => {
+  useEffect(() => {
   const loadApps = async () => {
     try {
       const res = await fetch("/api/apps");
@@ -171,6 +169,8 @@ useEffect(() => {
 
   loadApps();
 }, []);
+
+
 
 
   return (
@@ -1157,27 +1157,31 @@ websites: [
 
   {/* SLIDER */}
   <div
-    id="desktopSlider"
-    className="flex gap-12 overflow-x-auto scroll-smooth px-20"
-  >
-    {apps.map((app, i) => (
-      <div
-        key={app._id || i}
-        onClick={() => setActiveMobileApp(app)}
-        className="flex-shrink-0 w-[260px] flex justify-center cursor-pointer hover:-translate-y-3 transition"
-      >
-        <div className="h-[550px] flex items-center justify-center">
-          <Image
-            src={app.gallery?.[0] || app.image}
-            alt={app.title}
-            width={900}
-            height={1800}
-            className="h-full w-auto object-contain transition duration-300 hover:scale-105"
-          />
-        </div>
+  id="desktopSlider"
+  className="
+    flex gap-12 overflow-x-auto scroll-smooth px-6
+    justify-start items-center
+    no-scrollbar
+  "
+>
+  {apps.map((app, i) => (
+    <div
+      key={app._id || i}
+      onClick={() => setActiveMobileApp(app)}
+      className="flex-shrink-0 w-[260px] flex justify-center cursor-pointer hover:-translate-y-3 transition"
+    >
+      <div className="h-[550px] flex items-center justify-center">
+        <Image
+          src={app.gallery?.[0] || app.image}
+          alt={app.title}
+          width={900}
+          height={1800}
+          className="h-full w-auto object-contain transition duration-300 hover:scale-105"
+        />
       </div>
-    ))}
-  </div>
+    </div>
+  ))}
+</div>
 
   {/* RIGHT ARROW */}
   <button
@@ -1193,6 +1197,7 @@ websites: [
   </button>
 
 </div>
+
   </div>
 </section><br></br>
 
