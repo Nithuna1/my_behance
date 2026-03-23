@@ -68,6 +68,29 @@ const [menuOpen, setMenuOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [apps, setApps] = useState<MobileApp[]>([]);
 
+  const [websites, setWebsites] = useState<any[]>([]);
+
+useEffect(() => {
+  loadWebsites();
+}, []);
+
+const loadWebsites = async () => {
+  try {
+    const res = await fetch("/api/websites");
+    const data = await res.json();
+
+    if (Array.isArray(data)) {
+      setWebsites(data);
+    } else if (data.websites) {
+      setWebsites(data.websites);
+    } else {
+      setWebsites([]);
+    }
+  } catch (err) {
+    console.log("FETCH ERROR:", err);
+  }
+};
+
 
 
    /* ================= PROJECT DATA ================= */
@@ -377,34 +400,19 @@ const [menuOpen, setMenuOpen] = useState(false);
         {/* ================= RIGHT CONTENT ================= */}
         <main className="col-span-12">
 
-          {/* ================= OUR WEBSITES ================= */}
+         {/* ================= OUR WEBSITES ================= */}
 <section className="mt-4">
   <h3 className="text-lg font-semibold mb-5">Websites</h3>
 
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
 
-    {[
-      {
-        name: "www.matamix.com",
-        url: "https://matamix.com",
-        image: "/projects/collage.jpg",
-        video: "/video/matamix_video.mp4",
-      },
-      {
-        name: "www.vitara.com",
-        url: "https://nithuna1.github.io/vitara/index.html",
-        image: "/services/business.jpg",
-        video: "/video/vitara_video.mp4",
-      },
-      {
-        name: "www.domain.com",
-        url: "https://www.domainnow.com",
-        image: "/services/digital2.jpg",
-        video: "/video/domain_video.mp4",
-      },
-    ].map((site, i) => (
+    {websites.length === 0 && (
+      <p className="text-gray-500">No websites found</p>
+    )}
+
+    {websites.map((site, i) => (
       <a
-        key={i}
+        key={site._id || i}
         href={site.url}
         target="_blank"
         rel="noopener noreferrer"
@@ -413,15 +421,15 @@ const [menuOpen, setMenuOpen] = useState(false);
         {/* IMAGE CONTAINER */}
         <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-black">
 
-          {/* STATIC IMAGE */}
+          {/* IMAGE */}
           <Image
-            src={site.image}
+            src={site.image || "/placeholder.jpg"}
             alt={site.name}
             fill
             className="object-cover transition-opacity duration-500 group-hover:opacity-0"
           />
 
-          {/* VIDEO PREVIEW */}
+          {/* VIDEO */}
           {site.video && (
             <video
               src={site.video}
@@ -465,8 +473,6 @@ const [menuOpen, setMenuOpen] = useState(false);
     </Link>
   </div>
 </section>
-
-
 
 
  {/* SERVICES */}
