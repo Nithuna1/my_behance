@@ -1,8 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import Website from "@/models/Website";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import cloudinary from "@/lib/cloudinary";
 
 
 // ✅ GET ALL WEBSITES
@@ -38,41 +37,45 @@ export async function POST(req: Request) {
     const videoFile = formData.get("video") as File | null;
     const imageFiles = formData.getAll("images") as File[];
 
-    const imageDir = path.join(process.cwd(), "public/projects");
-    const videoDir = path.join(process.cwd(), "public/video");
-
-    if (!fs.existsSync(imageDir)) fs.mkdirSync(imageDir, { recursive: true });
-    if (!fs.existsSync(videoDir)) fs.mkdirSync(videoDir, { recursive: true });
-
     let imageUrls: string[] = [];
     let videoUrl = "";
 
-    // IMAGES
+    // ✅ Upload images
     for (const file of imageFiles) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const fileName = Date.now() + "_" + file.name;
-        const filePath = path.join(imageDir, fileName);
+        const result: any = await new Promise((resolve, reject) => {
+          cloudinary.uploader.upload_stream(
+            { resource_type: "image" },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          ).end(buffer);
+        });
 
-        fs.writeFileSync(filePath, buffer);
-
-        imageUrls.push("/projects/" + fileName);
+        imageUrls.push(result.secure_url);
       }
     }
 
-    // VIDEO
+    // ✅ Upload video
     if (videoFile && videoFile.size > 0) {
       const bytes = await videoFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
-      const fileName = Date.now() + "_" + videoFile.name;
-      const filePath = path.join(videoDir, fileName);
+      const result: any = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { resource_type: "video" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        ).end(buffer);
+      });
 
-      fs.writeFileSync(filePath, buffer);
-
-      videoUrl = "/video/" + fileName;
+      videoUrl = result.secure_url;
     }
 
     const website = await Website.create({
@@ -94,7 +97,6 @@ export async function POST(req: Request) {
     );
   }
 }
-
 
 // ✅ UPDATE WEBSITE
 export async function PUT(req: Request) {
