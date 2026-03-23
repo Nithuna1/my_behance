@@ -10,7 +10,7 @@ export default function EditApp() {
   const [form, setForm] = useState({
     title: "",
     fullDescription: "",
-    features: "",
+    features: [""],
     bestFor: "",
   });
 
@@ -38,7 +38,7 @@ export default function EditApp() {
       setForm({
         title: data.title || "",
         fullDescription: data.fullDescription || "",
-        features: data.features?.join(", ") || "",
+        features: data.features?.length ? data.features : [""],
         bestFor: data.bestFor || "",
       });
 
@@ -59,6 +59,21 @@ export default function EditApp() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleFeatureChange = (index: number, value: string) => {
+  const updated = [...form.features];
+  updated[index] = value;
+  setForm({ ...form, features: updated });
+};
+
+const addFeature = () => {
+  setForm({ ...form, features: [...form.features, ""] });
+};
+
+const removeFeature = (index: number) => {
+  const updated = form.features.filter((_, i) => i !== index);
+  setForm({ ...form, features: updated });
+};
+
   const handleImage = (e: any) => {
     setImage(e.target.files[0]);
   };
@@ -78,10 +93,11 @@ export default function EditApp() {
       formData.append("bestFor", form.bestFor);
 
       // convert features string → array
-      formData.append(
-        "features",
-        JSON.stringify(form.features.split(",").map((f) => f.trim()))
-      );
+     const featuresArray = form.features.filter(
+  (f: string) => f.trim() !== ""
+);
+
+formData.append("features", JSON.stringify(featuresArray));
 
       if (image) {
         formData.append("image", image);
@@ -149,16 +165,42 @@ export default function EditApp() {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">
-                  Features (comma separated)
-                </label>
-                <input
-                  name="features"
-                  value={form.features}
-                  onChange={change}
-                  className="w-full mt-1 border p-3 rounded-lg"
-                />
-              </div>
+  <label className="text-sm text-gray-600 mb-2 block">
+    Features
+  </label>
+
+  <div className="space-y-2">
+    {form.features.map((feature, i) => (
+      <div key={i} className="flex gap-2">
+
+        <input
+          value={feature}
+          onChange={(e) => handleFeatureChange(i, e.target.value)}
+          placeholder={`Feature ${i + 1}`}
+          className="flex-1 border p-3 rounded-lg"
+        />
+
+        {form.features.length > 1 && (
+          <button
+            type="button"
+            onClick={() => removeFeature(i)}
+            className="bg-red-500 text-white px-3 rounded"
+          >
+            ✕
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <button
+    type="button"
+    onClick={addFeature}
+    className="mt-2 text-blue-600 text-sm"
+  >
+    + Add Feature
+  </button>
+</div>
 
               <input
                 name="bestFor"

@@ -9,7 +9,7 @@ export default function AddApp() {
   const [form, setForm] = useState({
     title: "",
     fullDescription: "",
-    features: "",
+    features: [""],
     bestFor: "",
   });
 
@@ -24,6 +24,21 @@ export default function AddApp() {
     setImages(files);
   };
 
+  const handleFeatureChange = (index: number, value: string) => {
+  const updated = [...form.features];
+  updated[index] = value;
+  setForm({ ...form, features: updated });
+};
+
+const addFeature = () => {
+  setForm({ ...form, features: [...form.features, ""] });
+};
+
+const removeFeature = (index: number) => {
+  const updated = form.features.filter((_, i) => i !== index);
+  setForm({ ...form, features: updated });
+};
+
   const submit = async (e: any) => {
     e.preventDefault();
 
@@ -33,13 +48,12 @@ export default function AddApp() {
     formData.append("fullDescription", form.fullDescription);
     formData.append("bestFor", form.bestFor);
 
-    // ✅ features array
-    const featuresArray = form.features
-      .split(",")
-      .map((f) => f.trim())
-      .filter((f) => f !== "");
+    // ✅ features array (already array now)
+const featuresArray = form.features.filter(
+  (f: string) => f.trim() !== ""
+);
 
-    formData.append("features", JSON.stringify(featuresArray));
+formData.append("features", JSON.stringify(featuresArray));
 
     // ✅ images
     images.forEach((img) => {
@@ -149,18 +163,46 @@ export default function AddApp() {
           </div>
 
           {/* FEATURES */}
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Features (comma separated)
-            </label>
-            <input
-              name="features"
-              value={form.features}
-              onChange={change}
-              placeholder="Login, Dashboard, Analytics"
-              className="w-full border rounded-lg px-3 py-2"
-            />
-          </div>
+          {/* FEATURES */}
+<div>
+  <label className="block text-sm font-medium mb-2">
+    Features
+  </label>
+
+  <div className="space-y-2">
+    {form.features.map((feature, i) => (
+      <div key={i} className="flex gap-2">
+
+        <input
+          value={feature}
+          onChange={(e) => handleFeatureChange(i, e.target.value)}
+          placeholder={`Feature ${i + 1}`}
+          className="flex-1 border rounded-lg px-3 py-2"
+        />
+
+        {/* REMOVE BUTTON */}
+        {form.features.length > 1 && (
+          <button
+            type="button"
+            onClick={() => removeFeature(i)}
+            className="bg-red-500 text-white px-3 rounded"
+          >
+            ✕
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
+
+  {/* ADD BUTTON */}
+  <button
+    type="button"
+    onClick={addFeature}
+    className="mt-2 text-blue-600 text-sm"
+  >
+    + Add Feature
+  </button>
+</div>
 
           {/* BEST FOR */}
           <div>
