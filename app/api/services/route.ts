@@ -69,13 +69,13 @@ export async function POST(req: Request) {
     };
 
     const service = await Service.create({
-      title: formData.get("title"),
-      tags: parseArray("tags"),
-      websites: parseArray("websites"),
-      images: imageUrls,
-      videos: videoUrls, // ✅ now correct
-    });
-
+  title: formData.get("title"),
+  type: formData.get("type"), // 🔥 ADD THIS LINE
+  tags: parseArray("tags"),
+  websites: parseArray("websites"),
+  images: imageUrls,
+  videos: videoUrls,
+});
     return NextResponse.json({
       success: true,
       service,
@@ -100,18 +100,29 @@ export async function PUT(req: Request) {
   try {
     await connectDB();
 
-    const { id, ...data } = await req.json();
+    const formData = await req.formData();
 
-    if (!id) {
-      return NextResponse.json(
-        { success: false, message: "Service ID required" },
-        { status: 400 }
-      );
-    }
+    const id = formData.get("id") as string;
 
-    const updated = await Service.findByIdAndUpdate(id, data, {
-      new: true,
-    });
+    const parseArray = (key: string) => {
+      try {
+        const value = formData.get(key);
+        return value ? JSON.parse(value as string) : [];
+      } catch {
+        return [];
+      }
+    };
+
+    const updated = await Service.findByIdAndUpdate(
+      id,
+      {
+        title: formData.get("title"),
+        type: formData.get("type"), // ✅ IMPORTANT
+        tags: parseArray("tags"),
+        websites: parseArray("websites"),
+      },
+      { new: true }
+    );
 
     return NextResponse.json({
       success: true,
