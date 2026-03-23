@@ -1143,58 +1143,74 @@ websites: [
 <div className="hidden md:block relative px-20">
 
   {/* LEFT ARROW */}
-  <button
-    onClick={() =>
-      document.getElementById("desktopSlider")?.scrollBy({
-        left: -1200,
-        behavior: "smooth",
-      })
-    }
-    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white transition"
-  >
-    <FiChevronLeft size={20} />
-  </button>
-
-  {/* SLIDER */}
-  <div
-  id="desktopSlider"
+ <button
+  onClick={() =>
+    document.getElementById("desktopSlider")?.scrollBy({
+      left: -1200,
+      behavior: "smooth",
+    })
+  }
   className="
-    flex gap-12 overflow-x-auto scroll-smooth px-6
-    justify-start items-center
-    no-scrollbar
+    absolute left-4 top-1/2 -translate-y-1/2 z-20
+    bg-white shadow-md w-10 h-10 rounded-full
+    flex items-center justify-center
+    text-gray-700 hover:bg-blue-600 hover:text-white
+    transition
   "
 >
-  {apps.map((app, i) => (
-    <div
-      key={app._id || i}
-      onClick={() => setActiveMobileApp(app)}
-      className="flex-shrink-0 w-[260px] flex justify-center cursor-pointer hover:-translate-y-3 transition"
-    >
-      <div className="h-[550px] flex items-center justify-center">
+  <FiChevronLeft size={20} />
+</button>
+
+  {/* SLIDER */}
+ <div
+  id="desktopSlider"
+  className="
+    flex
+    gap-2
+    overflow-hidden
+    scroll-smooth
+    px-16
+  "
+>
+  
+    {apps.map((app, i) => (
+      <div
+        key={i}
+        onClick={() => setActiveMobileApp(app)}
+        className="
+          flex-shrink-0 w-1/4 flex justify-center
+          cursor-pointer hover:-translate-y-3 transition
+        "
+      >
         <Image
-          src={app.gallery?.[0] || app.image}
+          src={app.image}
           alt={app.title}
           width={900}
           height={1800}
-          className="h-full w-auto object-contain transition duration-300 hover:scale-105"
+          className="w-[200%] h-auto object-contain" 
         />
       </div>
-    </div>
-  ))}
-</div>
+    ))}r
+  </div>
 
   {/* RIGHT ARROW */}
-  <button
-    onClick={() =>
-      document.getElementById("desktopSlider")?.scrollBy({
-        left: 1200,
-        behavior: "smooth",
-      })
-    }
-    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white transition"
-  >
-    <FiChevronRight size={20} />
-  </button>
+ <button
+  onClick={() =>
+    document.getElementById("desktopSlider")?.scrollBy({
+      left: 1200,
+      behavior: "smooth",
+    })
+  }
+  className="
+    absolute right-0 top-1/2 -translate-y-1/2 z-20
+    bg-white shadow-md w-10 h-10 rounded-full
+    flex items-center justify-center
+    text-gray-700 hover:bg-blue-600 hover:text-white
+    transition
+  "
+>
+  <FiChevronRight size={20} />
+</button>
 
 </div>
 
