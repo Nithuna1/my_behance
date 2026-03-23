@@ -2,24 +2,34 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function EcommerceAdmin() {
   const [items, setItems] = useState<any[]>([]);
+  const params = useSearchParams();
+
+  const type = params.get("type"); // ✅ GET TYPE
 
   const load = async () => {
     const res = await fetch("/api/services");
     const data = await res.json();
 
-    const ecommerce = Array.isArray(data)
-      ? data.filter((s: any) => s.type === "ecommerce")
-      : [];
+    if (!Array.isArray(data)) {
+      setItems([]);
+      return;
+    }
 
-    setItems(ecommerce);
+    // ✅ FILTER BASED ON TYPE
+    const filtered = type
+      ? data.filter((s: any) => s.type === type)
+      : data;
+
+    setItems(filtered);
   };
 
   useEffect(() => {
     load();
-  }, []);
+  }, [type]); // ✅ RELOAD WHEN TYPE CHANGES
 
   const remove = async (id: string) => {
     await fetch("/api/services", {
@@ -34,14 +44,19 @@ export default function EcommerceAdmin() {
   return (
     <div>
       <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold">Ecommerce Services</h1>
+
+        {/* ✅ DYNAMIC TITLE */}
+        <h1 className="text-2xl font-bold">
+          {type === "ecommerce" ? "Ecommerce Services" : "Services Listing"}
+        </h1>
 
         <Link
-          href="/admin/services/ecommerce/add"
+          href={`/admin/services/add${type ? `?type=${type}` : ""}`}
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
-          + Add Ecommerce
+          + Add Service
         </Link>
+
       </div>
 
       <table className="w-full">
@@ -54,6 +69,14 @@ export default function EcommerceAdmin() {
         </thead>
 
         <tbody>
+          {items.length === 0 && (
+            <tr>
+              <td colSpan={3} className="text-center p-4">
+                No services found
+              </td>
+            </tr>
+          )}
+
           {items.map((e) => (
             <tr key={e._id} className="border-t text-center">
 
@@ -66,8 +89,10 @@ export default function EcommerceAdmin() {
               </td>
 
               <td>
-                <Link href={`/admin/services/ecommerce/edit/${e._id}`}>
-                  <button className="bg-green-500 px-2 py-1">Edit</button>
+                <Link href={`/admin/services/edit/${e._id}`}>
+                  <button className="bg-green-500 px-2 py-1">
+                    Edit
+                  </button>
                 </Link>
 
                 <button
@@ -80,6 +105,7 @@ export default function EcommerceAdmin() {
 
             </tr>
           ))}
+
         </tbody>
       </table>
     </div>
