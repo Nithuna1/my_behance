@@ -1247,10 +1247,10 @@ websites: [
           alt={app.title}
           width={900}
           height={1800}
-          className="w-[90%] h-auto object-contain"
+          className="w-[200%] h-auto object-contain" 
         />
       </div>
-    ))}
+    ))}r
   </div>
 
   {/* RIGHT ARROW */}

@@ -21,30 +21,6 @@ const [phone, setPhone] = useState("");
 const [menuOpen, setMenuOpen] = useState(false);
 const [websites, setWebsites] = useState<any[]>([]);
 
-useEffect(() => {
-  loadWebsites();
-}, []);
-
-const loadWebsites = async () => {
-  try {
-    const res = await fetch("/api/websites");
-    const data = await res.json();
-
-    console.log("WEBSITES:", data);
-
-    if (Array.isArray(data)) {
-      setWebsites(data);
-    } else if (data.websites) {
-      setWebsites(data.websites);
-    } else {
-      setWebsites([]);
-    }
-
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 
   return (
   <div
@@ -282,85 +258,80 @@ const loadWebsites = async () => {
         {/* ================= RIGHT CONTENT ================= */}
         <main className="col-span-12">
 
-          <section id="websites">
-            <h3 className="text-lg font-semibold mb-4">Websites</h3>
+          {/* ================= OUR WEBSITES ================= */}
+<section className="mt-4">
+  <h3 className="text-lg font-semibold mb-5">Websites</h3>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {websites.length === 0 && (
-  <p className="text-gray-500">No websites found</p>
-)}
-              {websites.map((site, i) => (
-                <a
-                 key={i}
-                 href={site.url}
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="group block"
-               >
-                 <div className="relative h-[220px] overflow-hidden rounded-xl border border-black/10 bg-black">
-               
-                   {/* STATIC IMAGE */}
-                   <Image
-                     src={site.image}
-                     alt={site.name}
-                     fill
-                     className="
-                       object-cover
-                       transition-opacity duration-500
-                       group-hover:opacity-0
-                     "
-                   />
-               
-                   {/* VIDEO PREVIEW (ONLY IF EXISTS) */}
-                   {site.video && (
-                     <video
-                       src={site.video}
-                       muted
-                       loop
-                       playsInline
-                       autoPlay
-                       className="
-                         absolute inset-0
-                         w-full h-full
-                         object-cover
-                         scale-[1.05]
-                         opacity-0
-                         transition-opacity duration-500
-                         group-hover:opacity-100
-                         pointer-events-none
-                       "
-                     />
-                   )}
-               
-                   {/* FALLBACK: LIVE WEBSITE PREVIEW */}
-                   {!site.video && (
-                     <iframe
-                       src={site.url}
-                       className="
-                         absolute inset-0
-                         w-full h-full
-                         scale-[1.15]
-                         opacity-0
-                         transition-opacity duration-500
-                         group-hover:opacity-100
-                         pointer-events-none
-                       "
-                     />
-                   )}
-               
-                 </div>
-               
-                 <div className="mt-3 flex justify-between text-sm">
-                   <span className="font-medium">{site.name}</span>
-                   <span className="text-black/40 group-hover:text-black transition">
-                     ↗
-                   </span>
-                 </div>
-               </a>
-               
-              ))}
-            </div>
-          </section>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+
+    {[
+      {
+        name: "www.matamix.com",
+        url: "https://matamix.com",
+        image: "/projects/collage.jpg",
+        video: "/video/matamix_video.mp4",
+      },
+      {
+        name: "www.vitara.com",
+        url: "https://nithuna1.github.io/vitara/index.html",
+        image: "/services/business.jpg",
+        video: "/video/vitara_video.mp4",
+      },
+      {
+        name: "www.domain.com",
+        url: "https://www.domainnow.com",
+        image: "/services/digital2.jpg",
+        video: "/video/domain_video.mp4",
+      },
+    ].map((site, i) => (
+      <a
+        key={i}
+        href={site.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block"
+      >
+        {/* IMAGE CONTAINER */}
+        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-black">
+
+          {/* STATIC IMAGE */}
+          <Image
+            src={site.image}
+            alt={site.name}
+            fill
+            className="object-cover transition-opacity duration-500 group-hover:opacity-0"
+          />
+
+          {/* VIDEO PREVIEW */}
+          {site.video && (
+            <video
+              src={site.video}
+              muted
+              loop
+              playsInline
+              autoPlay
+              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"
+            />
+          )}
+
+        </div>
+
+        {/* TEXT */}
+        <div className="mt-3 flex justify-between items-center text-sm px-1">
+          <span className="font-medium truncate">
+            {site.name}
+          </span>
+          <span className="text-black/40 group-hover:text-black transition">
+            ↗
+          </span>
+        </div>
+      </a>
+    ))}
+
+  </div>
+
+</section>
+
 
         </main>
 

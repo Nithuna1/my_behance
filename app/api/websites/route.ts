@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import Website from "@/models/Website";
 import { NextResponse } from "next/server";
-import cloudinary from "@/lib/cloudinary";
+
 
 
 // ✅ GET ALL WEBSITES
