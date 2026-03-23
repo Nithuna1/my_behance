@@ -38,17 +38,23 @@ export async function POST(req: Request) {
     const videoFile = formData.get("video") as File | null;
     const imageFiles = formData.getAll("images") as File[];
 
+    const imageDir = path.join(process.cwd(), "public/projects");
+    const videoDir = path.join(process.cwd(), "public/video");
+
+    if (!fs.existsSync(imageDir)) fs.mkdirSync(imageDir, { recursive: true });
+    if (!fs.existsSync(videoDir)) fs.mkdirSync(videoDir, { recursive: true });
+
     let imageUrls: string[] = [];
     let videoUrl = "";
 
-    // ✅ SAVE IMAGES
+    // IMAGES
     for (const file of imageFiles) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
         const fileName = Date.now() + "_" + file.name;
-        const filePath = path.join(process.cwd(), "public/projects", fileName);
+        const filePath = path.join(imageDir, fileName);
 
         fs.writeFileSync(filePath, buffer);
 
@@ -56,42 +62,34 @@ export async function POST(req: Request) {
       }
     }
 
-    // ✅ SAVE VIDEO
+    // VIDEO
     if (videoFile && videoFile.size > 0) {
       const bytes = await videoFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
       const fileName = Date.now() + "_" + videoFile.name;
-      const filePath = path.join(process.cwd(), "public/video", fileName);
+      const filePath = path.join(videoDir, fileName);
 
       fs.writeFileSync(filePath, buffer);
 
       videoUrl = "/video/" + fileName;
     }
 
-    // ✅ SAVE TO DB
     const website = await Website.create({
       name,
       url,
-      image: imageUrls[0] || "/placeholder.jpg",
+      image: imageUrls[0] || "",
       images: imageUrls,
       video: videoUrl,
     });
 
-    return NextResponse.json({
-      success: true,
-      website,
-    });
+    return NextResponse.json({ success: true, website });
 
   } catch (error: any) {
     console.log("POST ERROR:", error);
 
     return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to create website",
-        error: error.message,
-      },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }
