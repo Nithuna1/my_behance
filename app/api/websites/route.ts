@@ -1,6 +1,8 @@
 import { connectDB } from "@/lib/mongodb";
 import Website from "@/models/Website";
 import { NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 
 
 // ✅ GET ALL WEBSITES
@@ -10,7 +12,7 @@ export async function GET() {
 
     const websites = await Website.find().sort({ _id: -1 });
 
-    return NextResponse.json(websites);
+  return NextResponse.json({ websites });
 
   } catch (error: any) {
     console.log("GET ERROR:", error);
@@ -30,27 +32,50 @@ export async function POST(req: Request) {
 
     const formData = await req.formData();
 
-    // ✅ GET FILES
-    const files = formData.getAll("images") as File[];
+    const name = formData.get("name") as string;
+    const url = formData.get("url") as string;
+
+    const videoFile = formData.get("video") as File | null;
+    const imageFiles = formData.getAll("images") as File[];
 
     let imageUrls: string[] = [];
+    let videoUrl = "";
 
-    for (const file of files) {
+    // ✅ SAVE IMAGES
+    for (const file of imageFiles) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        imageUrls.push(base64);
+        const fileName = Date.now() + "_" + file.name;
+        const filePath = path.join(process.cwd(), "public/projects", fileName);
+
+        fs.writeFileSync(filePath, buffer);
+
+        imageUrls.push("/projects/" + fileName);
       }
     }
 
-    // ✅ CREATE WEBSITE
+    // ✅ SAVE VIDEO
+    if (videoFile && videoFile.size > 0) {
+      const bytes = await videoFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const fileName = Date.now() + "_" + videoFile.name;
+      const filePath = path.join(process.cwd(), "public/video", fileName);
+
+      fs.writeFileSync(filePath, buffer);
+
+      videoUrl = "/video/" + fileName;
+    }
+
+    // ✅ SAVE TO DB
     const website = await Website.create({
-      name: formData.get("name"),
-      url: formData.get("url"),
-      video: formData.get("video"),
-      image: imageUrls[0] || "https://via.placeholder.com/100",
+      name,
+      url,
+      image: imageUrls[0] || "/placeholder.jpg",
+      images: imageUrls,
+      video: videoUrl,
     });
 
     return NextResponse.json({
