@@ -1061,11 +1061,11 @@ websites: [
 
 
 {/* ================= MOBILE APPLICATIONS ================= */}
-<section className="py-12">
+<section className="mt-10">
   <div className="max-w-[1600px] mx-auto px-4 md:px-6">
 
     {/* HEADING */}
-    <div className="mb-4">
+    <div className="mb-6">
       <h3 className="text-lg font-semibold">Mobile Applications</h3>
     </div>
 
@@ -1165,27 +1165,34 @@ websites: [
  <div
   id="desktopSlider"
   className="
-    flex justify-center items-center gap-16 px-6
+    flex
+    gap-2
+    overflow-hidden
+    scroll-smooth
+    px-16
   "
 >
-  {apps.slice(0, 4).map((app, i) => (
-    <div
-      key={app._id || i}
-      onClick={() => setActiveMobileApp(app)}
-      className="w-[260px] flex justify-center cursor-pointer hover:-translate-y-3 transition"
-    >
-      <div className="h-[480px] flex items-center justify-center">
+  
+    {apps.map((app, i) => (
+      <div
+        key={i}
+        onClick={() => setActiveMobileApp(app)}
+        className="
+          flex-shrink-0 w-1/4 flex justify-center
+          cursor-pointer hover:-translate-y-3 transition
+        "
+      >
         <Image
-          src={app.gallery?.[0] || app.image}
+          src={app.image}
           alt={app.title}
           width={900}
           height={1800}
-          className="h-full w-auto object-contain transition duration-300 hover:scale-105"
+          className="w-[200%] h-auto object-contain" 
         />
       </div>
-    </div>
-  ))}
-</div>
+    ))}r
+  </div>
+
   {/* RIGHT ARROW */}
  <button
   onClick={() =>
