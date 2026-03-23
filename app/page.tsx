@@ -1168,7 +1168,7 @@ websites: [
     flex justify-center items-center gap-16 px-6
   "
 >
-  {apps.slice(0, 3).map((app, i) => (
+  {apps.slice(0, 4).map((app, i) => (
     <div
       key={app._id || i}
       onClick={() => setActiveMobileApp(app)}
