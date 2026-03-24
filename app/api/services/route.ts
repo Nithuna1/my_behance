@@ -1,9 +1,10 @@
 import { connectDB } from "@/lib/mongodb";
 import Service from "@/models/Service";
+import cloudinary from "@/lib/cloudinary";
 import { NextResponse } from "next/server";
 
 
-// ✅ GET (WITH CATEGORY FILTER)
+// ================= GET =================
 export async function GET(req: Request) {
   try {
     await connectDB();
@@ -14,7 +15,7 @@ export async function GET(req: Request) {
     let query: any = {};
 
     if (category) {
-      query.category = { $in: [category] }; // 🔥 important
+      query.category = { $in: [category] };
     }
 
     const services = await Service.find(query).sort({ _id: -1 });
@@ -32,14 +33,29 @@ export async function GET(req: Request) {
 }
 
 
-// ✅ CREATE SERVICE
+// ================= HELPER =================
+const uploadToCloudinary = async (file: File) => {
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  return new Promise<string>((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream({ resource_type: "auto", folder: "services" }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result?.secure_url || "");
+      })
+      .end(buffer);
+  });
+};
+
+
+// ================= CREATE =================
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
 
-    // ✅ HELPER (ONLY DEFINE ONCE)
     const parseArray = (key: string) => {
       try {
         const value = formData.get(key);
@@ -49,41 +65,31 @@ export async function POST(req: Request) {
       }
     };
 
-    // ✅ IMAGES
+    // ✅ UPLOAD IMAGES
     const imageFiles = formData.getAll("images") as File[];
     let imageUrls: string[] = [];
 
     for (const file of imageFiles) {
       if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        imageUrls.push(base64);
+        const url = await uploadToCloudinary(file);
+        imageUrls.push(url);
       }
     }
 
-    // ✅ VIDEOS
+    // ✅ UPLOAD VIDEOS
     const videoFiles = formData.getAll("videos") as File[];
     let videoUrls: string[] = [];
 
     for (const file of videoFiles) {
       if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        videoUrls.push(base64);
+        const url = await uploadToCloudinary(file);
+        videoUrls.push(url);
       }
     }
 
-    // ✅ CREATE DOCUMENT
     const service = await Service.create({
       title: formData.get("title"),
-
-      // 🔥 CATEGORY ARRAY
       category: parseArray("category"),
-
       tags: parseArray("tags"),
       websites: parseArray("websites"),
       images: imageUrls,
@@ -110,7 +116,7 @@ export async function POST(req: Request) {
 }
 
 
-// ✅ UPDATE SERVICE
+// ================= UPDATE =================
 export async function PUT(req: Request) {
   try {
     await connectDB();
@@ -127,14 +133,13 @@ export async function PUT(req: Request) {
       }
     };
 
+    // 🔥 OPTIONAL: handle new uploads (skip for now if not needed)
+
     const updated = await Service.findByIdAndUpdate(
       id,
       {
         title: formData.get("title"),
-
-        // 🔥 FIXED (use category not type)
         category: parseArray("category"),
-
         tags: parseArray("tags"),
         websites: parseArray("websites"),
       },
@@ -161,7 +166,7 @@ export async function PUT(req: Request) {
 }
 
 
-// ✅ DELETE SERVICE
+// ================= DELETE =================
 export async function DELETE(req: Request) {
   try {
     await connectDB();
