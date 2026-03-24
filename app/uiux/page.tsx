@@ -1,30 +1,20 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function UiUxPage() {
+  const [items, setItems] = useState<any[]>([]);
 
-  const service = {
-    images: [
-      "/services/web1.avif",
-      "/services/web2.avif",
-      "/services/web3.jpg",
-      "/services/web4.jpg",
-    ],
-
-    videos: [
-      "/video/figma_video.mp4",
-      "/video/dribble_video.mp4",
-      "/video/awards_video.mp4",
-      "/video/behance_video.mp4",
-    ],
-
-    websites: [
-      "https://www.figma.com/proto/eNSvJGp6L4vK8asm2EPF2z/vishnu2",
-      "https://dribbble.com",
-      "https://www.awwwards.com",
-      "https://www.behance.net",
-    ],
+  const load = async () => {
+    const res = await fetch("/api/services?category=uiux");
+    const data = await res.json();
+    setItems(data);
   };
+
+  useEffect(() => {
+    load();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white py-16 px-6">
@@ -35,45 +25,60 @@ export default function UiUxPage() {
 
       <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
 
-        {service.images.map((img, i) => {
+        {/* EMPTY STATE */}
+        {items.length === 0 && (
+          <p className="col-span-4 text-center text-gray-500">
+            No UI/UX items found
+          </p>
+        )}
 
-          const video = service.videos[i];
-          const website = service.websites[i];
+        {items.map((item) => {
+          const image = item.images?.[0];
+          const video = item.videos?.[0];
+          const website = item.websites?.[0];
 
           return (
-            <div key={i} className="relative aspect-[4/6] rounded-xl overflow-hidden group">
+            <div
+              key={item._id}
+              className="relative aspect-[4/6] rounded-xl overflow-hidden group"
+            >
 
-              <Image
-                src={img}
-                alt="UI UX"
-                fill
-                className="object-cover transition duration-500 group-hover:scale-110"
-              />
+              {/* IMAGE */}
+              {image && (
+                <img
+                  src={image}
+                  alt="UI UX"
+                  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                />
+              )}
 
               {/* VIDEO */}
-{video && (
-  <video
-    src={video}
-    muted
-    loop
-    autoPlay
-    playsInline
-    preload="auto"
-    className="
-      absolute inset-0 w-full h-full object-cover
-      opacity-100
-      md:opacity-0 md:group-hover:opacity-100
-      transition duration-500
-    "
-  />
-)}
+              {video && (
+                <video
+                  src={video}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  className="
+                    absolute inset-0 w-full h-full object-cover
+                    opacity-100
+                    md:opacity-0 md:group-hover:opacity-100
+                    transition duration-500
+                  "
+                />
+              )}
+
+              {/* OVERLAY */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition duration-500" />
 
+              {/* BUTTON */}
               {website && (
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
                   <a
                     href={website}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="px-5 py-2 rounded-full bg-white text-blue-600 text-sm font-medium hover:bg-gray-800 hover:text-white transition"
                   >
                     Explore Site →
