@@ -2,12 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Loader from "../../components/loader";
 
 export default function ServicesAdmin() {
 
   const [services, setServices] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const load = async () => {
     const res = await fetch("/api/services?category=service");
