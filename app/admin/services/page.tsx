@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Loader from "@/app/components/loader";
-
+import Loader from "../../components/loader";
 
 export default function ServicesAdmin() {
 
@@ -11,24 +10,18 @@ export default function ServicesAdmin() {
   const [loading, setLoading] = useState(true);
 
   const load = async () => {
-  try {
-    setLoading(true); // 🔥 start loader
-
     const res = await fetch("/api/services?category=service");
     const data = await res.json();
+
+    console.log("SERVICES DATA:", data);
 
     if (Array.isArray(data)) {
       setServices(data);
     } else {
+      console.error("API did not return array:", data);
       setServices([]);
     }
-
-  } catch (err) {
-    console.log(err);
-  } finally {
-    setLoading(false); // 🔥 stop loader
-  }
-};
+  };
 
   useEffect(() => {
     load();
@@ -43,8 +36,6 @@ export default function ServicesAdmin() {
 
     load();
   };
-
-  if (loading) return <Loader />;
 
   return (
     <div>

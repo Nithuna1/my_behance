@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FiMail, FiX } from "react-icons/fi";
 import FollowButton from "./components/FollowButton";
-import Loader from "@/app/components/loader";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
@@ -74,7 +73,7 @@ const [menuOpen, setMenuOpen] = useState(false);
   const [websites, setWebsites] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+ 
 
   const groupedServices: Service[] = [
   {
@@ -117,24 +116,9 @@ const [menuOpen, setMenuOpen] = useState(false);
 });
 
 useEffect(() => {
-  const loadAll = async () => {
-    try {
-      setLoading(true);
-
-      await Promise.all([
-        loadWebsites(),
-        loadServices(),
-        loadProjects(),
-      ]);
-
-    } catch (err) {
-      console.log("LOAD ERROR:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  loadAll();
+  loadWebsites();
+  loadServices();
+  loadProjects();
 }, []);
 
 const loadWebsites = async () => {
@@ -208,7 +192,7 @@ const loadProjects = async () => {
 }, []);
 
 
-if (loading) return <Loader />;
+
 
   return (
  <div
