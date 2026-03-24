@@ -3,13 +3,10 @@ import mongoose from "mongoose";
 const ServiceSchema = new mongoose.Schema({
   title: String,
 
-  // ❌ REMOVE THIS
-  // type: String,
-
-  // ✅ ADD THIS
+  // ✅ category should match your UI filters
   category: {
-    type: [String], // array
-    default: ["service"],
+    type: [String], // keep array (good)
+    required: true, // important
   },
 
   tags: [String],

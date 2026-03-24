@@ -9,7 +9,7 @@ export default function ServicesAdmin() {
 
   const load = async () => {
     try {
-      const res = await fetch("/api/services?category=service")
+      const res = await fetch("/api/services");
       const data = await res.json();
 
       if (Array.isArray(data)) {

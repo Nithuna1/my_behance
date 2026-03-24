@@ -140,7 +140,7 @@ const loadWebsites = async () => {
 
 const loadServices = async () => {
   try {
-    const res = await fetch("/api/services?category=service")
+    const res = await fetch("/api/services");
     const data = await res.json();
 
     if (Array.isArray(data)) {
@@ -152,7 +152,6 @@ const loadServices = async () => {
     console.log("SERVICE FETCH ERROR:", err);
   }
 };
-
 
 const loadProjects = async () => {
   try {
