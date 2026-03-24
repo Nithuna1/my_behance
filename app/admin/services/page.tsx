@@ -6,13 +6,10 @@ import Link from "next/link";
 export default function ServicesAdmin() {
 
   const [services, setServices] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const load = async () => {
     try {
-      setLoading(true);
-
-      const res = await fetch("/api/services");
+      const res = await fetch("/api/services?category=service")
       const data = await res.json();
 
       if (Array.isArray(data)) {
@@ -23,8 +20,6 @@ export default function ServicesAdmin() {
 
     } catch (err) {
       console.log("ERROR:", err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -79,16 +74,7 @@ export default function ServicesAdmin() {
           {/* BODY */}
           <tbody>
 
-            {/* 🔥 LOADER */}
-            {loading ? (
-              <tr>
-                <td colSpan={6} className="text-center p-6">
-                  <div className="flex justify-center">
-                    <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                  </div>
-                </td>
-              </tr>
-            ) : services.length === 0 ? (
+            {services.length === 0 ? (
               <tr>
                 <td colSpan={6} className="text-center p-4">
                   No services found
