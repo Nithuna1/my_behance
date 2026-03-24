@@ -78,6 +78,13 @@ export default function AdminLayout({ children }: any) {
   UI / UX
 </a>
 
+<a
+  href="/admin/services/video-production"
+  className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
+>
+  🎬 Video Production
+</a>
+
   </div>
 </div>
 

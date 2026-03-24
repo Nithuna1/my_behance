@@ -1,36 +1,20 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function VideoProductionPage() {
+  const [items, setItems] = useState<any[]>([]);
 
-  const service = {
-    images: [
-      "/services/video1.jpg",
-      "/services/video2.jpg",
-      "/services/video3.avif",
-      "/services/short.jpg",
-      "/services/short2.jpg",
-      "/services/short3.jpg",
-    ],
-
-    videos: [
-      "/video/intro_video.mp4",
-      "/video/title_video.mp4",
-      "/video/memory_video.mp4",
-      "/video/team_video.mp4",
-      "/video/company_video.mp4",
-      "/video/marketing_video.mp4",
-    ],
-
-    websites: [
-      "https://www.instagram.com/matamix_international/",
-      "https://www.instagram.com/matamix_international/",
-      "https://www.instagram.com/matamix_international/",
-      "https://www.instagram.com/matamix_international/",
-      "https://www.instagram.com/matamix_international/",
-      "https://www.instagram.com/matamix_international/",
-    ],
+  const load = async () => {
+    const res = await fetch("/api/services?category=video-production");
+    const data = await res.json();
+    setItems(data);
   };
+
+  useEffect(() => {
+    load();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white py-16 px-6">
@@ -41,45 +25,60 @@ export default function VideoProductionPage() {
 
       <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
-        {service.images.map((img, i) => {
+        {/* EMPTY */}
+        {items.length === 0 && (
+          <p className="col-span-3 text-center text-gray-500">
+            No videos found
+          </p>
+        )}
 
-          const video = service.videos[i];
-          const website = service.websites[i];
+        {items.map((item) => {
+          const image = item.images?.[0];
+          const video = item.videos?.[0];
+          const website = item.websites?.[0];
 
           return (
-            <div key={i} className="relative h-56 rounded-xl overflow-hidden group">
+            <div
+              key={item._id}
+              className="relative h-56 rounded-xl overflow-hidden group"
+            >
 
-              <Image
-                src={img}
-                alt="Video Production"
-                fill
-                className="object-cover transition duration-500 group-hover:scale-110"
-              />
+              {/* IMAGE */}
+              {image && (
+                <img
+                  src={image}
+                  alt="Video Production"
+                  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                />
+              )}
 
               {/* VIDEO */}
-{video && (
-  <video
-    src={video}
-    muted
-    loop
-    autoPlay
-    playsInline
-    preload="auto"
-    className="
-      absolute inset-0 w-full h-full object-cover
-      opacity-100
-      md:opacity-0 md:group-hover:opacity-100
-      transition duration-500
-    "
-  />
-)}
+              {video && (
+                <video
+                  src={video}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  className="
+                    absolute inset-0 w-full h-full object-cover
+                    opacity-100
+                    md:opacity-0 md:group-hover:opacity-100
+                    transition duration-500
+                  "
+                />
+              )}
+
+              {/* OVERLAY */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition duration-500" />
 
+              {/* BUTTON */}
               {website && (
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
                   <a
                     href={website}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="px-5 py-2 rounded-full bg-white text-black text-sm font-medium hover:bg-black hover:text-white transition"
                   >
                     View Project →
