@@ -3,19 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function EcommerceAdmin() {
+export default function UiUxAdmin() {
   const [items, setItems] = useState<any[]>([]);
 
   const load = async () => {
-    const res = await fetch("/api/services?category=ecommerce");
+    const res = await fetch("/api/services?category=uiux");
     const data = await res.json();
-     setItems(data); // ✅ no filter needed
-
-    const ecommerce = Array.isArray(data)
-      ? data.filter((s: any) => s.type === "ecommerce")
-      : [];
-
-    setItems(ecommerce);
+    setItems(data);
   };
 
   useEffect(() => {
@@ -39,15 +33,13 @@ export default function EcommerceAdmin() {
 
       {/* HEADER */}
       <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold">
-          Ecommerce Services
-        </h1>
+        <h1 className="text-2xl font-bold">UI/UX Services</h1>
 
         <Link
-          href="/admin/services/ecommerce/add"
+          href="/admin/services/uiux/add"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg"
         >
-          + Add Ecommerce
+          + Add UI/UX
         </Link>
       </div>
 
@@ -56,7 +48,6 @@ export default function EcommerceAdmin() {
 
         <table className="w-full table-fixed border-collapse">
 
-          {/* HEADER */}
           <thead className="bg-blue-600 text-white">
             <tr>
               <th className="p-3 w-[100px] text-center">Image</th>
@@ -66,13 +57,12 @@ export default function EcommerceAdmin() {
             </tr>
           </thead>
 
-          {/* BODY */}
           <tbody>
 
             {items.length === 0 && (
               <tr>
                 <td colSpan={4} className="text-center p-4">
-                  No ecommerce items found
+                  No UI/UX items found
                 </td>
               </tr>
             )}
@@ -98,9 +88,7 @@ export default function EcommerceAdmin() {
                     >
                       {e.websites[0]}
                     </a>
-                  ) : (
-                    "—"
-                  )}
+                  ) : "—"}
                 </td>
 
                 {/* VIDEO */}
@@ -113,15 +101,13 @@ export default function EcommerceAdmin() {
                     >
                       View
                     </a>
-                  ) : (
-                    "—"
-                  )}
+                  ) : "—"}
                 </td>
 
                 {/* ACTIONS */}
                 <td className="p-3 text-center space-x-2">
 
-                  <Link href={`/admin/services/ecommerce/edit/${e._id}`}>
+                  <Link href={`/admin/services/uiux/edit/${e._id}`}>
                     <button className="bg-green-600 text-white px-3 py-1 rounded">
                       Edit
                     </button>

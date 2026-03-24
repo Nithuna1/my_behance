@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Globe, Settings, Folder, Image, Smartphone } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
+import { Palette } from "lucide-react";
 
 export default function AdminLayout({ children }: any) {
   const pathname = usePathname();
@@ -67,6 +68,14 @@ export default function AdminLayout({ children }: any) {
 >
   <ShoppingCart size={14} />
   Ecommerce
+</a>
+
+<a
+  href="/admin/services/uiux"
+  className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
+>
+  <Palette size={14} />
+  UI / UX
 </a>
 
   </div>
