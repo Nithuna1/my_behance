@@ -9,13 +9,8 @@ export default function EcommerceAdmin() {
   const load = async () => {
     const res = await fetch("/api/services?category=ecommerce");
     const data = await res.json();
-     setItems(data); // ✅ no filter needed
+     setItems(data); 
 
-    const ecommerce = Array.isArray(data)
-      ? data.filter((s: any) => s.type === "ecommerce")
-      : [];
-
-    setItems(ecommerce);
   };
 
   useEffect(() => {
