@@ -85,6 +85,13 @@ export default function AdminLayout({ children }: any) {
   🎬 Video Production
 </a>
 
+<a
+  href="/admin/services/digital-marketing"
+  className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
+>
+  📈 Digital Marketing
+</a>
+
   </div>
 </div>
 
