@@ -14,7 +14,7 @@ export async function GET(req: Request) {
     let query: any = {};
 
     if (category) {
-      query.category = category; // ✅ FIXED
+      query.category = { $in: [category] }; // 🔥 important
     }
 
     const services = await Service.find(query).sort({ _id: -1 });
