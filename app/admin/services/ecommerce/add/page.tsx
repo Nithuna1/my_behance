@@ -31,7 +31,7 @@ export default function AddEcommerce() {
     const formData = new FormData();
 
     formData.append("title", "Ecommerce");
-    formData.append("type", "ecommerce");
+    formData.append("category", JSON.stringify(["service", "ecommerce"]));
     formData.append("websites", JSON.stringify([website]));
     formData.append("tags", JSON.stringify([]));
 

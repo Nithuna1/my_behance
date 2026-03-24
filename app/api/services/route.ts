@@ -3,12 +3,21 @@ import Service from "@/models/Service";
 import { NextResponse } from "next/server";
 
 
-// ✅ GET ALL SERVICES
-export async function GET() {
+// ✅ GET (WITH CATEGORY FILTER)
+export async function GET(req: Request) {
   try {
     await connectDB();
 
-    const services = await Service.find().sort({ _id: -1 });
+    const { searchParams } = new URL(req.url);
+    const category = searchParams.get("category");
+
+    let query: any = {};
+
+    if (category) {
+      query.category = { $in: [category] }; // 🔥 important
+    }
+
+    const services = await Service.find(query).sort({ _id: -1 });
 
     return NextResponse.json(services);
 
@@ -23,12 +32,22 @@ export async function GET() {
 }
 
 
-// ✅ CREATE SERVICE (WITH IMAGE + ARRAYS)
+// ✅ CREATE SERVICE
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
+
+    // ✅ HELPER (ONLY DEFINE ONCE)
+    const parseArray = (key: string) => {
+      try {
+        const value = formData.get(key);
+        return value ? JSON.parse(value as string) : [];
+      } catch {
+        return [];
+      }
+    };
 
     // ✅ IMAGES
     const imageFiles = formData.getAll("images") as File[];
@@ -44,7 +63,7 @@ export async function POST(req: Request) {
       }
     }
 
-    // ✅ VIDEOS (FIXED)
+    // ✅ VIDEOS
     const videoFiles = formData.getAll("videos") as File[];
     let videoUrls: string[] = [];
 
@@ -58,24 +77,19 @@ export async function POST(req: Request) {
       }
     }
 
-    // ✅ ARRAY PARSE (only for tags & websites)
-    const parseArray = (key: string) => {
-      try {
-        const value = formData.get(key);
-        return value ? JSON.parse(value as string) : [];
-      } catch {
-        return [];
-      }
-    };
-
+    // ✅ CREATE DOCUMENT
     const service = await Service.create({
-  title: formData.get("title"),
-  type: formData.get("type"), // 🔥 ADD THIS LINE
-  tags: parseArray("tags"),
-  websites: parseArray("websites"),
-  images: imageUrls,
-  videos: videoUrls,
-});
+      title: formData.get("title"),
+
+      // 🔥 CATEGORY ARRAY
+      category: parseArray("category"),
+
+      tags: parseArray("tags"),
+      websites: parseArray("websites"),
+      images: imageUrls,
+      videos: videoUrls,
+    });
+
     return NextResponse.json({
       success: true,
       service,
@@ -95,13 +109,13 @@ export async function POST(req: Request) {
   }
 }
 
+
 // ✅ UPDATE SERVICE
 export async function PUT(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
-
     const id = formData.get("id") as string;
 
     const parseArray = (key: string) => {
@@ -117,7 +131,10 @@ export async function PUT(req: Request) {
       id,
       {
         title: formData.get("title"),
-        type: formData.get("type"), // ✅ IMPORTANT
+
+        // 🔥 FIXED (use category not type)
+        category: parseArray("category"),
+
         tags: parseArray("tags"),
         websites: parseArray("websites"),
       },

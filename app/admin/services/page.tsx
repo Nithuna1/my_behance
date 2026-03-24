@@ -8,7 +8,7 @@ export default function ServicesAdmin() {
   const [services, setServices] = useState<any[]>([]);
 
   const load = async () => {
-    const res = await fetch("/api/services");
+    const res = await fetch("/api/services?category=service");
     const data = await res.json();
 
     console.log("SERVICES DATA:", data);
