@@ -12,7 +12,7 @@ export default function ServicesAdmin() {
     try {
       setLoading(true);
 
-     const res = await fetch("/api/services");
+      const res = await fetch("/api/services?category=service");
       const data = await res.json();
 
       if (Array.isArray(data)) {
