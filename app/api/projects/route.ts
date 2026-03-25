@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/models/Project";
 import { NextResponse } from "next/server";
+import cloudinary from "@/lib/cloudinary";
 
 
 // ✅ GET ALL PROJECTS
@@ -13,7 +14,7 @@ export async function GET() {
     return NextResponse.json(projects);
 
   } catch (error: any) {
-    console.log("GET ERROR FULL:", error);
+    console.log("GET ERROR:", error);
 
     return NextResponse.json(
       { error: error.message },
@@ -22,27 +23,36 @@ export async function GET() {
   }
 }
 
-// ✅ CREATE PROJECT (UPDATED FOR MULTIPLE IMAGES)
+
+// ✅ CREATE PROJECT (🔥 CLOUDINARY VERSION)
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
 
-    // ✅ GET ALL IMAGES
     const files = formData.getAll("images") as File[];
 
     let imageUrls: string[] = [];
 
-    // ✅ CONVERT EACH IMAGE TO BASE64
     for (const file of files) {
-      if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
+      if (!file || file.size === 0) continue;
 
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        imageUrls.push(base64);
-      }
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const upload = await cloudinary.uploader.upload(
+        `data:${file.type};base64,${buffer.toString("base64")}`,
+        {
+          folder: "projects",
+          resource_type: "image",
+          transformation: [
+            { quality: "auto", fetch_format: "auto" },
+          ],
+        }
+      );
+
+      imageUrls.push(upload.secure_url);
     }
 
     const project = await Project.create({
@@ -52,52 +62,44 @@ export async function POST(req: Request) {
       category: formData.get("category"),
       description: formData.get("description"),
 
-      // ✅ PRIMARY IMAGE
       image: imageUrls[0] || "https://via.placeholder.com/100",
-
-      // ✅ ALL IMAGES
       gallery: imageUrls,
     });
 
-    return NextResponse.json({ success: true, project });
+    return NextResponse.json({
+      success: true,
+      project,
+    });
 
-  } catch (error) {
+  } catch (error: any) {
     console.log("POST ERROR:", error);
 
     return NextResponse.json(
-      { success: false },
+      {
+        success: false,
+        message: "Failed to create project",
+        error: error.message,
+      },
       { status: 500 }
     );
   }
 }
+
 
 // ✅ DELETE PROJECT
 export async function DELETE(req: Request) {
   try {
     await connectDB();
 
-    const body = await req.json();
-    const id = body?.id;
+    const { id } = await req.json();
 
-    // ✅ Validate ID
     if (!id) {
       return NextResponse.json(
-        { success: false, message: "Project ID is required" },
+        { success: false, message: "Project ID required" },
         { status: 400 }
       );
     }
 
-    // ✅ Check if project exists
-    const existing = await Project.findById(id);
-
-    if (!existing) {
-      return NextResponse.json(
-        { success: false, message: "Project not found" },
-        { status: 404 }
-      );
-    }
-
-    // ✅ Delete project
     await Project.findByIdAndDelete(id);
 
     return NextResponse.json({

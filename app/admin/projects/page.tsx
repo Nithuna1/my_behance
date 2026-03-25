@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function ProjectsAdmin() {
-
   const [projects, setProjects] = useState<any[]>([]);
 
   const load = async () => {
@@ -17,7 +16,6 @@ export default function ProjectsAdmin() {
       } else {
         setProjects([]);
       }
-
     } catch (err) {
       console.log("ERROR:", err);
     }
@@ -81,59 +79,69 @@ export default function ProjectsAdmin() {
                 </td>
               </tr>
             ) : (
-              projects.map((p) => (
-                <tr key={p._id} className="border-t hover:bg-gray-50 transition">
+              projects.map((p) => {
 
-                  {/* IMAGE */}
-                  <td className="p-3 text-center align-middle">
-                    <img
-                      src={p.image || "https://via.placeholder.com/100"}
-                      className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
-                    />
-                  </td>
+                // ✅ Cloudinary-safe image handling
+                const imageUrl =
+                  p.image && p.image.startsWith("http")
+                    ? p.image // Cloudinary URL
+                    : "/no-image.png"; // fallback
 
-                  {/* TITLE */}
-                  <td className="p-3 text-center align-middle font-medium break-words">
-                    {p.title}
-                  </td>
+                return (
+                  <tr key={p._id} className="border-t hover:bg-gray-50 transition">
 
-                  {/* AUTHOR */}
-                  <td className="p-3 text-center align-middle break-words">
-                    {p.author || "—"}
-                  </td>
+                    {/* IMAGE */}
+                    <td className="p-3 text-center align-middle">
+                      <img
+                        src={imageUrl}
+                        alt={p.title}
+                        className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
+                      />
+                    </td>
 
-                  {/* YEAR */}
-                  <td className="p-3 text-center align-middle">
-                    {p.year || "—"}
-                  </td>
+                    {/* TITLE */}
+                    <td className="p-3 text-center align-middle font-medium break-words">
+                      {p.title || "—"}
+                    </td>
 
-                  {/* CATEGORY */}
-                  <td className="p-3 text-center align-middle break-words">
-                    {p.category || "—"}
-                  </td>
+                    {/* AUTHOR */}
+                    <td className="p-3 text-center align-middle break-words">
+                      {p.author || "—"}
+                    </td>
 
-                  {/* ACTIONS */}
-                  <td className="p-3 text-center align-middle">
-                    <div className="flex justify-center gap-2">
+                    {/* YEAR */}
+                    <td className="p-3 text-center align-middle">
+                      {p.year || "—"}
+                    </td>
 
-                      <Link href={`/admin/projects/edit/${p._id}`}>
-                        <button className="bg-green-600 text-white px-3 py-1 rounded text-sm">
-                          Edit
+                    {/* CATEGORY */}
+                    <td className="p-3 text-center align-middle break-words">
+                      {p.category || "—"}
+                    </td>
+
+                    {/* ACTIONS */}
+                    <td className="p-3 text-center align-middle">
+                      <div className="flex justify-center gap-2">
+
+                        <Link href={`/admin/projects/edit/${p._id}`}>
+                          <button className="bg-green-600 text-white px-3 py-1 rounded text-sm">
+                            Edit
+                          </button>
+                        </Link>
+
+                        <button
+                          onClick={() => remove(p._id)}
+                          className="bg-red-500 text-white px-3 py-1 rounded text-sm"
+                        >
+                          Delete
                         </button>
-                      </Link>
 
-                      <button
-                        onClick={() => remove(p._id)}
-                        className="bg-red-500 text-white px-3 py-1 rounded text-sm"
-                      >
-                        Delete
-                      </button>
+                      </div>
+                    </td>
 
-                    </div>
-                  </td>
-
-                </tr>
-              ))
+                  </tr>
+                );
+              })
             )}
 
           </tbody>
