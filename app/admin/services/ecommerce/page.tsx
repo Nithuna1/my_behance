@@ -7,10 +7,19 @@ export default function EcommerceAdmin() {
   const [items, setItems] = useState<any[]>([]);
 
   const load = async () => {
-    const res = await fetch("/api/services?category=ecommerce");
-    const data = await res.json();
-     setItems(data); 
+    try {
+      const res = await fetch("/api/services?category=ecommerce");
+      const data = await res.json();
 
+      if (Array.isArray(data)) {
+        setItems(data);
+      } else {
+        setItems([]);
+      }
+    } catch (err) {
+      console.log("ERROR:", err);
+      setItems([]);
+    }
   };
 
   useEffect(() => {
@@ -20,13 +29,17 @@ export default function EcommerceAdmin() {
   const remove = async (id: string) => {
     if (!confirm("Delete this item?")) return;
 
-    await fetch("/api/services", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    });
+    try {
+      await fetch("/api/services", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
 
-    load();
+      load();
+    } catch (err) {
+      console.log("DELETE ERROR:", err);
+    }
   };
 
   return (
@@ -64,75 +77,93 @@ export default function EcommerceAdmin() {
           {/* BODY */}
           <tbody>
 
-            {items.length === 0 && (
+            {items.length === 0 ? (
               <tr>
                 <td colSpan={4} className="text-center p-4">
                   No ecommerce items found
                 </td>
               </tr>
+            ) : (
+              items.map((e) => {
+
+                // ✅ Cloudinary-safe image
+                let imageUrl =
+                  e.images?.[0] && e.images[0].startsWith("http")
+                    ? e.images[0]
+                    : "/no-image.png";
+
+                // ✅ Optional Cloudinary optimization
+                if (imageUrl.includes("res.cloudinary.com")) {
+                  imageUrl = imageUrl.replace(
+                    "/upload/",
+                    "/upload/q_auto,f_auto/"
+                  );
+                }
+
+                return (
+                  <tr key={e._id} className="border-t hover:bg-gray-50 transition">
+
+                    {/* IMAGE */}
+                    <td className="p-3 text-center">
+                      <img
+                        src={imageUrl}
+                        alt="service"
+                        className="h-12 w-12 object-cover rounded border mx-auto"
+                      />
+                    </td>
+
+                    {/* WEBSITE */}
+                    <td className="p-3 text-center">
+                      {e.websites?.[0] ? (
+                        <a
+                          href={e.websites[0]}
+                          target="_blank"
+                          className="text-blue-600 underline truncate block"
+                        >
+                          {e.websites[0]}
+                        </a>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+
+                    {/* VIDEO */}
+                    <td className="p-3 text-center">
+                      {e.videos?.[0] ? (
+                        <a
+                          href={e.videos[0]}
+                          target="_blank"
+                          className="text-blue-600 underline"
+                        >
+                          View
+                        </a>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+
+                    {/* ACTIONS */}
+                    <td className="p-3 text-center space-x-2">
+
+                      <Link href={`/admin/services/ecommerce/edit/${e._id}`}>
+                        <button className="bg-green-600 text-white px-3 py-1 rounded">
+                          Edit
+                        </button>
+                      </Link>
+
+                      <button
+                        onClick={() => remove(e._id)}
+                        className="bg-red-500 text-white px-3 py-1 rounded"
+                      >
+                        Delete
+                      </button>
+
+                    </td>
+
+                  </tr>
+                );
+              })
             )}
-
-            {items.map((e) => (
-              <tr key={e._id} className="border-t">
-
-                {/* IMAGE */}
-                <td className="p-3 text-center">
-                  <img
-                    src={e.images?.[0] || "https://via.placeholder.com/100"}
-                    className="h-12 w-12 object-cover rounded border mx-auto"
-                  />
-                </td>
-
-                {/* WEBSITE */}
-                <td className="p-3 text-center">
-                  {e.websites?.[0] ? (
-                    <a
-                      href={e.websites[0]}
-                      target="_blank"
-                      className="text-blue-600 underline truncate block"
-                    >
-                      {e.websites[0]}
-                    </a>
-                  ) : (
-                    "—"
-                  )}
-                </td>
-
-                {/* VIDEO */}
-                <td className="p-3 text-center">
-                  {e.videos?.[0] ? (
-                    <a
-                      href={e.videos[0]}
-                      target="_blank"
-                      className="text-blue-600 underline"
-                    >
-                      View
-                    </a>
-                  ) : (
-                    "—"
-                  )}
-                </td>
-
-                {/* ACTIONS */}
-                <td className="p-3 text-center space-x-2">
-
-                  <Link href={`/admin/services/ecommerce/edit/${e._id}`}>
-                    <button className="bg-green-600 text-white px-3 py-1 rounded">
-                      Edit
-                    </button>
-                  </Link>
-
-                  <button
-                    onClick={() => remove(e._id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded"
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
-              </tr>
-            ))}
 
           </tbody>
 
