@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import Website from "@/models/Website";
 import { NextResponse } from "next/server";
-
+import cloudinary from "@/lib/cloudinary";
 
 
 // ✅ GET ALL WEBSITES
@@ -11,7 +11,7 @@ export async function GET() {
 
     const websites = await Website.find().sort({ _id: -1 });
 
-  return NextResponse.json(websites);
+    return NextResponse.json(websites);
 
   } catch (error: any) {
     console.log("GET ERROR:", error);
@@ -24,7 +24,7 @@ export async function GET() {
 }
 
 
-// ✅ CREATE WEBSITE (WITH IMAGE UPLOAD)
+// ✅ CREATE WEBSITE (🔥 CLOUDINARY VERSION)
 export async function POST(req: Request) {
   try {
     await connectDB();
@@ -33,29 +33,48 @@ export async function POST(req: Request) {
 
     const name = formData.get("name");
     const url = formData.get("url");
-    const video = formData.get("video");
-    const images = formData.getAll("images");
 
-    const imageUrls: string[] = [];
+    const imageFiles = formData.getAll("images") as File[];
+    const videoFile = formData.get("video") as File;
 
-    for (const file of images as File[]) {
+    let imageUrls: string[] = [];
+
+    // ✅ UPLOAD IMAGES
+    for (const file of imageFiles) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        imageUrls.push(base64);
+        const upload = await cloudinary.uploader.upload(
+          `data:${file.type};base64,${buffer.toString("base64")}`,
+          {
+            folder: "websites/images",
+          }
+        );
+
+        imageUrls.push(upload.secure_url);
       }
     }
 
+    // ✅ UPLOAD VIDEO
     let videoUrl = "";
-    if (video && (video as File).size > 0) {
-      const bytes = await (video as File).arrayBuffer();
+
+    if (videoFile && videoFile.size > 0) {
+      const bytes = await videoFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
-      videoUrl = `data:${(video as File).type};base64,${buffer.toString("base64")}`;
+      const upload = await cloudinary.uploader.upload(
+        `data:${videoFile.type};base64,${buffer.toString("base64")}`,
+        {
+          resource_type: "video", // or "auto"
+          folder: "websites/videos",
+        }
+      );
+
+      videoUrl = upload.secure_url;
     }
 
+    // ✅ SAVE
     const website = await Website.create({
       name,
       url,
@@ -64,7 +83,10 @@ export async function POST(req: Request) {
       video: videoUrl,
     });
 
-    return NextResponse.json({ success: true, website });
+    return NextResponse.json({
+      success: true,
+      website,
+    });
 
   } catch (error: any) {
     console.log("POST ERROR:", error);
@@ -76,23 +98,78 @@ export async function POST(req: Request) {
   }
 }
 
-// ✅ UPDATE WEBSITE
+
+// ✅ UPDATE WEBSITE (OPTIONAL CLOUDINARY SUPPORT)
 export async function PUT(req: Request) {
   try {
     await connectDB();
 
-    const { id, ...data } = await req.json();
+    const formData = await req.formData();
+    const id = formData.get("id") as string;
 
     if (!id) {
       return NextResponse.json(
-        { success: false, message: "Website ID is required" },
+        { success: false, message: "Website ID required" },
         { status: 400 }
       );
     }
 
-    const updated = await Website.findByIdAndUpdate(id, data, {
-      new: true,
-    });
+    const name = formData.get("name");
+    const url = formData.get("url");
+
+    const imageFiles = formData.getAll("images") as File[];
+    const videoFile = formData.get("video") as File;
+
+    let imageUrls: string[] = [];
+
+    // ✅ OPTIONAL: upload new images if provided
+    for (const file of imageFiles) {
+      if (file && file.size > 0) {
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const upload = await cloudinary.uploader.upload(
+          `data:${file.type};base64,${buffer.toString("base64")}`,
+          {
+            folder: "websites/images",
+          }
+        );
+
+        imageUrls.push(upload.secure_url);
+      }
+    }
+
+    // ✅ OPTIONAL: upload new video
+    let videoUrl = "";
+
+    if (videoFile && videoFile.size > 0) {
+      const bytes = await videoFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const upload = await cloudinary.uploader.upload(
+        `data:${videoFile.type};base64,${buffer.toString("base64")}`,
+        {
+          resource_type: "video",
+          folder: "websites/videos",
+        }
+      );
+
+      videoUrl = upload.secure_url;
+    }
+
+    const updated = await Website.findByIdAndUpdate(
+      id,
+      {
+        name,
+        url,
+        ...(imageUrls.length > 0 && {
+          image: imageUrls[0],
+          images: imageUrls,
+        }),
+        ...(videoUrl && { video: videoUrl }),
+      },
+      { new: true }
+    );
 
     return NextResponse.json({
       success: true,

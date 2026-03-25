@@ -85,11 +85,16 @@ export default function WebsitesAdmin() {
 
                   {/* IMAGE */}
                   <td className="p-3 text-center align-middle">
-                    <img
-                      src={w.image || "https://via.placeholder.com/100"}
-                      className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
-                    />
-                  </td>
+  <img
+    src={
+      w.image && w.image.startsWith("http")
+        ? w.image   // ✅ Cloudinary URL
+        : "/no-image.png" // ✅ fallback
+    }
+    alt="website"
+    className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
+  />
+</td>
 
                   {/* NAME */}
                   <td className="p-3 text-center align-middle font-medium">
@@ -112,19 +117,17 @@ export default function WebsitesAdmin() {
                   </td>
 
                   {/* VIDEO */}
-                  <td className="p-3 text-center align-middle">
-                    {w.video ? (
-                      <a
-                        href={w.video}
-                        target="_blank"
-                        className="text-blue-600 underline"
-                      >
-                        View
-                      </a>
-                    ) : (
-                      "—"
-                    )}
-                  </td>
+                 <td className="p-3 text-center align-middle">
+  <img
+    src={
+      w.image && w.image.startsWith("http")
+        ? w.image   // ✅ Cloudinary URL
+        : "/no-image.png" // ✅ fallback
+    }
+    alt="website"
+    className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
+  />
+</td>
 
                   {/* ACTIONS */}
                   <td className="p-3 text-center align-middle">
