@@ -1312,7 +1312,15 @@ ${message}
               <div className="grid grid-cols-2 gap-4">
                 {activeProject.gallery?.map((img, i) => (
                   <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
-                    <Image src={img} alt="" fill className="object-cover" />
+                    <img
+  src={
+    img && img.startsWith("http")
+      ? img
+      : "/no-image.png"
+  }
+  alt="project"
+  className="absolute inset-0 w-full h-full object-cover"
+/>
                   </div>
                 ))}
               </div>
