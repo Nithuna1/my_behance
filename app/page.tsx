@@ -484,14 +484,16 @@ const loadProjects = async () => {
     >
       <div className="grid grid-cols-3 gap-1 mb-4">
         {service.images.slice(0, 3).map((img, idx) => (
-          <Image
-            key={idx}
-            src={img}
-            alt=""
-            width={200}
-            height={200}
-            className="h-24 w-full object-cover rounded-md"
-          />
+         <img
+  key={idx}
+  src={
+    img && img.startsWith("http")
+      ? img
+      : "/no-image.png"
+  }
+  alt="service"
+  className="h-24 w-full object-cover rounded-md"
+/>
         ))}
       </div>
 
@@ -612,12 +614,11 @@ const loadProjects = async () => {
 
       <div className="relative w-[90%] aspect-[3/4] rounded-xl overflow-hidden group">
 
-        <Image
-          src={activeService.images[currentIndex]}
-          alt="Digital Marketing"
-          fill
-          className="object-cover"
-        />
+        <img
+  src={activeService.images[currentIndex] || "/no-image.png"}
+  alt="Digital Marketing"
+  className="w-full h-full object-cover"
+/>
 
         {activeService.videos?.[currentIndex] && (
           <video
@@ -662,12 +663,11 @@ const loadProjects = async () => {
             <div key={realIndex}>
               <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
 
-                <Image
-                  src={img}
-                  alt="Digital Marketing"
-                  fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
-                />
+                <img
+  src={img || "/no-image.png"}
+  alt="Digital Marketing"
+  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+/>
 
                 {videoSrc && (
                   <video
@@ -758,12 +758,11 @@ const loadProjects = async () => {
                   `}
                 >
 
-                  <Image
-                    src={img}
-                    alt="Service Preview"
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-110"
-                  />
+                 <img
+  src={img || "/no-image.png"}
+  alt="Service Preview"
+  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+/>
 
                  {videoSrc && (
   <video
