@@ -67,13 +67,18 @@ export default function VideoProductionAdmin() {
               <tr key={e._id} className="border-t">
 
                 <td className="p-3 text-center">
-                  {e.videos?.[0] ? (
-                    <video
-                      src={e.videos[0]}
-                      className="h-12 w-20 object-cover rounded mx-auto"
-                    />
-                  ) : "—"}
-                </td>
+  {e.videos?.[0] && e.videos[0].startsWith("http") ? (
+    <video
+      src={e.videos[0]} // ✅ Cloudinary URL
+      className="h-12 w-20 object-cover rounded mx-auto"
+      controls
+      muted
+      preload="metadata"
+    />
+  ) : (
+    <span>—</span>
+  )}
+</td>
 
                 <td className="p-3 text-center">
                   {e.websites?.[0] || "—"}

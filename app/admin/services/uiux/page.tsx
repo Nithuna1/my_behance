@@ -72,11 +72,16 @@ export default function UiUxAdmin() {
 
                 {/* IMAGE */}
                 <td className="p-3 text-center">
-                  <img
-                    src={e.images?.[0] || "https://via.placeholder.com/100"}
-                    className="h-12 w-12 object-cover rounded border mx-auto"
-                  />
-                </td>
+  <img
+    src={
+      e.images?.[0] && e.images[0].startsWith("http")
+        ? e.images[0] // ✅ Cloudinary URL
+        : "/no-image.png" // ✅ fallback
+    }
+    alt="uiux"
+    className="h-12 w-12 object-cover rounded border mx-auto"
+  />
+</td>
 
                 {/* WEBSITE */}
                 <td className="p-3 text-center">
