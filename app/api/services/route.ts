@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import Service from "@/models/Service";
 import { NextResponse } from "next/server";
+import cloudinary from "@/lib/cloudinary";
 
 
 // ✅ GET (WITH CATEGORY FILTER)
@@ -14,12 +15,12 @@ export async function GET(req: Request) {
     let query: any = {};
 
     if (category) {
-      query.category = { $in: [category] }; // 🔥 important
+      query.category = { $in: [category] };
     }
 
-   const services = await Service.find(query)
-  .sort({ _id: -1 })
-  .lean();
+    const services = await Service.find(query)
+      .sort({ _id: -1 })
+      .lean();
 
     return NextResponse.json(services);
 
@@ -34,14 +35,13 @@ export async function GET(req: Request) {
 }
 
 
-// ✅ CREATE SERVICE
+// ✅ CREATE SERVICE (🔥 UPDATED TO CLOUDINARY)
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
 
-    // ✅ HELPER (ONLY DEFINE ONCE)
     const parseArray = (key: string) => {
       try {
         const value = formData.get(key);
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
       }
     };
 
-    // ✅ IMAGES
+    // ✅ IMAGES → CLOUDINARY
     const imageFiles = formData.getAll("images") as File[];
     let imageUrls: string[] = [];
 
@@ -60,12 +60,18 @@ export async function POST(req: Request) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        imageUrls.push(base64);
+        const upload = await cloudinary.uploader.upload(
+          `data:${file.type};base64,${buffer.toString("base64")}`,
+          {
+            folder: "services/images",
+          }
+        );
+
+        imageUrls.push(upload.secure_url);
       }
     }
 
-    // ✅ VIDEOS
+    // ✅ VIDEOS → CLOUDINARY
     const videoFiles = formData.getAll("videos") as File[];
     let videoUrls: string[] = [];
 
@@ -74,22 +80,26 @@ export async function POST(req: Request) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        videoUrls.push(base64);
+        const upload = await cloudinary.uploader.upload(
+          `data:${file.type};base64,${buffer.toString("base64")}`,
+          {
+            resource_type: "video", // 🔥 IMPORTANT
+            folder: "services/videos",
+          }
+        );
+
+        videoUrls.push(upload.secure_url);
       }
     }
 
     // ✅ CREATE DOCUMENT
     const service = await Service.create({
       title: formData.get("title"),
-
-      // 🔥 CATEGORY ARRAY
       category: parseArray("category"),
-
       tags: parseArray("tags"),
       websites: parseArray("websites"),
-      images: imageUrls,
-      videos: videoUrls,
+      images: imageUrls,   // ✅ now URLs
+      videos: videoUrls,   // ✅ now URLs
     });
 
     return NextResponse.json({
@@ -112,7 +122,7 @@ export async function POST(req: Request) {
 }
 
 
-// ✅ UPDATE SERVICE
+// ✅ UPDATE SERVICE (optional: no file update yet)
 export async function PUT(req: Request) {
   try {
     await connectDB();
@@ -133,10 +143,7 @@ export async function PUT(req: Request) {
       id,
       {
         title: formData.get("title"),
-
-        // 🔥 FIXED (use category not type)
         category: parseArray("category"),
-
         tags: parseArray("tags"),
         websites: parseArray("websites"),
       },

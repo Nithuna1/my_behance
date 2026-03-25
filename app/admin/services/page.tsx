@@ -85,12 +85,14 @@ export default function ServicesAdmin() {
                 <tr key={s._id} className="border-t hover:bg-gray-50 transition">
 
                   {/* IMAGE */}
-                  <td className="p-3 text-center align-middle">
-                    <img
-                      src={s.images?.[0] || "https://via.placeholder.com/100"}
-                      className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
-                    />
-                  </td>
+                  <img
+  src={
+    s.images?.[0]
+      ? s.images[0] // works for BOTH base64 & Cloudinary
+      : "/no-image.png"
+  }
+  className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
+/>
 
                   {/* TITLE */}
                   <td className="p-3 text-center align-middle font-medium break-words">
@@ -121,17 +123,15 @@ export default function ServicesAdmin() {
 
                   {/* VIDEO */}
                   <td className="p-3 text-center align-middle">
-                    {s.videos?.[0] ? (
-                      <a
-                        href={s.videos[0]}
-                        target="_blank"
-                        className="text-blue-600 underline"
-                      >
-                        View
-                      </a>
-                    ) : (
-                      "—"
-                    )}
+                   {s.videos?.[0] ? (
+  <video
+    src={s.videos[0]}
+    className="h-12 w-16 mx-auto"
+    controls
+  />
+) : (
+  "—"
+)}
                   </td>
 
                   {/* ACTIONS */}
