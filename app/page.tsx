@@ -886,12 +886,17 @@ const loadProjects = async () => {
       >
         {/* IMAGE */}
         <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
-          <Image
-            src={project.image || "/placeholder.png"}
-            alt={project.title || "Project"}
-            fill
-            className="object-cover transition duration-500 group-hover:scale-105"
-          />
+          <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
+  <img
+    src={
+      project.image && project.image.startsWith("http")
+        ? project.image   // ✅ Cloudinary URL
+        : "/no-image.png" // ✅ your fallback
+    }
+    alt={project.title || "Project"}
+    className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105"
+  />
+</div>
         </div>
 
         {/* OVERLAY */}

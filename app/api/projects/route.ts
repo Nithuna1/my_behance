@@ -62,7 +62,7 @@ export async function POST(req: Request) {
       category: formData.get("category"),
       description: formData.get("description"),
 
-      image: imageUrls[0] || "https://via.placeholder.com/100",
+      image: imageUrls[0] || "/no-image.png",
       gallery: imageUrls,
     });
 
