@@ -92,14 +92,6 @@ export default function EcommerceAdmin() {
                     ? e.images[0]
                     : "/no-image.png";
 
-                // ✅ Optional Cloudinary optimization
-                if (imageUrl.includes("res.cloudinary.com")) {
-                  imageUrl = imageUrl.replace(
-                    "/upload/",
-                    "/upload/q_auto,f_auto/"
-                  );
-                }
-
                 return (
                   <tr key={e._id} className="border-t hover:bg-gray-50 transition">
 
