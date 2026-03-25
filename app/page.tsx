@@ -1370,13 +1370,16 @@ ${message}
       {/* LEFT – APP PREVIEW */}
       <div className="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6">
 
-        <Image
-          src={activeMobileApp.image}
-          alt={activeMobileApp.title}
-          width={420}
-          height={840}
-          className="object-contain drop-shadow-xl"
-        />
+        <img
+  src={
+    activeMobileApp.image &&
+    activeMobileApp.image.startsWith("http")
+      ? activeMobileApp.image
+      : "/no-image.png"
+  }
+  alt={activeMobileApp.title}
+  className="max-h-full w-auto object-contain drop-shadow-xl"
+/>
       </div>
 
       {/* RIGHT – DETAILS */}
