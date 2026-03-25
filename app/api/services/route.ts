@@ -83,7 +83,7 @@ export async function POST(req: Request) {
         const upload = await cloudinary.uploader.upload(
           `data:${file.type};base64,${buffer.toString("base64")}`,
           {
-            resource_type: "video", // 🔥 IMPORTANT
+            resource_type: "video",
             folder: "services/videos",
           }
         );
