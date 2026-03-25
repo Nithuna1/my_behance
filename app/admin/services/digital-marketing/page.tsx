@@ -68,21 +68,33 @@ export default function DigitalMarketingAdmin() {
               <tr key={e._id} className="border-t">
 
                 <td className="p-3 text-center">
-                  <img
-                    src={e.images?.[0] || "https://via.placeholder.com/100"}
-                    className="h-12 w-12 object-cover rounded mx-auto"
-                  />
+                 <img
+  src={
+    e.images?.[0] && e.images[0].startsWith("http")
+      ? e.images[0]
+      : "/no-image.png"
+  }
+  className="h-12 w-12 object-cover rounded mx-auto"
+/>
                 </td>
 
                 <td className="p-3 text-center">
                   {e.websites?.[0] || "—"}
                 </td>
 
-                <td className="p-3 text-center">
-                  {e.videos?.[0] ? (
-                    <a href={e.videos[0]} target="_blank">View</a>
-                  ) : "—"}
-                </td>
+               <td className="p-3 text-center">
+  {e.videos?.[0] && e.videos[0].startsWith("http") ? (
+    <video
+      src={e.videos[0]} // ✅ Cloudinary video
+      className="h-12 w-20 object-cover rounded mx-auto"
+      controls
+      muted
+      preload="metadata"
+    />
+  ) : (
+    "—"
+  )}
+</td>
 
                 <td className="p-3 text-center space-x-2">
 
