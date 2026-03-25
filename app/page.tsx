@@ -991,13 +991,15 @@ const loadProjects = async () => {
           onClick={() => setActiveMobileApp(app)}
         >
           <div className="w-[70%] max-w-[260px]">
-            <Image
-              src={app.image}
-              alt={app.title}
-              width={900}
-              height={1800}
-              className="w-full h-auto object-contain rounded-2xl"
-            />
+            <img
+  src={
+    app.image && app.image.startsWith("http")
+      ? app.image
+      : "/no-image.png"
+  }
+  alt={app.title}
+  className="w-full h-auto object-contain rounded-2xl"
+/>
           </div>
         </div>
       ))}
@@ -1067,13 +1069,15 @@ const loadProjects = async () => {
           cursor-pointer hover:-translate-y-3 transition
         "
       >
-        <Image
-          src={app.image}
-          alt={app.title}
-          width={900}
-          height={1800}
-          className="w-[200%] h-auto object-contain" 
-        />
+        <img
+  src={
+    app.image && app.image.startsWith("http")
+      ? app.image
+      : "/no-image.png"
+  }
+  alt={app.title}
+  className="w-[200%] h-auto object-contain"
+/>
       </div>
     ))}
   </div>
