@@ -17,9 +17,9 @@ export async function GET(req: Request) {
       query.category = { $in: [category] }; // 🔥 important
     }
 
-    const services = await Service.find(query)
-  .select("-images -videos") // ✅ exclude heavy fields
-  .sort({ _id: -1 });
+   const services = await Service.find(query)
+  .sort({ _id: -1 })
+  .lean();
 
     return NextResponse.json(services);
 
