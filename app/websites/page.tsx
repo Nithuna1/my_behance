@@ -303,12 +303,15 @@ const loadWebsites = async () => {
         {/* IMAGE */}
         <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-black">
 
-          <Image
-            src={site.image || "/placeholder.jpg"}
-            alt={site.name}
-            fill
-            className="object-cover transition-opacity duration-500 group-hover:opacity-0"
-          />
+         <img
+  src={
+    site.image && site.image.startsWith("http")
+      ? site.image   // ✅ Cloudinary URL
+      : "/no-image.png"
+  }
+  alt={site.name || "website"}
+  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+/>
 
           {/* VIDEO */}
           {site.video && (
