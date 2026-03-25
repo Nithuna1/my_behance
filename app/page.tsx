@@ -419,13 +419,15 @@ const loadProjects = async () => {
         <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-black">
 
           {/* IMAGE */}
-          <Image
-            src={site.image || "/placeholder.jpg"}
-            alt={site.name}
-            fill
-            className="object-cover transition-opacity duration-500 group-hover:opacity-0"
-          />
-
+         <img
+  src={
+    site.image && site.image.startsWith("http")
+      ? site.image
+      : "/placeholder.jpg"
+  }
+  alt={site.name}
+  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+/>
           {/* VIDEO */}
           {site.video && (
             <video
