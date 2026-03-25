@@ -84,15 +84,13 @@ export default function ServicesAdmin() {
               services.map((s) => (
                 <tr key={s._id} className="border-t hover:bg-gray-50 transition">
 
-                  {/* IMAGE */}
-                  <img
-  src={
-    s.images?.[0]
-      ? s.images[0] // works for BOTH base64 & Cloudinary
-      : "/no-image.png"
-  }
-  className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
-/>
+  {/* IMAGE */}
+  <td className="p-3 text-center align-middle">
+    <img
+      src={s.images?.[0] ? s.images[0] : "/no-image.png"}
+      className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
+    />
+  </td>
 
                   {/* TITLE */}
                   <td className="p-3 text-center align-middle font-medium break-words">

@@ -1,26 +1,63 @@
 import mongoose from "mongoose";
 
-export async function connectDB() {
-  try {
-    if (mongoose.connection.readyState >= 1) {
-      console.log("Already connected ✅");
-      return;
-    }
+const MONGODB_URI = process.env.MONGODB_URI;
 
-    const uri = process.env.MONGODB_URI; 
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable in .env.local");
+}
 
-    console.log("MONGO URI:", uri); 
+/**
+ * Global cache to prevent multiple connections during hot reloads in development.
+ * In production, this ensures we reuse the existing connection.
+ */
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
 
-    if (!uri) {
-      throw new Error("MONGODB_URI is missing ❌");
-    }
+declare global {
+  // eslint-disable-next-line no-var
+  var mongooseCache: MongooseCache | undefined;
+}
 
-    await mongoose.connect(uri);
+const cached: MongooseCache = global.mongooseCache ?? { conn: null, promise: null };
 
-    console.log("MongoDB Connected ✅");
+if (!global.mongooseCache) {
+  global.mongooseCache = cached;
+}
 
-  } catch (error) {
-    console.log("MongoDB ERROR ❌:", error);
-    throw error;
+export async function connectDB(): Promise<typeof mongoose> {
+  // Return existing connection if already connected
+  if (cached.conn) {
+    return cached.conn;
   }
+
+  // If a connection is already in progress, wait for it
+  if (!cached.promise) {
+    const opts: mongoose.ConnectOptions = {
+      bufferCommands: false,
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+   
+      retryWrites: true,
+      retryReads: true,
+    };
+
+    cached.promise = mongoose
+      .connect(MONGODB_URI!, opts)
+      .then((mongooseInstance) => {
+        console.log("MongoDB Connected ✅");
+        return mongooseInstance;
+      })
+      .catch((error) => {
+        // Reset the promise so the next call will retry
+        cached.promise = null;
+        console.error("MongoDB Connection Error ❌:", error.message);
+        throw error;
+      });
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
 }
