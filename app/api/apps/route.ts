@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import App from "@/models/App";
 import { NextResponse } from "next/server";
+import cloudinary from "@/lib/cloudinary";
 
 
 // ✅ GET ALL APPS
@@ -23,25 +24,31 @@ export async function GET() {
 }
 
 
-// ✅ CREATE APP
+// ✅ CREATE APP (🔥 CLOUDINARY)
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
 
-    // ✅ GET FILES
     const files = formData.getAll("images") as File[];
 
     let imageUrls: string[] = [];
 
+    // ✅ UPLOAD IMAGES TO CLOUDINARY
     for (const file of files) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        imageUrls.push(base64);
+        const upload = await cloudinary.uploader.upload(
+          `data:${file.type};base64,${buffer.toString("base64")}`,
+          {
+            folder: "apps/images",
+          }
+        );
+
+        imageUrls.push(upload.secure_url);
       }
     }
 
@@ -61,7 +68,7 @@ export async function POST(req: Request) {
       fullDescription: formData.get("fullDescription"),
       bestFor: formData.get("bestFor"),
       features,
-      image: imageUrls[0] || "https://via.placeholder.com/100",
+      image: imageUrls[0] || "",
       gallery: imageUrls,
     });
 
@@ -83,12 +90,14 @@ export async function POST(req: Request) {
   }
 }
 
-// ✅ UPDATE APP
+
+// ✅ UPDATE APP (OPTIONAL CLOUDINARY SUPPORT)
 export async function PUT(req: Request) {
   try {
     await connectDB();
 
-    const { id, ...data } = await req.json();
+    const formData = await req.formData();
+    const id = formData.get("id") as string;
 
     if (!id) {
       return NextResponse.json(
@@ -97,18 +106,50 @@ export async function PUT(req: Request) {
       );
     }
 
-    const existing = await App.findById(id);
+    const files = formData.getAll("images") as File[];
 
-    if (!existing) {
-      return NextResponse.json(
-        { success: false, message: "App not found" },
-        { status: 404 }
-      );
+    let imageUrls: string[] = [];
+
+    // ✅ Upload new images if provided
+    for (const file of files) {
+      if (file && file.size > 0) {
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const upload = await cloudinary.uploader.upload(
+          `data:${file.type};base64,${buffer.toString("base64")}`,
+          {
+            folder: "apps/images",
+          }
+        );
+
+        imageUrls.push(upload.secure_url);
+      }
     }
 
-    const updated = await App.findByIdAndUpdate(id, data, {
-      new: true,
-    });
+    // ✅ FEATURES PARSE
+    let features: string[] = [];
+    try {
+      const raw = formData.get("features");
+      features = raw ? JSON.parse(raw as string) : [];
+    } catch {
+      features = [];
+    }
+
+    const updated = await App.findByIdAndUpdate(
+      id,
+      {
+        title: formData.get("title"),
+        fullDescription: formData.get("fullDescription"),
+        bestFor: formData.get("bestFor"),
+        features,
+        ...(imageUrls.length > 0 && {
+          image: imageUrls[0],
+          gallery: imageUrls,
+        }),
+      },
+      { new: true }
+    );
 
     return NextResponse.json({
       success: true,

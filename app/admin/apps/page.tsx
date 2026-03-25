@@ -85,12 +85,17 @@ export default function AppsAdmin() {
                 <tr key={app._id} className="border-t hover:bg-gray-50 transition">
 
                   {/* IMAGE */}
-                  <td className="p-3 text-center align-middle">
-                    <img
-                      src={app.image || "https://via.placeholder.com/100"}
-                      className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
-                    />
-                  </td>
+                 <td className="p-3 text-center align-middle">
+  <img
+    src={
+      app.image && app.image.startsWith("http")
+        ? app.image   // ✅ Cloudinary URL
+        : "/no-image.png" // ✅ fallback
+    }
+    alt="app"
+    className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
+  />
+</td>
 
                   {/* TITLE */}
                   <td className="p-3 text-center align-middle font-medium break-words">
