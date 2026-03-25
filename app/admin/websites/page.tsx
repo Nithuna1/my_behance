@@ -117,16 +117,18 @@ export default function WebsitesAdmin() {
                   </td>
 
                   {/* VIDEO */}
-                 <td className="p-3 text-center align-middle">
-  <img
-    src={
-      w.image && w.image.startsWith("http")
-        ? w.image   // ✅ Cloudinary URL
-        : "/no-image.png" // ✅ fallback
-    }
-    alt="website"
-    className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
-  />
+                <td className="p-3 text-center align-middle">
+  {w.video && w.video.startsWith("http") ? (
+    <video
+      src={w.video} // ✅ Cloudinary video URL
+      className="h-12 w-20 object-cover rounded mx-auto"
+      controls
+      muted
+      preload="metadata"
+    />
+  ) : (
+    "—"
+  )}
 </td>
 
                   {/* ACTIONS */}
