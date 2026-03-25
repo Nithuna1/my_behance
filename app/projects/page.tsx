@@ -281,8 +281,12 @@ const loadProjects = async () => {
         {/* IMAGE */}
             <div className="relative w-full h-[320px] overflow-hidden">
          <img
-  src={project.image}
-  alt={project.title}
+  src={
+    project.image && project.image.startsWith("http")
+      ? project.image
+      : "/no-image.png"
+  }
+  alt={project.title || "project"}
   className="w-full h-full object-cover"
 />
        </div>
@@ -456,12 +460,15 @@ ${message}
               key={i}
               className="relative aspect-square rounded-xl overflow-hidden"
             >
-              <Image
-                src={img}
-                alt=""
-                fill
-                className="object-cover"
-              />
+             <img
+  src={
+    img && img.startsWith("http")
+      ? img
+      : "/no-image.png"
+  }
+  alt="project"
+  className="absolute inset-0 w-full h-full object-cover"
+/>
             </div>
           ))}
         </div>
