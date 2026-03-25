@@ -121,18 +121,18 @@ export default function EcommerceAdmin() {
 
                     {/* VIDEO */}
                     <td className="p-3 text-center">
-                      {e.videos?.[0] ? (
-                        <a
-                          href={e.videos[0]}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
-                          View
-                        </a>
-                      ) : (
-                        "—"
-                      )}
-                    </td>
+  {e.videos?.[0] && e.videos[0].startsWith("http") ? (
+    <video
+      src={e.videos[0]} // ✅ Cloudinary video
+      className="h-12 w-20 object-cover rounded mx-auto"
+      controls
+      muted
+      preload="metadata"
+    />
+  ) : (
+    "—"
+  )}
+</td>
 
                     {/* ACTIONS */}
                     <td className="p-3 text-center space-x-2">
