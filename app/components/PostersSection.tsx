@@ -6,41 +6,45 @@ import { useEffect, useState } from "react";
 type Poster = {
   _id: string;
   image: string;
-  title?: string;
 };
 
 /* ================= COMPONENT ================= */
 export default function PostersSection() {
   const [posters, setPosters] = useState<Poster[]>([]);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeSet, setActiveSet] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const postersPerSlide = 6;
+  const cardsPerSlide = 3;
+  const postersPerCard = 6;
 
   /* ================= FETCH ================= */
-  const loadPosters = async () => {
-    try {
-      const res = await fetch("/api/posters");
-      const data = await res.json();
-
-      if (Array.isArray(data)) {
-        setPosters(data);
-      } else {
-        setPosters([]);
-      }
-    } catch (err) {
-      console.log("POSTER ERROR:", err);
-    }
-  };
-
   useEffect(() => {
+    const loadPosters = async () => {
+      try {
+        const res = await fetch("/api/posters");
+        const data = await res.json();
+
+        if (Array.isArray(data)) {
+          setPosters(data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     loadPosters();
   }, []);
 
-  /* ================= SLIDES ================= */
-  const slides = [];
-  for (let i = 0; i < posters.length; i += postersPerSlide) {
-    slides.push(posters.slice(i, i + postersPerSlide));
+  /* ================= GROUP INTO CARDS ================= */
+  const cards: Poster[][] = [];
+  for (let i = 0; i < posters.length; i += postersPerCard) {
+    cards.push(posters.slice(i, i + postersPerCard));
+  }
+
+  /* ================= GROUP CARDS INTO SLIDES ================= */
+  const slides: Poster[][][] = [];
+  for (let i = 0; i < cards.length; i += cardsPerSlide) {
+    slides.push(cards.slice(i, i + cardsPerSlide));
   }
 
   const nextSlide = () => {
@@ -79,29 +83,17 @@ export default function PostersSection() {
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
-              {slides.map((group, i) => (
+              {slides.map((group, index) => (
                 <div
-                  key={i}
-                  className="min-w-full grid grid-cols-2 md:grid-cols-3 gap-6 px-10"
+                  key={index}
+                  className="min-w-full grid grid-cols-1 md:grid-cols-3 gap-8 px-12"
                 >
-                  {group.map((poster, idx) => (
-                    <div
-                      key={poster._id}
-                      onClick={() => setActiveIndex(i * postersPerSlide + idx)}
-                      className="cursor-pointer rounded-xl overflow-hidden group"
-                    >
-                      <img
-                        src={
-                          poster.image
-                            ? poster.image.replace(
-                                "/upload/",
-                                "/upload/w_500,q_auto,f_auto/"
-                              )
-                            : "/no-image.png"
-                        }
-                        className="w-full h-full object-cover aspect-[3/4] transition group-hover:scale-105"
-                      />
-                    </div>
+                  {group.map((card, i) => (
+                    <PosterCard
+                      key={i}
+                      images={card}
+                      onClick={() => setActiveSet(index * cardsPerSlide + i)}
+                    />
                   ))}
                 </div>
               ))}
@@ -120,29 +112,83 @@ export default function PostersSection() {
       </section>
 
       {/* ================= POPUP ================= */}
-      {activeIndex !== null && posters[activeIndex] && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4">
-
+      {activeSet !== null && cards[activeSet] && (
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4">
           <button
-            onClick={() => setActiveIndex(null)}
+            onClick={() => setActiveSet(null)}
             className="absolute top-6 right-6 text-white text-3xl"
           >
             ✕
           </button>
 
-          <div className="max-w-4xl w-full">
-            <img
-              src={
-                posters[activeIndex].image.replace(
-                  "/upload/",
-                  "/upload/w_1200,q_auto,f_auto/"
-                )
-              }
-              className="w-full h-auto rounded-xl"
-            />
+          <div className="bg-white w-full max-w-6xl max-h-[90vh] rounded-2xl p-6 overflow-y-auto">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {cards[activeSet].map((poster, i) => (
+                <div
+                  key={i}
+                  className="relative aspect-[3/4] rounded-xl overflow-hidden"
+                >
+                  <img
+                    src={
+                      poster.image.replace(
+                        "/upload/",
+                        "/upload/w_800,q_auto,f_auto/"
+                      )
+                    }
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       )}
     </>
+  );
+}
+
+/* ================= POSTER CARD ================= */
+function PosterCard({
+  images,
+  onClick,
+}: {
+  images: Poster[];
+  onClick: () => void;
+}) {
+  const getImg = (index: number) =>
+    images[index]?.image
+      ? images[index].image.replace(
+          "/upload/",
+          "/upload/w_300,q_auto,f_auto/"
+        )
+      : "/no-image.png";
+
+  return (
+    <div
+      onClick={onClick}
+      className="cursor-pointer rounded-3xl bg-white/40 backdrop-blur-md border border-black/20 p-3 hover:scale-105 transition"
+    >
+      <div className="grid grid-cols-3 grid-rows-3 gap-2 aspect-[3/4]">
+
+        <div className="col-span-1 row-span-2">
+          <img src={getImg(0)} className="w-full h-full object-cover rounded-xl" />
+        </div>
+
+        <div className="col-span-2">
+          <img src={getImg(1)} className="w-full h-full object-cover rounded-xl" />
+        </div>
+
+        <div className="col-span-2">
+          <img src={getImg(2)} className="w-full h-full object-cover rounded-xl" />
+        </div>
+
+        <img src={getImg(3)} className="w-full h-full object-cover rounded-xl" />
+        <img src={getImg(4)} className="w-full h-full object-cover rounded-xl" />
+        <img src={getImg(5)} className="w-full h-full object-cover rounded-xl" />
+
+      </div>
+    </div>
   );
 }
