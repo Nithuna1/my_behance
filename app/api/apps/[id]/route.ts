@@ -2,15 +2,26 @@ import { connectDB } from "@/lib/mongodb";
 import App from "@/models/App";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import cloudinary from "@/lib/cloudinary";
 
 
+// ==============================
+// 🔧 GET ID HELPER
+// ==============================
+const getId = (req: Request) => {
+  const url = new URL(req.url);
+  return url.pathname.split("/").pop();
+};
+
+
+// ==============================
 // ✅ GET SINGLE APP
+// ==============================
 export async function GET(req: Request) {
   await connectDB();
 
   try {
-    const url = new URL(req.url);
-    const id = url.pathname.split("/").pop();
+    const id = getId(req);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -28,10 +39,14 @@ export async function GET(req: Request) {
       );
     }
 
-    return NextResponse.json(app);
+    return NextResponse.json({
+      success: true,
+      app,
+    });
 
   } catch (err) {
     console.error("GET ERROR:", err);
+
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 }
@@ -40,15 +55,32 @@ export async function GET(req: Request) {
 }
 
 
-// ✅ UPDATE APP
+// ==============================
+// 🔥 CLOUDINARY UPLOAD FUNCTION
+// ==============================
+const uploadToCloudinary = async (buffer: Buffer) => {
+  return new Promise<any>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "apps" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+
+    stream.end(buffer);
+  });
+};
+
+
+// ==============================
+// ✅ UPDATE APP (CLOUDINARY)
+// ==============================
 export async function PUT(req: Request) {
   await connectDB();
 
   try {
-    const url = new URL(req.url);
-    const id = url.pathname.split("/").pop();
-
-    console.log("PUT APP ID:", id);
+    const id = getId(req);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -59,16 +91,17 @@ export async function PUT(req: Request) {
 
     const formData = await req.formData();
 
-    // ✅ HANDLE IMAGE
+    // 🔥 HANDLE IMAGE (UPLOAD TO CLOUDINARY)
     const file = formData.get("image") as File | null;
 
-    let imageUrl = null;
+    let imageUrl: string | null = null;
 
     if (file && file.size > 0) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
+      const buffer = Buffer.from(await file.arrayBuffer());
 
-      imageUrl = `data:${file.type};base64,${buffer.toString("base64")}`;
+      const uploadResult: any = await uploadToCloudinary(buffer);
+
+      imageUrl = uploadResult.secure_url;
     }
 
     // ✅ HANDLE FEATURES ARRAY
@@ -112,7 +145,7 @@ export async function PUT(req: Request) {
     return NextResponse.json({
       success: true,
       message: "App updated successfully",
-      updated,
+      app: updated,
     });
 
   } catch (err) {
