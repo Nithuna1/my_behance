@@ -275,18 +275,23 @@ const loadPosters = async () => {
           bg-white
         "
       >
-        <Image
-          src={poster.image}
-          alt={`Poster ${i + 1}`}
-          fill
-          className="
-            object-cover     /* ✅ FULL IMAGE */
-            transition-transform
-            duration-500
-            group-hover:scale-105
-          "
-          priority={i < 3}
-        />
+        <img
+  src={
+    poster.image
+      ? poster.image.replace(
+          "/upload/",
+          "/upload/w_800,q_auto,f_auto/"
+        )
+      : "/no-image.png"
+  }
+  alt={`Poster ${i + 1}`}
+  className="
+    w-full h-full object-cover
+    transition-transform duration-500
+    group-hover:scale-105
+  "
+  loading="lazy"
+/>
       </div>
     ))}
   </div>

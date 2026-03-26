@@ -1,9 +1,30 @@
 import { connectDB } from "@/lib/mongodb";
 import Poster from "@/models/Poster";
 import { NextResponse } from "next/server";
+import cloudinary from "@/lib/cloudinary";
 
 
+// ==============================
+// 🔥 CLOUDINARY UPLOAD FUNCTION
+// ==============================
+const uploadToCloudinary = async (buffer: Buffer) => {
+  return new Promise<any>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "posters" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+
+    stream.end(buffer);
+  });
+};
+
+
+// ==============================
 // ✅ GET ALL POSTERS
+// ==============================
 export async function GET() {
   try {
     await connectDB();
@@ -23,33 +44,46 @@ export async function GET() {
 }
 
 
-// ✅ CREATE POSTER (WITH IMAGE UPLOAD)
+// ==============================
+// ✅ CREATE POSTER (CLOUDINARY)
+// ==============================
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
-
-    // ✅ GET FILES
     const files = formData.getAll("images") as File[];
 
     let imageUrls: string[] = [];
 
+    // 🔥 UPLOAD TO CLOUDINARY
     for (const file of files) {
       if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
+        const buffer = Buffer.from(await file.arrayBuffer());
 
-        const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
-        imageUrls.push(base64);
+        const uploadResult: any = await uploadToCloudinary(buffer);
+
+        // ✅ CLOUDINARY URL
+        imageUrls.push(uploadResult.secure_url);
       }
     }
 
-    // ✅ CREATE POSTER
+    // ❗ Require at least one image
+    if (imageUrls.length === 0) {
+      return NextResponse.json(
+        { success: false, message: "Image is required" },
+        { status: 400 }
+      );
+    }
+
+    // ✅ CREATE POSTER (LIKE PROJECT STRUCTURE)
     const poster = await Poster.create({
       title: formData.get("title"),
       category: formData.get("category"),
-      image: imageUrls[0] || "https://via.placeholder.com/100",
+
+      // 🔥 SAME STRUCTURE YOU WANT
+      image: imageUrls[0],
+      gallery: imageUrls,
     });
 
     return NextResponse.json({
@@ -72,12 +106,15 @@ export async function POST(req: Request) {
 }
 
 
-// ✅ UPDATE POSTER
+// ==============================
+// ✅ UPDATE POSTER (CLOUDINARY)
+// ==============================
 export async function PUT(req: Request) {
   try {
     await connectDB();
 
-    const { id, ...data } = await req.json();
+    const formData = await req.formData();
+    const id = formData.get("id") as string;
 
     if (!id) {
       return NextResponse.json(
@@ -86,7 +123,33 @@ export async function PUT(req: Request) {
       );
     }
 
-    const updated = await Poster.findByIdAndUpdate(id, data, {
+    const files = formData.getAll("images") as File[];
+
+    let imageUrls: string[] = [];
+
+    // 🔥 UPLOAD NEW IMAGES
+    for (const file of files) {
+      if (file && file.size > 0) {
+        const buffer = Buffer.from(await file.arrayBuffer());
+
+        const uploadResult: any = await uploadToCloudinary(buffer);
+
+        imageUrls.push(uploadResult.secure_url);
+      }
+    }
+
+    const updateData: any = {
+      title: formData.get("title"),
+      category: formData.get("category"),
+    };
+
+    // 🔥 ONLY UPDATE IF NEW IMAGES PROVIDED
+    if (imageUrls.length > 0) {
+      updateData.image = imageUrls[0];
+      updateData.gallery = imageUrls;
+    }
+
+    const updated = await Poster.findByIdAndUpdate(id, updateData, {
       new: true,
     });
 
@@ -110,7 +173,9 @@ export async function PUT(req: Request) {
 }
 
 
+// ==============================
 // ✅ DELETE POSTER
+// ==============================
 export async function DELETE(req: Request) {
   try {
     await connectDB();

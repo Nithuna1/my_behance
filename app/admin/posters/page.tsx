@@ -86,9 +86,9 @@ export default function PostersAdmin() {
                   {/* IMAGE */}
                   <td className="p-3 text-center align-middle">
                     <img
-                      src={p.image || "https://via.placeholder.com/100"}
-                      className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
-                    />
+  src={p.image || "/no-image.png"}
+  className="h-12 w-12 min-w-[48px] object-cover rounded border mx-auto"
+/>
                   </td>
 
                   {/* TITLE */}

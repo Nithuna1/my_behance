@@ -15,13 +15,16 @@ export default function EditService() {
   });
 
   const [images, setImages] = useState<File[]>([]);
+  const [preview, setPreview] = useState<string[]>([]); // 🔥 NEW
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   const getId = () =>
     Array.isArray(params.id) ? params.id[0] : params.id;
 
-  // ✅ LOAD SERVICE
+  // ==============================
+  // ✅ LOAD SERVICE (FIXED)
+  // ==============================
   const loadService = async () => {
     const id = getId();
     if (!id) return;
@@ -29,16 +32,18 @@ export default function EditService() {
     const res = await fetch(`/api/services/${id}`);
     const data = await res.json();
 
-    if (!res.ok) return;
+    if (!res.ok || data.success === false) return;
+
+    const service = data.service; // 🔥 FIXED
 
     setForm({
-      title: data.title || "",
-      tags: (data.tags || []).join(", "),
-      websites: (data.websites || []).join(", "),
-      videos: (data.videos || []).join(", "),
+      title: service?.title || "",
+      tags: (service?.tags || []).join(", "),
+      websites: (service?.websites || []).join(", "),
+      videos: (service?.videos || []).join(", "),
     });
 
-    setExistingImages(data.images || []);
+    setExistingImages(service?.images || []);
     setLoading(false);
   };
 
@@ -50,11 +55,23 @@ export default function EditService() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // ==============================
+  // 🔥 HANDLE FILE + PREVIEW
+  // ==============================
   const handleFiles = (e: any) => {
-    setImages(Array.from(e.target.files));
+    const files = Array.from(e.target.files) as File[];
+    setImages(files);
+
+    const previews = files.map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setPreview(previews);
   };
 
-  // ✅ UPDATE
+  // ==============================
+  // ✅ UPDATE (CLOUDINARY FLOW)
+  // ==============================
   const submit = async (e: any) => {
     e.preventDefault();
 
@@ -69,7 +86,7 @@ export default function EditService() {
     formData.append("videos", JSON.stringify(form.videos.split(",")));
 
     images.forEach((img) => {
-      formData.append("images", img);
+      formData.append("images", img); // 🔥 goes to Cloudinary
     });
 
     const res = await fetch(`/api/services/${id}`, {
@@ -81,6 +98,10 @@ export default function EditService() {
 
     if (data.success) {
       alert("Updated ✅");
+
+      // reload Cloudinary images
+      await loadService();
+
       router.push("/admin/services");
     } else {
       alert(data.message || "Failed ❌");
@@ -92,13 +113,13 @@ export default function EditService() {
   return (
     <div className="bg-gray-100 min-h-screen py-10 px-4">
       <div className="max-w-4xl mx-auto">
+
         <h1 className="text-3xl font-bold mb-8">
           Edit Service
         </h1>
 
         <div className="bg-white rounded-2xl shadow-lg p-8">
 
-          {/* ✅ SINGLE COLUMN FORM */}
           <form onSubmit={submit} className="space-y-6">
 
             <input
@@ -141,48 +162,64 @@ export default function EditService() {
               className="w-full border p-2 rounded-lg"
             />
 
-           <div className="space-y-3">
+            {/* IMAGE PREVIEW */}
+            <div className="space-y-3">
 
-  <h3 className="font-semibold text-gray-700">
-    Image Preview
-  </h3>
+              <h3 className="font-semibold text-gray-700">
+                Image Preview
+              </h3>
 
-  {existingImages.length > 0 ? (
-    <div className="flex flex-wrap gap-3">
+              {/* NEW IMAGES */}
+              {preview.length > 0 && (
+                <div>
+                  <p className="text-sm text-gray-500">New</p>
+                  <div className="flex flex-wrap gap-3">
+                    {preview.map((img, i) => (
+                      <img
+                        key={i}
+                        src={img}
+                        className="w-28 h-20 object-cover rounded"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
 
-      {existingImages.map((img, i) => (
-        <div
-          key={i}
-          className="w-28 h-20 rounded-lg overflow-hidden border"
-        >
-          <img
-            src={img}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ))}
+              {/* EXISTING IMAGES */}
+              {existingImages.length > 0 && (
+                <div>
+                  <p className="text-sm text-gray-500">Existing</p>
+                  <div className="flex flex-wrap gap-3">
+                    {existingImages.map((img, i) => (
+                      <img
+                        key={i}
+                        src={img}
+                        className="w-28 h-20 object-cover rounded"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
 
-    </div>
-  ) : (
-    <p className="text-gray-400">No images</p>
-  )}
+              {preview.length === 0 && existingImages.length === 0 && (
+                <p className="text-gray-400">No images</p>
+              )}
 
-</div>
+            </div>
 
             {/* BUTTONS */}
             <div className="flex gap-4 pt-2">
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg">
                 Update
               </button>
 
-              
-                <button
-                  type="button"
-                  onClick={() => router.push("/admin/services")}
-                  className="bg-gray-300 px-6 py-2 rounded-lg"
-                >
-                  Cancel
-                </button>
+              <button
+                type="button"
+                onClick={() => router.push("/admin/services")}
+                className="bg-gray-300 px-6 py-2 rounded-lg"
+              >
+                Cancel
+              </button>
             </div>
 
           </form>

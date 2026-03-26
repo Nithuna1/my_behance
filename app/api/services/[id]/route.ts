@@ -2,13 +2,24 @@ import { connectDB } from "@/lib/mongodb";
 import Service from "@/models/Service";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import cloudinary from "@/lib/cloudinary";
 
+// ==============================
+// 🔧 GET ID HELPER
+// ==============================
+const getId = (req: Request) => {
+  return new URL(req.url).pathname.split("/").pop();
+};
+
+
+// ==============================
 // ✅ GET SINGLE SERVICE
+// ==============================
 export async function GET(req: Request) {
   await connectDB();
 
   try {
-    const id = new URL(req.url).pathname.split("/").pop();
+    const id = getId(req);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -26,10 +37,14 @@ export async function GET(req: Request) {
       );
     }
 
-    return NextResponse.json(service);
+    return NextResponse.json({
+      success: true,
+      service,
+    });
 
   } catch (err) {
     console.error("GET ERROR:", err);
+
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 }
@@ -37,14 +52,33 @@ export async function GET(req: Request) {
   }
 }
 
-// ✅ UPDATE SERVICE
+
+// ==============================
+// 🔥 CLOUDINARY UPLOAD FUNCTION
+// ==============================
+const uploadToCloudinary = async (buffer: Buffer) => {
+  return new Promise<any>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "services" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+
+    stream.end(buffer);
+  });
+};
+
+
+// ==============================
+// ✅ UPDATE SERVICE (CLOUDINARY)
+// ==============================
 export async function PUT(req: Request) {
   await connectDB();
 
   try {
-    const id = new URL(req.url).pathname.split("/").pop();
-
-    console.log("SERVICE UPDATE ID:", id);
+    const id = getId(req);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -55,7 +89,7 @@ export async function PUT(req: Request) {
 
     const formData = await req.formData();
 
-    // 🔹 HANDLE MULTIPLE IMAGES
+    // 🔥 HANDLE MULTIPLE IMAGES (UPLOAD TO CLOUDINARY)
     const files = formData.getAll("images") as File[];
 
     let imageUrls: string[] = [];
@@ -64,16 +98,16 @@ export async function PUT(req: Request) {
       if (file && file.size > 0) {
         const buffer = Buffer.from(await file.arrayBuffer());
 
-        imageUrls.push(
-          `data:${file.type};base64,${buffer.toString("base64")}`
-        );
+        const uploadResult: any = await uploadToCloudinary(buffer);
+
+        imageUrls.push(uploadResult.secure_url);
       }
     }
 
-    // 🔹 HANDLE ARRAYS SAFELY
+    // 🔹 SAFE ARRAY PARSER
     const parseArray = (value: any) => {
       try {
-        return value ? JSON.parse(value) : [];
+        return value ? JSON.parse(value as string) : [];
       } catch {
         return [];
       }
@@ -83,7 +117,7 @@ export async function PUT(req: Request) {
     const websites = parseArray(formData.get("websites"));
     const videos = parseArray(formData.get("videos"));
 
-    // 🔹 BUILD UPDATE OBJECT
+    // 🔹 UPDATE DATA
     const updateData: any = {
       title: formData.get("title"),
       tags,
@@ -91,7 +125,7 @@ export async function PUT(req: Request) {
       videos,
     };
 
-    // only update images if new ones uploaded
+    // only update images if new uploaded
     if (imageUrls.length > 0) {
       updateData.images = imageUrls;
     }
@@ -112,7 +146,7 @@ export async function PUT(req: Request) {
     return NextResponse.json({
       success: true,
       message: "Service updated successfully",
-      updated,
+      service: updated,
     });
 
   } catch (err) {
