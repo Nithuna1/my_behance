@@ -1081,7 +1081,7 @@ const loadProjects = async () => {
       : "/no-image.png"
   }
   alt={app.title}
-  className="w-[200%] h-auto object-contain"
+  className="w-full h-[320px] object-contain"
 />
       </div>
     ))}
