@@ -14,6 +14,7 @@ export default function EditWebsite() {
   });
 
   const [image, setImage] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string>(""); // 🔥 new preview
   const [existingImage, setExistingImage] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -30,13 +31,16 @@ export default function EditWebsite() {
 
     if (!res.ok) return;
 
+    // ⚠️ your API returns { website }
+    const website = data.website;
+
     setForm({
-      name: data.name || "",
-      url: data.url || "",
-      video: data.video || "",
+      name: website?.name || "",
+      url: website?.url || "",
+      video: website?.video || "",
     });
 
-    setExistingImage(data.image || "");
+    setExistingImage(website?.image || "");
     setLoading(false);
   };
 
@@ -48,11 +52,18 @@ export default function EditWebsite() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // ✅ HANDLE FILE + PREVIEW
   const handleFile = (e: any) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    setImage(file);
+
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setPreview(previewUrl);
+    }
   };
 
-  // ✅ UPDATE
+  // ✅ UPDATE (Cloudinary handled in backend)
   const submit = async (e: any) => {
     e.preventDefault();
 
@@ -66,7 +77,7 @@ export default function EditWebsite() {
     formData.append("video", form.video);
 
     if (image) {
-      formData.append("image", image);
+      formData.append("image", image); // 🔥 goes to Cloudinary via API
     }
 
     const res = await fetch(`/api/websites/${id}`, {
@@ -96,7 +107,6 @@ export default function EditWebsite() {
 
         <div className="bg-white rounded-2xl shadow-lg p-8">
 
-          {/* ✅ SINGLE COLUMN */}
           <form onSubmit={submit} className="space-y-6">
 
             <input
@@ -130,29 +140,31 @@ export default function EditWebsite() {
               className="w-full border p-2 rounded-lg"
             />
 
-          {/* ✅ IMAGE BELOW UPLOAD */}
-<div className="space-y-3">
+            {/* ✅ IMAGE PREVIEW */}
+            <div className="space-y-3">
+              <h3 className="font-semibold text-gray-700">
+                Image Preview
+              </h3>
 
-  <h3 className="font-semibold text-gray-700">
-    Image Preview
-  </h3>
-
-  {existingImage ? (
-  <div className="flex">
-
-    <div className="w-28 h-20 border rounded-lg overflow-hidden shadow-sm flex-shrink-0">
-      <img
-        src={existingImage}
-        className="w-full h-full object-cover"
-      />
-    </div>
-
-  </div>
-) : (
-    <p className="text-gray-400">No image</p>
-  )}
-
-</div>
+              {/* 🔥 NEW IMAGE PREVIEW */}
+              {preview ? (
+                <div className="w-40 h-28 border rounded-lg overflow-hidden shadow">
+                  <img
+                    src={preview}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : existingImage ? (
+                <div className="w-40 h-28 border rounded-lg overflow-hidden shadow">
+                  <img
+                    src={existingImage}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <p className="text-gray-400">No image</p>
+              )}
+            </div>
 
             {/* BUTTONS */}
             <div className="flex gap-4 pt-2">
@@ -160,13 +172,13 @@ export default function EditWebsite() {
                 Update
               </button>
 
-               <button
-                  type="button"
-                  onClick={() => router.push("/admin/websites")}
-                  className="bg-gray-300 px-6 py-2 rounded-lg"
-                >
-                  Cancel
-                </button>
+              <button
+                type="button"
+                onClick={() => router.push("/admin/websites")}
+                className="bg-gray-300 px-6 py-2 rounded-lg"
+              >
+                Cancel
+              </button>
             </div>
 
           </form>
