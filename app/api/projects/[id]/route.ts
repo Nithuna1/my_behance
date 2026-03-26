@@ -2,38 +2,26 @@ import { connectDB } from "@/lib/mongodb";
 import Project from "@/models/Project";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import cloudinary from "@/lib/cloudinary";
 
 
-// 🔧 Helper: clean + validate ID safely
-const getValidObjectId = (rawId: any) => {
-  let id = rawId;
-
-  if (Array.isArray(id)) {
-    id = id[0];
-  }
-
-  id = String(id).trim();
-
-  // ❌ REMOVE THIS (CAUSE OF BUG)
-  // id = id.replace(/[^a-fA-F0-9]/g, "");
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return null;
-  }
-
-  return new mongoose.Types.ObjectId(id);
+// ==============================
+// 🔧 GET ID HELPER
+// ==============================
+const getId = (req: Request) => {
+  const url = new URL(req.url);
+  return url.pathname.split("/").pop();
 };
 
 
+// ==============================
 // ✅ GET SINGLE PROJECT
+// ==============================
 export async function GET(req: Request) {
   await connectDB();
 
   try {
-    const url = new URL(req.url);
-    const id = url.pathname.split("/").pop();
-
-    console.log("FINAL ID:", id);
+    const id = getId(req);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -51,24 +39,48 @@ export async function GET(req: Request) {
       );
     }
 
-    return NextResponse.json(project);
+    return NextResponse.json({
+      success: true,
+      project,
+    });
 
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ success: false });
+    console.error("GET PROJECT ERROR:", err);
+
+    return NextResponse.json(
+      { success: false, message: "Server error" },
+      { status: 500 }
+    );
   }
 }
 
 
-// ✅ UPDATE PROJECT
+// ==============================
+// 🔥 CLOUDINARY UPLOAD FUNCTION
+// ==============================
+const uploadToCloudinary = async (buffer: Buffer) => {
+  return new Promise<any>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "projects" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+
+    stream.end(buffer);
+  });
+};
+
+
+// ==============================
+// ✅ UPDATE PROJECT (CLOUDINARY)
+// ==============================
 export async function PUT(req: Request) {
   await connectDB();
 
   try {
-    const url = new URL(req.url);
-    const id = url.pathname.split("/").pop(); // ✅ SAME AS GET
-
-    console.log("PUT ID:", id); // 🔍 DEBUG
+    const id = getId(req);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -82,31 +94,34 @@ export async function PUT(req: Request) {
 
     let imageUrls: string[] = [];
 
+    // 🔥 UPLOAD MULTIPLE IMAGES
     for (const file of files) {
       if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
+        const buffer = Buffer.from(await file.arrayBuffer());
 
-        imageUrls.push(
-          `data:${file.type};base64,${buffer.toString("base64")}`
-        );
+        const uploadResult: any = await uploadToCloudinary(buffer);
+
+        imageUrls.push(uploadResult.secure_url);
       }
     }
 
-    const updated = await Project.findByIdAndUpdate(
-      id, // ✅ DIRECT STRING (NO ObjectId needed)
-      {
-        title: formData.get("title"),
-        author: formData.get("author"),
-        year: formData.get("year"),
-        category: formData.get("category"),
-        description: formData.get("description"),
+    const updateData: any = {
+      title: formData.get("title"),
+      author: formData.get("author"),
+      year: formData.get("year"),
+      category: formData.get("category"),
+      description: formData.get("description"),
+    };
 
-        ...(imageUrls.length > 0 && {
-          image: imageUrls[0],
-          gallery: imageUrls,
-        }),
-      },
+    // ✅ ONLY UPDATE IMAGES IF NEW ONES PROVIDED
+    if (imageUrls.length > 0) {
+      updateData.image = imageUrls[0]; // cover image
+      updateData.gallery = imageUrls;  // full gallery
+    }
+
+    const updated = await Project.findByIdAndUpdate(
+      id,
+      updateData,
       { new: true }
     );
 
@@ -118,12 +133,14 @@ export async function PUT(req: Request) {
     }
 
     return NextResponse.json({
-  success: true,
-  data: updated,
-});
+      success: true,
+      message: "Project updated successfully",
+      project: updated,
+    });
 
   } catch (err) {
-    console.error("PUT ERROR:", err);
+    console.error("PUT PROJECT ERROR:", err);
+
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 }
