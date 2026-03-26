@@ -13,13 +13,16 @@ export default function EditPoster() {
   });
 
   const [image, setImage] = useState<File | null>(null);
+  const [preview, setPreview] = useState("");
   const [existingImage, setExistingImage] = useState("");
   const [loading, setLoading] = useState(true);
 
   const getId = () =>
     Array.isArray(params.id) ? params.id[0] : params.id;
 
-  // ✅ LOAD POSTER
+  // ==============================
+  // ✅ LOAD POSTER (FIXED)
+  // ==============================
   const loadPoster = async () => {
     const id = getId();
     if (!id) return;
@@ -27,14 +30,16 @@ export default function EditPoster() {
     const res = await fetch(`/api/posters/${id}`);
     const data = await res.json();
 
-    if (!res.ok) return;
+    if (!res.ok || !data.success) return;
+
+    const poster = data.poster;
 
     setForm({
-      title: data.title || "",
-      category: data.category || "",
+      title: poster?.title || "",
+      category: poster?.category || "",
     });
 
-    setExistingImage(data.image || "");
+    setExistingImage(poster?.image || "");
     setLoading(false);
   };
 
@@ -46,11 +51,20 @@ export default function EditPoster() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // ==============================
+  // 🔥 FILE + PREVIEW
+  // ==============================
   const handleFile = (e: any) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setImage(file);
+    setPreview(URL.createObjectURL(file));
   };
 
-  // ✅ UPDATE
+  // ==============================
+  // ✅ UPDATE (CLOUDINARY FLOW)
+  // ==============================
   const submit = async (e: any) => {
     e.preventDefault();
 
@@ -93,7 +107,6 @@ export default function EditPoster() {
 
         <div className="bg-white rounded-2xl shadow-lg p-8">
 
-          {/* ✅ SINGLE COLUMN */}
           <form onSubmit={submit} className="space-y-6">
 
             <input
@@ -119,19 +132,22 @@ export default function EditPoster() {
               className="w-full border p-2 rounded-lg"
             />
 
-            {/* ✅ IMAGE BELOW FILE */}
+            {/* IMAGE PREVIEW */}
             <div className="space-y-2">
               <h3 className="font-semibold text-gray-700">
                 Image Preview
               </h3>
 
-              {existingImage ? (
-                <div className="w-28 h-20 border rounded-lg overflow-hidden shadow-sm">
-                  <img
-                    src={existingImage}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              {preview ? (
+                <img
+                  src={preview}
+                  className="w-28 h-20 object-cover rounded border"
+                />
+              ) : existingImage ? (
+                <img
+                  src={existingImage}
+                  className="w-28 h-20 object-cover rounded border"
+                />
               ) : (
                 <p className="text-gray-400">No image</p>
               )}
@@ -143,13 +159,13 @@ export default function EditPoster() {
                 Update
               </button>
 
-             <button
-                  type="button"
-                  onClick={() => router.push("/admin/posters")}
-                  className="bg-gray-300 px-6 py-2 rounded-lg"
-                >
-                  Cancel
-                </button>
+              <button
+                type="button"
+                onClick={() => router.push("/admin/posters")}
+                className="bg-gray-300 px-6 py-2 rounded-lg"
+              >
+                Cancel
+              </button>
             </div>
 
           </form>

@@ -2,23 +2,60 @@ import { connectDB } from "@/lib/mongodb";
 import Poster from "@/models/Poster";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import cloudinary from "@/lib/cloudinary";
 
-// 🔧 Helper: extract ID safely
+
+// ==============================
+// 🔧 HELPER: GET ID
+// ==============================
 const getId = (req: Request) => {
   const url = new URL(req.url);
   return url.pathname.split("/").pop();
 };
 
 
+// ==============================
+// 🔥 CLOUDINARY UPLOAD
+// ==============================
+const uploadToCloudinary = async (buffer: Buffer) => {
+  return new Promise<any>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "posters" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
+
+// ==============================
+// 🔥 DELETE OLD IMAGE
+// ==============================
+const deleteFromCloudinary = async (url: string) => {
+  try {
+    const parts = url.split("/");
+    const fileName = parts.pop()?.split(".")[0];
+
+    if (fileName) {
+      await cloudinary.uploader.destroy(`posters/${fileName}`);
+    }
+  } catch (err) {
+    console.log("Cloudinary delete error:", err);
+  }
+};
+
+
+// ==============================
 // ✅ GET SINGLE POSTER
+// ==============================
 export async function GET(req: Request) {
   await connectDB();
 
   try {
     const id = getId(req);
-
-    console.log("GET POSTER ID:", id);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -36,7 +73,10 @@ export async function GET(req: Request) {
       );
     }
 
-    return NextResponse.json(poster);
+    return NextResponse.json({
+      success: true,
+      poster,
+    });
 
   } catch (err) {
     console.error("GET POSTER ERROR:", err);
@@ -49,15 +89,14 @@ export async function GET(req: Request) {
 }
 
 
-
-// ✅ UPDATE POSTER
+// ==============================
+// ✅ UPDATE POSTER (CLOUDINARY)
+// ==============================
 export async function PUT(req: Request) {
   await connectDB();
 
   try {
     const id = getId(req);
-
-    console.log("PUT POSTER ID:", id);
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -68,24 +107,42 @@ export async function PUT(req: Request) {
 
     const formData = await req.formData();
 
-    // 🔹 HANDLE IMAGE
-    const file = formData.get("image") as File | null;
+    const existing = await Poster.findById(id);
 
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, message: "Poster not found" },
+        { status: 404 }
+      );
+    }
+
+    // ==============================
+    // 🔥 HANDLE IMAGE UPLOAD
+    // ==============================
+    const file = formData.get("image") as File | null;
     let imageUrl: string | null = null;
 
     if (file && file.size > 0) {
       const buffer = Buffer.from(await file.arrayBuffer());
 
-      imageUrl = `data:${file.type};base64,${buffer.toString("base64")}`;
+      const uploadResult: any = await uploadToCloudinary(buffer);
+
+      imageUrl = uploadResult.secure_url;
+
+      // 🔥 DELETE OLD IMAGE FROM CLOUDINARY
+      if (existing.image && existing.image.includes("cloudinary")) {
+        await deleteFromCloudinary(existing.image);
+      }
     }
 
-    // 🔹 UPDATE DATA
+    // ==============================
+    // 🔥 UPDATE DATA
+    // ==============================
     const updateData: any = {
       title: formData.get("title"),
       category: formData.get("category"),
     };
 
-    // update image only if new uploaded
     if (imageUrl) {
       updateData.image = imageUrl;
     }
@@ -96,17 +153,10 @@ export async function PUT(req: Request) {
       { new: true }
     );
 
-    if (!updated) {
-      return NextResponse.json(
-        { success: false, message: "Poster not found" },
-        { status: 404 }
-      );
-    }
-
     return NextResponse.json({
       success: true,
       message: "Poster updated successfully",
-      updated,
+      poster: updated,
     });
 
   } catch (err) {
