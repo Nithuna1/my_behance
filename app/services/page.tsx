@@ -54,7 +54,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     "/video/tac_video.mp4",
   ],
   websites: [
-    "https://amg-ecommerce-web.vercel.app/",
+    "https://amg-ecommerce-web.vercel.app/",  
     "https://www.flipkart.com",
     "https://www.myntra.com",
     "https://www.amazon.in",
