@@ -58,6 +58,7 @@ const [message, setMessage] = useState("");
 const [phone, setPhone] = useState("");
 const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 const [menuOpen, setMenuOpen] = useState(false);
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 
 
@@ -1346,9 +1347,12 @@ ${message}
 
       )}
 
-     {/* ================= MOBILE APPLICATION POPUP ================= */}
+
+
+    {/* ================= MOBILE APPLICATION POPUP ================= */}
 {activeMobileApp && (
   <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+    
     {/* BACKDROP */}
     <div
       className="absolute inset-0 bg-black/70"
@@ -1357,53 +1361,116 @@ ${message}
 
     {/* MODAL */}
     <div
-  className="
-    relative bg-white
-    w-full
-    max-w-6xl
-    h-[90vh]
-    rounded-2xl
-    overflow-hidden
-    flex
-    flex-col md:flex-row
-  "
-
-
+      className="
+        relative bg-white
+        w-full
+        max-w-6xl
+        h-[90vh]
+        rounded-2xl
+        overflow-hidden
+        flex
+        flex-col md:flex-row
+      "
       onClick={(e) => e.stopPropagation()}
     >
+
       {/* CLOSE */}
       <button
         onClick={() => setActiveMobileApp(null)}
-        className="absolute top-5 right-5 z-10
-        text-xl text-black/60 hover:text-black"
+        className="absolute top-5 right-5 z-10 text-xl text-black/60 hover:text-black"
       >
         <FiX />
       </button>
 
-      {/* LEFT – APP PREVIEW */}
-      <div className="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6">
+      {/* ================= LEFT – IMAGE GALLERY ================= */}
+      <div className="w-full md:w-1/2 bg-gray-50 flex flex-col items-center justify-center p-6">
 
-        <img
-  src={
-    activeMobileApp.image &&
-    activeMobileApp.image.startsWith("http")
-      ? activeMobileApp.image
-      : "/no-image.png"
-  }
-  alt={activeMobileApp.title}
-  className="max-h-full w-auto object-contain drop-shadow-xl"
-/>
+        {/* MAIN IMAGE */}
+        <div className="relative w-full flex items-center justify-center">
+
+          <img
+            src={
+              (
+                activeMobileApp.gallery?.length
+                  ? activeMobileApp.gallery
+                  : [activeMobileApp.image]
+              )[currentImageIndex]?.startsWith("http")
+                ? (
+                    activeMobileApp.gallery?.length
+                      ? activeMobileApp.gallery
+                      : [activeMobileApp.image]
+                  )[currentImageIndex]
+                : "/no-image.png"
+            }
+            alt={activeMobileApp.title}
+            className="max-h-[60vh] w-auto object-contain drop-shadow-xl"
+          />
+
+          {/* LEFT BUTTON */}
+          {(activeMobileApp.gallery?.length || 0) > 1 && (
+            <button
+              onClick={() =>
+                setCurrentImageIndex((prev) =>
+                  prev === 0
+                    ? (activeMobileApp.gallery?.length || 1) - 1
+                    : prev - 1
+                )
+              }
+              className="absolute left-2 bg-white shadow w-9 h-9 rounded-full flex items-center justify-center"
+            >
+              ←
+            </button>
+          )}
+
+          {/* RIGHT BUTTON */}
+          {(activeMobileApp.gallery?.length || 0) > 1 && (
+            <button
+              onClick={() =>
+                setCurrentImageIndex((prev) =>
+                  prev === (activeMobileApp.gallery?.length || 1) - 1
+                    ? 0
+                    : prev + 1
+                )
+              }
+              className="absolute right-2 bg-white shadow w-9 h-9 rounded-full flex items-center justify-center"
+            >
+              →
+            </button>
+          )}
+
+        </div>
+
+        {/* THUMBNAILS */}
+        {(activeMobileApp.gallery?.length || 0) > 1 && (
+          <div className="flex gap-2 mt-4 flex-wrap justify-center">
+
+            {(activeMobileApp.gallery || []).map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                onClick={() => setCurrentImageIndex(i)}
+                className={`w-16 h-16 object-cover rounded cursor-pointer border ${
+                  i === currentImageIndex
+                    ? "border-blue-600"
+                    : "border-gray-300"
+                }`}
+              />
+            ))}
+
+          </div>
+        )}
+
       </div>
 
-      {/* RIGHT – DETAILS */}
-     <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto">
+      {/* ================= RIGHT – DETAILS ================= */}
+      <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto">
+
         {/* TITLE */}
         <h2 className="text-2xl font-semibold mb-3">
           {activeMobileApp.title}
         </h2>
 
-
-        {/* FULL DESCRIPTION */}
+        {/* DESCRIPTION */}
         <p className="text-black/80 leading-relaxed mb-6">
           {activeMobileApp.fullDescription}
         </p>
@@ -1430,11 +1497,12 @@ ${message}
             </span>
           </p>
         </div>
+
       </div>
+
     </div>
   </div>
 )}
-
 
 {/* ================= MOBILE MENU OVERLAY ================= */}
 {mobileMenuOpen && (
