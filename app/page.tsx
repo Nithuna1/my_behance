@@ -1274,25 +1274,26 @@ ${message}
 )}
 
 
- {/* ================= PROJECT POPUP ================= */}
-      {activeProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6">
-          <div
-  className="
-    relative bg-white
-    w-full
-    max-w-5xl
-    h-[90vh]
-    rounded-2xl
-    overflow-hidden
-    flex
-    flex-col md:flex-row
-  "
+  {/* ================= PROJECT POPUP ================= */}
+     {activeProject && (
+  <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4">
 
+    <div
+      className="
+        relative
+        bg-white
+        w-full
+        max-w-5xl
+        h-[95vh]
+        rounded-2xl
+        overflow-hidden
+        flex
+        flex-col
+        md:flex-row
+      "
+    >
 
-            onClick={(e) => e.stopPropagation()}
-          >
-           {/* ✅ STRONG MOBILE CLOSE BUTTON */}
+      {/* ✅ STRONG MOBILE CLOSE BUTTON */}
       <button
         onClick={() => setActiveProject(null)}
         className="
@@ -1308,12 +1309,23 @@ ${message}
         <FiX size={22} />
       </button>
 
-            {/* LEFT – GALLERY */}
-            <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
-              <div className="grid grid-cols-2 gap-4">
-                {activeProject.gallery?.map((img, i) => (
-                  <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
-                    <img
+      {/* ================= IMAGES ================= */}
+      <div
+        className="
+          w-full md:w-2/3
+          p-4 md:p-6
+          overflow-y-auto
+        "
+      >
+        <div className="grid grid-cols-2 gap-3 md:gap-4">
+          {activeProject.gallery
+  ?.slice(1) // ✅ remove first image (primary)
+  .map((img, i) => (
+            <div
+              key={i}
+              className="relative aspect-square rounded-xl overflow-hidden"
+            >
+             <img
   src={
     img && img.startsWith("http")
       ? img
@@ -1322,30 +1334,37 @@ ${message}
   alt="project"
   className="absolute inset-0 w-full h-full object-cover"
 />
-                  </div>
-                ))}
-              </div>
             </div>
+          ))}
+        </div>
+      </div>
 
-            {/* RIGHT – DETAILS */}
-            <div className="w-full md:w-1/3 border-t md:border-t-0 md:border-l p-4 md:p-6 overflow-y-auto">
-  <h2 className="text-xl font-semibold mb-2">
-    {activeProject.title}
-  </h2>
+      {/* ================= DETAILS ================= */}
+      <div
+        className="
+          w-full md:w-1/3
+          border-t md:border-t-0 md:border-l
+          p-4 md:p-6
+          overflow-y-auto
+        "
+      >
+        <h3 className="text-xl font-semibold mb-2">
+          {activeProject.title}
+        </h3>
 
-  <p className="text-sm text-black/60 mb-4">
-    {activeProject.category} · {activeProject.year}
-  </p>
+        <p className="text-sm text-black/60 mb-4">
+          {activeProject.category} · {activeProject.year}
+        </p>
 
-  <p className="text-sm leading-relaxed text-black/70">
-    {activeProject.description}
-  </p>
-</div>
+        <p className="text-sm text-black/70 leading-relaxed">
+  {activeProject.description}
+</p>
 
-            </div>
-          </div>
+      </div>
 
-      )}
+    </div>
+  </div>
+)}
 
 
 
