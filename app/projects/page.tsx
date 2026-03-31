@@ -287,7 +287,7 @@ const loadProjects = async () => {
       : "/no-image.png"
   }
   alt={project.title || "project"}
-  className="w-full h-full object-cover"
+  className="w-full h-full object-contain"
 />
        </div>
        
@@ -467,7 +467,7 @@ ${message}
       : "/no-image.png"
   }
   alt="project"
-  className="absolute inset-0 w-full h-full object-contain"
+  className="absolute inset-0 w-full h-full object-cover"
 />
             </div>
           ))}
