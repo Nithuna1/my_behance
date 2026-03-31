@@ -24,6 +24,7 @@ export async function GET() {
 }
 
 
+
 // ✅ CREATE APP (🔥 CLOUDINARY)
 export async function POST(req: Request) {
   try {
@@ -35,7 +36,10 @@ export async function POST(req: Request) {
 
     let imageUrls: string[] = [];
 
-    // ✅ UPLOAD IMAGES TO CLOUDINARY
+    // ✅ PRIMARY INDEX
+    const primaryIndex = Number(formData.get("primaryIndex") || 0);
+
+    // ✅ UPLOAD IMAGES
     for (const file of files) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
@@ -52,13 +56,12 @@ export async function POST(req: Request) {
       }
     }
 
-    // ✅ SAFE FEATURES PARSE
+    // ✅ FEATURES PARSE
     let features: string[] = [];
     try {
       const raw = formData.get("features");
       features = raw ? JSON.parse(raw as string) : [];
-    } catch (err) {
-      console.log("FEATURE ERROR:", err);
+    } catch {
       features = [];
     }
 
@@ -68,7 +71,10 @@ export async function POST(req: Request) {
       fullDescription: formData.get("fullDescription"),
       bestFor: formData.get("bestFor"),
       features,
-      image: imageUrls[0] || "",
+
+      // ✅ FIXED PRIMARY IMAGE
+      image: imageUrls[primaryIndex] || imageUrls[0] || "",
+
       gallery: imageUrls,
     });
 

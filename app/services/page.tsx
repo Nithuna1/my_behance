@@ -95,7 +95,7 @@ const [menuOpen, setMenuOpen] = useState(false);
   ],
   videos: [
     "/video/soocher_video.mp4",
-    "/video/amalgamate_video.mp4",
+    "/video/amalgamate1_video.mp4",
     "/video/knot_video.mp4",
     "/video/laundry_video.mp4",
   ],
