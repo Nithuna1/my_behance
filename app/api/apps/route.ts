@@ -3,7 +3,6 @@ import App from "@/models/App";
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
 
-
 // ✅ GET ALL APPS
 export async function GET() {
   try {
@@ -24,8 +23,7 @@ export async function GET() {
 }
 
 
-
-// ✅ CREATE APP (🔥 CLOUDINARY)
+// ✅ CREATE APP
 export async function POST(req: Request) {
   try {
     await connectDB();
@@ -33,13 +31,11 @@ export async function POST(req: Request) {
     const formData = await req.formData();
 
     const files = formData.getAll("images") as File[];
+    const primaryIndex = Number(formData.get("primaryIndex") || 0);
 
     let imageUrls: string[] = [];
 
-    // ✅ PRIMARY INDEX
-    const primaryIndex = Number(formData.get("primaryIndex") || 0);
-
-    // ✅ UPLOAD IMAGES
+    // upload images
     for (const file of files) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
@@ -47,16 +43,14 @@ export async function POST(req: Request) {
 
         const upload = await cloudinary.uploader.upload(
           `data:${file.type};base64,${buffer.toString("base64")}`,
-          {
-            folder: "apps/images",
-          }
+          { folder: "apps/images" }
         );
 
         imageUrls.push(upload.secure_url);
       }
     }
 
-    // ✅ FEATURES PARSE
+    // features
     let features: string[] = [];
     try {
       const raw = formData.get("features");
@@ -65,39 +59,29 @@ export async function POST(req: Request) {
       features = [];
     }
 
-    // ✅ CREATE APP
     const app = await App.create({
       title: formData.get("title"),
       fullDescription: formData.get("fullDescription"),
       bestFor: formData.get("bestFor"),
       features,
-
-      // ✅ FIXED PRIMARY IMAGE
       image: imageUrls[primaryIndex] || imageUrls[0] || "",
-
       gallery: imageUrls,
     });
 
-    return NextResponse.json({
-      success: true,
-      app,
-    });
+    return NextResponse.json({ success: true, app });
 
   } catch (error: any) {
-    console.log("POST ERROR FULL:", error);
+    console.log("POST ERROR:", error);
 
     return NextResponse.json(
-      {
-        success: false,
-        error: error.message,
-      },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }
 }
 
 
-// ✅ UPDATE APP (OPTIONAL CLOUDINARY SUPPORT)
+// ✅ UPDATE APP (🔥 FIXED VERSION)
 export async function PUT(req: Request) {
   try {
     await connectDB();
@@ -113,10 +97,11 @@ export async function PUT(req: Request) {
     }
 
     const files = formData.getAll("images") as File[];
+    const primaryIndex = Number(formData.get("primaryIndex") || 0);
 
-    let imageUrls: string[] = [];
+    let newImageUrls: string[] = [];
 
-    // ✅ Upload new images if provided
+    // upload new images
     for (const file of files) {
       if (file && file.size > 0) {
         const bytes = await file.arrayBuffer();
@@ -124,16 +109,14 @@ export async function PUT(req: Request) {
 
         const upload = await cloudinary.uploader.upload(
           `data:${file.type};base64,${buffer.toString("base64")}`,
-          {
-            folder: "apps/images",
-          }
+          { folder: "apps/images" }
         );
 
-        imageUrls.push(upload.secure_url);
+        newImageUrls.push(upload.secure_url);
       }
     }
 
-    // ✅ FEATURES PARSE
+    // features
     let features: string[] = [];
     try {
       const raw = formData.get("features");
@@ -142,6 +125,24 @@ export async function PUT(req: Request) {
       features = [];
     }
 
+    // ✅ GET EXISTING APP
+    const existingApp = await App.findById(id);
+
+    if (!existingApp) {
+      return NextResponse.json(
+        { success: false, message: "App not found" },
+        { status: 404 }
+      );
+    }
+
+    // ✅ KEEP OLD + ADD NEW IMAGES
+    let finalGallery = existingApp.gallery || [];
+
+    if (newImageUrls.length > 0) {
+      finalGallery = [...finalGallery, ...newImageUrls];
+    }
+
+    // ✅ UPDATE DATA
     const updated = await App.findByIdAndUpdate(
       id,
       {
@@ -149,10 +150,9 @@ export async function PUT(req: Request) {
         fullDescription: formData.get("fullDescription"),
         bestFor: formData.get("bestFor"),
         features,
-        ...(imageUrls.length > 0 && {
-          image: imageUrls[0],
-          gallery: imageUrls,
-        }),
+        gallery: finalGallery,
+        image:
+          finalGallery[primaryIndex] || finalGallery[0],
       },
       { new: true }
     );
