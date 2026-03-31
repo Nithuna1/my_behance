@@ -58,7 +58,6 @@ const [message, setMessage] = useState("");
 const [phone, setPhone] = useState("");
 const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 const [menuOpen, setMenuOpen] = useState(false);
-const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 
 
@@ -1274,248 +1273,187 @@ ${message}
 )}
 
 
-  {/* ================= PROJECT POPUP ================= */}
-     {activeProject && (
-  <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4">
+ {/* ================= PROJECT POPUP ================= */}
+      {activeProject && (
+   <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4">
+ 
+     <div
+       className="
+         relative
+         bg-white
+         w-full
+         max-w-5xl
+         h-[95vh]
+         rounded-2xl
+         overflow-hidden
+         flex
+         flex-col
+         md:flex-row
+       "
+     >
+ 
+       {/* ✅ STRONG MOBILE CLOSE BUTTON */}
+       <button
+         onClick={() => setActiveProject(null)}
+         className="
+           absolute top-4 right-4
+           z-20
+           w-10 h-10
+           rounded-full
+           bg-white shadow-md
+           flex items-center justify-center
+           text-black
+         "
+       >
+         <FiX size={22} />
+       </button>
+ 
+       {/* ================= IMAGES ================= */}
+       <div
+         className="
+           w-full md:w-2/3
+           p-4 md:p-6
+           overflow-y-auto
+         "
+       >
+         <div className="grid grid-cols-2 gap-3 md:gap-4">
+           {activeProject.gallery
+   ?.slice(1) // ✅ remove first image (primary)
+   .map((img, i) => (
+             <div
+               key={i}
+               className="relative aspect-square rounded-xl overflow-hidden"
+             >
+              <img
+   src={
+     img && img.startsWith("http")
+       ? img
+       : "/no-image.png"
+   }
+   alt="project"
+   className="absolute inset-0 w-full h-full object-cover"
+ />
+             </div>
+           ))}
+         </div>
+       </div>
+ 
+       {/* ================= DETAILS ================= */}
+       <div
+         className="
+           w-full md:w-1/3
+           border-t md:border-t-0 md:border-l
+           p-4 md:p-6
+           overflow-y-auto
+         "
+       >
+         <h3 className="text-xl font-semibold mb-2">
+           {activeProject.title}
+         </h3>
+ 
+         <p className="text-sm text-black/60 mb-4">
+           {activeProject.category} · {activeProject.year}
+         </p>
+ 
+         <p className="text-sm text-black/70 leading-relaxed">
+   {activeProject.description}
+ </p>
+ 
+       </div>
+ 
+     </div>
+   </div>
+ )}
 
+     {/* ================= MOBILE APPLICATION POPUP ================= */}
+{activeMobileApp && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+    {/* BACKDROP */}
     <div
-      className="
-        relative
-        bg-white
-        w-full
-        max-w-5xl
-        h-[95vh]
-        rounded-2xl
-        overflow-hidden
-        flex
-        flex-col
-        md:flex-row
-      "
-    >
+      className="absolute inset-0 bg-black/70"
+      onClick={() => setActiveMobileApp(null)}
+    />
 
-      {/* ✅ STRONG MOBILE CLOSE BUTTON */}
+    {/* MODAL */}
+    <div
+  className="
+    relative bg-white
+    w-full
+    max-w-6xl
+    h-[90vh]
+    rounded-2xl
+    overflow-hidden
+    flex
+    flex-col md:flex-row
+  "
+
+
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* CLOSE */}
       <button
-        onClick={() => setActiveProject(null)}
-        className="
-          absolute top-4 right-4
-          z-20
-          w-10 h-10
-          rounded-full
-          bg-white shadow-md
-          flex items-center justify-center
-          text-black
-        "
+        onClick={() => setActiveMobileApp(null)}
+        className="absolute top-5 right-5 z-10
+        text-xl text-black/60 hover:text-black"
       >
-        <FiX size={22} />
+        <FiX />
       </button>
 
-      {/* ================= IMAGES ================= */}
-      <div
-        className="
-          w-full md:w-2/3
-          p-4 md:p-6
-          overflow-y-auto
-        "
-      >
-        <div className="grid grid-cols-2 gap-3 md:gap-4">
-          {activeProject.gallery
-  ?.slice(1) // ✅ remove first image (primary)
-  .map((img, i) => (
-            <div
-              key={i}
-              className="relative aspect-square rounded-xl overflow-hidden"
-            >
-             <img
+      {/* LEFT – APP PREVIEW */}
+      <div className="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6">
+
+        <img
   src={
-    img && img.startsWith("http")
-      ? img
+    activeMobileApp.image &&
+    activeMobileApp.image.startsWith("http")
+      ? activeMobileApp.image
       : "/no-image.png"
   }
-  alt="project"
-  className="absolute inset-0 w-full h-full object-cover"
+  alt={activeMobileApp.title}
+  className="max-h-full w-auto object-contain drop-shadow-xl"
 />
-            </div>
-          ))}
-        </div>
       </div>
 
-      {/* ================= DETAILS ================= */}
-      <div
-        className="
-          w-full md:w-1/3
-          border-t md:border-t-0 md:border-l
-          p-4 md:p-6
-          overflow-y-auto
-        "
-      >
-        <h3 className="text-xl font-semibold mb-2">
-          {activeProject.title}
-        </h3>
+      {/* RIGHT – DETAILS */}
+     <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto">
+        {/* TITLE */}
+        <h2 className="text-2xl font-semibold mb-3">
+          {activeMobileApp.title}
+        </h2>
 
-        <p className="text-sm text-black/60 mb-4">
-          {activeProject.category} · {activeProject.year}
+
+        {/* FULL DESCRIPTION */}
+        <p className="text-black/80 leading-relaxed mb-6">
+          {activeMobileApp.fullDescription}
         </p>
 
-        <p className="text-sm text-black/70 leading-relaxed">
-  {activeProject.description}
-</p>
+        {/* FEATURES */}
+        <div className="mb-6">
+          <h4 className="font-semibold mb-3">Key Features</h4>
+          <ul className="space-y-2 text-sm text-black/80">
+            {activeMobileApp.features.map((feature, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="mt-1 w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
 
+        {/* BEST FOR */}
+        <div className="border-t pt-4">
+          <p className="text-sm">
+            <span className="font-semibold">Best For:</span>{" "}
+            <span className="text-black/70">
+              {activeMobileApp.bestFor}
+            </span>
+          </p>
+        </div>
       </div>
-
     </div>
   </div>
 )}
 
-
-
-   {/* ================= MOBILE APPLICATION POPUP ================= */}
-{activeMobileApp && (() => {
-
-  // ✅ SINGLE SOURCE OF TRUTH (VERY IMPORTANT)
-  const images =
-    activeMobileApp.gallery && activeMobileApp.gallery.length > 0
-      ? activeMobileApp.gallery
-      : [activeMobileApp.image];
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
-      
-      {/* BACKDROP */}
-      <div
-        className="absolute inset-0 bg-black/70"
-        onClick={() => setActiveMobileApp(null)}
-      />
-
-      {/* MODAL */}
-      <div
-        className="
-          relative bg-white
-          w-full max-w-6xl h-[90vh]
-          rounded-2xl overflow-hidden
-          flex flex-col md:flex-row
-        "
-        onClick={(e) => e.stopPropagation()}
-      >
-
-        {/* CLOSE */}
-        <button
-          onClick={() => setActiveMobileApp(null)}
-          className="absolute top-5 right-5 z-10 text-xl text-black/60 hover:text-black"
-        >
-          <FiX />
-        </button>
-
-        {/* ================= LEFT – IMAGE GALLERY ================= */}
-        <div className="w-full md:w-1/2 bg-gray-50 flex flex-col items-center justify-center p-6">
-
-          {/* MAIN IMAGE */}
-          <div className="relative w-full flex items-center justify-center">
-
-            <img
-              src={
-                images[currentImageIndex]?.startsWith("http")
-                  ? images[currentImageIndex]
-                  : "/no-image.png"
-              }
-              alt={activeMobileApp.title}
-              className="max-h-[60vh] w-auto object-contain drop-shadow-xl"
-            />
-
-            {/* LEFT BUTTON */}
-            {images.length > 1 && (
-              <button
-                onClick={() =>
-                  setCurrentImageIndex((prev) =>
-                    prev === 0 ? images.length - 1 : prev - 1
-                  )
-                }
-                className="absolute left-2 bg-white shadow w-9 h-9 rounded-full flex items-center justify-center"
-              >
-                ←
-              </button>
-            )}
-
-            {/* RIGHT BUTTON */}
-            {images.length > 1 && (
-              <button
-                onClick={() =>
-                  setCurrentImageIndex((prev) =>
-                    prev === images.length - 1 ? 0 : prev + 1
-                  )
-                }
-                className="absolute right-2 bg-white shadow w-9 h-9 rounded-full flex items-center justify-center"
-              >
-                →
-              </button>
-            )}
-
-          </div>
-
-          {/* THUMBNAILS */}
-          {images.length > 1 && (
-            <div className="flex gap-2 mt-4 flex-wrap justify-center">
-
-              {images.map((img, i) => (
-                <img
-                  key={i}
-                  src={img}
-                  onClick={() => setCurrentImageIndex(i)}
-                  className={`w-16 h-16 object-cover rounded cursor-pointer border ${
-                    i === currentImageIndex
-                      ? "border-blue-600"
-                      : "border-gray-300"
-                  }`}
-                />
-              ))}
-
-            </div>
-          )}
-
-        </div>
-
-        {/* ================= RIGHT – DETAILS ================= */}
-        <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto">
-
-          {/* TITLE */}
-          <h2 className="text-2xl font-semibold mb-3">
-            {activeMobileApp.title}
-          </h2>
-
-          {/* DESCRIPTION */}
-          <p className="text-black/80 leading-relaxed mb-6">
-            {activeMobileApp.fullDescription}
-          </p>
-
-          {/* FEATURES */}
-          <div className="mb-6">
-            <h4 className="font-semibold mb-3">Key Features</h4>
-            <ul className="space-y-2 text-sm text-black/80">
-              {activeMobileApp.features.map((feature, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1 w-1.5 h-1.5 bg-blue-600 rounded-full" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* BEST FOR */}
-          <div className="border-t pt-4">
-            <p className="text-sm">
-              <span className="font-semibold">Best For:</span>{" "}
-              <span className="text-black/70">
-                {activeMobileApp.bestFor}
-              </span>
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  );
-
-})()}
 
 {/* ================= MOBILE MENU OVERLAY ================= */}
 {mobileMenuOpen && (
