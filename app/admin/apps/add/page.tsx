@@ -22,10 +22,15 @@ export default function AddApp() {
 
   // ✅ HANDLE FILE UPLOAD
   const handleFileChange = (e: any) => {
-    const files = Array.from(e.target.files || []) as File[];
-    setImages(files);
-    setPrimaryIndex(0); // first image default primary
-  };
+  const files = Array.from(e.target.files || []) as File[];
+
+  setImages((prev) => [...prev, ...files]); // ✅ APPEND
+
+  // only set primary if first time
+  if (images.length === 0) {
+    setPrimaryIndex(0);
+  }
+};
 
   const handleFeatureChange = (index: number, value: string) => {
     const updated = [...form.features];
