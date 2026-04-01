@@ -73,7 +73,7 @@ const [menuOpen, setMenuOpen] = useState(false);
   const [websites, setWebsites] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedInsta, setSelectedInsta] = useState<string | null>(null);
+  
  
 
   const groupedServices: Service[] = [
@@ -586,72 +586,125 @@ const loadProjects = async () => {
 
       {/* CONTENT AREA */}
       <div className="flex-1 overflow-y-auto">
+{activeService.title === "Digital Marketing" ? (
 
-      {activeService.title === "Digital Marketing" ? (
+  <div className="relative w-full flex items-center justify-center">
 
-  <div className="w-full grid md:grid-cols-3 gap-6 px-6">
+    {/* LEFT ARROW */}
+    <button
+      onClick={() =>
+  setCurrentIndex((prev) =>
+    prev === 0
+      ? (activeService.websites?.length || 1) - 1
+      : prev - 1
+  )
+}
+      className="
+        absolute left-0 top-1/2 -translate-y-1/2
+        z-20 text-4xl text-gray-700 hover:text-black transition
+      "
+    >
+      ❮
+    </button>
 
-    {activeService.websites?.map((link, i) => {
+    {/* ================= MOBILE: ONE IFRAME ================= */}
+    <div className="w-full md:hidden flex justify-center">
 
-      // ✅ convert instagram post → embed
-      const embedLink = link.includes("/p/")
-        ? `${link}embed`
-        : null;
+      <div className="relative w-[90%] h-[500px] rounded-xl overflow-hidden">
 
-      return (
-        <div
-          key={i}
-          className="
-            w-full
-            h-[500px]
-            rounded-2xl
-            overflow-hidden
-            border
-            shadow-md
-            bg-white
-          "
-        >
+        {(() => {
+          const link = activeService.websites?.[currentIndex];
+          const embedLink = link?.includes("/p/")
+            ? `${link}embed`
+            : null;
 
-          {/* ✅ IFRAME (for posts) */}
-          {embedLink ? (
+          return embedLink ? (
             <iframe
               src={embedLink}
               className="w-full h-full"
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
             />
           ) : (
-
-            /* ❌ fallback (profile link) */
             <div className="flex flex-col items-center justify-center h-full gap-4">
-
-              <p className="text-gray-500 text-sm text-center px-4">
-                Instagram profile preview is not supported
+              <p className="text-sm text-gray-500">
+                Preview not available
               </p>
-
               <button
                 onClick={() => window.open(link, "_blank")}
-                className="
-                  bg-gradient-to-r from-pink-500 to-purple-600
-                  text-white
-                  px-5 py-2
-                  rounded-full
-                  text-sm
-                "
+                className="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white"
               >
                 View Profile →
               </button>
-
             </div>
-          )}
+          );
+        })()}
 
-        </div>
-      );
-    })}
+      </div>
+
+    </div>
+
+    {/* ================= DESKTOP: 3 IFRAMES ================= */}
+    <div className="hidden md:grid md:grid-cols-3 gap-5 w-full px-12">
+
+      {activeService.websites
+        ?.slice(currentIndex, currentIndex + 3)
+        .map((link, index) => {
+
+          const embedLink = link?.includes("/p/")
+            ? `${link}embed`
+            : null;
+
+          return (
+            <div key={index}>
+              <div className="relative h-[500px] rounded-xl overflow-hidden bg-white border">
+
+                {embedLink ? (
+                  <iframe
+                    src={embedLink}
+                    className="w-full h-full"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full gap-4">
+                    <p className="text-sm text-gray-500 text-center px-4">
+                      Instagram preview not available
+                    </p>
+                    <button
+                      onClick={() => window.open(link, "_blank")}
+                      className="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white"
+                    >
+                      View Profile →
+                    </button>
+                  </div>
+                )}
+
+              </div>
+            </div>
+          );
+        })}
+
+    </div>
+
+    {/* RIGHT ARROW */}
+    <button
+     onClick={() =>
+  setCurrentIndex((prev) =>
+    prev === (activeService.websites?.length || 1) - 1
+      ? 0
+      : prev + 1
+  )
+}
+      className="
+        absolute right-0 top-1/2 -translate-y-1/2
+        z-20 text-4xl text-gray-700 hover:text-black transition
+      "
+    >
+      ❯
+    </button>
 
   </div>
 
 ) : (
-
           /* ================= NORMAL GRID ================= */
           <div
             className={`grid gap-5 ${
