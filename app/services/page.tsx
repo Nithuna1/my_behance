@@ -113,7 +113,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     "/services/video1.jpg",
     "/services/video2.jpg",
     "/services/video3.avif",
-    "/services/short.jpg",
+    "/services/short.jpg", 
     "/services/short2.jpg",
     "/services/short3.jpg",
   ],

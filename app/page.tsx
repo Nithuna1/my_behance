@@ -73,6 +73,7 @@ const [menuOpen, setMenuOpen] = useState(false);
   const [websites, setWebsites] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedInsta, setSelectedInsta] = useState<string | null>(null);
  
 
   const groupedServices: Service[] = [
@@ -586,141 +587,66 @@ const loadProjects = async () => {
       {/* CONTENT AREA */}
       <div className="flex-1 overflow-y-auto">
 
-        {activeService.title === "Digital Marketing" ? (
+      {activeService.title === "Digital Marketing" ? (
 
-  <div className="relative w-full flex items-center justify-center">
+  <div className="w-full grid md:grid-cols-3 gap-6 px-6">
 
-    {/* LEFT ARROW */}
-   <button
-  onClick={() =>
-    setCurrentIndex((prev) =>
-      prev === 0
-        ? activeService.images.length - 1
-        : prev - 1
-    )
-  }
-  className="
-    absolute left-0 top-1/2 -translate-y-1/2
-    z-20
-    text-4xl
-    text-gray-700
-    hover:text-black
-    transition
-  "
->
-  ❮
-</button>
+    {activeService.websites?.map((link, i) => {
 
-    {/* ================= MOBILE: ONE IMAGE ================= */}
-    <div className="w-full md:hidden flex justify-center">
+      // ✅ convert instagram post → embed
+      const embedLink = link.includes("/p/")
+        ? `${link}embed`
+        : null;
 
-      <div className="relative w-[90%] aspect-[3/4] rounded-xl overflow-hidden group">
+      return (
+        <div
+          key={i}
+          className="
+            w-full
+            h-[500px]
+            rounded-2xl
+            overflow-hidden
+            border
+            shadow-md
+            bg-white
+          "
+        >
 
-        <img
-  src={activeService.images[currentIndex] || "/no-image.png"}
-  alt="Digital Marketing"
-  className="w-full h-full object-cover"
-/>
+          {/* ✅ IFRAME (for posts) */}
+          {embedLink ? (
+            <iframe
+              src={embedLink}
+              className="w-full h-full"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+            />
+          ) : (
 
-        {activeService.videos?.[currentIndex] && (
-          <video
-            src={activeService.videos[currentIndex]}
-            muted
-            loop
-            playsInline
-            autoPlay
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        )}
+            /* ❌ fallback (profile link) */
+            <div className="flex flex-col items-center justify-center h-full gap-4">
 
-        {activeService.websites?.[currentIndex] && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <a
-              href={activeService.websites[currentIndex]}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
-            >
-              View Profile →
-            </a>
-          </div>
-        )}
+              <p className="text-gray-500 text-sm text-center px-4">
+                Instagram profile preview is not supported
+              </p>
 
-      </div>
+              <button
+                onClick={() => window.open(link, "_blank")}
+                className="
+                  bg-gradient-to-r from-pink-500 to-purple-600
+                  text-white
+                  px-5 py-2
+                  rounded-full
+                  text-sm
+                "
+              >
+                View Profile →
+              </button>
 
-    </div>
-
-    {/* ================= DESKTOP: 3 IMAGES ================= */}
-    <div className="hidden md:grid md:grid-cols-3 gap-5 w-full px-12">
-
-      {activeService.images
-        .slice(currentIndex, currentIndex + 3)
-        .map((img, index) => {
-
-          const realIndex = currentIndex + index;
-          const websiteLink = activeService.websites?.[realIndex];
-          const videoSrc = activeService.videos?.[realIndex];
-
-          return (
-            <div key={realIndex}>
-              <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
-
-                <img
-  src={img || "/no-image.png"}
-  alt="Digital Marketing"
-  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
-/>
-
-                {videoSrc && (
-                  <video
-                    src={videoSrc}
-                    muted
-                    loop
-                    playsInline
-                    autoPlay
-                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
-                  />
-                )}
-
-               {websiteLink && (
-  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-    <a
-      href={websiteLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
-    >
-      View profile →
-    </a>
-  </div>
-)}
-              </div>
             </div>
-          );
-        })}
+          )}
 
-    </div>
-
-    {/* RIGHT ARROW */}
-    <button
-  onClick={() =>
-    setCurrentIndex((prev) =>
-      prev === activeService.images.length - 1
-        ? 0
-        : prev + 1
-    )
-  }
-  className="
-    absolute right-0 top-1/2 -translate-y-1/2
-    z-20
-    text-4xl
-    text-gray-700
-    hover:text-black
-    transition
-  "
->
-  ❯
-</button>
+        </div>
+      );
+    })}
 
   </div>
 
