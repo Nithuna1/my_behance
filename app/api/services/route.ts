@@ -2,9 +2,11 @@ import { connectDB } from "@/lib/mongodb";
 import Service from "@/models/Service";
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
+import mongoose from "mongoose";
 
-
+// ==============================
 // ✅ GET (WITH CATEGORY FILTER)
+// ==============================
 export async function GET(req: Request) {
   try {
     await connectDB();
@@ -23,7 +25,6 @@ export async function GET(req: Request) {
       .lean();
 
     return NextResponse.json(services);
-
   } catch (error: any) {
     console.log("GET ERROR:", error);
 
@@ -34,79 +35,80 @@ export async function GET(req: Request) {
   }
 }
 
+// ==============================
+// 🔧 HELPER
+// ==============================
+const parseArray = (formData: FormData, key: string) => {
+  try {
+    const value = formData.get(key);
+    return value ? JSON.parse(value as string) : [];
+  } catch {
+    return [];
+  }
+};
 
-// ✅ CREATE SERVICE (🔥 UPDATED TO CLOUDINARY)
+// ==============================
+// 🔥 CLOUDINARY UPLOAD
+// ==============================
+const uploadFile = async (file: File, folder: string) => {
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const upload = await cloudinary.uploader.upload(
+    `data:${file.type};base64,${buffer.toString("base64")}`,
+    {
+      resource_type: "auto",
+      folder,
+    }
+  );
+
+  return upload.secure_url;
+};
+
+// ==============================
+// ✅ CREATE SERVICE
+// ==============================
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const formData = await req.formData();
 
-    const parseArray = (key: string) => {
-      try {
-        const value = formData.get(key);
-        return value ? JSON.parse(value as string) : [];
-      } catch {
-        return [];
-      }
-    };
-
-    // ✅ IMAGES → CLOUDINARY
+    // 🔹 IMAGES
     const imageFiles = formData.getAll("images") as File[];
-    let imageUrls: string[] = [];
+    const imageUrls: string[] = [];
 
     for (const file of imageFiles) {
       if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const upload = await cloudinary.uploader.upload(
-          `data:${file.type};base64,${buffer.toString("base64")}`,
-          {
-            folder: "services/images",
-          }
-        );
-
-        imageUrls.push(upload.secure_url);
+        const url = await uploadFile(file, "services/images");
+        imageUrls.push(url);
       }
     }
 
-    // ✅ VIDEOS → CLOUDINARY
+    // 🔹 VIDEOS
     const videoFiles = formData.getAll("videos") as File[];
-    let videoUrls: string[] = [];
+    const videoUrls: string[] = [];
 
     for (const file of videoFiles) {
       if (file && file.size > 0) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const upload = await cloudinary.uploader.upload(
-          `data:${file.type};base64,${buffer.toString("base64")}`,
-          {
-            resource_type: "auto",
-            folder: "services",
-          }
-        );
-
-        videoUrls.push(upload.secure_url);
+        const url = await uploadFile(file, "services/videos");
+        videoUrls.push(url);
       }
     }
 
-    // ✅ CREATE DOCUMENT
     const service = await Service.create({
       title: formData.get("title"),
-      category: parseArray("category"),
-      tags: parseArray("tags"),
-      websites: parseArray("websites"),
-      images: imageUrls,   // ✅ now URLs
-      videos: videoUrls,   // ✅ now URLs
+      category: parseArray(formData, "category"),
+      tags: parseArray(formData, "tags"),
+      websites: parseArray(formData, "websites"),
+      images: imageUrls,
+      videos: videoUrls,
     });
 
     return NextResponse.json({
       success: true,
       service,
     });
-
   } catch (error: any) {
     console.log("POST ERROR:", error);
 
@@ -121,8 +123,9 @@ export async function POST(req: Request) {
   }
 }
 
-
-// ✅ UPDATE SERVICE (optional: no file update yet)
+// ==============================
+// ✅ UPDATE SERVICE (🔥 FIXED)
+// ==============================
 export async function PUT(req: Request) {
   try {
     await connectDB();
@@ -130,22 +133,70 @@ export async function PUT(req: Request) {
     const formData = await req.formData();
     const id = formData.get("id") as string;
 
-    const parseArray = (key: string) => {
-      try {
-        const value = formData.get(key);
-        return value ? JSON.parse(value as string) : [];
-      } catch {
-        return [];
-      }
-    };
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid ID" },
+        { status: 400 }
+      );
+    }
 
+    const existingService = await Service.findById(id);
+
+    if (!existingService) {
+      return NextResponse.json(
+        { success: false, message: "Service not found" },
+        { status: 404 }
+      );
+    }
+
+    // ==============================
+    // 🔹 HANDLE IMAGES
+    // ==============================
+    const imageFiles = formData.getAll("images") as File[];
+    let imageUrls: string[] = [];
+
+    for (const file of imageFiles) {
+      if (file && file.size > 0) {
+        const url = await uploadFile(file, "services/images");
+        imageUrls.push(url);
+      }
+    }
+
+    // keep old images if no new upload
+    if (imageUrls.length === 0) {
+      imageUrls = existingService.images || [];
+    }
+
+    // ==============================
+    // 🔹 HANDLE VIDEOS (🔥 FIX)
+    // ==============================
+    const videoFiles = formData.getAll("videos") as File[];
+    let videoUrls: string[] = [];
+
+    for (const file of videoFiles) {
+      if (file && file.size > 0) {
+        const url = await uploadFile(file, "services/videos");
+        videoUrls.push(url);
+      }
+    }
+
+    // keep old videos if no new upload
+    if (videoUrls.length === 0) {
+      videoUrls = existingService.videos || [];
+    }
+
+    // ==============================
+    // 🔹 UPDATE DATA
+    // ==============================
     const updated = await Service.findByIdAndUpdate(
       id,
       {
         title: formData.get("title"),
-        category: parseArray("category"),
-        tags: parseArray("tags"),
-        websites: parseArray("websites"),
+        category: parseArray(formData, "category"),
+        tags: parseArray(formData, "tags"),
+        websites: parseArray(formData, "websites"),
+        images: imageUrls,
+        videos: videoUrls, // ✅ FIXED
       },
       { new: true }
     );
@@ -154,7 +205,6 @@ export async function PUT(req: Request) {
       success: true,
       service: updated,
     });
-
   } catch (error: any) {
     console.log("PUT ERROR:", error);
 
@@ -169,8 +219,9 @@ export async function PUT(req: Request) {
   }
 }
 
-
+// ==============================
 // ✅ DELETE SERVICE
+// ==============================
 export async function DELETE(req: Request) {
   try {
     await connectDB();
@@ -190,7 +241,6 @@ export async function DELETE(req: Request) {
       success: true,
       message: "Service deleted successfully",
     });
-
   } catch (error: any) {
     console.log("DELETE ERROR:", error);
 
