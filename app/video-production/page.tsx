@@ -52,22 +52,44 @@ export default function VideoProductionPage() {
                 />
               )}
 
-              {/* VIDEO */}
-              {video && (
-                <video
-                  src={video}
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                  className="
-                    absolute inset-0 w-full h-full object-cover
-                    opacity-100
-                    md:opacity-0 md:group-hover:opacity-100
-                    transition duration-500
-                  "
-                />
-              )}
+             
+             {/* VIDEO + PLAY BUTTON */}
+{video && (
+  <>
+    <video
+      src={video}
+      muted
+      loop
+      autoPlay
+      playsInline
+      className="
+        absolute inset-0 w-full h-full object-cover
+        opacity-100
+        md:opacity-0 md:group-hover:opacity-100
+        transition duration-500
+      "
+    />
+
+    {/* ▶ PLAY BUTTON */}
+    <div className="
+      absolute inset-0
+      flex items-center justify-center
+      pointer-events-none
+    ">
+      <div className="
+        w-14 h-14
+        rounded-full
+        bg-black/60
+        backdrop-blur-md
+        flex items-center justify-center
+        transition
+        group-hover:scale-110
+      ">
+        <span className="text-white text-xl">▶</span>
+      </div>
+    </div>
+  </>
+)}
 
               {/* OVERLAY */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition duration-500" />
