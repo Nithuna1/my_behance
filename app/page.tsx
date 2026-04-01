@@ -586,98 +586,115 @@ const loadProjects = async () => {
 
       {/* CONTENT AREA */}
       <div className="flex-1 overflow-y-auto">
-{activeService.title === "Digital Marketing" ? (
+
+        {activeService.title === "Digital Marketing" ? (
 
   <div className="relative w-full flex items-center justify-center">
 
     {/* LEFT ARROW */}
-    <button
-      onClick={() =>
-  setCurrentIndex((prev) =>
-    prev === 0
-      ? (activeService.websites?.length || 1) - 1
-      : prev - 1
-  )
-}
-      className="
-        absolute left-0 top-1/2 -translate-y-1/2
-        z-20 text-4xl text-gray-700 hover:text-black transition
-      "
-    >
-      ❮
-    </button>
+   <button
+  onClick={() =>
+    setCurrentIndex((prev) =>
+      prev === 0
+        ? activeService.images.length - 1
+        : prev - 1
+    )
+  }
+  className="
+    absolute left-0 top-1/2 -translate-y-1/2
+    z-20
+    text-4xl
+    text-gray-700
+    hover:text-black
+    transition
+  "
+>
+  ❮
+</button>
 
-    {/* ================= MOBILE: ONE IFRAME ================= */}
+    {/* ================= MOBILE: ONE IMAGE ================= */}
     <div className="w-full md:hidden flex justify-center">
 
-      <div className="relative w-[90%] h-[500px] rounded-xl overflow-hidden">
+      <div className="relative w-[90%] aspect-[3/4] rounded-xl overflow-hidden group">
 
-        {(() => {
-          const link = activeService.websites?.[currentIndex];
-          const embedLink = link?.includes("/p/")
-            ? `${link}embed`
-            : null;
+        <img
+  src={activeService.images[currentIndex] || "/no-image.png"}
+  alt="Digital Marketing"
+  className="w-full h-full object-cover"
+/>
 
-          return embedLink ? (
-            <iframe
-              src={embedLink}
-              className="w-full h-full"
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-            />
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full gap-4">
-              <p className="text-sm text-gray-500">
-                Preview not available
-              </p>
-              <button
-                onClick={() => window.open(link, "_blank")}
-                className="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white"
-              >
-                View Profile →
-              </button>
-            </div>
-          );
-        })()}
+        {activeService.videos?.[currentIndex] && (
+          <video
+            src={activeService.videos[currentIndex]}
+            muted
+            loop
+            playsInline
+            autoPlay
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+
+        {activeService.websites?.[currentIndex] && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <a
+              href={activeService.websites[currentIndex]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
+            >
+              View Profile →
+            </a>
+          </div>
+        )}
 
       </div>
 
     </div>
 
-    {/* ================= DESKTOP: 3 IFRAMES ================= */}
+    {/* ================= DESKTOP: 3 IMAGES ================= */}
     <div className="hidden md:grid md:grid-cols-3 gap-5 w-full px-12">
 
-      {activeService.websites
-        ?.slice(currentIndex, currentIndex + 3)
-        .map((link, index) => {
+      {activeService.images
+        .slice(currentIndex, currentIndex + 3)
+        .map((img, index) => {
 
-          const embedLink = link?.includes("/p/")
-            ? `${link}embed`
-            : null;
+          const realIndex = currentIndex + index;
+          const websiteLink = activeService.websites?.[realIndex];
+          const videoSrc = activeService.videos?.[realIndex];
 
           return (
-            <div key={index}>
-              <div className="relative h-[500px] rounded-xl overflow-hidden bg-white border">
+            <div key={realIndex}>
+              <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
 
-                {embedLink ? (
-                  <iframe
-                    src={embedLink}
-                    className="w-full h-full"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                <img
+  src={img || "/no-image.png"}
+  alt="Digital Marketing"
+  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+/>
+
+                {videoSrc && (
+                  <video
+                    src={videoSrc}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
                   />
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full gap-4">
-                    <p className="text-sm text-gray-500 text-center px-4">
-                      Instagram preview not available
-                    </p>
-                    <button
-                      onClick={() => window.open(link, "_blank")}
-                      className="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white"
-                    >
-                      View Profile →
-                    </button>
-                  </div>
                 )}
 
+               {websiteLink && (
+  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+    <a
+      href={websiteLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
+    >
+      View profile →
+    </a>
+  </div>
+)}
               </div>
             </div>
           );
@@ -687,24 +704,29 @@ const loadProjects = async () => {
 
     {/* RIGHT ARROW */}
     <button
-     onClick={() =>
-  setCurrentIndex((prev) =>
-    prev === (activeService.websites?.length || 1) - 1
-      ? 0
-      : prev + 1
-  )
-}
-      className="
-        absolute right-0 top-1/2 -translate-y-1/2
-        z-20 text-4xl text-gray-700 hover:text-black transition
-      "
-    >
-      ❯
-    </button>
+  onClick={() =>
+    setCurrentIndex((prev) =>
+      prev === activeService.images.length - 1
+        ? 0
+        : prev + 1
+    )
+  }
+  className="
+    absolute right-0 top-1/2 -translate-y-1/2
+    z-20
+    text-4xl
+    text-gray-700
+    hover:text-black
+    transition
+  "
+>
+  ❯
+</button>
 
   </div>
 
 ) : (
+
           /* ================= NORMAL GRID ================= */
           <div
             className={`grid gap-5 ${
