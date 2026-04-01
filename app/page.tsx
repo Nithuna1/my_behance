@@ -822,9 +822,7 @@ const loadProjects = async () => {
                           }
                         `}
                       >
-                        {activeService.title === "Video Production"
-                          ? "View Project"
-                          : "Explore Site"}
+                       
                       </span>
                     </div>
                   )}
