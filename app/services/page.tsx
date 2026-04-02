@@ -15,7 +15,8 @@ type Service = {
   tags: string[];
   images: string[];
   websites?: string[];
-  videos?: string[]; 
+  videos?: string[];
+   page?: string; 
 };
 
 export default function ServicePage() {
@@ -57,13 +58,15 @@ useEffect(() => {
 }, []);
 
 
-const groupedServices: Service[] = [
+ const groupedServices: Service[] = [
   {
     title: "E-Commerce Solutions",
+    page: "/ecommerce",
     tags: ["Shopify", "Online Store", "Payments"],
   },
   {
     title: "Ui/Ux Design",
+    page: "/uiux",
     tags: ["Prototyping", "User Flows", "Product UX"],
   },
   {
@@ -72,6 +75,7 @@ const groupedServices: Service[] = [
   },
   {
     title: "Video Production",
+    page: "/video-production",
     tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
   },
 ].map((group) => {
@@ -93,6 +97,7 @@ const groupedServices: Service[] = [
     websites: items.flatMap((i: any) => i.websites || []),
   };
 });
+
 
   return (
    <div
@@ -301,351 +306,409 @@ const groupedServices: Service[] = [
         {/* ================= RIGHT CONTENT ================= */}
 <main className="col-span-12">
 
-  <h3 className="text-lg font-semibold mb-4">Services</h3>
-
-          {/* ===== SERVICE CARDS (3 IMAGES ONLY) ===== */}
-          <div className="grid md:grid-cols-3 gap-5 mb-10">
-            {groupedServices.map((service, i) => (
-              <div
-                key={i}
-                className="border border-black/20 rounded p-4 hover:border-black transition bg-white"
-              >
-                <div className="grid grid-cols-3 gap-1 mb-4">
-                  {service.images.slice(0, 3).map((img, idx) => (
-                    <Image
-                      key={idx}
-                      src={img}
-                      alt=""
-                      width={200}
-                      height={200}
-                      className="h-24 w-full object-cover rounded-md"
-                    />
-                  ))}
-                </div>
-
-                <h4 className="font-medium text-base mb-1">
-                  {service.title}
-                </h4>
-
-                <button
-                  onClick={() => setActiveService(service)}
-                  className="w-full py-2 rounded-full bg-black/5 hover:bg-black/10 text-sm font-medium transition"
-                >
-                  See More
-                </button>
-              </div>
-            ))}
-          </div>
-
-
- {/* ================= SERVICE POPUP ================= */}
-{activeService && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
-
-    {/* BACKDROP */}
-    <div
-      className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-      onClick={() => {
-        setActiveService(null);
-        setCurrentIndex(0);
-      }}
-    />
-
-    {/* MODAL */}
-   <div
-  className="
-    relative
-    bg-white
-    w-full
-    max-w-6xl
-    rounded-2xl
-    p-6 md:p-8
-    max-h-[95vh]
-    flex
-    flex-col
-  "
-      onClick={(e) => e.stopPropagation()}
+  <h3 className="text-lg font-semibold mb-6">Services</h3>
+  
+  <div className="grid md:grid-cols-3 gap-6 mb-8">
+    {groupedServices.map((service, i) => (
+      <div
+        key={i}
+        onClick={() => setActiveService(service)}
+        className="cursor-pointer border border-black/50 rounded-xl p-4 hover:border-black transition"
+      >
+        <div className="grid grid-cols-3 gap-1 mb-4">
+          {service.images.slice(0, 3).map((img, idx) => (
+           <img
+    key={idx}
+    src={
+      img && img.startsWith("http")
+        ? img
+        : "/no-image.png"
+    }
+    alt="service"
+    className="h-24 w-full object-cover rounded-md"
+  />
+          ))}
+        </div>
+  
+        <h4 className="font-medium mb-2">{service.title}</h4>
+  
+        <div className="flex flex-wrap gap-2">
+          {service.tags.map((tag, idx) => (
+            <span
+              key={idx}
+              className="text-xs px-2 py-1 rounded-full border border-black/20 text-black/70"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  
+  {/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
+  <div className="flex justify-center">
+    <Link
+      href="/services"
+      className="
+        px-8 py-3
+        rounded-full
+        border border-black/40
+        text-sm font-medium
+        text-black
+        hover:bg-blue-600
+        hover:border-blue-600
+        hover:text-white
+        transition
+      "
     >
-
-      {/* CLOSE BUTTON */}
-      <button
+      View More
+    </Link>
+  </div>
+  
+  
+  
+  {/* ================= SERVICE POPUP ================= */}
+  {activeService && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+  
+      {/* BACKDROP */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={() => {
           setActiveService(null);
           setCurrentIndex(0);
         }}
-        className="absolute top-5 right-5 text-xl hover:scale-110 transition"
-      >
-        <FiX />
-      </button>
-
-      {/* TITLE */}
-      <h2 className="text-2xl font-semibold mb-6">
-        {activeService.title}
-      </h2>
-
-      {/* CONTENT AREA */}
-      <div className="flex-1 overflow-y-auto">
-
-        {activeService.title === "Digital Marketing" ? (
-
-  <div className="relative w-full flex items-center justify-center">
-
-    {/* LEFT ARROW */}
-   <button
-  onClick={() =>
-    setCurrentIndex((prev) =>
-      prev === 0
-        ? activeService.images.length - 1
-        : prev - 1
-    )
-  }
-  className="
-    absolute left-0 top-1/2 -translate-y-1/2
-    z-20
-    text-4xl
-    text-gray-700
-    hover:text-black
-    transition
-  "
->
-  ❮
-</button>
-
-    {/* ================= MOBILE: ONE IMAGE ================= */}
-    <div className="w-full md:hidden flex justify-center">
-
-      <div className="relative w-[90%] aspect-[3/4] rounded-xl overflow-hidden group">
-
-        <Image
-          src={activeService.images[currentIndex]}
-          alt="Digital Marketing"
-          fill
-          className="object-cover"
-        />
-
-        {activeService.videos?.[currentIndex] && (
-          <video
-            src={activeService.videos[currentIndex]}
-            muted
-            loop
-            playsInline
-            autoPlay
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        )}
-
-        {activeService.websites?.[currentIndex] && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <a
-              href={activeService.websites[currentIndex]}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
-            >
-              View Profile →
-            </a>
-          </div>
-        )}
-
-      </div>
-
-    </div>
-
-    {/* ================= DESKTOP: 3 IMAGES ================= */}
-    <div className="hidden md:grid md:grid-cols-3 gap-5 w-full px-12">
-
-      {activeService.images
-        .slice(currentIndex, currentIndex + 3)
-        .map((img, index) => {
-
-          const realIndex = currentIndex + index;
-          const websiteLink = activeService.websites?.[realIndex];
-          const videoSrc = activeService.videos?.[realIndex];
-
-          return (
-            <div key={realIndex}>
-              <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
-
-                <Image
-                  src={img}
-                  alt="Digital Marketing"
-                  fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
-                />
-
-                {videoSrc && (
-                  <video
-                    src={videoSrc}
-                    muted
-                    loop
-                    playsInline
-                    autoPlay
-                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
-                  />
-                )}
-
-               {websiteLink && (
-  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-    <a
-      href={websiteLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
-    >
-      View profile →
-    </a>
-  </div>
-)}
-
-              </div>
-            </div>
-          );
-        })}
-
-    </div>
-
-    {/* RIGHT ARROW */}
-    <button
-  onClick={() =>
-    setCurrentIndex((prev) =>
-      prev === activeService.images.length - 1
-        ? 0
-        : prev + 1
-    )
-  }
-  className="
-    absolute right-0 top-1/2 -translate-y-1/2
-    z-20
-    text-4xl
-    text-gray-700
-    hover:text-black
-    transition
-  "
->
-  ❯
-</button>
-
-  </div>
-
-) : (
-
-          /* ================= NORMAL GRID ================= */
-          <div
-            className={`grid gap-5 ${
-              activeService.title === "Ui/Ux Design"
-                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
-                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-            }`}
-          >
-
-            {activeService.images.map((img, i) => {
-
-              const websiteLink = activeService.websites?.[i];
-              const videoSrc = activeService.videos?.[i];
-
-              const Card = (
-                <div
-                  className={`
-                    relative
-                    w-full
-                    rounded-xl
-                    overflow-hidden
-                    group
-                    cursor-pointer
-                    transition
-                    ${
-                      activeService.title === "Ui/Ux Design"
-                        ? "aspect-[4/6]"
-                        : activeService.title === "Digital Marketing"
-                        ? "aspect-[3/4]"
-                        : "h-[220px]"
-                    }
-                  `}
-                >
-
-                  <Image
-                    src={img}
-                    alt="Service Preview"
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-110"
-                  />
-
-                 {videoSrc && (
-  <video
-    src={videoSrc}
-    muted={true}
-    loop
-    playsInline={true}
-    autoPlay={true}
-    preload="auto"
+      />
+  
+      {/* MODAL */}
+     <div
     className="
-      absolute inset-0
-      w-full h-full
-      object-cover
-      transition duration-500
-      opacity-100
-      md:opacity-0
-      md:group-hover:opacity-100
+      relative
+      bg-white
+      w-full
+      max-w-6xl
+      rounded-2xl
+      p-6 md:p-8
+      max-h-[95vh]
+      flex
+      flex-col
     "
+        onClick={(e) => e.stopPropagation()}
+      >
+  
+        {/* CLOSE BUTTON */}
+        <button
+          onClick={() => {
+            setActiveService(null);
+            setCurrentIndex(0);
+          }}
+          className="absolute top-5 right-5 text-xl hover:scale-110 transition"
+        >
+          <FiX />
+        </button>
+  
+        {/* TITLE */}
+        <h2 className="text-2xl font-semibold mb-6">
+          {activeService.title}
+        </h2>
+  
+        {/* CONTENT AREA */}
+        <div className="flex-1 overflow-y-auto">
+  
+          {activeService.title === "Digital Marketing" ? (
+  
+    <div className="relative w-full flex items-center justify-center">
+  
+      {/* LEFT ARROW */}
+     <button
+    onClick={() =>
+      setCurrentIndex((prev) =>
+        prev === 0
+          ? activeService.images.length - 1
+          : prev - 1
+      )
+    }
+    className="
+      absolute left-0 top-1/2 -translate-y-1/2
+      z-20
+      text-4xl
+      text-gray-700
+      hover:text-black
+      transition
+    "
+  >
+    ❮
+  </button>
+  
+      {/* ================= MOBILE: ONE IMAGE ================= */}
+      <div className="w-full md:hidden flex justify-center">
+  
+        <div className="relative w-[90%] aspect-[3/4] rounded-xl overflow-hidden group">
+  
+          <img
+    src={activeService.images[currentIndex] || "/no-image.png"}
+    alt="Digital Marketing"
+    className="w-full h-full object-cover"
   />
-)}
-
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
-
-                  {websiteLink && (
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-                      <span
-                        className={`
-                          px-5 py-2
-                          rounded-full
-                          text-sm
-                          font-medium
-                          shadow-lg
-                          backdrop-blur-md
-                          transition
-                          ${
-                            activeService.title === "Video Production"
-                              ? "bg-white/90 text-black hover:bg-black hover:text-white"
-                              : "bg-white text-blue-600 hover:bg-gray-800 hover:text-white"
-                          }
-                        `}
-                      >
-                        {activeService.title === "Video Production"
-                          ? "View Project"
-                          : "Explore Site"}
-                      </span>
-                    </div>
-                  )}
-
-                </div>
-              );
-
-              return (
-                <div key={i}>
-                  {websiteLink ? (
-                    <a
-                      href={websiteLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {Card}
-                    </a>
-                  ) : (
-                    Card
-                  )}
-                </div>
-              );
-            })}
-
-          </div>
-        )}
+  
+          {activeService.videos?.[currentIndex] && (
+            <video
+              src={activeService.videos[currentIndex]}
+              muted
+              loop
+              playsInline
+              autoPlay
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
+  
+          {activeService.websites?.[currentIndex] && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <a
+                href={activeService.websites[currentIndex]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
+              >
+                View Profile →
+              </a>
+            </div>
+          )}
+  
+        </div>
+  
       </div>
-
-      
-
+  
+      {/* ================= DESKTOP: 3 IMAGES ================= */}
+      <div className="hidden md:grid md:grid-cols-3 gap-5 w-full px-12">
+  
+        {activeService.images
+          .slice(currentIndex, currentIndex + 3)
+          .map((img, index) => {
+  
+            const realIndex = currentIndex + index;
+            const websiteLink = activeService.websites?.[realIndex];
+            const videoSrc = activeService.videos?.[realIndex];
+  
+            return (
+              <div key={realIndex}>
+                <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
+  
+                  <img
+    src={img || "/no-image.png"}
+    alt="Digital Marketing"
+    className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+  />
+  
+                  {videoSrc && (
+                    <video
+                      src={videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
+                    />
+                  )}
+  
+                 {websiteLink && (
+    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+      <a
+        href={websiteLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
+      >
+        View profile →
+      </a>
     </div>
+  )}
+                </div>
+              </div>
+            );
+          })}
+  
+      </div>
+  
+      {/* RIGHT ARROW */}
+      <button
+    onClick={() =>
+      setCurrentIndex((prev) =>
+        prev === activeService.images.length - 1
+          ? 0
+          : prev + 1
+      )
+    }
+    className="
+      absolute right-0 top-1/2 -translate-y-1/2
+      z-20
+      text-4xl
+      text-gray-700
+      hover:text-black
+      transition
+    "
+  >
+    ❯
+  </button>
+  
+    </div>
+  
+  ) : (
+  
+            /* ================= NORMAL GRID ================= */
+            <div
+              className={`grid gap-5 ${
+                activeService.title === "Ui/Ux Design"
+                  ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
+                  : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+              }`}
+            >
+  
+              {activeService.images.map((img, i) => {
+  
+                const websiteLink = activeService.websites?.[i];
+                const videoSrc = activeService.videos?.[i];
+  
+                const Card = (
+                  <div
+                    className={`
+                      relative
+                      w-full
+                      rounded-xl
+                      overflow-hidden
+                      group
+                      cursor-pointer
+                      transition
+                      ${
+                        activeService.title === "Ui/Ux Design"
+                          ? "aspect-[4/6]"
+                          : activeService.title === "Digital Marketing"
+                          ? "aspect-[3/4]"
+                          : "h-[220px]"
+                      }
+                    `}
+                  >
+  
+                   <img
+    src={img || "/no-image.png"}
+    alt="Service Preview"
+    className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+  />
+  
+                 {videoSrc && (
+    <>
+      <video
+        src={videoSrc}
+        muted
+        loop
+        playsInline
+        autoPlay
+        className="
+          absolute inset-0
+          w-full h-full
+          object-cover
+          transition duration-500
+          opacity-100
+          md:opacity-0
+          md:group-hover:opacity-100
+        "
+      />
+  
+      {/* ▶ PLAY BUTTON */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="
+          w-14 h-14
+          rounded-full
+          bg-black/60
+          flex items-center justify-center
+          backdrop-blur-md
+          group-hover:scale-110
+          transition
+        ">
+          <span className="text-white text-xl">▶</span>
+        </div>
+      </div>
+    </>
+  )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
+  
+                    {websiteLink && (
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                        <span
+                          className={`
+                            px-5 py-2
+                            rounded-full
+                            text-sm
+                            font-medium
+                            shadow-lg
+                            backdrop-blur-md
+                            transition
+                            ${
+                              activeService.title === "Video Production"
+                                ? "bg-white/90 text-black hover:bg-black hover:text-white"
+                                : "bg-white text-blue-600 hover:bg-gray-800 hover:text-white"
+                            }
+                          `}
+                        >
+                          {activeService.title === "Video Production"
+                            ? "View Project"
+                            : "Explore Site"}
+                        </span>
+                      </div>
+                    )}
+  
+                  </div>
+                );
+  
+                return (
+                  <div key={i}>
+                    {websiteLink ? (
+                      <a
+                        href={websiteLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {Card}
+                      </a>
+                    ) : (
+                      Card
+                    )}
+                  </div>
+                );
+              })}
+  
+            </div>
+          )}
+        </div>
+  
+        {/* VIEW MORE BUTTON (Hidden for Digital Marketing) */}
+        {activeService.title !== "Digital Marketing" && (
+         <div className="flex justify-center mt-2">
+    <Link
+      href={activeService?.page || "#"}
+      className="
+        px-5 py-2
+        rounded-full
+        border border-gray-400
+        text-sm font-medium
+        text-black
+        hover:bg-blue-600
+        hover:text-white
+        hover:border-blue-600
+        transition
+      "
+    >
+      View More
+    </Link>
   </div>
-)}
+        )}
+  
+      </div>
+    </div>
+  )}
+  
 </main>
 
 {contactOpen && (
