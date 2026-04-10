@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Globe, Settings, Folder, Image, Smartphone } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import { Palette } from "lucide-react";
+import { Users } from "lucide-react";
 
 export default function AdminLayout({ children }: any) {
   const pathname = usePathname();
@@ -19,7 +20,9 @@ export default function AdminLayout({ children }: any) {
     pathname.startsWith("/admin/apps/edit/") ||
     pathname.startsWith("/admin/services/edit/") ||
     pathname.startsWith("/admin/websites/edit/") ||
-    pathname.startsWith("/admin/posters/edit/")
+    pathname.startsWith("/admin/posters/edit/") ||
+    pathname === "/admin/clients/add" ||
+    pathname.startsWith("/admin/clients/edit/")
   ) {
     return <div className="min-h-screen bg-gray-100 p-8">{children}</div>;
   }
@@ -109,6 +112,12 @@ export default function AdminLayout({ children }: any) {
       <Smartphone size={18} />
       Manage Apps
     </a>
+
+    <a
+  href="/admin/clients" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-blue-600">
+  <Users size={18} />
+  Manage Clients
+</a>
 
     {/* DIVIDER */}
     <div className="border-t my-3"></div>
