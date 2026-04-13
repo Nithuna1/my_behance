@@ -10,71 +10,146 @@ export default function AddClient() {
     name: "",
     review: "",
     section: "front",
-    image: null as File | null,
   });
 
-  const handleSubmit = async () => {
-    const fd = new FormData();
+  const [image, setImage] = useState<File | null>(null);
 
+  const change = (e: any) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleImage = (e: any) => {
+    const file = e.target.files?.[0];
+    if (file) setImage(file);
+  };
+
+  const submit = async (e: any) => {
+    e.preventDefault();
+
+    const fd = new FormData();
     fd.append("name", form.name);
     fd.append("review", form.review);
     fd.append("section", form.section);
 
-    if (form.image) {
-      fd.append("image", form.image);
+    if (image) {
+      fd.append("image", image);
     }
 
-    await fetch("/api/clients", {
+    const res = await fetch("/api/clients", {
       method: "POST",
       body: fd,
     });
 
-    router.push("/admin/clients");
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Client Saved ✅");
+      router.push("/admin/clients");
+    } else {
+      alert("Failed ❌");
+    }
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded shadow">
-      <h1 className="text-xl font-bold mb-4">Add Client</h1>
+    <div className="p-8 bg-gray-100 min-h-screen">
 
-      <input
-        placeholder="Name"
-        className="border p-2 w-full mb-3"
-        onChange={(e) =>
-          setForm({ ...form, name: e.target.value })
-        }
-      />
+      <h1 className="text-2xl font-bold mb-6">
+        Add Client
+      </h1>
 
-      <textarea
-        placeholder="Review"
-        className="border p-2 w-full mb-3"
-        onChange={(e) =>
-          setForm({ ...form, review: e.target.value })
-        }
-      />
+      <div className="bg-white rounded-xl shadow-md p-8 max-w-3xl">
 
-      <select
-        className="border p-2 mb-3"
-        onChange={(e) =>
-          setForm({ ...form, section: e.target.value })
-        }
-      >
-        <option value="front">Front</option>
-        <option value="back">Back</option>
-      </select>
+        <form onSubmit={submit} className="space-y-5">
 
-      <input
-        type="file"
-        onChange={(e) =>
-          setForm({ ...form, image: e.target.files?.[0] || null })
-        }
-      />
+          {/* NAME */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Client Name
+            </label>
+            <input
+              name="name"
+              value={form.name}
+              onChange={change}
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
 
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-600 text-white px-4 py-2 mt-4"
-      >
-        Save
-      </button>
+          {/* REVIEW */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Review
+            </label>
+            <textarea
+              name="review"
+              value={form.review}
+              onChange={change}
+              className="w-full border rounded-lg px-3 py-2 h-28 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
+          {/* SECTION */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Section
+            </label>
+            <select
+              name="section"
+              value={form.section}
+              onChange={change}
+              className="w-full border rounded-lg px-3 py-2"
+            >
+              <option value="front">Front</option>
+              <option value="back">Back</option>
+            </select>
+          </div>
+
+          {/* IMAGE */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Client Image
+            </label>
+
+            <input
+              type="file"
+              onChange={handleImage}
+              className="block"
+            />
+
+            {/* PREVIEW */}
+            {image && (
+              <div className="mt-3">
+                <img
+                  src={URL.createObjectURL(image)}
+                  className="h-24 w-24 object-cover rounded border"
+                  onLoad={(e) =>
+                    URL.revokeObjectURL((e.target as any).src)
+                  }
+                />
+              </div>
+            )}
+          </div>
+
+          {/* BUTTONS */}
+          <div className="flex gap-3 pt-4">
+
+            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg">
+              Save Client
+            </button>
+
+            <button
+              type="button"
+              onClick={() => router.push("/admin/clients")}
+              className="bg-gray-500 text-white px-5 py-2 rounded-lg"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
     </div>
   );
 }

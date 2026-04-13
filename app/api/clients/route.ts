@@ -3,82 +3,185 @@ import Client from "@/models/Client";
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
 
-// ================= CLOUDINARY =================
-const uploadToCloudinary = async (buffer: Buffer) => {
-  return new Promise<any>((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      { folder: "clients" },
-      (error, result) => {
-        if (error) reject(error);
-        else resolve(result);
-      }
-    );
-    stream.end(buffer);
-  });
-};
-
 // ================= GET =================
 export async function GET() {
-  await connectDB();
-  const clients = await Client.find().sort({ createdAt: -1 });
-  return NextResponse.json(clients);
+  try {
+    await connectDB();
+
+    const clients = await Client.find().sort({ _id: -1 });
+
+    return NextResponse.json(clients);
+
+  } catch (error: any) {
+    console.log("GET ERROR:", error);
+
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
+  }
 }
+
 
 // ================= POST =================
 export async function POST(req: Request) {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const formData = await req.formData();
+    const formData = await req.formData();
 
-  const file = formData.get("image") as File;
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const upload = await uploadToCloudinary(buffer);
+    const file = formData.get("image") as File;
 
-  const client = await Client.create({
-    name: formData.get("name"),
-    review: formData.get("review"),
-    section: formData.get("section"),
-    image: upload.secure_url,
-  });
+    let imageUrl = "";
 
-  return NextResponse.json(client);
+    if (file && file.size > 0) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const upload = await cloudinary.uploader.upload(
+        `data:${file.type};base64,${buffer.toString("base64")}`,
+        { folder: "clients" }
+      );
+
+      imageUrl = upload.secure_url;
+    }
+
+    const client = await Client.create({
+      name: formData.get("name"),
+      review: formData.get("review"),
+      section: formData.get("section"),
+      image: imageUrl,
+    });
+
+    return NextResponse.json({
+      success: true,
+      client,
+    });
+
+  } catch (error: any) {
+    console.log("POST ERROR:", error);
+
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
+  }
 }
+
 
 // ================= PUT =================
 export async function PUT(req: Request) {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const formData = await req.formData();
-  const id = formData.get("id");
+    const formData = await req.formData();
+    const id = formData.get("id") as string;
 
-  const updateData: any = {
-    name: formData.get("name"),
-    review: formData.get("review"),
-    section: formData.get("section"),
-  };
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "Client ID is required" },
+        { status: 400 }
+      );
+    }
 
-  const file = formData.get("image") as File;
+    const existing = await Client.findById(id);
 
-  if (file && file.size > 0) {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const upload = await uploadToCloudinary(buffer);
-    updateData.image = upload.secure_url;
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, message: "Client not found" },
+        { status: 404 }
+      );
+    }
+
+    const updateData: any = {
+      name: formData.get("name"),
+      review: formData.get("review"),
+      section: formData.get("section"),
+      image: existing.image, // keep old by default
+    };
+
+    const file = formData.get("image") as File;
+
+    // upload new image if exists
+    if (file && file.size > 0) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const upload = await cloudinary.uploader.upload(
+        `data:${file.type};base64,${buffer.toString("base64")}`,
+        { folder: "clients" }
+      );
+
+      updateData.image = upload.secure_url;
+    }
+
+    const updated = await Client.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true }
+    );
+
+    return NextResponse.json({
+      success: true,
+      client: updated,
+    });
+
+  } catch (error: any) {
+    console.log("PUT ERROR:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to update client",
+        error: error.message,
+      },
+      { status: 500 }
+    );
   }
-
-  const updated = await Client.findByIdAndUpdate(id, updateData, {
-    new: true,
-  });
-
-  return NextResponse.json(updated);
 }
+
 
 // ================= DELETE =================
 export async function DELETE(req: Request) {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const { id } = await req.json();
+    const body = await req.json();
+    const id = body?.id;
 
-  await Client.findByIdAndDelete(id);
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "Client ID is required" },
+        { status: 400 }
+      );
+    }
 
-  return NextResponse.json({ success: true });
+    const existing = await Client.findById(id);
+
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, message: "Client not found" },
+        { status: 404 }
+      );
+    }
+
+    await Client.findByIdAndDelete(id);
+
+    return NextResponse.json({
+      success: true,
+      message: "Client deleted successfully",
+    });
+
+  } catch (error: any) {
+    console.log("DELETE ERROR:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to delete client",
+        error: error.message,
+      },
+      { status: 500 }
+    );
+  }
 }

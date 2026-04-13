@@ -4,7 +4,19 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import cloudinary from "@/lib/cloudinary";
 
-// CLOUDINARY
+
+// ==============================
+// 🔧 GET ID HELPER
+// ==============================
+const getId = (req: Request) => {
+  const url = new URL(req.url);
+  return url.pathname.split("/").pop();
+};
+
+
+// ==============================
+// 🔥 CLOUDINARY UPLOAD
+// ==============================
 const uploadToCloudinary = async (buffer: Buffer) => {
   return new Promise<any>((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
@@ -14,68 +26,160 @@ const uploadToCloudinary = async (buffer: Buffer) => {
         else resolve(result);
       }
     );
+
     stream.end(buffer);
   });
 };
 
-// ================= GET SINGLE =================
-export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+
+// ==============================
+// ✅ GET SINGLE CLIENT
+// ==============================
+export async function GET(req: Request) {
   await connectDB();
 
-  const { id } = params;
+  try {
+    const id = getId(req);
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid ID" },
+        { status: 400 }
+      );
+    }
+
+    const client = await Client.findById(id);
+
+    if (!client) {
+      return NextResponse.json(
+        { success: false, message: "Client not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      client,
+    });
+
+  } catch (err) {
+    console.error("GET ERROR:", err);
+
+    return NextResponse.json(
+      { success: false, message: "Server error" },
+      { status: 500 }
+    );
   }
-
-  const client = await Client.findById(id);
-
-  return NextResponse.json(client);
 }
 
-// ================= UPDATE =================
-export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+
+// ==============================
+// ✅ UPDATE CLIENT
+// ==============================
+export async function PUT(req: Request) {
   await connectDB();
 
-  const { id } = params;
+  try {
+    const id = getId(req);
 
-  const formData = await req.formData();
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid ID" },
+        { status: 400 }
+      );
+    }
 
-  const updateData: any = {
-    name: formData.get("name"),
-    review: formData.get("review"),
-    section: formData.get("section"),
-  };
+    const existing = await Client.findById(id);
 
-  const file = formData.get("image") as File;
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, message: "Client not found" },
+        { status: 404 }
+      );
+    }
 
-  if (file && file.size > 0) {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const upload = await uploadToCloudinary(buffer);
-    updateData.image = upload.secure_url;
+    const formData = await req.formData();
+
+    // 🔥 HANDLE IMAGE
+    const file = formData.get("image") as File | null;
+
+    let imageUrl = existing.image; // keep old image by default
+
+    if (file && file.size > 0) {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const uploadResult: any = await uploadToCloudinary(buffer);
+      imageUrl = uploadResult.secure_url;
+    }
+
+    // ✅ UPDATE DATA
+    const updateData = {
+      name: formData.get("name"),
+      review: formData.get("review"),
+      section: formData.get("section"),
+      image: imageUrl,
+    };
+
+    const updated = await Client.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true }
+    );
+
+    return NextResponse.json({
+      success: true,
+      message: "Client updated successfully",
+      client: updated,
+    });
+
+  } catch (err) {
+    console.error("PUT ERROR:", err);
+
+    return NextResponse.json(
+      { success: false, message: "Server error" },
+      { status: 500 }
+    );
   }
-
-  const updated = await Client.findByIdAndUpdate(id, updateData, {
-    new: true,
-  });
-
-  return NextResponse.json(updated);
 }
 
-// ================= DELETE =================
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+
+// ==============================
+// ✅ DELETE CLIENT
+// ==============================
+export async function DELETE(req: Request) {
   await connectDB();
 
-  await Client.findByIdAndDelete(params.id);
+  try {
+    const id = getId(req);
 
-  return NextResponse.json({ success: true });
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid ID" },
+        { status: 400 }
+      );
+    }
+
+    const existing = await Client.findById(id);
+
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, message: "Client not found" },
+        { status: 404 }
+      );
+    }
+
+    await Client.findByIdAndDelete(id);
+
+    return NextResponse.json({
+      success: true,
+      message: "Client deleted successfully",
+    });
+
+  } catch (err) {
+    console.error("DELETE ERROR:", err);
+
+    return NextResponse.json(
+      { success: false, message: "Server error" },
+      { status: 500 }
+    );
+  }
 }
