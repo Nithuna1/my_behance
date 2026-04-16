@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
@@ -21,6 +21,32 @@ export default function ClientsDetailsPage() {
   name: string;
   review: string;
 }>(null);
+
+const [clients, setClients] = useState<any[]>([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const loadClients = async () => {
+    try {
+      const res = await fetch("/api/clients");
+      const data = await res.json();
+
+      if (Array.isArray(data)) {
+        setClients(data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  loadClients();
+}, []);
+
+if (loading) {
+  return <div className="p-10 text-center">Loading clients...</div>;
+}
 
   return (
     <div
@@ -105,93 +131,15 @@ export default function ClientsDetailsPage() {
     </h2>
 
     {(() => {
-    const clientsFront = [
-  {
-    image: "/clients/client1.avif",
-    name: "Apex Technologies",
-    review: "Matamix delivered exceptional branding and web solutions that elevated our business presence."
-  },
-  {
-    image: "/clients/client2.png",
-    name: "Nova Retail Group",
-    review: "Highly professional team with outstanding attention to detail and execution."
-  },
-  {
-    image: "/clients/client10.webp",
-    name: "Zenith Enterprises",
-    review: "Strategic, creative, and result-driven approach. Truly impactful collaboration."
-  },
-  {
-    image: "/clients/client9.jpg",
-    name: "UrbanEdge Solutions",
-    review: "Reliable digital partner with measurable performance outcomes."
-  },
-  {
-    image: "/clients/client5.jpg",
-    name: "BrightWave Media",
-    review: "Innovative UI/UX and seamless project delivery experience."
-  },
-  {
-    image: "/clients/client6.jpg",
-    name: "Skyline Developers",
-    review: "Exceptional digital marketing strategies that boosted engagement significantly."
-  },
-  {
-    image: "/clients/client13.jpg",
-    name: "GlobalCore Industries",
-    review: "Professional execution across branding and enterprise solutions."
-  },
-  {
-    image: "/clients/client12.webp",
-    name: "NextGen Innovations",
-    review: "Creative excellence combined with strategic thinking."
-  }
-];
+    const clientsFront = clients.filter(
+  (c) => c.section === "front"
+);
 
-const clientsBack = [
-  {
-    image: "/clients/client14.jpg",
-    name: "BrightWave Media",
-    review: "Innovative UI/UX and seamless project delivery experience."
-  },
-  {
-    image: "/clients/client15.avif",
-    name: "Skyline Developers",
-    review: "Exceptional digital marketing strategies that boosted engagement significantly."
-  },
-  {
-    image: "/clients/client16.jpeg",
-    name: "GlobalCore Industries",
-    review: "Professional execution across branding and enterprise solutions."
-  },
-  {
-    image: "/clients/client17.png",
-    name: "NextGen Innovations",
-    review: "Creative excellence combined with strategic thinking."
-  },
-  {
-    image: "/clients/client18.webp",
-    name: "Apex Technologies",
-    review: "Matamix delivered exceptional branding and web solutions that elevated our business presence."
-  },
-  {
-    image: "/clients/client19.jpg",
-    name: "Nova Retail Group",
-    review: "Highly professional team with outstanding attention to detail and execution."
-  },
-  {
-    image: "/clients/client20.jpg",
-    name: "Zenith Enterprises",
-    review: "Strategic, creative, and result-driven approach. Truly impactful collaboration."
-  },
-  {
-    image: "/clients/client21.jpg",
-    name: "UrbanEdge Solutions",
-    review: "Reliable digital partner with measurable performance outcomes."
-  }
-];
+const clientsBack = clients.filter(
+  (c) => c.section === "back"
+);
 
-      const clients = showMore ? clientsBack : clientsFront;
+const displayClients = showMore ? clientsBack : clientsFront;
 
 return (
   <div
@@ -201,7 +149,7 @@ return (
     ${animate ? "opacity-0 translate-x-10" : "opacity-100 translate-x-0"}
   `}
 >
-    {clients.map((client, i) => (
+    {displayClients.map((client, i) => (
             <div
   key={i}
   onClick={() => setActiveClient(client)}
@@ -231,7 +179,11 @@ return (
                 "
               >
                 <Image
-                  src={client.image}
+                  src={
+  client.image?.startsWith("http")
+    ? client.image
+    : "/no-image.png"
+}
                   alt={client.name}
                   fill
                   className="

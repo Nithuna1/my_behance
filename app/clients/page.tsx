@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
@@ -13,6 +13,32 @@ export default function ClientsPage() {
    const [contactOpen, setContactOpen] = useState(false);
    const [showAllClients, setShowAllClients] = useState(false);
 const [selectedClient, setSelectedClient] = useState<any>(null);
+const [clients, setClients] = useState<any[]>([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const loadClients = async () => {
+    try {
+      const res = await fetch("/api/clients");
+      const data = await res.json();
+
+      if (Array.isArray(data)) {
+        setClients(data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  loadClients();
+}, []);
+
+if (loading) {
+  return <div className="p-10 text-center">Loading clients...</div>;
+}
+
   return (
    <div
   className="
@@ -158,16 +184,9 @@ const [selectedClient, setSelectedClient] = useState<any>(null);
   <div className="max-w-6xl mx-auto px-6">
 
     {(() => {
-     const clients = [
-  { image: "/clients/client1.avif", review: "Very professional service." },
-  { image: "/clients/client2.png", review: "Excellent marketing results." },
-  { image: "/clients/client10.webp", review: "Highly recommended team." },
-  { image: "/clients/client9.jpg", review: "Creative and reliable." },
-  { image: "/clients/client5.jpg", review: "Delivered on time." },
-  { image: "/clients/client6.jpg", review: "Great communication." },
-  { image: "/clients/client13.jpg", review: "Amazing experience." },
-  { image: "/clients/client12.webp", review: "Top quality work." },
-];
+     const frontClients = clients.filter(
+  (c) => c.section === "front"
+);
 
       return (
        <div
@@ -180,7 +199,7 @@ const [selectedClient, setSelectedClient] = useState<any>(null);
     animate-fadeUp
   "
 >
-  {clients.slice(0, 3).map((client, i) => (
+  {frontClients.slice(0, 3).map((client, i) => (
     <div
       key={i}
       className="
@@ -203,7 +222,11 @@ const [selectedClient, setSelectedClient] = useState<any>(null);
         "
       >
         <Image
-          src={client.image}
+         src={
+  client.image?.startsWith("http")
+    ? client.image
+    : "/no-image.png"
+}
           alt="Client Logo"
           fill
           className="
