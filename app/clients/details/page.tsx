@@ -389,70 +389,63 @@ return (
   </div>
 </div>
 
+
 {/* ================= CLIENT REVIEW POPUP ================= */}
 {activeClient && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center px-6 animate-fadeIn">
+  <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
 
     {/* BACKDROP */}
     <div
-      className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+      className="absolute inset-0 bg-black/60 backdrop-blur-sm"
       onClick={() => setActiveClient(null)}
     />
 
     {/* MODAL */}
     <div
-      className="
-        relative
-        bg-white
-        max-w-lg
-        w-full
-        rounded-3xl
-        p-10
-        shadow-2xl
-        text-center
-        transform
-        transition-all
-        duration-300
-        scale-95
-        opacity-0
-        animate-popup
-      "
+      className="relative bg-white max-w-lg w-full rounded-3xl p-8 shadow-2xl text-center animate-popup"
       onClick={(e) => e.stopPropagation()}
     >
-      {/* CLOSE BUTTON */}
+
+      {/* CLOSE */}
       <button
         onClick={() => setActiveClient(null)}
-        className="absolute top-5 right-5 text-xl text-gray-500 hover:text-black transition"
+        className="absolute top-4 right-4 text-xl text-gray-500 hover:text-black"
       >
         ✕
       </button>
 
-      {/* CLIENT IMAGE */}
+      {/* IMAGE */}
       <div className="flex justify-center mb-6">
-        <div className="w-28 h-28 relative rounded-full overflow-hidden border-4 border-white shadow-md transform transition duration-500 hover:scale-110">
-          <Image
-            src={activeClient.image}
-            alt={activeClient.name}
-            fill
-            className="object-cover"
+        <div className="w-28 h-28 rounded-full overflow-hidden shadow-md">
+
+          <img
+            src={
+              activeClient.image && activeClient.image !== ""
+                ? activeClient.image
+                : "/no-image.png"
+            }
+            alt={activeClient.name || "Client"}
+            className="w-full h-full object-cover"
           />
+
         </div>
       </div>
 
-      {/* CLIENT NAME */}
-      <h3 className="text-2xl font-semibold mb-4">
-        {activeClient.name}
+      {/* NAME */}
+      <h3 className="text-2xl font-semibold mb-3">
+        {activeClient.name || "Client"}
       </h3>
 
       {/* REVIEW */}
       <p className="text-gray-600 leading-relaxed text-lg">
-        “{activeClient.review}”
+        {activeClient.review
+          ? `“${activeClient.review}”`
+          : "No review available"}
       </p>
 
     </div>
   </div>
 )}
-
 
 
     </div>
