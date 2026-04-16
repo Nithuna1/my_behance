@@ -221,10 +221,9 @@ if (loading) {
           transition-all duration-500
         "
       >
-        <Image
+        <img
           src={client.image}
           alt="Client Logo"
-          fill
           className="
             object-cover
             transition duration-500

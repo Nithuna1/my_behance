@@ -178,10 +178,9 @@ return (
                   transition duration-500
                 "
               >
-                <Image
+                <img
                   src={client.image}
                   alt={client.name}
-                  fill
                   className="
                     object-cover
                     transition duration-700
