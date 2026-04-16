@@ -178,15 +178,11 @@ return (
                   transition duration-500
                 "
               >
-                <img
-                  src={client.image}
-                  alt={client.name}
-                  className="
-                    object-cover
-                    transition duration-700
-                    group-hover:scale-110
-                  "
-                />
+               <img
+  src={client.image}
+  alt={client.name}
+  className="w-full h-full object-cover"
+/>
 
                 {/* Premium gradient overlay */}
                 <div

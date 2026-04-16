@@ -222,14 +222,11 @@ if (loading) {
         "
       >
         <img
-          src={client.image}
-          alt="Client Logo"
-          className="
-            object-cover
-            transition duration-500
-            group-hover:scale-110
-          "
-        />
+  src={client.image}
+  alt={client.name}
+  className="w-full h-full object-cover"
+/>
+
       </div>
     </div>
   ))}
