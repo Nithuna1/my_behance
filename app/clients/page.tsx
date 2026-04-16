@@ -222,11 +222,7 @@ if (loading) {
         "
       >
         <Image
-         src={
-  client.image?.startsWith("http")
-    ? client.image
-    : "/no-image.png"
-}
+          src={client.image}
           alt="Client Logo"
           fill
           className="

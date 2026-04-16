@@ -179,11 +179,7 @@ return (
                 "
               >
                 <Image
-                  src={
-  client.image?.startsWith("http")
-    ? client.image
-    : "/no-image.png"
-}
+                  src={client.image}
                   alt={client.name}
                   fill
                   className="
