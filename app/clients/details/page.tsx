@@ -181,7 +181,7 @@ return (
                <img
   src={client.image}
   alt={client.name}
-  className="w-full h-full object-cover"
+  className="w-full h-full object-contain p-4 bg-white"
 />
 
                 {/* Premium gradient overlay */}
