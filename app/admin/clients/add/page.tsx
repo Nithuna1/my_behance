@@ -8,7 +8,7 @@ export default function AddClient() {
 
   const [form, setForm] = useState({
     name: "",
-    review: "",
+    website: "",
     section: "front",
   });
 
@@ -28,7 +28,7 @@ export default function AddClient() {
 
     const fd = new FormData();
     fd.append("name", form.name);
-    fd.append("review", form.review);
+    fd.append("website", form.website);
     fd.append("section", form.section);
 
     if (image) {
@@ -74,16 +74,17 @@ export default function AddClient() {
             />
           </div>
 
-          {/* REVIEW */}
+          {/* WEBSITE */}
           <div>
             <label className="block text-sm font-medium mb-1">
-              Review
+              Website Link
             </label>
-            <textarea
-              name="review"
-              value={form.review}
+            <input
+              name="website"
+              value={form.website}
               onChange={change}
-              className="w-full border rounded-lg px-3 py-2 h-28 focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="https://example.com"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 

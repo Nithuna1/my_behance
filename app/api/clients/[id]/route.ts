@@ -114,7 +114,7 @@ export async function PUT(req: Request) {
     // ✅ UPDATE DATA
     const updateData = {
       name: formData.get("name"),
-      review: formData.get("review"),
+      website: formData.get("website"),
       section: formData.get("section"),
       image: imageUrl,
     };

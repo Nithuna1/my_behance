@@ -64,7 +64,7 @@ export default function AdminClients() {
             <tr>
               <th className="p-3 w-[80px] text-center">Image</th>
               <th className="p-3 w-[180px] text-center">Name</th>
-              <th className="p-3 text-center">Review</th>
+              <th className="p-3 text-center">Website</th>
               <th className="p-3 w-[120px] text-center">Section</th>
               <th className="p-3 w-[160px] text-center">Actions</th>
             </tr>
@@ -104,10 +104,10 @@ export default function AdminClients() {
                     {c.name || "—"}
                   </td>
 
-                  {/* REVIEW */}
+                  {/* WEBSITE */}
                   <td className="p-3 text-center align-middle text-sm text-gray-600">
                     <div className="line-clamp-2">
-                      {c.review || "—"}
+                      {c.website || "—"}
                     </div>
                   </td>
 

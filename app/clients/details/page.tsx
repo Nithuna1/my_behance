@@ -19,7 +19,7 @@ export default function ClientsDetailsPage() {
     const [activeClient, setActiveClient] = useState<null | {
   image: string;
   name: string;
-  review: string;
+  website: string;
 }>(null);
 
 const [clients, setClients] = useState<any[]>([]);
@@ -436,12 +436,21 @@ return (
         {activeClient.name || "Client"}
       </h3>
 
-      {/* REVIEW */}
-      <p className="text-gray-600 leading-relaxed text-lg">
-        {activeClient.review
-          ? `“${activeClient.review}”`
-          : "No review available"}
-      </p>
+      {/* WEBSITE */}
+      {activeClient.website ? (
+        <a 
+          href={activeClient.website.startsWith("http") ? activeClient.website : `https://${activeClient.website}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="inline-block mt-2 px-6 py-2 bg-blue-600 text-white font-medium rounded-full shadow hover:bg-blue-700 hover:shadow-lg transition"
+        >
+          Visit Website
+        </a>
+      ) : (
+        <p className="text-gray-500 italic mt-2">
+          No website available
+        </p>
+      )}
 
     </div>
   </div>

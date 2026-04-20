@@ -9,7 +9,7 @@ export default function EditClient() {
 
   const [form, setForm] = useState({
     name: "",
-    review: "",
+    website: "",
     section: "front",
   });
 
@@ -41,7 +41,7 @@ export default function EditClient() {
 
       setForm({
         name: client?.name || "",
-        review: client?.review || "",
+        website: client?.website || "",
         section: client?.section || "front",
       });
 
@@ -88,7 +88,7 @@ export default function EditClient() {
       const formData = new FormData();
 
       formData.append("name", form.name);
-      formData.append("review", form.review);
+      formData.append("website", form.website);
       formData.append("section", form.section);
 
       if (image) {
@@ -145,12 +145,12 @@ export default function EditClient() {
                 className="w-full border p-3 rounded-lg"
               />
 
-              <textarea
-                name="review"
-                value={form.review}
+              <input
+                name="website"
+                value={form.website}
                 onChange={change}
-                placeholder="Review"
-                className="w-full border p-3 rounded-lg h-32"
+                placeholder="Website Link (e.g. https://example.com)"
+                className="w-full border p-3 rounded-lg"
               />
 
               <select

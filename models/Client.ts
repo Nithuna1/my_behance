@@ -4,7 +4,7 @@ const ClientSchema = new mongoose.Schema(
   {
     name: String,
     image: String,
-    review: String,
+    website: String,
     section: {
       type: String,
       enum: ["front", "back"],

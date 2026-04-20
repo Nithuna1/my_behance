@@ -48,7 +48,7 @@ export async function POST(req: Request) {
 
     const client = await Client.create({
       name: formData.get("name"),
-      review: formData.get("review"),
+      website: formData.get("website"),
       section: formData.get("section"),
       image: imageUrl,
     });
@@ -95,7 +95,7 @@ export async function PUT(req: Request) {
 
     const updateData: any = {
       name: formData.get("name"),
-      review: formData.get("review"),
+      website: formData.get("website"),
       section: formData.get("section"),
       image: existing.image, // keep old by default
     };
