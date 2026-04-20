@@ -172,6 +172,13 @@ export default function EditVideoProduction() {
         Update
       </button>
 
+      <button
+        onClick={() => router.push("/admin/services/video-production")}
+        className="bg-gray-500 text-white px-5 py-2 rounded-lg"
+      >
+        Cancel
+      </button>
+
     </div>
   );
 }
