@@ -145,20 +145,9 @@ useEffect(() => {
        
        
        
-       <section className="relative pt-10 md:pt-16 bg-transparent">
+       <section className="relative pt-16 bg-transparent">
          <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-8">
        
-           {/* BACK BUTTON (MOBILE ONLY) */}
-           <div className="md:hidden mb-6">
-             <Link 
-               href="/" 
-               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 border border-gray-200 text-sm font-medium hover:bg-gray-200 transition"
-             >
-               <FiChevronLeft size={18} />
-               Back to Home
-             </Link>
-           </div>
-
            {/* LOGO */}
            <div
              className="
@@ -805,8 +794,19 @@ ${message}
 
       </section>
 
-      {/* ================= FOOTER ================= */}
-<footer className="bg-[#022549] text-white mt-4">
+      {/* BACK BUTTON (MOBILE ONLY) - BELOW IMAGES */}
+    <div className="md:hidden flex justify-center py-10 border-t border-black/5">
+      <Link 
+        href="/" 
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gray-100 border border-gray-200 text-sm font-medium hover:bg-gray-200 transition shadow-sm"
+      >
+        <FiChevronLeft size={18} />
+        Back to Home
+      </Link>
+    </div>
+
+    {/* ================= FOOTER ================= */}
+<footer className="bg-[#022549] text-white mt-14">
   <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
     <div
