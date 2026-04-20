@@ -144,7 +144,7 @@ const displayClients = showMore ? clientsBack : clientsFront;
 return (
   <div
   className={`
-    grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8
+    grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-8
     transition-all duration-300
     ${animate ? "opacity-0 translate-x-10" : "opacity-100 translate-x-0"}
   `}
@@ -170,11 +170,11 @@ return (
           className="
             relative
             w-full
-            aspect-[4/3]
+            aspect-square
             bg-white
             flex items-center justify-center
-            p-6
-            rounded-2xl
+            p-3 md:p-6
+            rounded-xl md:rounded-2xl
             border border-gray-100
             shadow-md
             hover:shadow-2xl
