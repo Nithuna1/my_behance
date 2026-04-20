@@ -167,29 +167,34 @@ export default function PostersSection() {
 
       {/* ================= POPUP ================= */}
       {activeSet !== null && cards[activeSet] && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4">
-          <button
-            onClick={() => setActiveSet(null)}
-            className="absolute top-6 right-6 text-white text-3xl"
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4"
+          onClick={() => setActiveSet(null)}
+        >
+          <div
+            className="relative bg-white w-full max-w-6xl max-h-[90vh] rounded-2xl p-6 overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
           >
-            ✕
-          </button>
 
-          <div className="bg-white w-full max-w-6xl max-h-[90vh] rounded-2xl p-6 overflow-y-auto">
+            {/* CLOSE BUTTON - inside modal */}
+            <button
+              onClick={() => setActiveSet(null)}
+              className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-gray-100 border border-gray-300 shadow-md flex items-center justify-center text-gray-800 text-base font-bold hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-200"
+            >
+              ✕
+            </button>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {/* ADD TOP PADDING SO IMAGES DON'T GO UNDER CLOSE BUTTON */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-8">
               {cards[activeSet].map((poster, i) => (
                 <div
                   key={i}
                   className="relative aspect-[3/4] rounded-xl overflow-hidden"
                 >
                   <img
-                    src={
-                      poster.image.replace(
-                        "/upload/",
-                        "/upload/w_800,q_auto,f_auto/"
-                      )
-                    }
+                    src={poster.image.replace(
+                      "/upload/",
+                      "/upload/w_800,q_auto,f_auto/"
+                    )}
                     className="w-full h-full object-cover"
                   />
                 </div>
