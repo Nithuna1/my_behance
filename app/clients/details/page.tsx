@@ -233,7 +233,7 @@ return (
 {/* BACK BUTTON */}
 <div className="flex justify-center mt-5">
   <Link
-    href="/"
+    href="/clients"
     className="
       px-6 py-2
       rounded-full
