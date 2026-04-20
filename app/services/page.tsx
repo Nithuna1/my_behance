@@ -347,25 +347,7 @@ useEffect(() => {
   </div>
   
   
-  {/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
-  <div className="flex justify-center">
-    <Link
-      href="/services"
-      className="
-        px-8 py-3
-        rounded-full
-        border border-black/40
-        text-sm font-medium
-        text-black
-        hover:bg-blue-600
-        hover:border-blue-600
-        hover:text-white
-        transition
-      "
-    >
-      View More
-    </Link>
-  </div>
+  
   
   
   
