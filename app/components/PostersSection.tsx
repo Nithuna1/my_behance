@@ -64,13 +64,68 @@ export default function PostersSection() {
       <section className="mt-6">
         <h3 className="text-lg font-semibold mb-6">Creative Design</h3>
 
-        <div className="relative flex items-center">
+        {/* ===== MOBILE: 1 card at a time with outside arrows ===== */}
+        <div className="flex md:hidden items-center gap-3">
+
+          {/* LEFT ARROW */}
+          <button
+            onClick={prevSlide}
+            disabled={currentIndex === 0}
+            className="flex-shrink-0 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 disabled:opacity-30 transition-all duration-200"
+          >
+            ←
+          </button>
+
+          {/* CARD AREA */}
+          <div className="overflow-hidden flex-1">
+            <div
+              className="flex transition-transform duration-500"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {cards.map((card, i) => (
+                <div key={i} className="min-w-full px-1">
+                  <PosterCard
+                    images={card}
+                    onClick={() => setActiveSet(i)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT ARROW */}
+          <button
+            onClick={() => setCurrentIndex((prev) => Math.min(prev + 1, cards.length - 1))}
+            disabled={currentIndex === cards.length - 1}
+            className="flex-shrink-0 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 disabled:opacity-30 transition-all duration-200"
+          >
+            →
+          </button>
+        </div>
+
+        {/* DOT INDICATORS - mobile */}
+        <div className="flex md:hidden justify-center gap-1.5 mt-3">
+          {cards.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`rounded-full transition-all duration-300 ${
+                idx === currentIndex
+                  ? "w-5 h-2 bg-blue-600"
+                  : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* ===== DESKTOP: 3 cards per slide ===== */}
+        <div className="relative hidden md:flex items-center">
 
           {/* LEFT */}
           <button
             onClick={prevSlide}
             disabled={currentIndex === 0}
-            className="absolute left-0 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center"
+            className="absolute left-0 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center disabled:opacity-30"
           >
             ←
           </button>
@@ -79,14 +134,12 @@ export default function PostersSection() {
           <div className="overflow-hidden w-full">
             <div
               className="flex transition-transform duration-500"
-              style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-              }}
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {slides.map((group, index) => (
                 <div
                   key={index}
-                  className="min-w-full grid grid-cols-1 md:grid-cols-3 gap-8 px-12"
+                  className="min-w-full grid grid-cols-3 gap-8 px-12"
                 >
                   {group.map((card, i) => (
                     <PosterCard
@@ -104,11 +157,12 @@ export default function PostersSection() {
           <button
             onClick={nextSlide}
             disabled={currentIndex === slides.length - 1}
-            className="absolute right-0 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center"
+            className="absolute right-0 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center disabled:opacity-30"
           >
             →
           </button>
         </div>
+
       </section>
 
       {/* ================= POPUP ================= */}
