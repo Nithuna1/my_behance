@@ -197,18 +197,13 @@ const loadProjects = async () => {
   return (
  <div
   className="
-    relative
     min-h-screen
     w-full
     overflow-x-hidden
-    text-gray-100
-    bg-[#020813]
-    selection:bg-blue-500/30
+    text-black
+    bg-white
   "
 >
-  {/* Ambient glowing background blobs */}
-  <div className="absolute top-0 left-0 w-full h-[600px] bg-blue-900/10 blur-[120px] pointer-events-none rounded-full" />
-  <div className="absolute top-[800px] right-0 w-[500px] h-[500px] bg-indigo-900/10 blur-[150px] pointer-events-none rounded-full" />
 
 
   {/* ================= COVER ================= */}
@@ -280,41 +275,41 @@ const loadProjects = async () => {
 
 
       {/* ================= NAVBAR (DESKTOP ONLY) ================= */}
-<section className="hidden md:block border-b border-white/10 bg-white/5 backdrop-blur-xl sticky top-0 z-40">
+<section className="hidden md:block border-b border-black/10 bg-transparent">
   <div className="max-w-7xl mx-auto px-8">
-    <div className="flex gap-8 py-5 text-sm font-medium">
+    <div className="flex gap-8 py-6 text-sm">
 
       <Link
         href="/"
-        className="text-white border-b-2 border-blue-500 pb-1"
+        className="font-semibold border-b-2 border-black pb-2"
       >
         Work
       </Link>
 
       <Link
         href="/websites"
-        className="text-gray-400 hover:text-white transition pb-1"
+        className="text-black/50 hover:text-black pb-2"
       >
         Websites
       </Link>
 
       <Link
         href="/services"
-        className="text-gray-400 hover:text-white transition pb-1"
+        className="text-black/50 hover:text-black pb-2"
       >
         Services
       </Link>
 
       <Link
         href="/projects"
-        className="text-gray-400 hover:text-white transition pb-1"
+        className="text-black/50 hover:text-black pb-2"
       >
         Projects
       </Link>
 
       <Link
         href="/posters"
-        className="text-gray-400 hover:text-white transition pb-1"
+        className="text-black/50 hover:text-black pb-2"
       >
         Posters
       </Link>
@@ -326,20 +321,17 @@ const loadProjects = async () => {
 
 
       {/* ================= ABOUT ================= */}
-<section className="relative py-12 md:py-20">
-  <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+<section className="relative py-6 md:py-10">
+  <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-6 md:gap-12 items-center">
 
     {/* LEFT – TEXT */}
-    <div className="relative z-10 animate-fadeUp">
-      <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight">
-        We build <br className="hidden md:block" />
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 drop-shadow-sm">
-          digital products
-        </span> <br />
+    <div>
+      <h2 className="text-3xl md:text-4xl font-semibold mb-6 leading-tight">
+        We build digital products <br />
         that grow businesses
       </h2>
 
-      <p className="text-gray-300 leading-relaxed mb-6 max-w-xl font-light text-lg">
+      <p className="text-black/100 leading-relaxed mb-6 max-w-xl">
         Matamix International is a digital-first technology company specializing
         in UI/UX design, web development, mobile applications, ERP solutions,
         and digital marketing. We work with startups, enterprises, and growing
@@ -347,7 +339,7 @@ const loadProjects = async () => {
         real business impact.
       </p>
 
-      <p className="text-gray-300 leading-relaxed mb-10 max-w-xl font-light text-lg">
+      <p className="text-black/100 leading-relaxed mb-8 max-w-xl">
         From strategy and design to development and deployment, our approach is
         focused on clarity, performance, and long-term value. Every solution we
         create is driven by user needs, data insights, and modern technology.
@@ -356,13 +348,11 @@ const loadProjects = async () => {
       <Link href="/clients"
         className="
           inline-flex items-center gap-2
-          px-8 py-3.5 rounded-full
+          px-8 py-3 rounded-full
           bg-blue-600 text-white font-medium
-          hover:bg-blue-500
-          transition-all duration-300
-          shadow-[0_0_30px_rgba(37,99,235,0.4)]
-          hover:shadow-[0_0_45px_rgba(37,99,235,0.6)]
-          hover:-translate-y-1
+          hover:bg-blue-700
+          transition
+          shadow-[0_12px_30px_rgba(37,99,235,0.35)]
         "
       >
         Our Happy Customers →
@@ -370,26 +360,26 @@ const loadProjects = async () => {
     </div>
 
     {/* RIGHT – STATS / HIGHLIGHTS */}
-    <div className="grid grid-cols-2 gap-6 relative z-10 animate-fadeUp delay-150">
+    <div className="grid grid-cols-2 gap-6">
 
-      <div className="rounded-3xl bg-white/[0.03] backdrop-blur-xl p-8 border border-white/10 hover:bg-white/[0.06] hover:-translate-y-2 transition-all duration-500 shadow-2xl">
-        <h3 className="text-4xl md:text-5xl font-bold mb-2 text-white drop-shadow-md">20<span className="text-blue-500">+</span></h3>
-        <p className="text-xs md:text-sm text-blue-200/60 font-medium tracking-widest uppercase">Projects Delivered</p>
+      <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+        <h3 className="text-3xl font-semibold mb-1">20+</h3>
+        <p className="text-sm text-black/70">Projects Delivered</p>
       </div>
 
-      <div className="rounded-3xl bg-white/[0.03] backdrop-blur-xl p-8 border border-white/10 hover:bg-white/[0.06] hover:-translate-y-2 transition-all duration-500 shadow-2xl">
-        <h3 className="text-4xl md:text-5xl font-bold mb-2 text-white drop-shadow-md">5<span className="text-blue-500">+</span></h3>
-        <p className="text-xs md:text-sm text-blue-200/60 font-medium tracking-widest uppercase">Years Experience</p>
+      <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+        <h3 className="text-3xl font-semibold mb-1">5+</h3>
+        <p className="text-sm text-black/70">Years Experience</p>
       </div>
 
-      <div className="rounded-3xl bg-white/[0.03] backdrop-blur-xl p-8 border border-white/10 hover:bg-white/[0.06] hover:-translate-y-2 transition-all duration-500 shadow-2xl">
-        <h3 className="text-4xl md:text-5xl font-bold mb-2 text-white drop-shadow-md">30<span className="text-blue-500">+</span></h3>
-        <p className="text-xs md:text-sm text-blue-200/60 font-medium tracking-widest uppercase">Active Clients</p>
+      <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+        <h3 className="text-3xl font-semibold mb-1">30+</h3>
+        <p className="text-sm text-black/70">Active Clients</p>
       </div>
 
-      <div className="rounded-3xl bg-white/[0.03] backdrop-blur-xl p-8 border border-white/10 hover:bg-white/[0.06] hover:-translate-y-2 transition-all duration-500 shadow-2xl">
-        <h3 className="text-4xl md:text-5xl font-bold mb-2 text-white drop-shadow-md">100<span className="text-blue-500">%</span></h3>
-        <p className="text-xs md:text-sm text-blue-200/60 font-medium tracking-widest uppercase">Satisfaction</p>
+      <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+        <h3 className="text-3xl font-semibold mb-1">100%</h3>
+        <p className="text-sm text-black/70">Client Satisfaction</p>
       </div>
 
     </div>
@@ -409,16 +399,13 @@ const loadProjects = async () => {
         <main className="col-span-12">
 
          {/* ================= OUR WEBSITES ================= */}
-<section className="mt-8 animate-fadeUp delay-200">
-  <div className="flex items-center gap-4 mb-8">
-    <h3 className="text-3xl font-semibold text-white tracking-wide">Websites</h3>
-    <div className="h-[1px] flex-1 bg-gradient-to-r from-white/20 to-transparent"></div>
-  </div>
+<section className="mt-4">
+  <h3 className="text-lg font-semibold mb-5">Websites</h3>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
 
     {websites.length === 0 && (
-      <p className="text-gray-500 italic">No websites found</p>
+      <p className="text-gray-500">No websites found</p>
     )}
 
     {websites.map((site, i) => (
@@ -430,10 +417,7 @@ const loadProjects = async () => {
         className="group block"
       >
         {/* IMAGE CONTAINER */}
-        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-black/50 shadow-lg group-hover:border-white/30 transition duration-500">
-
-          {/* OVERLAY */}
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition duration-500" />
+        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-black">
 
           {/* IMAGE */}
          <img
@@ -443,7 +427,7 @@ const loadProjects = async () => {
       : "/placeholder.jpg"
   }
   alt={site.name}
-  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 group-hover:opacity-30 group-hover:scale-105"
+  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
 />
           {/* VIDEO */}
           {site.video && (
@@ -453,18 +437,18 @@ const loadProjects = async () => {
               loop
               playsInline
               autoPlay
-              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none"
+              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"
             />
           )}
 
         </div>
 
         {/* TEXT */}
-        <div className="mt-4 flex justify-between items-center px-1">
-          <span className="text-lg font-medium text-gray-200 truncate group-hover:text-white transition">
+        <div className="mt-3 flex justify-between items-center text-sm px-1">
+          <span className="font-medium truncate">
             {site.name}
           </span>
-          <span className="text-gray-500 group-hover:text-blue-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition transform duration-300 text-xl">
+          <span className="text-black/40 group-hover:text-black transition">
             ↗
           </span>
         </div>
@@ -474,82 +458,84 @@ const loadProjects = async () => {
   </div>
 
   {/* VIEW MORE BUTTON */}
-  <div className="flex justify-center mt-10">
+  <div className="flex justify-center mt-6">
     <Link
       href="/websites"
       className="
         px-8 py-3 rounded-full
-        border border-white/20 bg-white/5 backdrop-blur-md
-        text-sm font-medium text-white
-        hover:bg-blue-600 hover:border-blue-500
-        hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]
-        transition-all duration-300
+        border border-black/40
+        text-sm font-medium text-black
+        hover:bg-blue-600 hover:border-blue-600 hover:text-white
+        transition
       "
     >
-      Explore Websites
+      View More
     </Link>
   </div>
 </section>
 
 
- {/* ================= SERVICES ================= */}
-<section className="mt-16 animate-fadeUp delay-300">
-  <div className="flex items-center gap-4 mb-8">
-    <h3 className="text-3xl font-semibold text-white tracking-wide">Services</h3>
-    <div className="h-[1px] flex-1 bg-gradient-to-r from-white/20 to-transparent"></div>
-  </div>
+ {/* SERVICES */}
+<h3 className="text-lg font-semibold mb-6">Services</h3>
 
-  <div className="grid md:grid-cols-3 gap-8 mb-10">
-    {groupedServices.map((service, i) => (
-      <div
-        key={i}
-        onClick={() => setActiveService(service)}
-        className="cursor-pointer bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] hover:border-white/20 transition-all duration-500 shadow-xl"
-      >
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          {service.images.slice(0, 3).map((img, idx) => (
-           <img
-    key={idx}
-    src={img && img.startsWith("http") ? img : "/no-image.png"}
-    alt="service"
-    className="h-28 w-full object-cover rounded-xl shadow-inner mix-blend-lighten"
-  />
-          ))}
-        </div>
-
-        <h4 className="text-2xl font-medium text-white mb-4">{service.title}</h4>
-
-        <div className="flex flex-wrap gap-2">
-          {service.tags.map((tag, idx) => (
-            <span
-              key={idx}
-              className="text-xs px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-blue-200/80 shadow-sm"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+<div className="grid md:grid-cols-3 gap-6 mb-8">
+  {groupedServices.map((service, i) => (
+    <div
+      key={i}
+      onClick={() => setActiveService(service)}
+      className="cursor-pointer border border-black/50 rounded-xl p-4 hover:border-black transition"
+    >
+      <div className="grid grid-cols-3 gap-1 mb-4">
+        {service.images.slice(0, 3).map((img, idx) => (
+         <img
+  key={idx}
+  src={
+    img && img.startsWith("http")
+      ? img
+      : "/no-image.png"
+  }
+  alt="service"
+  className="h-24 w-full object-cover rounded-md"
+/>
+        ))}
       </div>
-    ))}
-  </div>
 
-  {/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
-  <div className="flex justify-center mt-10">
-    <Link
-      href="/services"
-      className="
-        px-8 py-3 rounded-full
-        border border-white/20 bg-white/5 backdrop-blur-md
-        text-sm font-medium text-white
-        hover:bg-blue-600 hover:border-blue-500
-        hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]
-        transition-all duration-300
-      "
-    >
-      Explore Services
-    </Link>
-  </div>
-</section>
+      <h4 className="font-medium mb-2">{service.title}</h4>
+
+      <div className="flex flex-wrap gap-2">
+        {service.tags.map((tag, idx) => (
+          <span
+            key={idx}
+            className="text-xs px-2 py-1 rounded-full border border-black/20 text-black/70"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+
+{/* ✅ ONE VIEW MORE BUTTON (FOR SERVICES PAGE) */}
+<div className="flex justify-center">
+  <Link
+    href="/services"
+    className="
+      px-8 py-3
+      rounded-full
+      border border-black/40
+      text-sm font-medium
+      text-black
+      hover:bg-blue-600
+      hover:border-blue-600
+      hover:text-white
+      transition
+    "
+  >
+    View More
+  </Link>
+</div>
 
 
 
