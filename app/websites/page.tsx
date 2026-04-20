@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import FollowButton from "../components/FollowButton";
-import { FiMail } from "react-icons/fi";
-import { FiPlus, FiMessageCircle } from "react-icons/fi";
+import { FiMail, FiPlus, FiMessageCircle, FiChevronLeft } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa"
 import { useEffect } from "react";
 
@@ -56,8 +55,13 @@ const loadWebsites = async () => {
     bg-white
   "
 >
-   
-   
+    {/* ================= BACK BUTTON ================= */}
+    <Link
+      href="/"
+      className="fixed top-6 left-6 z-[60] w-12 h-12 rounded-full bg-white/70 backdrop-blur-md border border-gray-200 flex items-center justify-center shadow-md hover:bg-white transition-all group"
+    >
+      <FiChevronLeft size={24} className="text-black group-hover:-translate-x-0.5 transition-transform" />
+    </Link>
    
        {/* ================= COVER ================= */}
        <section className="relative">

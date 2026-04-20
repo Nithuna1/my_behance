@@ -3,9 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FiX, FiMail } from "react-icons/fi";
+import { FiX, FiMail, FiChevronLeft, FiPlus, FiMessageCircle } from "react-icons/fi";
 import FollowButton from "../components/FollowButton";
-import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa"
 
 
@@ -71,6 +70,13 @@ const loadProjects = async () => {
   "
 >
     
+    {/* ================= BACK BUTTON ================= */}
+    <Link
+      href="/"
+      className="fixed top-6 left-6 z-[60] w-12 h-12 rounded-full bg-white/70 backdrop-blur-md border border-gray-200 flex items-center justify-center shadow-md hover:bg-white transition-all group"
+    >
+      <FiChevronLeft size={24} className="text-black group-hover:-translate-x-0.5 transition-transform" />
+    </Link>
     
        {/* ================= COVER ================= */}
        <section className="relative">
@@ -428,20 +434,12 @@ ${message}
       "
     >
 
-      {/* ✅ STRONG MOBILE CLOSE BUTTON */}
+      {/* CLOSE BUTTON - highlighted */}
       <button
         onClick={() => setActiveProject(null)}
-        className="
-          absolute top-4 right-4
-          z-20
-          w-10 h-10
-          rounded-full
-          bg-white shadow-md
-          flex items-center justify-center
-          text-black
-        "
+        className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-gray-100 border border-gray-300 shadow-md flex items-center justify-center text-gray-800 text-base font-bold hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-200"
       >
-        <FiX size={22} />
+        <FiX size={18} />
       </button>
 
       {/* ================= IMAGES ================= */}
