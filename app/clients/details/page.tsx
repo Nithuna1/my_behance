@@ -150,53 +150,56 @@ return (
   `}
 >
     {displayClients.map((client, i) => (
-            <div
-  key={i}
-  onClick={() => setActiveClient(client)}
-  className={`
-    group
-    cursor-pointer
-    animate-reveal
-    transition-all duration-500
-    hover:-translate-y-4
-    ${isFlipping ? "rotate-y-180" : ""}
-  `}
-  style={{
-    animationDelay: `${i * 0.08}s`,
-    transformStyle: "preserve-3d"
-  }}
->
-              <div
-                className="
-                  relative
-                  w-full
-                  aspect-[4/3]
-                  overflow-hidden
-                  rounded-2xl
-                  shadow-md
-                  hover:shadow-2xl
-                  transition duration-500
-                "
-              >
-               <img
-  src={client.image}
-  alt={client.name}
-  className="w-full h-full object-contain p-4 bg-white"
-/>
-
-                {/* Premium gradient overlay */}
-                <div
-                  className="
-                    absolute inset-0
-                    bg-gradient-to-t from-black/40 via-black/10 to-transparent
-                    opacity-0
-                    group-hover:opacity-100
-                    transition duration-500
-                  "
-                />
-              </div>
-            </div>
-          ))}
+      <div
+        key={i}
+        onClick={() => setActiveClient(client)}
+        className={`
+          group
+          cursor-pointer
+          animate-reveal
+          transition-all duration-500
+          hover:-translate-y-4
+          ${isFlipping ? "rotate-y-180" : ""}
+        `}
+        style={{
+          animationDelay: `${i * 0.08}s`,
+          transformStyle: "preserve-3d"
+        }}
+      >
+        <div
+          className="
+            relative
+            w-full
+            aspect-[4/3]
+            bg-white
+            flex items-center justify-center
+            p-6
+            rounded-2xl
+            border border-gray-100
+            shadow-md
+            hover:shadow-2xl
+            transition duration-500
+          "
+        >
+          <img
+            src={client.image}
+            alt={client.name}
+            className="max-w-full max-h-full object-contain"
+          />
+  
+          {/* Premium gradient overlay */}
+          <div
+            className="
+              absolute inset-0
+              bg-gradient-to-t from-black/5 via-transparent to-transparent
+              opacity-0
+              group-hover:opacity-100
+              transition duration-500
+            "
+          />
+        </div>
+      </div>
+    ))}
         </div>
       );
     })()}

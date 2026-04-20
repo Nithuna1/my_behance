@@ -207,26 +207,29 @@ if (loading) {
         flex
         justify-center
         items-center
-        transition-all duration-500
+        animate-fadeIn
       "
     >
       <div
         className="
           relative
-          w-60 h-60        /* 👈 increased circle size */
-          rounded-full
-          overflow-hidden
-          shadow-xl
+          w-64 h-48        /* 👈 standardized rectangular card size */
+          bg-white
+          rounded-2xl
+          border border-gray-100
+          shadow-lg
           hover:shadow-2xl
+          hover:-translate-y-2
           transition-all duration-500
+          flex items-center justify-center
+          p-6              /* 👈 consistent padding */
         "
       >
         <img
-  src={client.image}
-  alt={client.name}
-  className="w-full h-full object-contain p-4 bg-white"
-/>
-
+          src={client.image}
+          alt={client.name}
+          className="max-w-full max-h-full object-contain"
+        />
       </div>
     </div>
   ))}
