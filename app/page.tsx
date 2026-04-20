@@ -1393,10 +1393,9 @@ ${message}
               {/* CLOSE */}
               <button
                 onClick={() => setActiveMobileApp(null)}
-                className="absolute top-5 right-5 z-10
-        text-xl text-black/60 hover:text-black"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-gray-100 border border-gray-300 shadow-md flex items-center justify-center text-gray-800 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-200"
               >
-                <FiX />
+                <FiX size={18} />
               </button>
 
               {/* LEFT – APP PREVIEW */}
