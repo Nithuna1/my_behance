@@ -204,6 +204,8 @@ return (
       );
     })()}
     
+<br></br>
+
 
     {/* VIEW MORE CLIENTS BUTTON */}
 <div className="flex justify-center mt-2">
