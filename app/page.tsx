@@ -599,41 +599,44 @@ export default function Home() {
 
                       {/* ================= MOBILE: ONE IMAGE + ARROWS ================= */}
                       <div className="w-full md:hidden">
-                        <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
 
-                          {/* IMAGE */}
-                          <img
-                            src={activeService.images[currentIndex] || "/no-image.png"}
-                            alt="Digital Marketing"
-                            className="w-full h-full object-cover"
-                          />
+                        {/* ARROWS + IMAGE ROW */}
+                        <div className="flex items-center gap-2">
 
-                          {/* BOTTOM OVERLAY with link */}
-                          {activeService.websites?.[currentIndex] && (
-                            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent flex justify-center">
-                              <a
-                                href={activeService.websites[currentIndex]}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-5 py-2 rounded-full text-xs font-semibold bg-white text-black shadow-md hover:bg-blue-600 hover:text-white transition"
-                              >
-                                View Profile →
-                              </a>
-                            </div>
-                          )}
-
-                          {/* LEFT ARROW */}
+                          {/* LEFT ARROW - outside image */}
                           <button
                             onClick={() => setCurrentIndex((prev) => prev === 0 ? activeService.images.length - 1 : prev - 1)}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
+                            className="flex-shrink-0 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
                           >
                             <FiChevronLeft size={18} />
                           </button>
 
-                          {/* RIGHT ARROW */}
+                          {/* IMAGE */}
+                          <div className="relative flex-1 rounded-2xl overflow-hidden shadow-md border border-gray-100 bg-white">
+                            <img
+                              src={activeService.images[currentIndex] || "/no-image.png"}
+                              alt="Digital Marketing"
+                              className="w-full h-auto object-contain max-h-[60vh]"
+                            />
+                            {/* BOTTOM LINK */}
+                            {activeService.websites?.[currentIndex] && (
+                              <div className="flex justify-center py-2 border-t border-gray-100">
+                                <a
+                                  href={activeService.websites[currentIndex]}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-600 text-white shadow hover:bg-blue-700 transition"
+                                >
+                                  View Profile →
+                                </a>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* RIGHT ARROW - outside image */}
                           <button
                             onClick={() => setCurrentIndex((prev) => prev === activeService.images.length - 1 ? 0 : prev + 1)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
+                            className="flex-shrink-0 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
                           >
                             <FiChevronRight size={18} />
                           </button>
