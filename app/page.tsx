@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import PostersSection from "./components/PostersSection";
-import { FiChevronLeft, FiChevronRight, FiPhone } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 
 
@@ -649,11 +649,10 @@ export default function Home() {
                             <button
                               key={idx}
                               onClick={() => setCurrentIndex(idx)}
-                              className={`rounded-full transition-all duration-300 ${
-                                idx === currentIndex
+                              className={`rounded-full transition-all duration-300 ${idx === currentIndex
                                   ? "w-5 h-2 bg-blue-600"
                                   : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
-                              }`}
+                                }`}
                             />
                           ))}
                         </div>
@@ -717,8 +716,8 @@ export default function Home() {
                     /* ================= NORMAL GRID ================= */
                     <div
                       className={`grid gap-5 ${activeService.title === "Ui/Ux Design"
-                          ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
-                          : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                        ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
+                        : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
                         }`}
                     >
 
@@ -784,10 +783,10 @@ export default function Home() {
                                     group-hover:scale-110
                                     transition-all duration-300
                                   ">
-                                    <img 
-                                      src={img || "/no-image.png"} 
-                                      alt="Play Cover" 
-                                      className="w-full h-full object-cover" 
+                                    <img
+                                      src={img || "/no-image.png"}
+                                      alt="Play Cover"
+                                      className="w-full h-full object-cover"
                                     />
                                     {/* SMALL OVERLAY PLAY ICON */}
                                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
