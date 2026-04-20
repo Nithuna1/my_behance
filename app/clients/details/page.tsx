@@ -258,56 +258,46 @@ return (
 
 
       {/* ================= FOOTER ================= */}
-      <footer className="bg-[#022549] text-white py-14 mt-10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-10">
-            
-            {/* BRAND & LOGO */}
-            <div className="flex flex-col items-center md:items-start gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20">
-                  <Image src="/projects/logo.jpg" alt="Logo" width={40} height={40} className="object-cover" />
-                </div>
-                <div>
-                  <span className="text-xl font-bold tracking-tight block">Matamix International</span>
-                  <span className="text-blue-400 text-[10px] uppercase tracking-widest font-semibold">Premium Partners</span>
-                </div>
-              </div>
-              <p className="text-white/60 text-sm max-w-xs text-center md:text-left leading-relaxed">
-                Building lasting value through innovation, strategic design, and reliable technical execution.
-              </p>
-            </div>
+<footer className="bg-[#022549] text-white mt-5 md:mt-2">
+  <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
 
-            {/* CONTACT INFO */}
-            <div className="flex flex-col items-center md:items-end gap-3">
-              <a 
-                href="tel:+919605000694" 
-                className="group flex items-center gap-4 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
-              >
-                <FiPhone size={16} className="text-blue-400 group-hover:text-white transition" />
-                <span className="text-sm font-medium tracking-wide">+91 9605 000 694</span>
-              </a>
+    <div
+      className="
+        inline-flex flex-col items-center gap-2
+        px-7 py-4 rounded-xl
+        bg-white/10 backdrop-blur
+        border border-white/20
+        shadow-md
+      "
+    >
+     {/* PHONE */}
+<p className="text-sm font-medium text-white">
+  📞{" "}
+  <a
+    href="tel:+91 9605 000 694"
+    className="hover:underline"
+  >
+    +91 9605 000 694
+  </a>
+</p>
 
-              <a 
-                href="mailto:info@matamix.com" 
-                className="group flex items-center gap-4 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-blue-600 hover:border-blue-600 transition-all duration-300"
-              >
-                <FiMail size={16} className="text-blue-400 group-hover:text-white transition" />
-                <span className="text-sm font-medium tracking-wide">info@matamix.com</span>
-              </a>
-            </div>
 
-          </div>
-          
-          {/* BOTTOM BAR */}
-          <div className="mt-12 pt-8 border-t border-white/10 text-center">
-            <p className="text-white/40 text-xs">
-              © {new Date().getFullYear()} Matamix International. All rights reserved.
-            </p>
-          </div>
+      {/* EMAIL */}
+      <p className="text-sm font-medium">
+        ✉️{" "}
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white hover:underline"
+        >
+          info@matamix.com
+        </a>
+      </p>
+    </div>
 
-        </div>
-      </footer>
+  </div>
+</footer>
 
 {/* ================= FLOATING ACTION BUTTON ================= */}
 <div className="fixed bottom-8 right-8 z-50">
