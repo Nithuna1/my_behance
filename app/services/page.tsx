@@ -108,13 +108,7 @@ useEffect(() => {
     bg-white
   "
 >
-    {/* ================= BACK BUTTON ================= */}
-    <Link
-      href="/"
-      className="fixed top-6 left-6 z-[60] w-12 h-12 rounded-full bg-white/70 backdrop-blur-md border border-gray-200 flex items-center justify-center shadow-md hover:bg-white transition-all group"
-    >
-      <FiChevronLeft size={24} className="text-black group-hover:-translate-x-0.5 transition-transform" />
-    </Link>
+
        {/* ================= COVER ================= */}
        <section className="relative">
          <div
@@ -151,10 +145,20 @@ useEffect(() => {
        
        
        
-          {/* ================= PROFILE STRIP ================= */}
-       <section className="relative pt-16 bg-transparent">
+       <section className="relative pt-10 md:pt-16 bg-transparent">
          <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-8">
        
+           {/* BACK BUTTON (MOBILE ONLY) */}
+           <div className="md:hidden mb-6">
+             <Link 
+               href="/" 
+               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 border border-gray-200 text-sm font-medium hover:bg-gray-200 transition"
+             >
+               <FiChevronLeft size={18} />
+               Back to Home
+             </Link>
+           </div>
+
            {/* LOGO */}
            <div
              className="
