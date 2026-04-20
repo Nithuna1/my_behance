@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEffect } from "react";
 import FollowButton from "../components/FollowButton";
-import { FiMail, FiX, FiChevronLeft, FiPlus, FiMessageCircle } from "react-icons/fi";
+import { FiMail, FiX, FiChevronLeft, FiChevronRight, FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa"
 
 /* ================= TYPES ================= */
@@ -397,143 +397,124 @@ useEffect(() => {
   
           {activeService.title === "Digital Marketing" ? (
   
-    <div className="relative w-full flex items-center justify-center">
+            <div className="relative w-full">
   
-      {/* LEFT ARROW */}
-     <button
-    onClick={() =>
-      setCurrentIndex((prev) =>
-        prev === 0
-          ? activeService.images.length - 1
-          : prev - 1
-      )
-    }
-    className="
-      absolute left-0 top-1/2 -translate-y-1/2
-      z-20
-      text-4xl
-      text-gray-700
-      hover:text-black
-      transition
-    "
-  >
-    ❮
-  </button>
+              {/* ================= MOBILE: ONE IMAGE + ARROWS ================= */}
+              <div className="w-full md:hidden">
   
-      {/* ================= MOBILE: ONE IMAGE ================= */}
-      <div className="w-full md:hidden flex justify-center">
+                {/* ARROWS + IMAGE ROW */}
+                <div className="flex items-center gap-2">
   
-        <div className="relative w-[90%] aspect-[3/4] rounded-xl overflow-hidden group">
+                  {/* LEFT ARROW - outside image */}
+                  <button
+                    onClick={() => setCurrentIndex((prev) => prev === 0 ? activeService.images.length - 1 : prev - 1)}
+                    className="flex-shrink-0 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
+                  >
+                    <FiChevronLeft size={18} />
+                  </button>
   
-          <img
-    src={activeService.images[currentIndex] || "/no-image.png"}
-    alt="Digital Marketing"
-    className="w-full h-full object-cover"
-  />
-  
-          {activeService.videos?.[currentIndex] && (
-            <video
-              src={activeService.videos[currentIndex]}
-              muted
-              loop
-              playsInline
-              autoPlay
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          )}
-  
-          {activeService.websites?.[currentIndex] && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <a
-                href={activeService.websites[currentIndex]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
-              >
-                View Profile →
-              </a>
-            </div>
-          )}
-  
-        </div>
-  
-      </div>
-  
-      {/* ================= DESKTOP: 3 IMAGES ================= */}
-      <div className="hidden md:grid md:grid-cols-3 gap-5 w-full px-12">
-  
-        {activeService.images
-          .slice(currentIndex, currentIndex + 3)
-          .map((img, index) => {
-  
-            const realIndex = currentIndex + index;
-            const websiteLink = activeService.websites?.[realIndex];
-            const videoSrc = activeService.videos?.[realIndex];
-  
-            return (
-              <div key={realIndex}>
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
-  
-                  <img
-    src={img || "/no-image.png"}
-    alt="Digital Marketing"
-    className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
-  />
-  
-                  {videoSrc && (
-                    <video
-                      src={videoSrc}
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
-                      className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
+                  {/* IMAGE */}
+                  <div className="relative flex-1 rounded-2xl overflow-hidden shadow-md border border-gray-100 bg-white">
+                    <img
+                      src={activeService.images[currentIndex] || "/no-image.png"}
+                      alt="Digital Marketing"
+                      className="w-full h-auto object-contain max-h-[60vh]"
                     />
-                  )}
+                    {/* BOTTOM LINK */}
+                    {activeService.websites?.[currentIndex] && (
+                      <div className="flex justify-center py-2 border-t border-gray-100">
+                        <a
+                          href={activeService.websites[currentIndex]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-600 text-white shadow hover:bg-blue-700 transition"
+                        >
+                          View Profile →
+                        </a>
+                      </div>
+                    )}
+                  </div>
   
-                 {websiteLink && (
-    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-      <a
-        href={websiteLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-6 py-2.5 rounded-full text-sm font-medium bg-white/90 text-black backdrop-blur-md shadow-lg"
-      >
-        View profile →
-      </a>
-    </div>
-  )}
+                  {/* RIGHT ARROW - outside image */}
+                  <button
+                    onClick={() => setCurrentIndex((prev) => prev === activeService.images.length - 1 ? 0 : prev + 1)}
+                    className="flex-shrink-0 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
+                  >
+                    <FiChevronRight size={18} />
+                  </button>
+  
+                </div>
+  
+                {/* DOT INDICATORS */}
+                <div className="flex justify-center gap-1.5 mt-3">
+                  {activeService.images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentIndex(idx)}
+                      className={`rounded-full transition-all duration-300 ${
+                        idx === currentIndex
+                          ? "w-5 h-2 bg-blue-600"
+                          : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
-            );
-          })}
   
-      </div>
+              {/* ================= DESKTOP: 3 IMAGES + ARROWS ================= */}
+              <div className="hidden md:block relative px-14">
   
-      {/* RIGHT ARROW */}
-      <button
-    onClick={() =>
-      setCurrentIndex((prev) =>
-        prev === activeService.images.length - 1
-          ? 0
-          : prev + 1
-      )
-    }
-    className="
-      absolute right-0 top-1/2 -translate-y-1/2
-      z-20
-      text-4xl
-      text-gray-700
-      hover:text-black
-      transition
-    "
-  >
-    ❯
-  </button>
+                {/* LEFT ARROW */}
+                <button
+                  onClick={() => setCurrentIndex((prev) => prev === 0 ? activeService.images.length - 1 : prev - 1)}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
+                >
+                  <FiChevronLeft size={20} />
+                </button>
   
-    </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {activeService.images
+                    .slice(currentIndex, currentIndex + 3)
+                    .map((img, index) => {
+                      const realIndex = currentIndex + index;
+                      const websiteLink = activeService.websites?.[realIndex];
+                      return (
+                        <div key={realIndex} className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-md border border-gray-100 group">
+                          <img
+                            src={img || "/no-image.png"}
+                            alt="Digital Marketing"
+                            className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                          />
+                          {websiteLink && (
+                            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent flex justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                              <a
+                                href={websiteLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-black hover:bg-blue-600 hover:text-white transition"
+                              >
+                                View profile →
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                </div>
   
-  ) : (
+                {/* RIGHT ARROW */}
+                <button
+                  onClick={() => setCurrentIndex((prev) => prev === activeService.images.length - 1 ? 0 : prev + 1)}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200"
+                >
+                  <FiChevronRight size={20} />
+                </button>
+  
+              </div>
+  
+            </div>
+  
+          ) : (
   
             /* ================= NORMAL GRID ================= */
             <div
@@ -544,7 +525,7 @@ useEffect(() => {
               }`}
             >
   
-              {activeService.images.map((img, i) => {
+              {(activeService.title === "Video Production" ? activeService.images.slice(0, 6) : activeService.images).map((img, i) => {
   
                 const websiteLink = activeService.websites?.[i];
                 const videoSrc = activeService.videos?.[i];
@@ -559,57 +540,58 @@ useEffect(() => {
                       group
                       cursor-pointer
                       transition
+                      border-2 border-gray-200 shadow-md bg-[#f8fafc]
                       ${
                         activeService.title === "Ui/Ux Design"
                           ? "aspect-[4/6]"
                           : activeService.title === "Digital Marketing"
                           ? "aspect-[3/4]"
-                          : "h-[220px]"
+                          : "h-[240px] md:h-[220px]"
                       }
                     `}
                   >
   
-                   <img
-    src={img || "/no-image.png"}
-    alt="Service Preview"
-    className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
-  />
+                    <img
+                      src={img || "/no-image.png"}
+                      alt="Service Preview"
+                      className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                    />
   
-                 {videoSrc && (
-    <>
-      <video
-        src={videoSrc}
-        muted
-        loop
-        playsInline
-        autoPlay
-        className="
-          absolute inset-0
-          w-full h-full
-          object-cover
-          transition duration-500
-          opacity-100
-          md:opacity-0
-          md:group-hover:opacity-100
-        "
-      />
+                    {videoSrc && (
+                      <>
+                        <video
+                          src={videoSrc}
+                          muted
+                          loop
+                          playsInline
+                          autoPlay
+                          className="
+                            absolute inset-0
+                            w-full h-full
+                            object-cover
+                            transition duration-500
+                            opacity-100
+                            md:opacity-0
+                            md:group-hover:opacity-100
+                          "
+                        />
   
-      {/* ▶ PLAY BUTTON */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="
-          w-14 h-14
-          rounded-full
-          bg-black/60
-          flex items-center justify-center
-          backdrop-blur-md
-          group-hover:scale-110
-          transition
-        ">
-          <span className="text-white text-xl">▶</span>
-        </div>
-      </div>
-    </>
-  )}
+                        {/* ▶ PLAY BUTTON */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="
+                            w-14 h-14
+                            rounded-full
+                            bg-black/60
+                            flex items-center justify-center
+                            backdrop-blur-md
+                            group-hover:scale-110
+                            transition
+                          ">
+                            <span className="text-white text-xl">▶</span>
+                          </div>
+                        </div>
+                      </>
+                    )}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500" />
   
                     {websiteLink && (
