@@ -192,10 +192,8 @@ if (loading) {
        <div
    className="
      grid 
-     grid-cols-1 
-     sm:grid-cols-2 
-     md:grid-cols-3 
-     gap-6            /* 👈 reduced gap */
+     grid-cols-3 
+     gap-2 md:gap-8
      animate-fadeUp
    "
  >
@@ -213,16 +211,17 @@ if (loading) {
        <div
          className="
            relative
-           w-64 h-48        /* 👈 standardized rectangular card size */
+           w-full md:w-64
+           aspect-[4/3]
            bg-white
-           rounded-2xl
+           rounded-xl md:rounded-2xl
            border border-gray-100
-           shadow-lg
+           shadow-md md:shadow-lg
            hover:shadow-2xl
            hover:-translate-y-2
            transition-all duration-500
            flex items-center justify-center
-           p-6              /* 👈 consistent padding */
+           p-2 md:p-6
          "
        >
         <img
