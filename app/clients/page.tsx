@@ -208,22 +208,24 @@ if (loading) {
         animate-fadeIn
       "
     >
-       <div
-         className="
-           relative
-           w-full md:w-64
-           aspect-[4/3]
-           bg-white
-           rounded-xl md:rounded-2xl
-           border border-gray-100
-           shadow-md md:shadow-lg
-           hover:shadow-2xl
-           hover:-translate-y-2
-           transition-all duration-500
-           flex items-center justify-center
-           p-2 md:p-6
-         "
-       >
+        <div
+          onClick={() => setSelectedClient(client)}
+          className="
+            relative
+            w-full md:w-64
+            aspect-[4/3]
+            bg-white
+            rounded-xl md:rounded-2xl
+            border border-gray-100
+            shadow-md md:shadow-lg
+            hover:shadow-2xl
+            hover:-translate-y-2
+            transition-all duration-500
+            flex items-center justify-center
+            p-2 md:p-6
+            cursor-pointer
+          "
+        >
         <img
           src={client.image}
           alt={client.name}
@@ -418,6 +420,73 @@ if (loading) {
 
   </div>
 </div>
+
+
+      {/* ================= CLIENT REVIEW POPUP ================= */}
+      {selectedClient && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+
+          {/* BACKDROP */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setSelectedClient(null)}
+          />
+
+          {/* MODAL */}
+          <div
+            className="relative bg-white max-w-lg w-full rounded-3xl p-8 shadow-2xl text-center animate-popup"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            {/* CLOSE */}
+            <button
+              onClick={() => setSelectedClient(null)}
+              className="absolute top-4 right-4 text-xl text-gray-500 hover:text-black"
+            >
+              ✕
+            </button>
+
+            {/* IMAGE */}
+            <div className="flex justify-center mb-6">
+              <div className="w-28 h-28 rounded-full overflow-hidden shadow-md">
+
+                <img
+                  src={
+                    selectedClient.image && selectedClient.image !== ""
+                      ? selectedClient.image
+                      : "/no-image.png"
+                  }
+                  alt={selectedClient.name || "Client"}
+                  className="w-full h-full object-cover"
+                />
+
+              </div>
+            </div>
+
+            {/* NAME */}
+            <h3 className="text-2xl font-semibold mb-3">
+              {selectedClient.name || "Client"}
+            </h3>
+
+            {/* WEBSITE */}
+            {selectedClient.website ? (
+              <a
+                href={selectedClient.website.startsWith("http") ? selectedClient.website : `https://${selectedClient.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-2 px-6 py-2 bg-blue-600 text-white font-medium rounded-full shadow hover:bg-blue-700 hover:shadow-lg transition"
+              >
+                Visit Site
+              </a>
+            ) : (
+              <p className="text-gray-500 italic mt-2">
+                No website available
+              </p>
+            )}
+
+          </div>
+        </div>
+      )}
 
     </div>
   );
