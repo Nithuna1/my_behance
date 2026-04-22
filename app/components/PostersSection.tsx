@@ -127,7 +127,7 @@ export default function PostersSection() {
           </button>
 
           {/* SLIDER */}
-          <div className="overflow-hidden w-full px-12">
+          <div className="overflow-hidden w-full mx-12">
             <div
               className="flex transition-transform duration-500"
               style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
