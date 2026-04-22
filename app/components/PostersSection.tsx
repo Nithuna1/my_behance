@@ -41,14 +41,10 @@ export default function PostersSection() {
     cards.push(posters.slice(i, i + postersPerCard));
   }
 
-  /* ================= GROUP CARDS INTO SLIDES ================= */
-  const slides: Poster[][][] = [];
-  for (let i = 0; i < cards.length; i += cardsPerSlide) {
-    slides.push(cards.slice(i, i + cardsPerSlide));
-  }
-
+  /* ================= NAVIGATION ================= */
   const nextSlide = () => {
-    if (currentIndex < slides.length - 1) {
+    // For desktop showing 3 cards
+    if (currentIndex < cards.length - 3) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -131,23 +127,17 @@ export default function PostersSection() {
           </button>
 
           {/* SLIDER */}
-          <div className="overflow-hidden w-full">
+          <div className="overflow-hidden w-full px-12">
             <div
               className="flex transition-transform duration-500"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
             >
-              {slides.map((group, index) => (
-                <div
-                  key={index}
-                  className="min-w-full grid grid-cols-3 gap-8 px-12"
-                >
-                  {group.map((card, i) => (
-                    <PosterCard
-                      key={i}
-                      images={card}
-                      onClick={() => setActiveSet(index * cardsPerSlide + i)}
-                    />
-                  ))}
+              {cards.map((card, i) => (
+                <div key={i} className="min-w-[33.333%] px-4">
+                  <PosterCard
+                    images={card}
+                    onClick={() => setActiveSet(i)}
+                  />
                 </div>
               ))}
             </div>
@@ -156,7 +146,7 @@ export default function PostersSection() {
           {/* RIGHT */}
           <button
             onClick={nextSlide}
-            disabled={currentIndex === slides.length - 1}
+            disabled={currentIndex >= cards.length - 3}
             className="absolute right-0 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center disabled:opacity-30"
           >
             →
