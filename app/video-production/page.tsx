@@ -71,21 +71,28 @@ export default function VideoProductionPage() {
     />
 
     {/* ▶ PLAY BUTTON */}
-    <div className="
-      absolute inset-0
-      flex items-center justify-center
-      pointer-events-none
-    ">
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
       <div className="
+        relative
         w-14 h-14
         rounded-full
-        bg-black/60
-        backdrop-blur-md
-        flex items-center justify-center
-        transition
+        overflow-hidden
+        border-2 border-white
+        shadow-xl
         group-hover:scale-110
+        transition-all duration-300
       ">
-        <span className="text-white text-xl">▶</span>
+        <img
+          src={image || "/no-image.png"}
+          alt="Play Cover"
+          className="w-full h-full object-cover"
+        />
+        {/* SMALL OVERLAY PLAY ICON */}
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center">
+            <span className="text-white text-xs ml-0.5">▶</span>
+          </div>
+        </div>
       </div>
     </div>
   </>
