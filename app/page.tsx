@@ -1069,7 +1069,7 @@ export default function Home() {
                   id="desktopSlider"
                   className="
     flex
-    gap-20
+    gap-2
     overflow-hidden
     scroll-smooth
     px-16
@@ -1081,7 +1081,7 @@ export default function Home() {
                       key={i}
                       onClick={() => setActiveMobileApp(app)}
                       className="
-          flex-shrink-0 w-[220px] flex justify-center
+          flex-shrink-0 w-1/4 flex justify-center
           cursor-pointer hover:-translate-y-3 transition
         "
                     >
@@ -1092,7 +1092,7 @@ export default function Home() {
                             : "/no-image.png"
                         }
                         alt={app.title}
-                        className="w-full h-[260px] object-contain"
+                        className="w-full h-[320px] object-contain"
                       />
                     </div>
                   ))}
