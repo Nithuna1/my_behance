@@ -431,14 +431,29 @@ export default function Home() {
                     />
                     {/* VIDEO */}
                     {site.video && (
-                      <video
-                        src={site.video}
-                        muted
-                        loop
-                        playsInline
-                        autoPlay
-                        className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"
-                      />
+                      <>
+                        <video
+                          src={site.video}
+                          muted
+                          loop
+                          playsInline
+                          autoPlay
+                          className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"
+                        />
+
+                        {/* ✅ PLAY BUTTON OVERLAY */}
+                        <div className="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-500 pointer-events-none">
+                          <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-2xl">
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg">
+                              <span className="text-black text-xl ml-1 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
+                                  <path d="M8 5v14l11-7z" />
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </>
                     )}
 
                   </div>
