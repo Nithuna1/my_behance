@@ -14,6 +14,7 @@ export default function EditWebsite() {
   });
 
   const [image, setImage] = useState<File | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null); // 🔥 new
   const [preview, setPreview] = useState<string>(""); // 🔥 new preview
   const [existingImage, setExistingImage] = useState("");
   const [loading, setLoading] = useState(true);
@@ -63,6 +64,11 @@ export default function EditWebsite() {
     }
   };
 
+  const handleVideoFile = (e: any) => {
+    const file = e.target.files[0];
+    setVideoFile(file);
+  };
+
   // ✅ UPDATE (Cloudinary handled in backend)
   const submit = async (e: any) => {
     e.preventDefault();
@@ -74,10 +80,15 @@ export default function EditWebsite() {
 
     formData.append("name", form.name);
     formData.append("url", form.url);
-    formData.append("video", form.video);
 
     if (image) {
       formData.append("image", image); // 🔥 goes to Cloudinary via API
+    }
+
+    if (videoFile) {
+      formData.append("video", videoFile);
+    } else {
+      formData.append("video", form.video);
     }
 
     const res = await fetch(`/api/websites/${id}`, {
@@ -125,20 +136,36 @@ export default function EditWebsite() {
               className="w-full border p-3 rounded-lg"
             />
 
-            <input
-              name="video"
-              value={form.video}
-              onChange={change}
-              placeholder="Video URL"
-              className="w-full border p-3 rounded-lg"
-            />
+            {/* VIDEO INPUT */}
+            <div className="space-y-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Upload Video
+              </label>
+              <input
+                type="file"
+                accept="video/*"
+                onChange={handleVideoFile}
+                className="w-full border p-2 rounded-lg"
+              />
+              {videoFile ? (
+                 <p className="text-sm text-green-600">Selected: {videoFile.name}</p>
+              ) : form.video && (
+                <p className="text-sm text-gray-500 truncate">Current: {form.video}</p>
+              )}
+            </div>
 
-            {/* FILE INPUT */}
-            <input
-              type="file"
-              onChange={handleFile}
-              className="w-full border p-2 rounded-lg"
-            />
+            {/* IMAGE INPUT */}
+            <div className="space-y-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Upload Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFile}
+                className="w-full border p-2 rounded-lg"
+              />
+            </div>
 
             {/* ✅ IMAGE PREVIEW */}
             <div className="space-y-3">

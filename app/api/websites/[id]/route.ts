@@ -72,13 +72,15 @@ export async function PUT(req: Request) {
 
     const formData = await req.formData();
 
-    const file = formData.get("image") as File | null;
+    const imageFile = formData.get("image") as File | null;
+    const videoFile = formData.get("video") as File | null;
 
     let imageUrl: string | null = null;
+    let videoUrl: string | null = null;
 
     // 🔥 UPLOAD IMAGE TO CLOUDINARY
-    if (file && file.size > 0) {
-      const buffer = Buffer.from(await file.arrayBuffer());
+    if (imageFile && imageFile.size > 0) {
+      const buffer = Buffer.from(await imageFile.arrayBuffer());
 
       const uploadResult: any = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
@@ -97,16 +99,44 @@ export async function PUT(req: Request) {
       imageUrl = uploadResult.secure_url;
     }
 
+    // 🔥 UPLOAD VIDEO TO CLOUDINARY
+    if (videoFile && videoFile.size > 0 && typeof videoFile !== "string") {
+      const buffer = Buffer.from(await videoFile.arrayBuffer());
+
+      const uploadResult: any = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: "video",
+            folder: "websites/videos",
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+
+        stream.end(buffer);
+      });
+
+      videoUrl = uploadResult.secure_url;
+    }
+
     // 🔹 UPDATE DATA
     const updateData: any = {
       name: formData.get("name"),
       url: formData.get("url"),
-      video: formData.get("video"),
     };
 
     // only update image if new one uploaded
     if (imageUrl) {
       updateData.image = imageUrl;
+    }
+
+    // only update video if new one uploaded
+    if (videoUrl) {
+      updateData.video = videoUrl;
+    } else if (typeof formData.get("video") === "string") {
+      updateData.video = formData.get("video");
     }
 
     const updated = await Website.findByIdAndUpdate(
