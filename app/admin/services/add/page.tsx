@@ -8,6 +8,7 @@ export default function AddService() {
 
   const [form, setForm] = useState({
     title: "",
+    category: "",
     tags: "",
     websites: "",
   });
@@ -35,6 +36,13 @@ export default function AddService() {
     const formData = new FormData();
 
     formData.append("title", form.title);
+
+    formData.append(
+      "category",
+      JSON.stringify(
+        form.category.split(",").map((c) => c.trim().toLowerCase()).filter(Boolean)
+      )
+    );
 
     // ✅ arrays
     formData.append(
@@ -96,6 +104,20 @@ export default function AddService() {
               name="title"
               value={form.title}
               onChange={change}
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
+          {/* CATEGORY */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Category (e.g. ecommerce, web-development)
+            </label>
+            <input
+              name="category"
+              value={form.category}
+              onChange={change}
+              placeholder="ecommerce, web-development"
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>

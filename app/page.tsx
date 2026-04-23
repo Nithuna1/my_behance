@@ -665,8 +665,8 @@ export default function Home() {
                               key={idx}
                               onClick={() => setCurrentIndex(idx)}
                               className={`rounded-full transition-all duration-300 ${idx === currentIndex
-                                  ? "w-5 h-2 bg-blue-600"
-                                  : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                                ? "w-5 h-2 bg-blue-600"
+                                : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
                                 }`}
                             />
                           ))}
