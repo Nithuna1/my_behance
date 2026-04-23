@@ -9,7 +9,6 @@ export default function EditService() {
 
   const [form, setForm] = useState({
     title: "",
-    category: "",
     tags: "",
     websites: "",
     videos: "",
@@ -39,7 +38,6 @@ export default function EditService() {
 
     setForm({
       title: service?.title || "",
-      category: (service?.category || []).join(", "),
       tags: (service?.tags || []).join(", "),
       websites: (service?.websites || []).join(", "),
       videos: (service?.videos || []).join(", "),
@@ -83,7 +81,6 @@ export default function EditService() {
     const formData = new FormData();
 
     formData.append("title", form.title);
-    formData.append("category", JSON.stringify(form.category.split(",").map(c => c.trim().toLowerCase())));
     formData.append("tags", JSON.stringify(form.tags.split(",")));
     formData.append("websites", JSON.stringify(form.websites.split(",")));
     formData.append("videos", JSON.stringify(form.videos.split(",")));
@@ -133,13 +130,6 @@ export default function EditService() {
               className="w-full border p-3 rounded-lg"
             />
 
-            <input
-              name="category"
-              value={form.category}
-              onChange={change}
-              placeholder="Category (ecommerce, web-development)"
-              className="w-full border p-3 rounded-lg"
-            />
 
             <input
               name="tags"
