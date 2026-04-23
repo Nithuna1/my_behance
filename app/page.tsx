@@ -970,7 +970,7 @@ export default function Home() {
           hover:shadow-[0_10px_30px_rgba(37,99,235,0.4)]
         "
               >
-                View More
+                View All
               </Link>
             </div>
           </section>
