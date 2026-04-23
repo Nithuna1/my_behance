@@ -144,7 +144,7 @@ export default function ClientsDetailsPage() {
             return (
               <div
                 className={`
-    grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-8
+    grid grid-cols-3 gap-3 md:gap-8 max-w-4xl mx-auto
     transition-all duration-300
     ${animate ? "opacity-0 translate-x-10" : "opacity-100 translate-x-0"}
   `}
