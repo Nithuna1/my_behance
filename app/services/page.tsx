@@ -77,12 +77,22 @@ useEffect(() => {
     page: "/video-production",
     tags: ["Corporate Videos", "Product Shoots", "Brand Films"],
   },
+  {
+    title: "Profile",
+    tags: ["Company Profile", "Business Presentation", "Pitch Decks"],
+  },
+  {
+    title: "Branding",
+    tags: ["Visual Identity", "Logo Design", "Brand Guidelines"],
+  },
 ].map((group) => {
   const keyMap: any = {
     "E-Commerce Solutions": "ecommerce",
     "Ui/Ux Design": "uiux",
     "Digital Marketing": "digital-marketing",
     "Video Production": "video-production",
+    "Profile": "profile",
+    "Branding": "branding",
   };
 
   const items = services.filter((s: any) =>

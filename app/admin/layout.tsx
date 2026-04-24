@@ -95,6 +95,20 @@ export default function AdminLayout({ children }: any) {
                   📈 Digital Marketing
                 </a>
 
+                <a
+                  href="/admin/services/profile"
+                  className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
+                >
+                  📄 Profile
+                </a>
+
+                <a
+                  href="/admin/services/branding"
+                  className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 hover:text-blue-600"
+                >
+                  🎨 Branding
+                </a>
+
               </div>
             </div>
 
