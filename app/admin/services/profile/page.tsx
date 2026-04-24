@@ -48,7 +48,7 @@ export default function ProfileAdmin() {
       {/* HEADER */}
       <div className="flex justify-between mb-6">
         <h1 className="text-2xl font-bold">
-          Profile Services
+          Profile
         </h1>
 
         <Link
