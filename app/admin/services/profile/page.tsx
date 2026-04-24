@@ -62,13 +62,13 @@ export default function ProfileAdmin() {
       {/* TABLE */}
       <div className="bg-white shadow rounded overflow-x-auto">
 
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full border-collapse">
 
           {/* HEADER */}
           <thead className="bg-blue-600 text-white">
             <tr>
               <th className="p-3 w-[100px] text-center">Image</th>
-              <th className="p-3 text-center">Website</th>
+              <th className="p-3 text-left">Website</th>
               <th className="p-3 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
@@ -78,7 +78,7 @@ export default function ProfileAdmin() {
 
             {items.length === 0 ? (
               <tr>
-                <td colSpan={4} className="text-center p-4">
+                <td colSpan={3} className="text-center p-4">
                   No profile items found
                 </td>
               </tr>
