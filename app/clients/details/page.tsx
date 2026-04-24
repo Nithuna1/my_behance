@@ -173,7 +173,7 @@ export default function ClientsDetailsPage() {
             aspect-square
             bg-white
             flex items-center justify-center
-            p-3 md:p-6
+            p-4 md:p-6
             rounded-xl md:rounded-2xl
             border border-gray-100
             shadow-md

@@ -213,7 +213,7 @@ if (loading) {
           className="
             relative
             w-full md:w-64
-            aspect-[4/3]
+            aspect-square md:aspect-[4/3]
             bg-white
             rounded-xl md:rounded-2xl
             border border-gray-100
@@ -222,7 +222,7 @@ if (loading) {
             hover:-translate-y-2
             transition-all duration-500
             flex items-center justify-center
-            p-2 md:p-6
+            p-4 md:p-6
             cursor-pointer
           "
         >
