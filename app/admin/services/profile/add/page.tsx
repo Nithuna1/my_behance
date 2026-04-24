@@ -7,20 +7,13 @@ export default function AddProfile() {
   const router = useRouter();
 
   const imageRef = useRef<HTMLInputElement>(null);
-  const videoRef = useRef<HTMLInputElement>(null);
 
   const [website, setWebsite] = useState("");
   const [images, setImages] = useState<File[]>([]);
-  const [video, setVideo] = useState<File | null>(null);
 
   const handleImageChange = (e: any) => {
     const files = Array.from(e.target.files || []) as File[];
     setImages((prev) => [...prev, ...files]);
-  };
-
-  const handleVideoChange = (e: any) => {
-    const file = e.target.files?.[0];
-    if (file) setVideo(file);
   };
 
   const submit = async (e: any) => {
@@ -36,8 +29,6 @@ export default function AddProfile() {
     images.forEach((img) => {
       formData.append("images", img);
     });
-
-    if (video) formData.append("videos", video);
 
     const res = await fetch("/api/services", {
       method: "POST",
@@ -123,35 +114,6 @@ export default function AddProfile() {
                 );
               })}
             </div>
-          </div>
-
-          {/* VIDEO */}
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Video
-            </label>
-
-            <input
-              ref={videoRef}
-              type="file"
-              accept="video/*"
-              onChange={handleVideoChange}
-              className="hidden"
-            />
-
-            <button
-              type="button"
-              onClick={() => videoRef.current?.click()}
-              className="bg-gray-600 text-white px-4 py-2 rounded"
-            >
-              Upload Video
-            </button>
-
-            {video && (
-              <p className="text-green-600 mt-2 text-sm">
-                {video.name}
-              </p>
-            )}
           </div>
 
           {/* BUTTONS */}
