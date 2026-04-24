@@ -79,6 +79,7 @@ useEffect(() => {
   },
   {
     title: "Profile",
+    page: "/profile",
     tags: ["Company Profile", "Business Presentation", "Pitch Decks"],
   },
   {
@@ -535,7 +536,7 @@ useEffect(() => {
               }`}
             >
   
-              {(activeService.title === "Video Production" ? activeService.images.slice(0, 6) : activeService.images).map((img, i) => {
+              {(activeService.title === "Video Production" || activeService.title === "Profile" ? activeService.images.slice(0, 6) : activeService.images).map((img, i) => {
   
                 const websiteLink = activeService.websites?.[i];
                 const videoSrc = activeService.videos?.[i];
