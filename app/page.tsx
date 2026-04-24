@@ -775,7 +775,7 @@ export default function Home() {
                             <img
                               src={img || "/no-image.png"}
                               alt="Service Preview"
-                              className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                              className={`w-full h-full transition duration-500 group-hover:scale-110 ${activeService.title === "Profile" ? "object-contain p-2 bg-white" : "object-cover"}`}
                             />
 
                             {videoSrc && (

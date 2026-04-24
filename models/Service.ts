@@ -13,6 +13,7 @@ const ServiceSchema = new mongoose.Schema({
   websites: [String],
   images: [String],
   videos: [String],
+  pdfs: [String],
 });
 
 export default mongoose.models.Service || mongoose.model("Service", ServiceSchema);
