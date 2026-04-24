@@ -1,22 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 
 export default function EditProfile() {
   const router = useRouter();
   const params = useParams();
 
+  const videoRef = useRef<HTMLInputElement>(null);
+
   const [form, setForm] = useState({
     title: "",
     websites: "",
     tags: "",
-    videos: "",
   });
 
   const [images, setImages] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
+  
+  const [video, setVideo] = useState<File | null>(null);
+  const [existingVideos, setExistingVideos] = useState<string[]>([]);
+  
   const [loading, setLoading] = useState(true);
+
+  const handleVideoChange = (e: any) => {
+    const file = e.target.files?.[0];
+    if (file) setVideo(file);
+  };
 
   const getId = () => Array.isArray(params.id) ? params.id[0] : params.id;
 
@@ -31,9 +41,9 @@ export default function EditProfile() {
         title: s.title || "Profile",
         websites: (s.websites || []).join(", "),
         tags: (s.tags || []).join(", "),
-        videos: (s.videos || []).join(", "),
       });
       setExistingImages(s.images || []);
+      setExistingVideos(s.videos || []);
     }
     setLoading(false);
   };
@@ -50,7 +60,8 @@ export default function EditProfile() {
     formData.append("category", JSON.stringify(["service", "profile"]));
     formData.append("websites", JSON.stringify(form.websites.split(",").map(w => w.trim())));
     formData.append("tags", JSON.stringify(form.tags.split(",").map(t => t.trim())));
-    formData.append("videos", JSON.stringify(form.videos.split(",").map(v => v.trim())));
+
+    if (video) formData.append("videos", video);
 
     images.forEach(img => formData.append("images", img));
 
@@ -81,13 +92,40 @@ export default function EditProfile() {
             />
           </div>
 
+          {/* VIDEO */}
           <div>
-            <label className="block text-sm font-medium mb-1">Video URL (Cloudinary link)</label>
+            <label className="block text-sm font-medium mb-1">
+              Video
+            </label>
+
             <input
-              value={form.videos}
-              onChange={(e) => setForm({...form, videos: e.target.value})}
-              className="w-full border rounded-lg px-3 py-2"
+              ref={videoRef}
+              type="file"
+              accept="video/*"
+              onChange={handleVideoChange}
+              className="hidden"
             />
+
+            <button
+              type="button"
+              onClick={() => videoRef.current?.click()}
+              className="bg-gray-600 text-white px-4 py-2 rounded"
+            >
+              Upload Video
+            </button>
+
+            {video && (
+              <p className="text-green-600 mt-2 text-sm">
+                {video.name}
+              </p>
+            )}
+
+            {existingVideos && existingVideos.length > 0 && !video && (
+              <div className="mt-2">
+                <p className="text-sm text-gray-500 mb-1">Current Video (will be replaced if new uploaded):</p>
+                <video src={existingVideos[0]} className="h-24 object-cover rounded border" controls />
+              </div>
+            )}
           </div>
 
           <div>
