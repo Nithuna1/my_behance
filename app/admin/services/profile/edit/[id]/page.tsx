@@ -11,6 +11,7 @@ export default function EditProfile() {
     title: "",
     websites: "",
     tags: "",
+    videos: "",
   });
 
   const [images, setImages] = useState<File[]>([]);
@@ -30,6 +31,7 @@ export default function EditProfile() {
         title: s.title || "Profile",
         websites: (s.websites || []).join(", "),
         tags: (s.tags || []).join(", "),
+        videos: (s.videos || []).join(", "),
       });
       setExistingImages(s.images || []);
     }
@@ -48,6 +50,7 @@ export default function EditProfile() {
     formData.append("category", JSON.stringify(["service", "profile"]));
     formData.append("websites", JSON.stringify(form.websites.split(",").map(w => w.trim())));
     formData.append("tags", JSON.stringify(form.tags.split(",").map(t => t.trim())));
+    formData.append("videos", JSON.stringify(form.videos.split(",").map(v => v.trim())));
 
     images.forEach(img => formData.append("images", img));
 
@@ -77,6 +80,16 @@ export default function EditProfile() {
               className="w-full border rounded-lg px-3 py-2"
             />
           </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Video URL (Cloudinary link)</label>
+            <input
+              value={form.videos}
+              onChange={(e) => setForm({...form, videos: e.target.value})}
+              className="w-full border rounded-lg px-3 py-2"
+            />
+          </div>
+
           <div>
             <label className="block text-sm font-medium mb-1">Images</label>
             <input
@@ -90,6 +103,7 @@ export default function EditProfile() {
               ))}
             </div>
           </div>
+
           <div className="flex gap-3">
             <button className="bg-blue-600 text-white px-5 py-2 rounded-lg">Update</button>
             <button type="button" onClick={() => router.push("/admin/services/profile")} className="bg-gray-500 text-white px-5 py-2 rounded-lg">Cancel</button>

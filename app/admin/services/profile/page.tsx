@@ -69,6 +69,7 @@ export default function ProfileAdmin() {
             <tr>
               <th className="p-3 w-[100px] text-center">Image</th>
               <th className="p-3 text-left">Website</th>
+              <th className="p-3 w-[150px] text-center">Video</th>
               <th className="p-3 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
@@ -78,7 +79,7 @@ export default function ProfileAdmin() {
 
             {items.length === 0 ? (
               <tr>
-                <td colSpan={3} className="text-center p-4">
+                <td colSpan={4} className="text-center p-4">
                   No profile items found
                 </td>
               </tr>
@@ -109,6 +110,20 @@ export default function ProfileAdmin() {
                         >
                           {e.websites[0]}
                         </a>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+
+                    <td className="p-3 text-center">
+                      {e.videos?.[0] && e.videos[0].startsWith("http") ? (
+                        <video
+                          src={e.videos[0]}
+                          className="h-12 w-20 object-cover rounded mx-auto"
+                          controls
+                          muted
+                          preload="metadata"
+                        />
                       ) : (
                         "—"
                       )}
