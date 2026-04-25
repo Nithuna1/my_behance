@@ -27,7 +27,7 @@ export default function EcommercePage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-black selection:bg-blue-100">
-      
+
       {/* HERO SECTION - MINIMAL */}
       <section className="relative pt-24 pb-8 px-6 overflow-hidden">
         {/* Subtle background element */}
@@ -85,7 +85,7 @@ export default function EcommercePage() {
 
                     {/* OVERLAY ON HOVER */}
                     <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors duration-500" />
-                    
+
                     {/* WEBSITE LINK ON HOVER */}
                     {website && (
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -114,7 +114,7 @@ export default function EcommercePage() {
           {/* Decorative circles */}
           <div className="absolute top-[-20%] left-[-10%] w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50" />
           <div className="absolute bottom-[-20%] right-[-10%] w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50" />
-          
+
           <div className="relative">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -124,7 +124,7 @@ export default function EcommercePage() {
                 <FiArrowLeft className="transition-transform group-hover:-translate-x-1" />
                 Back to Home
               </Link>
-              
+
               <Link
                 href="/hire"
                 className="px-8 py-4 rounded-full border border-black/10 font-bold hover:bg-white hover:border-black/20 hover:shadow-md transition active:scale-95"
