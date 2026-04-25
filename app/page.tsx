@@ -764,7 +764,7 @@ export default function Home() {
                     transition
                     border-2 border-gray-200 shadow-md bg-[#f8fafc]
                     ${activeService.title === "Ui/Ux Design"
-                                ? "aspect-[4/6]"
+                                ? "aspect-[4/6]"  
                                 : activeService.title === "Digital Marketing"
                                   ? "aspect-[3/4]"
                                   : "h-[240px] md:h-[220px]"
