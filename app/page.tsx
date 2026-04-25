@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FiMail, FiX } from "react-icons/fi";
 import FollowButton from "./components/FollowButton";
-import { FiPlus, FiMessageCircle, FiBriefcase,FiCalendar, FiUsers, FiCheckCircle } from "react-icons/fi";
+import { FiPlus, FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import PostersSection from "./components/PostersSection";
@@ -332,76 +332,68 @@ export default function Home() {
 
 
       {/* ================= ABOUT ================= */}
-      <section className="relative py-16 md:py-24 bg-[#FAFAFC] border-y border-black/[0.03]">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <section className="relative py-6 md:py-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-6 md:gap-12 items-center">
 
           {/* LEFT – TEXT */}
-          <div className="animate-fadeUp">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-[1.1] tracking-tight text-gray-900">
-              We build digital products <br className="hidden md:block" />
+          <div>
+            <h2 className="text-3xl md:text-4xl font-semibold mb-6 leading-tight">
+              We build digital products <br />
               that grow businesses
             </h2>
 
-            <div className="space-y-6 text-lg text-gray-600 font-light leading-relaxed max-w-xl">
-              <p>
-                Matamix International is a digital-first technology company specializing
-                in <span className="text-black font-medium">UI/UX design, web development, mobile applications</span>, ERP solutions,
-                and digital marketing. We work with startups, enterprises, and growing
-                brands to design and build scalable digital experiences that deliver
-                real business impact.
-              </p>
+            <p className="text-black/100 leading-relaxed mb-6 max-w-xl">
+              Matamix International is a digital-first technology company specializing
+              in UI/UX design, web development, mobile applications, ERP solutions,
+              and digital marketing. We work with startups, enterprises, and growing
+              brands to design and build scalable digital experiences that deliver
+              real business impact.
+            </p>
 
-              <p>
-                From strategy and design to development and deployment, our approach is
-                focused on <span className="text-black font-medium">clarity, performance, and long-term value</span>. Every solution we
-                create is driven by user needs, data insights, and modern technology.
-              </p>
-            </div>
+            <p className="text-black/100 leading-relaxed mb-8 max-w-xl">
+              From strategy and design to development and deployment, our approach is
+              focused on clarity, performance, and long-term value. Every solution we
+              create is driven by user needs, data insights, and modern technology.
+            </p>
 
-            <div className="mt-10">
-              <Link href="/clients"
-                className="
-                  inline-flex items-center gap-3
-                  px-10 py-4 rounded-full
-                  bg-blue-600 text-white font-semibold
-                  hover:bg-blue-700 hover:-translate-y-1
-                  transition-all duration-300
-                  shadow-lg shadow-blue-600/25
-                "
-              >
-                Our Happy Customers
-                <FiChevronRight className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
+            <Link href="/clients"
+              className="
+          inline-flex items-center gap-2
+          px-8 py-3 rounded-full
+          bg-blue-600 text-white font-medium
+          hover:bg-blue-700
+          transition
+          shadow-[0_12px_30px_rgba(37,99,235,0.35)]
+        "
+            >
+              Our Happy Customers →
+            </Link>
           </div>
 
           {/* RIGHT – STATS / HIGHLIGHTS */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {[
-              { label: "Projects Delivered", value: "20+", icon: <FiBriefcase size={24} />, delay: "delay-100" },
-              { label: "Years Experience", value: "5+", icon: <FiCalendar size={24} />, delay: "delay-200" },
-              { label: "Active Clients", value: "30+", icon: <FiUsers size={24} />, delay: "delay-300" },
-              { label: "Client Satisfaction", value: "100%", icon: <FiCheckCircle size={24} />, delay: "delay-400" }
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className={`
-                  animate-reveal ${stat.delay}
-                  bg-white p-8 rounded-[2rem] 
-                  border border-black/[0.05] shadow-sm
-                  hover:shadow-xl hover:-translate-y-2 
-                  transition-all duration-500 group
-                `}
-              >
-                <div className="w-12 h-12 mb-6 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
-                  {stat.icon}
-                </div>
-                <h3 className="text-4xl font-bold mb-2 text-gray-900">{stat.value}</h3>
-                <p className="text-gray-500 font-medium tracking-wide text-sm uppercase">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+          <div className="grid grid-cols-2 gap-6">
 
+            <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+              <h3 className="text-3xl font-semibold mb-1">20+</h3>
+              <p className="text-sm text-black/70">Projects Delivered</p>
+            </div>
+
+            <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+              <h3 className="text-3xl font-semibold mb-1">5+</h3>
+              <p className="text-sm text-black/70">Years Experience</p>
+            </div>
+
+            <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+              <h3 className="text-3xl font-semibold mb-1">30+</h3>
+              <p className="text-sm text-black/70">Active Clients</p>
+            </div>
+
+            <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
+              <h3 className="text-3xl font-semibold mb-1">100%</h3>
+              <p className="text-sm text-black/70">Client Satisfaction</p>
+            </div>
+
+          </div>
         </div>
       </section>
 
