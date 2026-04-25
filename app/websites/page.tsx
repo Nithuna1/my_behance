@@ -186,79 +186,255 @@ export default function WebsitePage() {
         )}
       </section>
 
-      {/* ================= FOOTER ================= */}
-      <footer className="bg-[#022549] text-white pt-16 pb-8 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-8 flex flex-col items-center gap-4 shadow-xl mb-12 max-w-lg w-full text-center">
-            <h4 className="text-xl font-bold">Ready to start?</h4>
-            <p className="text-white/60 text-sm">Let's build your next digital success story together.</p>
-            <div className="flex flex-col gap-3 w-full">
-              <a href="tel:+919605000694" className="flex items-center justify-center gap-2 hover:text-blue-400 transition">
-                📞 <span className="font-bold">+91 9605 000 694</span>
-              </a>
-              <a href="mailto:info@matamix.com" className="flex items-center justify-center gap-2 hover:text-blue-400 transition">
-                ✉️ <span className="font-bold">info@matamix.com</span>
-              </a>
+      {contactOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+
+            {/* MODAL */}
+            <div className="relative bg-white w-full max-w-md rounded-2xl shadow-xl">
+
+              {/* CLOSE */}
+              <button
+                onClick={() => setContactOpen(false)}
+                className="absolute top-4 right-4 text-black/40 hover:text-black text-xl"
+              >
+                ✕
+              </button>
+
+              <div className="p-8 space-y-5">
+
+                <h2 className="text-xl font-semibold">
+                  Contact Matamix International
+                </h2>
+
+                {/* NAME */}
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+                />
+
+                {/* EMAIL */}
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+                />
+
+                {/* PHONE */}
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Your phone number"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+                />
+
+
+                {/* MESSAGE */}
+                <textarea
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Tell us about your requirement..."
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none"
+                />
+
+                {/* SEND MAIL */}
+                <button
+                  disabled={!name || !email || !phone || !message}
+                  onClick={() => {
+                    if (!name || !email || !phone || !message) return;
+
+                    const subject = "Contact Inquiry – Matamix International";
+                    const body = `
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+
+Message:
+${message}
+    `;
+
+                    window.location.href =
+                      `mailto:sales@matamix.com` +
+                      `?subject=${encodeURIComponent(subject)}` +
+                      `&body=${encodeURIComponent(body)}`;
+                  }}
+                  className={`
+    w-full py-3 rounded-full font-medium transition
+    ${!name || !email || !phone || !message
+                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      : "bg-blue-600 text-white hover:bg-blue-700"
+                    }
+  `}
+                >
+                  Send Message
+                </button>
+
+                {/* HELPER TEXT */}
+                {(!name || !email || !phone || !message) && (
+                  <p className="text-xs text-red-500 text-center">
+                    Please fill all fields to send the message
+                  </p>
+                )}
+
+
+              </div>
             </div>
           </div>
-          <Link href="/" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition">
-            <FiChevronLeft /> Back to Home
-          </Link>
-          <p className="mt-8 text-xs text-white/30">© 2026 Matamix International. All rights reserved.</p>
+        )}
+
+
+      {/* BACK BUTTON (MOBILE ONLY) - BELOW IMAGES */}
+      <div className="md:hidden flex justify-center py-10 border-t border-black/5">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gray-100 border border-gray-200 text-sm font-medium hover:bg-gray-200 transition shadow-sm"
+        >
+          <FiChevronLeft size={18} />
+          Back to Home
+        </Link>
+      </div>
+
+      {/* ================= FOOTER ================= */}
+      <footer className="bg-[#022549] text-white mt-14">
+        <div className="max-w-7xl mx-auto px-6 py-8 flex justify-center">
+
+          <div
+            className="
+        inline-flex flex-col items-center gap-2
+        px-7 py-4 rounded-xl
+        bg-white/10 backdrop-blur
+        border border-white/20
+        shadow-md
+      "
+          >
+            {/* PHONE */}
+            <p className="text-sm font-medium text-white">
+              📞{" "}
+              <a
+                href="tel:+91 9605 000 694"
+                className="hover:underline"
+              >
+                +91 9605 000 694
+              </a>
+            </p>
+
+
+            {/* EMAIL */}
+            <p className="text-sm font-medium">
+              ✉️{" "}
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=info@matamix.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:underline"
+              >
+                info@matamix.com
+              </a>
+            </p>
+          </div>
+
         </div>
       </footer>
 
-      {/* ================= FAB & CONTACT ================= */}
-      {contactOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 animate-fadeIn">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setContactOpen(false)} />
-          <div className="relative bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden p-8 animate-popup">
-            <button onClick={() => setContactOpen(false)} className="absolute top-6 right-6 text-black/40 hover:text-black transition">
-              <FiX size={24} />
-            </button>
-            <h2 className="text-2xl font-bold mb-6">Contact Us</h2>
-            <div className="space-y-4">
-              <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your Name" className="w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-600 outline-none" />
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your Email" className="w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-600 outline-none" />
-              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone Number" className="w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-600 outline-none" />
-              <textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us about your requirement..." className="w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-600 outline-none" />
-              <button
-                disabled={!name || !email || !phone || !message}
-                onClick={() => {
-                  const subject = "Contact Inquiry – Matamix";
-                  const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
-                  window.location.href = `mailto:sales@matamix.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                }}
-                className="w-full py-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700 transition disabled:bg-gray-200"
-              >
-                Send Message
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
+      {/* ================= FLOATING ACTION BUTTON ================= */}
       <div className="fixed bottom-8 right-8 z-50">
-        <div className="relative">
+
+        <div className="relative w-16 h-16">
+
+          {/* EXPANDED BUTTONS */}
           {fabOpen && (
-            <div className="flex flex-col gap-4 mb-4 items-center animate-fadeIn">
-              <button onClick={() => window.open(`https://wa.me/919605000694?text=Hello`, "_blank")} className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg hover:scale-110 transition">
-                <FaWhatsapp size={24} />
+            <>
+              {/* WhatsApp - Top */}
+              <button
+                onClick={() => {
+                  const msg =
+                    "Hello Matamix International,%0A%0AI would like to know more about your services.";
+                  window.open(
+                    `https://wa.me/919605000694?text=${msg}`,
+                    "_blank"
+                  );
+                }}
+                className="
+        absolute bottom-24 right-2
+        w-12 h-12 rounded-full
+        bg-green-500 text-white
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+              >
+                <FaWhatsapp size={20} />
               </button>
-              <button onClick={() => window.open("mailto:sales@matamix.com", "_blank")} className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-110 transition border">
-                <FiMail size={24} />
+
+              {/* Email - Middle */}
+              <button
+                onClick={() => {
+                  window.open(
+                    "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
+                    "_blank"
+                  );
+                }}
+                className="
+        absolute bottom-18 right-20
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+              >
+                <FiMail size={20} />
               </button>
-              <button onClick={() => setContactOpen(true)} className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-110 transition border">
-                <FiMessageCircle size={24} />
+
+              {/* Contact - Lower */}
+              <button
+                onClick={() => setContactOpen(true)}
+                className="
+        absolute bottom-4 right-28
+        w-12 h-12 rounded-full
+        bg-white text-black
+        flex items-center justify-center
+        shadow-lg
+        transition-all duration-300
+        hover:scale-110
+      "
+              >
+                <FiMessageCircle size={20} />
               </button>
-            </div>
+            </>
           )}
-          <button onClick={() => setFabOpen(!fabOpen)} className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl hover:scale-110 transition">
-            <FiPlus size={28} className={`transition-transform duration-300 ${fabOpen ? "rotate-45" : ""}`} />
+
+          {/* MAIN PLUS BUTTON */}
+          <button
+            onClick={() => setFabOpen(!fabOpen)}
+            className="
+        w-14 h-14
+        rounded-full
+        bg-blue-600
+        text-white
+        flex items-center justify-center
+        shadow-xl
+        transition-transform duration-300
+        hover:scale-110
+      "
+          >
+            <FiPlus
+              size={26}
+              className={`transition-transform duration-300 ${fabOpen ? "rotate-45" : ""
+                }`}
+            />
           </button>
+
         </div>
       </div>
-
     </div>
   );
 }
