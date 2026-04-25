@@ -18,15 +18,13 @@ export default function EcommercePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white py-20 px-6">
+    <div className="min-h-screen bg-white py-16 px-6">
 
-      {/* HEADER */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-12 text-center text-gray-900 tracking-tight">
+      <h1 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-10 text-center text-black">
         E-Commerce Solutions
       </h1>
 
-      {/* GRID */}
-      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
         {items.length === 0 && (
           <p className="text-center col-span-3 text-gray-500">
@@ -34,7 +32,7 @@ export default function EcommercePage() {
           </p>
         )}
 
-        {items.map((item) => {
+        {items.map((item, i) => {
           const image = item.images?.[0];
           const video = item.videos?.[0];
           const website = item.websites?.[0];
@@ -42,7 +40,7 @@ export default function EcommercePage() {
           return (
             <div
               key={item._id}
-              className="relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-500 bg-white"
+              className="relative h-56 rounded-xl overflow-hidden group"
             >
 
               {/* IMAGE */}
@@ -50,35 +48,72 @@ export default function EcommercePage() {
                 <img
                   src={image}
                   alt="Ecommerce"
-                  className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
+                  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
                 />
               )}
 
               {/* VIDEO */}
               {video && (
-                <video
-                  src={video}
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 hover:opacity-100 transition duration-500"
-                />
+                <>
+                  <video
+                    src={video}
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                    className="
+                      absolute inset-0 w-full h-full object-cover
+                      opacity-100
+                      md:opacity-0 md:group-hover:opacity-100
+                      transition duration-500
+                    "
+                  />
+
+                  {/* ▶ PLAY BUTTON */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="
+                      relative
+                      w-14 h-14
+                      rounded-full
+                      overflow-hidden
+                      border-2 border-white
+                      shadow-xl
+                      group-hover:scale-110
+                      transition-all duration-300
+                    ">
+                      <img
+                        src={image || "/no-image.png"}
+                        alt="Play Cover"
+                        className="w-full h-full object-cover"
+                      />
+                      {/* SMALL OVERLAY PLAY ICON */}
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center">
+                          <span className="text-white text-xs ml-0.5">▶</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
               )}
 
-              {/* CONTENT OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition duration-500 flex items-end justify-center">
-                {website && (
+              {/* OVERLAY */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition duration-500" />
+
+              {/* WEBSITE BUTTON */}
+              {website && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
                   <a
                     href={website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mb-4 px-5 py-2 rounded-full bg-white text-gray-900 text-sm font-medium shadow-lg hover:bg-gray-900 hover:text-white transition"
+                    className="px-5 py-2 rounded-full bg-white text-black text-sm font-medium shadow-lg hover:bg-black hover:text-white transition"
                   >
                     Explore Site →
                   </a>
-                )}
-              </div>
+                </div>
+              )}
+
             </div>
           );
         })}
@@ -86,10 +121,10 @@ export default function EcommercePage() {
       </div>
 
       {/* BACK BUTTON */}
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center mt-10">
         <Link
           href="/"
-          className="px-6 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition"
+          className="px-6 py-2 rounded-full border border-gray-400 text-sm font-medium text-black hover:bg-blue-600 hover:text-white hover:border-blue-600 transition"
         >
           ← Back to Home
         </Link>
