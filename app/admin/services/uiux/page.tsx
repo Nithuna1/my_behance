@@ -44,16 +44,16 @@ export default function UiUxAdmin() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
 
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full border-collapse min-w-[800px]">
 
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 w-[100px] text-center">Image</th>
-              <th className="p-3 text-center">Website</th>
-              <th className="p-3 w-[150px] text-center">Video</th>
-              <th className="p-3 w-[180px] text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 text-left">Website</th>
+              <th className="p-4 w-[150px] text-center">Video</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -84,20 +84,22 @@ export default function UiUxAdmin() {
 </td>
 
                 {/* WEBSITE */}
-                <td className="p-3 text-center">
+                <td className="p-4 text-left align-middle text-sm text-blue-600 font-medium">
                   {e.websites?.[0] ? (
                     <a
                       href={e.websites[0]}
                       target="_blank"
-                      className="text-blue-600 underline truncate block"
+                      className="hover:underline transition"
                     >
                       {e.websites[0]}
                     </a>
-                  ) : "—"}
+                  ) : (
+                    <span className="text-gray-400">—</span>
+                  )}
                 </td>
 
                 {/* VIDEO */}
-                <td className="p-3 text-center">
+                <td className="p-4 text-center align-middle">
   {e.videos?.[0] && e.videos[0].startsWith("http") ? (
     <video
       src={e.videos[0]} // ✅ Cloudinary video
@@ -107,7 +109,7 @@ export default function UiUxAdmin() {
       preload="metadata"
     />
   ) : (
-    "—"
+    <span className="text-gray-400">—</span>
   )}
 </td>
 

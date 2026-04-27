@@ -60,16 +60,16 @@ export default function BrandingAdmin() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
 
-        <table className="w-full border-collapse">
+        <table className="w-full border-collapse min-w-[600px]">
 
           {/* HEADER */}
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 w-[100px] text-center">Image</th>
-              <th className="p-3 text-left">Website</th>
-              <th className="p-3 w-[180px] text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 text-left">Website</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -100,17 +100,17 @@ export default function BrandingAdmin() {
                       />
                     </td>
 
-                    <td className="p-3 text-center">
+                    <td className="p-4 text-left align-middle text-sm text-blue-600 font-medium">
                       {e.websites?.[0] ? (
                         <a
                           href={e.websites[0]}
                           target="_blank"
-                          className="text-blue-600 underline truncate block"
+                          className="hover:underline transition"
                         >
                           {e.websites[0]}
                         </a>
                       ) : (
-                        "—"
+                        <span className="text-gray-400">—</span>
                       )}
                     </td>
 

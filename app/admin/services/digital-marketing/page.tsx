@@ -42,15 +42,15 @@ export default function DigitalMarketingAdmin() {
         </Link>
       </div>
 
-      <div className="bg-white shadow rounded overflow-x-auto">
-        <table className="w-full table-fixed border-collapse">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
+        <table className="w-full border-collapse min-w-[800px]">
 
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 text-center">Image</th>
-              <th className="p-3 text-center">Website</th>
-              <th className="p-3 text-center">Video</th>
-              <th className="p-3 text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 text-left">Website</th>
+              <th className="p-4 w-[150px] text-center">Video</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -78,8 +78,14 @@ export default function DigitalMarketingAdmin() {
 />
                 </td>
 
-                <td className="p-3 text-center">
-                  {e.websites?.[0] || "—"}
+                <td className="p-4 text-left align-middle text-sm text-blue-600 font-medium">
+                  {e.websites?.[0] ? (
+                    <a href={e.websites[0]} target="_blank" className="hover:underline transition">
+                      {e.websites[0]}
+                    </a>
+                  ) : (
+                    <span className="text-gray-400">—</span>
+                  )}
                 </td>
 
                <td className="p-3 text-center">
