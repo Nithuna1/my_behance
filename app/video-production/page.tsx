@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowLeft, FiPlayCircle, FiVideo } from "react-icons/fi";
+import { FiArrowLeft, FiPlayCircle, FiVideo, FiX } from "react-icons/fi";
 
 export default function VideoProductionPage() {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+ 
   const load = async () => {
     try {
       const res = await fetch("/api/services?category=video-production");
@@ -68,12 +69,13 @@ export default function VideoProductionPage() {
             {items.map((item, i) => {
               const image = item.images?.[0];
               const video = item.videos?.[0];
+              const website = item.websites?.[0];
 
-              return (
+              const Card = (
                 <div
-                  key={item._id || i}
-                  className="group premium-card bg-white border border-black/5 shadow-sm rounded-[2rem] overflow-hidden flex flex-col h-full animate-reveal"
+                  className="group premium-card bg-white border border-black/5 shadow-sm rounded-[2rem] overflow-hidden flex flex-col h-full animate-reveal cursor-pointer"
                   style={{ animationDelay: `${i * 0.1}s` }}
+                  onClick={() => !website && setPlayingVideo(video || null)}
                 >
                   {/* MEDIA CONTAINER */}
                   <div className="relative aspect-video overflow-hidden">
@@ -106,17 +108,25 @@ export default function VideoProductionPage() {
                       {item.category || "Film"}
                     </div>
 
-                    {/* PLAY ICON */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:scale-110 transition-transform duration-500">
-                       <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-2xl">
-                         <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg">
-                           <span className="text-black text-xl ml-1 flex items-center justify-center">
-                             <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
-                               <path d="M8 5v14l11-7z" />
-                             </svg>
+                    {/* PLAY ICON / VIEW PROJECT BUTTON */}
+                    <div className="absolute inset-0 flex items-center justify-center transition-all duration-500">
+                       {website ? (
+                         <div className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                           <span className="px-6 py-2.5 bg-white text-black rounded-full text-sm font-bold shadow-xl">
+                             View Project
                            </span>
                          </div>
-                       </div>
+                       ) : (
+                         <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                           <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg">
+                             <span className="text-black text-xl ml-1 flex items-center justify-center">
+                               <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
+                                 <path d="M8 5v14l11-7z" />
+                               </svg>
+                             </span>
+                           </div>
+                         </div>
+                       )}
                     </div>
                   </div>
 
@@ -132,7 +142,7 @@ export default function VideoProductionPage() {
                     <div className="mt-auto pt-6 border-t border-black/5 flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs font-semibold text-black/40">
                          <FiPlayCircle className="text-blue-600 text-lg" />
-                         <span>Featured Clip</span>
+                         <span>{website ? "External Project" : "Featured Clip"}</span>
                       </div>
                       
                       <div className="flex -space-x-2">
@@ -142,6 +152,16 @@ export default function VideoProductionPage() {
                       </div>
                     </div>
                   </div>
+                </div>
+              );
+
+              return website ? (
+                <a key={item._id || i} href={website} target="_blank" rel="noopener noreferrer">
+                  {Card}
+                </a>
+              ) : (
+                <div key={item._id || i}>
+                  {Card}
                 </div>
               );
             })}
@@ -181,6 +201,27 @@ export default function VideoProductionPage() {
           </div>
         </div>
       </section>
+
+      {/* 🔥 VIDEO PLAYER MODAL */}
+      {playingVideo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-10">
+          <button
+            onClick={() => setPlayingVideo(null)}
+            className="absolute top-6 right-6 text-white hover:text-blue-400 transition-colors z-[110]"
+          >
+            <FiX size={32} />
+          </button>
+          
+          <div className="relative w-full max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+            <video
+              src={playingVideo}
+              controls
+              autoPlay
+              className="w-full h-full object-contain bg-black"
+            />
+          </div>
+        </div>
+      )}
 
     </div>
   );

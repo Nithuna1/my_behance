@@ -35,6 +35,7 @@ export default function ServicePage() {
 
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
 
   useEffect(() => {
@@ -666,7 +667,9 @@ export default function ServicePage() {
                                 {Card}
                               </a>
                             ) : (
-                              Card
+                              <div onClick={() => setPlayingVideo(videoSrc || null)}>
+                                {Card}
+                              </div>
                             )}
                           </div>
                         );
@@ -954,6 +957,26 @@ ${message}
         </div>
       </div>
 
+      {/* 🔥 VIDEO PLAYER MODAL */}
+      {playingVideo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10">
+          <button
+            onClick={() => setPlayingVideo(null)}
+            className="absolute top-6 right-6 text-white hover:text-blue-400 transition-colors z-[110]"
+          >
+            <FiX size={32} />
+          </button>
+          
+          <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+            <video
+              src={playingVideo}
+              controls
+              autoPlay
+              className="w-full h-full object-contain bg-black"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
