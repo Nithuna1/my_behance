@@ -189,7 +189,7 @@ export default function AddClient() {
                     className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none font-medium"
                     >
                     <option value="front">Front Page</option>
-                    <option value="back">Detailed Page</option>
+                    <option value="back">Back Page</option>
                     </select>
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
                         <FiLayers size={14} />
