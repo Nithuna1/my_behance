@@ -53,19 +53,19 @@ export default function ProjectsAdmin() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
 
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full border-collapse min-w-[900px]">
 
           {/* HEADER */}
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 w-[80px] text-center">Image</th>
-              <th className="p-3 w-[200px] text-center">Title</th>
-              <th className="p-3 w-[180px] text-center">Author</th>
-              <th className="p-3 w-[80px] text-center">Year</th>
-              <th className="p-3 text-center">Category</th>
-              <th className="p-3 w-[160px] text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 w-[250px] text-left">Title</th>
+              <th className="p-4 w-[200px] text-left">Author</th>
+              <th className="p-4 w-[100px] text-center">Year</th>
+              <th className="p-4 text-left">Category</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -100,23 +100,25 @@ export default function ProjectsAdmin() {
                     </td>
 
                     {/* TITLE */}
-                    <td className="p-3 text-center align-middle font-medium break-words">
+                    <td className="p-4 text-left align-middle font-semibold text-gray-800">
                       {p.title || "—"}
                     </td>
 
                     {/* AUTHOR */}
-                    <td className="p-3 text-center align-middle break-words">
+                    <td className="p-4 text-left align-middle text-gray-600">
                       {p.author || "—"}
                     </td>
 
                     {/* YEAR */}
-                    <td className="p-3 text-center align-middle">
+                    <td className="p-4 text-center align-middle font-medium">
                       {p.year || "—"}
                     </td>
 
                     {/* CATEGORY */}
-                    <td className="p-3 text-center align-middle break-words">
-                      {p.category || "—"}
+                    <td className="p-4 text-left align-middle">
+                      <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold uppercase tracking-wider">
+                        {p.category || "General"}
+                      </span>
                     </td>
 
                     {/* ACTIONS */}
