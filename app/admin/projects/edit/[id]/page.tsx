@@ -2,11 +2,16 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import { FiType, FiAlignLeft, FiImage, FiUser, FiCalendar, FiTag, FiArrowLeft, FiUploadCloud, FiTrash2, FiSave, FiX, FiInfo } from "react-icons/fi";
 
 export default function EditProject() {
   const router = useRouter();
   const params = useParams();
   const fileRef = useRef<HTMLInputElement>(null);
+  
+  const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
 
   const [form, setForm] = useState({
     title: "",
@@ -18,17 +23,12 @@ export default function EditProject() {
 
   const [images, setImages] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  // ✅ SAFE ID
   const getId = () => {
     if (!params?.id) return null;
     return Array.isArray(params.id) ? params.id[0] : params.id;
   };
 
-  // ==============================
-  // ✅ LOAD PROJECT (FIXED)
-  // ==============================
   const loadProject = async () => {
     try {
       const id = getId();
@@ -38,11 +38,10 @@ export default function EditProject() {
       const data = await res.json();
 
       if (!res.ok || data.success === false) {
-        console.error("Project not found");
-        return;
+        throw new Error("Project not found");
       }
 
-      const project = data.project; // 🔥 FIXED
+      const project = data.project;
 
       setForm({
         title: project?.title || "",
@@ -55,6 +54,7 @@ export default function EditProject() {
       setExistingImages(project?.gallery || []);
     } catch (err) {
       console.error("Error loading project:", err);
+      alert("Failed to load project data.");
     } finally {
       setLoading(false);
     }
@@ -68,210 +68,284 @@ export default function EditProject() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ==============================
-  // ✅ HANDLE FILE + PREVIEW
-  // ==============================
   const handleFileChange = (e: any) => {
     const files = Array.from(e.target.files || []) as File[];
     setImages((prev) => [...prev, ...files]);
   };
 
-  // ==============================
-  // ✅ UPDATE (CLOUDINARY READY)
-  // ==============================
+  const removeNewImage = (index: number) => {
+    setImages(images.filter((_, i) => i !== index));
+  };
+
   const submit = async (e: any) => {
     e.preventDefault();
+    const id = getId();
+    if (!id) return;
+
+    setUpdating(true);
+    const formData = new FormData();
+
+    Object.entries(form).forEach(([key, value]) => {
+      formData.append(key, value as string);
+    });
+
+    images.forEach((img) => {
+      formData.append("images", img);
+    });
 
     try {
-      const id = getId();
-      if (!id) return;
+        const res = await fetch(`/api/projects/${id}`, {
+          method: "PUT",
+          body: formData,
+        });
 
-      const formData = new FormData();
+        const data = await res.json();
 
-      Object.entries(form).forEach(([key, value]) => {
-        formData.append(key, value as string);
-      });
-
-      // 🔥 SEND MULTIPLE IMAGES
-      images.forEach((img) => {
-        formData.append("images", img);
-      });
-
-      const res = await fetch(`/api/projects/${id}`, {
-        method: "PUT",
-        body: formData,
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        alert("Updated ✅");
-
-        // 🔥 reload to get Cloudinary URLs
-        await loadProject();
-
-        router.push("/admin/projects");
-      } else {
-        alert(data.message || "Failed ❌");
-      }
-
+        if (data.success) {
+          router.push("/admin/projects");
+        } else {
+          alert(data.message || "Failed to update ❌");
+        }
     } catch (err) {
-      console.error("Update error:", err);
-      alert("Something went wrong ❌");
+        console.error("Update error:", err);
+        alert("Something went wrong ❌");
+    } finally {
+        setUpdating(false);
     }
   };
 
-  if (loading) {
-    return <div className="p-8">Loading project...</div>;
-  }
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
+        <div className="w-10 h-10 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin" />
+    </div>
+  );
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        <h1 className="text-3xl font-bold mb-8">
-          Edit Project
-        </h1>
-
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-
-          <form
-            onSubmit={submit}
-            className="grid md:grid-cols-[1.4fr_1fr] gap-12"
+    <div className="min-h-screen bg-[#f8fafc] p-4 md:p-10">
+      
+      {/* BACK BUTTON & HEADER */}
+      <div className="max-w-5xl mx-auto mb-8 flex items-center justify-between">
+        <div>
+          <Link 
+            href="/admin/projects" 
+            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-blue-600 transition mb-2"
           >
+            <FiArrowLeft /> Back to Projects
+          </Link>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+            Edit <span className="text-blue-600">Project</span>
+          </h1>
+        </div>
+      </div>
 
-            {/* LEFT SIDE */}
-            <div className="space-y-6">
+      <div className="max-w-5xl mx-auto">
+        <form onSubmit={submit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* LEFT CONTENT: TITLE, DESCRIPTION, GALLERY */}
+          <div className="lg:col-span-2 space-y-6">
+            
+            {/* CORE DETAILS */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-50">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                   <FiType size={20} />
+                </div>
+                <h2 className="font-bold text-gray-800">Content Details</h2>
+              </div>
 
-              <input
-                name="title"
-                value={form.title}
-                onChange={change}
-                placeholder="Title"
-                className="w-full border p-3 rounded-lg"
-              />
+              {/* TITLE */}
+              <div>
+                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                  Project Title
+                </label>
+                <input
+                  name="title"
+                  value={form.title}
+                  onChange={change}
+                  placeholder="Project Title"
+                  className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                  required
+                />
+              </div>
 
-              <textarea
-                name="description"
-                value={form.description}
-                onChange={change}
-                placeholder="Description"
-                className="w-full border p-3 rounded-lg h-32"
-              />
+              {/* DESCRIPTION */}
+              <div>
+                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  value={form.description}
+                  onChange={change}
+                  placeholder="Project Description"
+                  className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none h-40 resize-none"
+                />
+              </div>
+            </div>
 
-              <div className="grid grid-cols-2 gap-4">
+            {/* IMAGES SECTION */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+              <div className="flex items-center justify-between gap-3 pb-6 border-b border-gray-50 mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+                    <FiImage size={20} />
+                  </div>
+                  <h2 className="font-bold text-gray-800">Project Gallery</h2>
+                </div>
+              </div>
+
+              {/* GALLERY GRID */}
+              <div className="space-y-8">
+                
+                {/* EXISTING IMAGES */}
+                {existingImages.length > 0 && (
+                   <div className="space-y-4">
+                      <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                         <FiInfo size={12} /> Current Gallery
+                      </div>
+                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                        {existingImages.map((img, i) => (
+                          <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-gray-100 shadow-sm bg-gray-50">
+                            <img src={img} className="w-full h-full object-cover" />
+                            {i === 0 && (
+                                <div className="absolute top-2 left-2 bg-blue-600 text-white text-[8px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">Cover</div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="p-4 bg-orange-50 rounded-xl border border-orange-100 flex gap-3">
+                         <FiInfo className="text-orange-400 shrink-0 mt-0.5" size={16} />
+                         <p className="text-[10px] text-orange-600 leading-relaxed font-medium">Note: Uploading new images will replace the entire existing gallery on Cloudinary.</p>
+                      </div>
+                   </div>
+                )}
+
+                {/* NEW UPLOADS */}
+                <div className="space-y-4 pt-4 border-t border-gray-50">
+                  <div className="flex items-center justify-between">
+                     <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">New Uploads</div>
+                     <label className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold uppercase tracking-wider cursor-pointer hover:bg-blue-600 hover:text-white transition group">
+                        <FiUploadCloud size={14} />
+                        <span>Add Images</span>
+                        <input ref={fileRef} type="file" multiple onChange={handleFileChange} className="hidden" />
+                     </label>
+                  </div>
+
+                  {images.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {images.map((img, i) => {
+                        const preview = URL.createObjectURL(img);
+                        return (
+                            <div key={i} className="group relative aspect-square rounded-xl overflow-hidden border border-gray-100 shadow-sm bg-gray-50">
+                            <img src={preview} className="w-full h-full object-cover" onLoad={() => URL.revokeObjectURL(preview)} />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <button 
+                                type="button" 
+                                onClick={() => removeNewImage(i)}
+                                className="w-8 h-8 rounded-full bg-white text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition"
+                                >
+                                <FiTrash2 size={14} />
+                                </button>
+                            </div>
+                            </div>
+                        );
+                        })}
+                    </div>
+                  ) : (
+                    <div className="py-12 flex flex-col items-center justify-center border-2 border-dashed border-gray-100 rounded-2xl text-gray-300">
+                        <FiImage size={32} className="mb-2 opacity-20" />
+                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-50">No new images selected</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT SIDEBAR: METADATA & ACTIONS */}
+          <div className="space-y-6">
+            
+            {/* METADATA CARD */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-50">
+                <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center text-green-600">
+                   <FiTag size={20} />
+                </div>
+                <h2 className="font-bold text-gray-800">Metadata</h2>
+              </div>
+
+              {/* CATEGORY */}
+              <div>
+                <label className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                  <FiTag size={12} /> Category
+                </label>
+                <input
+                  name="category"
+                  value={form.category}
+                  onChange={change}
+                  placeholder="Category"
+                  className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                  required
+                />
+              </div>
+
+              {/* AUTHOR */}
+              <div>
+                <label className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                  <FiUser size={12} /> Author
+                </label>
                 <input
                   name="author"
                   value={form.author}
                   onChange={change}
                   placeholder="Author"
-                  className="border p-3 rounded-lg"
+                  className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
                 />
+              </div>
 
+              {/* YEAR */}
+              <div>
+                <label className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                  <FiCalendar size={12} /> Project Year
+                </label>
                 <input
                   name="year"
                   value={form.year}
                   onChange={change}
                   placeholder="Year"
-                  className="border p-3 rounded-lg"
+                  className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
                 />
               </div>
+            </div>
 
-              <input
-                name="category"
-                value={form.category}
-                onChange={change}
-                placeholder="Category"
-                className="w-full border p-3 rounded-lg"
-              />
-
-              {/* FILE INPUT */}
-              <input
-                ref={fileRef}
-                type="file"
-                multiple
-                onChange={handleFileChange}
-                className="hidden"
-              />
-
+            {/* ACTION BUTTONS */}
+            <div className="space-y-3">
               <button
-                type="button"
-                onClick={() => fileRef.current?.click()}
-                className="bg-gray-200 px-4 py-2 rounded"
+                type="submit"
+                disabled={updating}
+                className="w-full bg-[#1e293b] text-white font-bold py-4 rounded-2xl shadow-lg shadow-gray-200 hover:bg-blue-600 hover:shadow-blue-200 transition-all active:scale-[0.98] disabled:opacity-70 flex items-center justify-center gap-2"
               >
-                + Add Images
-              </button>
-
-            </div>
-
-            {/* RIGHT SIDE */}
-            <div className="space-y-4">
-
-              <h3 className="font-semibold text-gray-700">
-                Image Preview
-              </h3>
-
-              {/* EXISTING IMAGES (Cloudinary URLs) */}
-              {existingImages.length > 0 && (
-                <div>
-                  <p className="text-sm text-gray-500 mb-2">Existing</p>
-                  <div className="grid grid-cols-3 gap-3">
-                    {existingImages.map((img, i) => (
-                      <img
-                        key={i}
-                        src={img}
-                        className="w-full h-32 object-cover rounded"
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* NEW IMAGES */}
-              {images.length > 0 && (
-                <div>
-                  <p className="text-sm text-gray-500 mt-4 mb-2">New</p>
-                  <div className="grid grid-cols-3 gap-3">
-                    {images.map((img, i) => {
-                      const preview = URL.createObjectURL(img);
-                      return (
-                        <img
-                          key={i}
-                          src={preview}
-                          className="w-full h-32 object-cover rounded"
-                          onLoad={() => URL.revokeObjectURL(preview)}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {existingImages.length === 0 && images.length === 0 && (
-                <p className="text-gray-400">No images</p>
-              )}
-
-            </div>
-
-            {/* BUTTONS */}
-            <div className="flex gap-4 pt-6 col-span-2">
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg">
-                Update
+                {updating ? (
+                    <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                ) : (
+                    <>
+                        <FiSave />
+                        <span>Update Project</span>
+                    </>
+                )}
               </button>
 
               <button
                 type="button"
                 onClick={() => router.push("/admin/projects")}
-                className="bg-gray-300 px-6 py-2 rounded-lg"
+                className="w-full bg-white text-gray-400 font-bold py-4 rounded-2xl border border-gray-100 hover:bg-gray-50 transition active:scale-[0.98]"
               >
                 Cancel
               </button>
             </div>
+          </div>
 
-          </form>
-
-        </div>
-
+        </form>
       </div>
     </div>
   );
