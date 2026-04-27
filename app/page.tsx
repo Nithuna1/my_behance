@@ -103,6 +103,7 @@ export default function Home() {
     },
     {
       title: "Branding",
+      page: "/branding",
       tags: ["Visual Identity", "Logo Design", "Brand Guidelines"],
     },
   ].map((group) => {

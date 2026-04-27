@@ -84,8 +84,9 @@ export default function ServicePage() {
     },
     {
       title: "Branding",
+      page: "/branding",
       tags: ["Visual Identity", "Logo Design", "Brand Guidelines"],
-    } ,
+    },
   ].map((group) => {
     const keyMap: any = {
       "E-Commerce Solutions": "ecommerce",
