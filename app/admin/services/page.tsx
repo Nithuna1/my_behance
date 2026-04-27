@@ -55,19 +55,19 @@ export default function ServicesAdmin() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
 
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full border-collapse min-w-[1000px]">
 
           {/* HEADER */}
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 w-[80px] text-center">Image</th>
-              <th className="p-3 w-[180px] text-center">Title</th>
-              <th className="p-3 w-[200px] text-center">Tags</th>
-              <th className="p-3 text-center">Website</th>
-              <th className="p-3 w-[120px] text-center">Video</th>
-              <th className="p-3 w-[160px] text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 w-[200px] text-left">Title</th>
+              <th className="p-4 w-[200px] text-left">Tags</th>
+              <th className="p-4 text-left">Website</th>
+              <th className="p-4 w-[150px] text-center">Video</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -93,42 +93,43 @@ export default function ServicesAdmin() {
   </td>
 
                   {/* TITLE */}
-                  <td className="p-3 text-center align-middle font-medium break-words">
+                  <td className="p-4 text-left align-middle font-semibold text-gray-800">
                     {s.title || "—"}
                   </td>
 
                   {/* TAGS */}
-                  <td className="p-3 text-center align-middle text-sm text-gray-600">
+                  <td className="p-4 text-left align-middle text-sm text-gray-600">
                     <div className="line-clamp-2">
                       {s.tags?.length ? s.tags.join(", ") : "—"}
                     </div>
                   </td>
 
                   {/* WEBSITE */}
-                  <td className="p-3 text-center align-middle">
+                  <td className="p-4 text-left align-middle">
                     {s.websites?.[0] ? (
                       <a
                         href={s.websites[0]}
                         target="_blank"
-                        className="text-blue-600 underline block truncate max-w-[250px] mx-auto"
+                        className="text-blue-600 hover:underline font-medium transition"
                       >
                         {s.websites[0]}
                       </a>
                     ) : (
-                      "—"
+                      <span className="text-gray-400">—</span>
                     )}
                   </td>
 
                   {/* VIDEO */}
-                  <td className="p-3 text-center align-middle">
+                  <td className="p-4 text-center align-middle">
                    {s.videos?.[0] ? (
   <video
     src={s.videos[0]}
-    className="h-12 w-16 mx-auto"
+    className="h-12 w-20 object-cover rounded mx-auto"
     controls
+    muted
   />
 ) : (
-  "—"
+  <span className="text-gray-400">—</span>
 )}
                   </td>
 

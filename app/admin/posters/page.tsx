@@ -55,18 +55,18 @@ export default function PostersAdmin() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
 
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full border-collapse min-w-[800px]">
 
           {/* HEADER */}
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 w-[80px] text-center">Image</th>
-              <th className="p-3 w-[220px] text-center">Title</th>
-              <th className="p-3 w-[150px] text-center">Category</th>
-              <th className="p-3 w-[140px] text-center">Created</th>
-              <th className="p-3 w-[160px] text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 w-[250px] text-left">Title</th>
+              <th className="p-4 w-[200px] text-left">Category</th>
+              <th className="p-4 w-[150px] text-center">Created</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -92,17 +92,19 @@ export default function PostersAdmin() {
                   </td>
 
                   {/* TITLE */}
-                  <td className="p-3 text-center align-middle font-medium break-words">
+                  <td className="p-4 text-left align-middle font-semibold text-gray-800">
                     {p.title || "—"}
                   </td>
 
                   {/* CATEGORY */}
-                  <td className="p-3 text-center align-middle break-words">
-                    {p.category || "—"}
+                  <td className="p-4 text-left align-middle">
+                    <span className="px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold uppercase tracking-wider">
+                      {p.category || "Poster"}
+                    </span>
                   </td>
 
                   {/* CREATED DATE */}
-                  <td className="p-3 text-center align-middle text-sm text-gray-600">
+                  <td className="p-4 text-center align-middle text-sm text-gray-500 font-medium">
                     {p.createdAt
                       ? new Date(p.createdAt).toLocaleDateString()
                       : "—"}

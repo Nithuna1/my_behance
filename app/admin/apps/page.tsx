@@ -55,19 +55,19 @@ export default function AppsAdmin() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
 
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full border-collapse min-w-[1000px]">
 
           {/* HEADER */}
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 w-[80px] text-center">Image</th>
-              <th className="p-3 w-[180px] text-center">Title</th>
-              <th className="p-3 text-center">Description</th>
-              <th className="p-3 text-center">Features</th>
-              <th className="p-3 w-[160px] text-center">Best For</th>
-              <th className="p-3 w-[160px] text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 w-[200px] text-left">Title</th>
+              <th className="p-4 text-left">Description</th>
+              <th className="p-4 w-[200px] text-left">Features</th>
+              <th className="p-4 w-[150px] text-center">Best For</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -98,19 +98,19 @@ export default function AppsAdmin() {
 </td>
 
                   {/* TITLE */}
-                  <td className="p-3 text-center align-middle font-medium break-words">
+                  <td className="p-4 text-left align-middle font-semibold text-gray-800">
                     {app.title || "—"}
                   </td>
 
                   {/* DESCRIPTION */}
-                  <td className="p-3 text-center align-middle text-sm text-gray-600">
-                    <div className="line-clamp-2">
+                  <td className="p-4 text-left align-middle text-sm text-gray-500">
+                    <div className="line-clamp-2 max-w-[300px]">
                       {app.fullDescription || "—"}
                     </div>
                   </td>
 
                   {/* FEATURES */}
-                  <td className="p-3 text-center align-middle text-sm text-gray-600">
+                  <td className="p-4 text-left align-middle text-sm text-gray-600">
                     <div className="line-clamp-2">
                       {app.features?.length
                         ? app.features.join(", ")
@@ -119,8 +119,10 @@ export default function AppsAdmin() {
                   </td>
 
                   {/* BEST FOR */}
-                  <td className="p-3 text-center align-middle break-words">
-                    {app.bestFor || "—"}
+                  <td className="p-4 text-center align-middle">
+                    <span className="px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs font-bold uppercase tracking-wider">
+                      {app.bestFor || "General"}
+                    </span>
                   </td>
 
                   {/* ACTIONS */}

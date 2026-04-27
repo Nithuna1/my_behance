@@ -55,18 +55,18 @@ export default function AdminClients() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className="bg-white shadow rounded-xl overflow-x-auto border border-gray-100">
 
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full border-collapse min-w-[800px]">
 
           {/* HEADER */}
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-[#1e293b] text-white">
             <tr>
-              <th className="p-3 w-[80px] text-center">Image</th>
-              <th className="p-3 w-[180px] text-center">Name</th>
-              <th className="p-3 text-center">Website</th>
-              <th className="p-3 w-[120px] text-center">Section</th>
-              <th className="p-3 w-[160px] text-center">Actions</th>
+              <th className="p-4 w-[100px] text-center">Image</th>
+              <th className="p-4 w-[250px] text-left">Name</th>
+              <th className="p-4 text-left">Website</th>
+              <th className="p-4 w-[150px] text-center">Section</th>
+              <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
 
@@ -100,21 +100,25 @@ export default function AdminClients() {
                   </td>
 
                   {/* NAME */}
-                  <td className="p-3 text-center align-middle font-medium break-words">
+                  <td className="p-4 text-left align-middle font-semibold text-gray-800">
                     {c.name || "—"}
                   </td>
 
                   {/* WEBSITE */}
-                  <td className="p-3 text-center align-middle text-sm text-gray-600">
-                    <div className="line-clamp-2">
-                      {c.website || "—"}
-                    </div>
+                  <td className="p-4 text-left align-middle text-sm text-blue-600 font-medium">
+                    {c.website ? (
+                      <a href={c.website} target="_blank" className="hover:underline">
+                        {c.website}
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">—</span>
+                    )}
                   </td>
 
                   {/* SECTION */}
-                  <td className="p-3 text-center align-middle">
-                    <span className="text-xs bg-gray-200 px-2 py-1 rounded">
-                      {c.section || "—"}
+                  <td className="p-4 text-center align-middle">
+                    <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs font-bold uppercase tracking-wider">
+                      {c.section || "General"}
                     </span>
                   </td>
 
