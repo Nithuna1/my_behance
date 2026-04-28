@@ -1,5 +1,4 @@
-"use client";
-
+"use client"; 
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -1565,97 +1564,97 @@ ${message}
       </footer>
 
       {/* ================= FLOATING ACTION BUTTON ================= */}
-      <div className="fixed bottom-8 right-8 z-50">
+      <div className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14">
 
-        <div className="relative w-16 h-16">
+        {/* WhatsApp - Top */}
+        <button
+          onClick={() => {
+            const msg =
+              "Hello Matamix International,%0A%0AI would like to know more about your services.";
+            window.open(
+              `https://wa.me/919605000694?text=${msg}`,
+              "_blank"
+            );
+          }}
+          className={`
+            absolute
+            w-12 h-12 rounded-full
+            bg-[#25D366] text-white
+            flex items-center justify-center
+            shadow-[0_8px_16px_rgba(37,211,102,0.3)]
+            transition-all duration-300 ease-out
+            hover:scale-110 hover:shadow-[0_8px_20px_rgba(37,211,102,0.4)]
+            ${fabOpen ? "-translate-y-[75px] translate-x-0 opacity-100 scale-100" : "translate-y-0 translate-x-0 opacity-0 pointer-events-none scale-50"}
+          `}
+        >
+          <FaWhatsapp size={22} />
+        </button>
 
-          {/* EXPANDED BUTTONS */}
-          {fabOpen && (
-            <>
-              {/* WhatsApp - Top */}
-              <button
-                onClick={() => {
-                  const msg =
-                    "Hello Matamix International,%0A%0AI would like to know more about your services.";
-                  window.open(
-                    `https://wa.me/919605000694?text=${msg}`,
-                    "_blank"
-                  );
-                }}
-                className="
-        absolute bottom-24 right-2
-        w-12 h-12 rounded-full
-        bg-green-500 text-white
-        flex items-center justify-center
-        shadow-lg
-        transition-all duration-300
-        hover:scale-110
-      "
-              >
-                <FaWhatsapp size={20} />
-              </button>
+        {/* Email - Middle */}
+        <button
+          onClick={() => {
+            window.open(
+              "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
+              "_blank"
+            );
+          }}
+          className={`
+            absolute
+            w-12 h-12 rounded-full
+            bg-white text-gray-700
+            flex items-center justify-center
+            shadow-[0_8px_16px_rgba(0,0,0,0.1)]
+            border border-gray-100
+            transition-all duration-300 ease-out
+            hover:scale-110 hover:text-blue-600 hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)]
+            ${fabOpen ? "-translate-y-[55px] -translate-x-[55px] opacity-100 scale-100" : "translate-y-0 translate-x-0 opacity-0 pointer-events-none scale-50"}
+          `}
+          style={{ transitionDelay: fabOpen ? '50ms' : '0ms' }}
+        >
+          <FiMail size={20} />
+        </button>
 
-              {/* Email - Middle */}
-              <button
-                onClick={() => {
-                  window.open(
-                    "https://mail.google.com/mail/?view=cm&fs=1&to=sales@matamix.com",
-                    "_blank"
-                  );
-                }}
-                className="
-        absolute bottom-18 right-20
-        w-12 h-12 rounded-full
-        bg-white text-black
-        flex items-center justify-center
-        shadow-lg
-        transition-all duration-300
-        hover:scale-110
-      "
-              >
-                <FiMail size={20} />
-              </button>
+        {/* Contact - Lower */}
+        <button
+          onClick={() => setContactOpen(true)}
+          className={`
+            absolute
+            w-12 h-12 rounded-full
+            bg-white text-gray-700
+            flex items-center justify-center
+            shadow-[0_8px_16px_rgba(0,0,0,0.1)]
+            border border-gray-100
+            transition-all duration-300 ease-out
+            hover:scale-110 hover:text-blue-600 hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)]
+            ${fabOpen ? "translate-y-0 -translate-x-[75px] opacity-100 scale-100" : "translate-y-0 translate-x-0 opacity-0 pointer-events-none scale-50"}
+          `}
+          style={{ transitionDelay: fabOpen ? '100ms' : '0ms' }}
+        >
+          <FiMessageCircle size={20} />
+        </button>
 
-              {/* Contact - Lower */}
-              <button
-                onClick={() => setContactOpen(true)}
-                className="
-        absolute bottom-4 right-28
-        w-12 h-12 rounded-full
-        bg-white text-black
-        flex items-center justify-center
-        shadow-lg
-        transition-all duration-300
-        hover:scale-110
-      "
-              >
-                <FiMessageCircle size={20} />
-              </button>
-            </>
-          )}
+        {/* MAIN PLUS BUTTON */}
+        <button
+          onClick={() => setFabOpen(!fabOpen)}
+          className={`
+            absolute z-10
+            w-14 h-14
+            rounded-full
+            bg-blue-600
+            text-white
+            flex items-center justify-center
+            shadow-[0_8px_20px_rgba(37,99,235,0.4)]
+            transition-all duration-300 ease-in-out
+            hover:bg-blue-700 hover:shadow-[0_8px_25px_rgba(37,99,235,0.5)]
+            hover:scale-105
+          `}
+        >
+          <FiPlus
+            size={26}
+            className={`transition-transform duration-300 ease-in-out ${fabOpen ? "rotate-[135deg]" : "rotate-0"}`}
+          />
+        </button>
 
-          {/* MAIN PLUS BUTTON */}
-          <button
-            onClick={() => setFabOpen(!fabOpen)}
-            className="
-        w-14 h-14
-        rounded-full
-        bg-blue-600
-        text-white
-        flex items-center justify-center
-        shadow-xl
-        transition-transform duration-300
-        hover:scale-110
-      "
-          >
-            <FiPlus
-              size={26}
-              className={`transition-transform duration-300 ${fabOpen ? "rotate-45" : ""
-                }`}
-            />
-          </button>
-
-        </div>
       </div>
 
       {/* 🔥 VIDEO PLAYER MODAL */}
