@@ -375,7 +375,7 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-6">
 
             <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
-              <h3 className="text-3xl font-semibold mb-1">20+</h3>
+              <h3 className="text-3xl font-semibold mb-1">50+</h3>
               <p className="text-sm text-black/70">Projects Delivered</p>
             </div>
 
@@ -385,7 +385,7 @@ export default function Home() {
             </div>
 
             <div className="rounded-2xl bg-white/60 backdrop-blur-md p-6 border border-black/10">
-              <h3 className="text-3xl font-semibold mb-1">30+</h3>
+              <h3 className="text-3xl font-semibold mb-1">100+</h3>
               <p className="text-sm text-black/70">Active Clients</p>
             </div>
 

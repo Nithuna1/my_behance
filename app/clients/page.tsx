@@ -160,7 +160,7 @@ if (loading) {
       </div>
 
       <div>
-        <h3 className="text-3xl font-bold text-blue-900">30+</h3>
+        <h3 className="text-3xl font-bold text-blue-900">100+</h3>
         <p className="text-sm text-black/60">Happy Clients</p>
       </div>
 
