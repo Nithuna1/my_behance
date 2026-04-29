@@ -51,7 +51,6 @@ export async function POST(req: Request) {
     const client = await Client.create({
       name: formData.get("name") as string,
       website: formData.get("website") as string,
-      section: formData.get("section") as string,
       showOnHome: formData.get("showOnHome") === "true",
       image: imageUrl,
     });
@@ -99,7 +98,6 @@ export async function PUT(req: Request) {
     const updateData: any = {
       name: formData.get("name") as string,
       website: formData.get("website") as string,
-      section: formData.get("section") as string,
       showOnHome: formData.get("showOnHome") === "true",
       image: existing.image, // keep old by default
     };

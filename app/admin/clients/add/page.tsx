@@ -12,7 +12,6 @@ export default function AddClient() {
   const [form, setForm] = useState({
     name: "",
     website: "",
-    section: "front",
     showOnHome: false,
   });
 
@@ -43,7 +42,6 @@ export default function AddClient() {
     const fd = new FormData();
     fd.append("name", form.name);
     fd.append("website", form.website);
-    fd.append("section", form.section);
     fd.append("showOnHome", form.showOnHome.toString());
     fd.append("image", image);
 
@@ -179,23 +177,7 @@ export default function AddClient() {
                 <h2 className="font-bold text-gray-800">Placement</h2>
               </div>
 
-              {/* SECTION SELECT */}
-              <div>
-                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
-                  Display Section
-                </label>
-                <div className="relative">
-                    <select
-                    name="section"
-                    value={form.section}
-                    onChange={change}
-                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none font-medium"
-                    >
-                    <option value="front">Front Page</option>
-                    <option value="back">Back Page</option>
-                    </select>
-                </div>
-              </div>
+
 
               {/* SHOW ON HOME SELECT */}
               <div>

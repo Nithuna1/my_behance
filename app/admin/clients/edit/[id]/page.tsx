@@ -15,7 +15,6 @@ export default function EditClient() {
   const [form, setForm] = useState({
     name: "",
     website: "",
-    section: "front",
     showOnHome: false,
   });
 
@@ -42,7 +41,6 @@ export default function EditClient() {
       setForm({
         name: client?.name || "",
         website: client?.website || "",
-        section: client?.section || "front",
         showOnHome: client?.showOnHome || false,
       });
 
@@ -83,7 +81,6 @@ export default function EditClient() {
     const formData = new FormData();
     formData.append("name", form.name);
     formData.append("website", form.website);
-    formData.append("section", form.section);
     formData.append("showOnHome", form.showOnHome.toString());
 
     if (image) {
@@ -237,22 +234,7 @@ export default function EditClient() {
                 <h2 className="font-bold text-gray-800">Placement</h2>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
-                  Display Section
-                </label>
-                <div className="relative">
-                    <select
-                    name="section"
-                    value={form.section}
-                    onChange={change}
-                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none font-medium"
-                    >
-                    <option value="front">Front Page</option>
-                    <option value="back">Back Page</option>
-                    </select>
-                </div>
-              </div>
+
 
               {/* SHOW ON HOME SELECT */}
               <div>

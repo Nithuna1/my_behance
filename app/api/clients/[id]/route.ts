@@ -115,7 +115,6 @@ export async function PUT(req: Request) {
     const updateData = {
       name: formData.get("name") as string,
       website: formData.get("website") as string,
-      section: formData.get("section") as string,
       showOnHome: formData.get("showOnHome") === "true",
       image: imageUrl,
     };
