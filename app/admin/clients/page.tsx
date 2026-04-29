@@ -65,7 +65,6 @@ export default function AdminClients() {
               <th className="p-4 w-[100px] text-center">Image</th>
               <th className="p-4 w-[250px] text-left">Name</th>
               <th className="p-4 text-left">Website</th>
-              <th className="p-4 w-[150px] text-center">Section</th>
               <th className="p-4 w-[180px] text-center">Actions</th>
             </tr>
           </thead>
@@ -113,13 +112,6 @@ export default function AdminClients() {
                     ) : (
                       <span className="text-gray-400">—</span>
                     )}
-                  </td>
-
-                  {/* SECTION */}
-                  <td className="p-4 text-center align-middle">
-                    <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs font-bold uppercase tracking-wider">
-                      {c.section || "General"}
-                    </span>
                   </td>
 
                   {/* ACTIONS */}
