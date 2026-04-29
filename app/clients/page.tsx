@@ -184,9 +184,10 @@ if (loading) {
   <div className="max-w-6xl mx-auto px-6">
 
     {(() => {
-     const frontClients = clients.filter(
-  (c) => c.section === "front"
-);
+     let frontClients = clients.filter((c) => c.showOnHome);
+     if (frontClients.length === 0) {
+       frontClients = clients.filter((c) => c.section === "front");
+     }
 
       return (
         <div

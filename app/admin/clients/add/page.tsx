@@ -13,13 +13,15 @@ export default function AddClient() {
     name: "",
     website: "",
     section: "front",
+    showOnHome: false,
   });
 
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
 
   const change = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setForm({ ...form, [e.target.name]: value });
   };
 
   const handleImage = (e: any) => {
@@ -42,6 +44,7 @@ export default function AddClient() {
     fd.append("name", form.name);
     fd.append("website", form.website);
     fd.append("section", form.section);
+    fd.append("showOnHome", form.showOnHome.toString());
     fd.append("image", image);
 
     try {
@@ -191,10 +194,23 @@ export default function AddClient() {
                     <option value="front">Front Page</option>
                     <option value="back">Back Page</option>
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                        <FiLayers size={14} />
-                    </div>
                 </div>
+              </div>
+
+              {/* SHOW ON HOME SELECT */}
+              <div>
+                <label className="flex items-center gap-3 cursor-pointer mt-4 p-4 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
+                  <input
+                    type="checkbox"
+                    name="showOnHome"
+                    checked={form.showOnHome}
+                    onChange={change}
+                    className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                  />
+                  <span className="text-sm font-semibold text-gray-700">
+                    Show on Main Clients Page (Max 6)
+                  </span>
+                </label>
               </div>
             </div>
 

@@ -50,6 +50,7 @@ export async function POST(req: Request) {
       name: formData.get("name"),
       website: formData.get("website"),
       section: formData.get("section"),
+      showOnHome: formData.get("showOnHome") === "true",
       image: imageUrl,
     });
 
@@ -97,6 +98,7 @@ export async function PUT(req: Request) {
       name: formData.get("name"),
       website: formData.get("website"),
       section: formData.get("section"),
+      showOnHome: formData.get("showOnHome") === "true",
       image: existing.image, // keep old by default
     };
 

@@ -10,6 +10,10 @@ const ClientSchema = new mongoose.Schema(
       enum: ["front", "back"],
       default: "front",
     },
+    showOnHome: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
