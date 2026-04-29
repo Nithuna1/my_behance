@@ -13,7 +13,8 @@ export default function ClientsDetailsPage() {
   const [showAllClients, setShowAllClients] = useState(false);
   const [fabOpen, setFabOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 40;
   const [isFlipping, setIsFlipping] = useState(false);
   const [animate, setAnimate] = useState(false);
   const [activeClient, setActiveClient] = useState<null | {
@@ -131,15 +132,9 @@ export default function ClientsDetailsPage() {
           </h2>
 
           {(() => {
-            const clientsFront = clients.filter(
-              (c) => c.section === "front"
-            );
-
-            const clientsBack = clients.filter(
-              (c) => c.section === "back"
-            );
-
-            const displayClients = showMore ? clientsBack : clientsFront;
+            const totalPages = Math.ceil(clients.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const displayClients = clients.slice(startIndex, startIndex + itemsPerPage);
 
             return (
               <div
@@ -208,26 +203,46 @@ export default function ClientsDetailsPage() {
           <br></br>
 
 
-          {/* VIEW MORE CLIENTS BUTTON */}
-          <div className="flex justify-center mt-2">
+          {/* PAGINATION BUTTONS */}
+          <div className="flex justify-center items-center gap-4 mt-2">
             <button
               onClick={() => {
-                setAnimate(true);
-
-                setTimeout(() => {
-                  setShowMore(!showMore);
-                  setAnimate(false);
-                }, 300);
+                if (currentPage > 1) {
+                  setAnimate(true);
+                  setTimeout(() => {
+                    setCurrentPage(p => p - 1);
+                    setAnimate(false);
+                  }, 300);
+                }
               }}
-              className="
-    px-6 py-2
-    rounded-full
-    border border-gray-400
-    text-sm font-medium
-    text-black
-    hover:bg-black hover:text-white
-    transition
-  "
+              disabled={currentPage === 1}
+              className={`
+                px-6 py-2 rounded-full border border-gray-400 text-sm font-medium transition
+                ${currentPage === 1 ? 'opacity-50 cursor-not-allowed text-gray-400' : 'text-black hover:bg-black hover:text-white'}
+              `}
+            >
+              Previous
+            </button>
+
+            <span className="text-sm font-medium text-gray-600">
+              Page {Math.max(1, currentPage)} of {Math.max(1, Math.ceil(clients.length / itemsPerPage))}
+            </span>
+
+            <button
+              onClick={() => {
+                if (currentPage < Math.ceil(clients.length / itemsPerPage)) {
+                  setAnimate(true);
+                  setTimeout(() => {
+                    setCurrentPage(p => p + 1);
+                    setAnimate(false);
+                  }, 300);
+                }
+              }}
+              disabled={currentPage >= Math.ceil(clients.length / itemsPerPage)}
+              className={`
+                px-6 py-2 rounded-full border border-gray-400 text-sm font-medium transition
+                ${currentPage >= Math.ceil(clients.length / itemsPerPage) ? 'opacity-50 cursor-not-allowed text-gray-400' : 'text-black hover:bg-black hover:text-white'}
+              `}
             >
               Next
             </button>
