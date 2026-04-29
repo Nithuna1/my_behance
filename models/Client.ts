@@ -18,5 +18,9 @@ const ClientSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Client ||
-  mongoose.model("Client", ClientSchema);
+// Clear cached model to ensure schema updates apply
+if (mongoose.models.Client) {
+  delete mongoose.models.Client;
+}
+
+export default mongoose.model("Client", ClientSchema);

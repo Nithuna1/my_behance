@@ -19,7 +19,7 @@ const [loading, setLoading] = useState(true);
 useEffect(() => {
   const loadClients = async () => {
     try {
-      const res = await fetch("/api/clients");
+      const res = await fetch(`/api/clients?_t=${Date.now()}`);
       const data = await res.json();
 
       if (Array.isArray(data)) {
