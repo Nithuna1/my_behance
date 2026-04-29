@@ -170,7 +170,7 @@ export default function ClientsDetailsPage() {
                       className="
             relative
             w-full
-            aspect-square
+            aspect-square md:aspect-[4/3]
             bg-white
             flex items-center justify-center
             p-4 md:p-6
@@ -179,6 +179,7 @@ export default function ClientsDetailsPage() {
             shadow-md
             hover:shadow-2xl
             transition duration-500
+            overflow-hidden
           "
                     >
                       <img

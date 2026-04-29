@@ -189,7 +189,7 @@ if (loading) {
 );
 
       return (
-       <div
+        <div
    className="
      grid 
      grid-cols-3 
@@ -197,7 +197,7 @@ if (loading) {
      animate-fadeUp
    "
  >
-  {frontClients.slice(0, 3).map((client, i) => (
+  {frontClients.slice(0, 6).map((client, i) => (
     <div
       key={i}
       className="
